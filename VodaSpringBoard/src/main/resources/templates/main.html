@@ -473,7 +473,7 @@
             <article>
                 <div class="slider">
                     <div class="poster" th:each="board : ${list}">
-                       <p>[[${board.poster}]]</p><!--이미지 경로로 연결-->
+                        <img th:src="[[${board.poster}]]" alt=""> <!--이미지 경로를 받아오기-->
                        <p class="poster_story">[[${board.content}]]</p>
                         <div class="comments">
                             <p class="star">
@@ -482,7 +482,8 @@
                                 <img src="img/green_star.png" alt="">
                                 <img src="img/green_star.png" alt="">
                                 <img src="img/green_star.png" alt="">
-                                <p style="padding-left: 20px;">[[${review.review_content}]]</p> <!--th:each="board : ${list}"와 관련이 없는거같음-->
+                                <p style="padding-left: 20px;">[[${board.review_content}]]</p> 
+                                <!--th:each="board : ${list}" board list안에 review_content를 넣어서 each문에서 같이 뽑아야함. 따라서 ${board.review_content}-->
                             </p>
                             <br>
                             <p class="star">
