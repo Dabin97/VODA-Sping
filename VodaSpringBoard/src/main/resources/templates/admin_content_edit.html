@@ -348,12 +348,14 @@
                     <form action="/content/edit" method="post" enctype="multipart/form-data">
                         <table>
                             <thead>
-                            <form action="/fileUpload" enctype="multipart/form-data" method="post">
+                            <form action="/file/add" enctype="multipart/form-data" method="post"> <!--/fileUpLoad 경로는 UploadAdapter.js와 연결되는것-->
                             <tr>
                                 <td colspan="5" class="poster">
                                     <div class="poster_img"><br>
                                         <input type="file" name="file" id="file">
-                                        <div th:each="file : ${fList}"><a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName }]]</a><br> <!--수정완료버튼을 눌르고 다시 들어갔을때 첨부한 파일이 보이는 div-->
+                                        <div th:each="file : ${fList}">
+                                            <input type="hidden" name="bno" th:value="${board.bno }"> <!--bno?fno?-->
+                                            <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName }]]</a><br> <!--수정완료버튼을 누르고 다시 들어갔을때 첨부한 파일이 보이는 div-->
                                             <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}" style="width:150px;">
                                         </div>
                                     </div>
@@ -364,13 +366,13 @@
                         <tbody>
                             <tr>
                                 <td class="subject">OTT</td>    
-                                <td colspan="4">
-                                    <input type="radio" name="chk_info" value="넷플릭스" class="chk_info">넷플릭스
-                                    <input type="radio" name="chk_info" value="왓챠" class="chk_info">왓챠
-                                    <input type="radio" name="chk_info" value="웨이브" class="chk_info">웨이브
-                                    <input type="radio" name="chk_info" value="티빙" class="chk_info">티빙
-                                    <input type="radio" name="chk_info" value="라프텔" class="chk_info">라프텔
-                                    <input type="radio" name="chk_info" value="디즈니+" class="chk_info">디즈니+
+                                <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다.-->
+                                    <input type="radio" name="chk_info" value="netflix" class="chk_info">넷플릭스 
+                                    <input type="radio" name="chk_info" value="watcha" class="chk_info">왓챠
+                                    <input type="radio" name="chk_info" value="wavve" class="chk_info">웨이브
+                                    <input type="radio" name="chk_info" value="tving" class="chk_info">티빙
+                                    <input type="radio" name="chk_info" value="laftel" class="chk_info">라프텔
+                                    <input type="radio" name="chk_info" value="disney+" class="chk_info">디즈니+
                                 </td>
                             </tr>
                             <tr>
@@ -410,7 +412,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="5">
-                                    <a href="/adminContentList"><button type="button" class="regi_btn">수정 완료</button></a> <!--버튼타입을 버튼으로 함, 나중에 없애도 되는지 확인-->
+                                    <a href="/admin/content/list"><button type="button" class="regi_btn">수정 완료</button></a> <!--버튼타입을 버튼으로 함, 나중에 없애도 되는지 확인-->
                                     <button type="button" class="regi_btn">초기화</button>
                                 </td>
                             </tr>

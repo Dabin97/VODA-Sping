@@ -15,7 +15,7 @@ public class MainController {
 		return "register";
 	}
 	
-	@RequestMapping("/admin/content")
+	@RequestMapping("/admin/content") //경로명 더 명확하게 바꿔야할듯 list랑 edit부분
 	public String adminContentEdit() {
 		return "admin_content_edit";
 	}
