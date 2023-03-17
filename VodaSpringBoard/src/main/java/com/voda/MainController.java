@@ -6,14 +6,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 	@RequestMapping("/")
-	public String index() {
+	public String main() {
 		return "index";
 	}
 	
-	@RequestMapping("/register")
+	@RequestMapping("/register/view")
 	public String registerView() {
 		return "register";
 	}
 	
+	@RequestMapping("/admin/content")
+	public String adminContentEdit() {
+		return "admin_content_edit";
+	}
+	@RequestMapping("/admin/content/list")
+	public String adminContentList() {
+		return "admin_content_list";
+	}
 	
 }

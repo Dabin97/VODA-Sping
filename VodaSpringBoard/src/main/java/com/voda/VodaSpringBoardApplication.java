@@ -10,5 +10,5 @@ public class VodaSpringBoardApplication {
 		SpringApplication.run(VodaSpringBoardApplication.class, args);
 	}
 
-}
-	
+} 
+	 
