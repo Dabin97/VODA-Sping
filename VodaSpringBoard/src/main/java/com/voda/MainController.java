@@ -13,13 +13,13 @@ public class MainController {
 	@RequestMapping("/main")
 	public String main() {
 		return "main";
-	}
+	} 
 	@RequestMapping("/register/view")
 	public String registerView() {
 		return "register";
 	}
 	
-	@RequestMapping("/admin/content/edit") //경로명 더 명확하게 바꿔야할듯 list랑 edit부분
+	@RequestMapping("/admin/content/edit") 
 	public String adminContentEdit() {
 		return "admin_content_edit";
 	}
