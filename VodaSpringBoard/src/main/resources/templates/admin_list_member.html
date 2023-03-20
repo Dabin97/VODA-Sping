@@ -1,0 +1,344 @@
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>admin_main</title>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                border-collapse: collapse;
+            }
+
+            header{
+                width: 1200px;
+                height: 10px;
+                margin:0 auto;
+            }
+
+
+
+            .main_container{
+                width: 1200px;
+                height: 730px;
+                margin:0 auto;
+                display: flex;
+            }
+
+            .nav_container {
+                width: 250px;
+                height: 730px;
+                background-color: #e9e9e9;
+            }
+
+            .main_logo {
+                width: 250px;
+                display: flex;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            h2{
+                text-align: left;
+                margin-left: 18px;
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+
+            ul {
+                margin-left: 40px;
+                color: rgb(70, 81, 0);
+            }
+            .section_container {
+                width: 950px;
+            }
+
+            .login_info_bar {
+                width: 950px;
+                height: 50px;
+                text-align: right;
+            }
+
+            .member_search {
+                width: 950px;
+                height: 50px;
+                font-size: 32px;
+                padding-left: 50px;
+                margin-top:30px;
+                color: rgb(70, 81, 0);
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight: bold;
+                margin-left: 50px;
+                margin-bottom: 20px;
+                color: rgb(70, 81, 0);
+            }
+
+            hr {
+                margin-left: 30px;
+            }
+
+            select {
+                width: 80px;
+                height: 35px;
+                margin-left: 100px;
+            }
+
+            .textbox{
+                width: 300px;
+                height: 32px;
+            }
+            .search_table {
+                width: 650px;
+                margin-left: 150px;
+                margin-top:50px;
+            }
+
+            thead {
+                text-align: center;
+                font-size: 16px;
+                height: 50px;
+                border-bottom: 1px solid black;
+                background-color: #e9e9e9;
+            }
+            tbody {
+                text-align: center;
+                height: 30px;
+            }
+            .chb {
+                width: 50px;
+            }
+            td {
+                width: 200px;
+            }
+
+            tr {
+                border-bottom: 1px solid #e9e9e9;
+                height: 30px;
+            }
+            b {
+                margin-left: 100px;
+            }
+            .bottombtn {
+                width: 80px;
+                height: 30px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-bottom: 30px;
+            }
+
+            .slider {
+                margin-left: 10px;
+                margin-top: 100px;
+                width: 50px;
+                height: 50px;
+                background-color: #e2e2e2;
+                border-radius: 10px;
+                border: none;
+                font-size: 16px;
+                
+            }
+
+            .slider:hover {
+                background-color: rgb(194, 231, 142);
+                color: rgb(70, 81, 0);
+            }
+
+            .slider_container {
+                width: 650px;
+                text-align: center;
+            }
+
+            .btn_container{
+                width: 650px;
+                text-align: right;
+            }
+
+            .user_icon {
+                display: inline-block;
+            }
+            
+            .user_info {
+                display: inline-block;   
+            }
+
+            .main_nav {
+                font-size: 24px;
+                text-decoration: none;
+                color: black;
+                position : relative;
+                display : inline-block;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            .sub_nav {
+                text-decoration: none;
+                color: dimgray;
+            }
+
+            .sub_nav:hover{
+                color: rgb(194, 231, 142);
+            }
+
+            .select {
+                color: rgb(194, 231, 142);
+                text-decoration: none;
+            }
+
+            button{
+                border:none;
+                border-radius: 5px;
+            }
+
+            button:hover{
+                background-color: rgb(194, 231, 142);
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <div class="main_container">
+            <div class="nav_container">
+                <nav>
+                    <a href="../A_Admin/admin_main.html"><img src="../B_AdminMember/img/main_logo.png" alt="logo" class="main_logo"></a>
+                    <h2>관리자 페이지</h2>
+                    <br>
+                    <ul class="nav">
+                        <span class="dropdown">
+                            <a href="../B_AdminMember/admin_list_member.html" class="main_nav"><li>회원 관리</li></a>
+                            <div class="dropdown-content">
+                                <a href="../B_AdminMember/admin_list_member.html" class="sub_nav"><p>-회원 리스트</p></a>
+                                <a href="../B_AdminMember/admin_withdrawal_member.html" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
+                            </div>
+                        </span>
+                        <br>
+                        <span class="dropdown">
+                            <a href="../C_AdminReview/admin_review.html"  class="main_nav"><li>리뷰 관리</li></a>
+                                <div class="dropdown-content">
+                                    <a href="../C_AdminReview/admin_review.html"  class="sub_nav"><p>-리뷰 리스트</p></a>
+                                </div>
+                        </span>
+                        <br>
+                        <span class="dropdown">
+                            <a href="../D_AdminContents/admin_content_list.html" class="main_nav"><li>컨텐츠 관리</li></a>
+                                <div class="dropdown-content">
+                                    <a href="../D_AdminContents/admin_content_list.html" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
+                                    <a href="../D_AdminContents/admin_content_register.html" class="sub_nav"><p>-컨텐츠 등록</p></a>
+                                    <a href="../D_AdminContents/admin_content_new.html" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
+                                    <a href="../D_AdminContents/admin_content_expire.html" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
+                                </div>
+                        </span>
+                    </ul>
+                </nav>
+            </div>   
+                <div class="section_container">  
+                    <section>
+                        <div class="login_info_bar">
+                            <div class="user_icon">
+                            <img src="../B_AdminMember/img/user_icon.png">
+                            </div>
+                            <div class="user_info">
+                            <p>로그인 중</p> 
+                            <a href="../A_Admin/admin_before_login.html"><button class="logout">로그아웃</button></a>
+                            </div>
+                        </div>
+                        <p class="title">회원 리스트</p>
+                        <hr>
+                        <div class="member_search">         
+                            <b>검색</b>
+                            <br>
+                            <select name="search">
+                                <option value="1">이름</option>
+                                <option value="2">아이디</option>
+                            </select>
+                            <input type="text" class="textbox">
+                        </div>
+                        <div class="search_table">
+                            <table>
+                                <thead>
+                                    <th class="chb"><input type="checkbox"></th>
+                                    <th>Board-Name</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Membership-Date</th>
+                                    <th>Edit</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="chb"><input type="checkbox"></td>
+                                        <td>1</td>
+                                        <td>testid1</td>
+                                        <td>이승욱</td>
+                                        <td>1992.07.16</td>
+                                        <td><a href="../E_AdminPop/admin_list_member_pop.html"><button>관리</button></a> <a href="../E_AdminPop/admin_list_member_del_pop.html"><button>삭제</button></td></a>
+                                    </tr>
+                                    <tr>
+                                        <td class="chb"><input type="checkbox"></td>
+                                        <td>2</td>
+                                        <td>testid2</td>
+                                        <td>노주연</td>
+                                        <td>2023.03.12</td>
+                                        <td><a href="../E_AdminPop/admin_list_member_pop.html"><button>관리</button></a> <a href="../E_AdminPop/admin_list_member_del_pop.html"><button>삭제</button></td></a>
+                                    </tr>
+                                    <tr>
+                                        <td class="chb"><input type="checkbox"></td>
+                                        <td>3</td>
+                                        <td>testid3</td>
+                                        <td>김다빈</td>
+                                        <td>2022.10.10</td>
+                                        <td><a href="../E_AdminPop/admin_list_member_pop.html"><button>관리</button></a> <a href="../E_AdminPop/admin_list_member_del_pop.html"><button>삭제</button></td></a>
+                                    </tr>
+                                    <tr>
+                                        <td class="chb"><input type="checkbox"></td>
+                                        <td>4</td>
+                                        <td>testid4</td>
+                                        <td>안가영</td>
+                                        <td>2023.01.08</td>
+                                        <td><a href="../E_AdminPop/admin_list_member_pop.html"><button>관리</button></a> <a href="../E_AdminPop/admin_list_member_del_pop.html"><button>삭제</button></td></a>
+                                    </tr>
+                                    <tr>
+                                        <td class="chb"><input type="checkbox"></td>
+                                        <td>5</td>
+                                        <td>testid5</td>
+                                        <td>남상규</td>
+                                        <td>2023.03.10</td>
+                                        <td><a href="../E_AdminPop/admin_list_member_pop.html"><button>관리</button></a> <a href="../E_AdminPop/admin_list_member_del_pop.html"><button>삭제</button></td></a>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="btn_container">
+                            <button class="bottombtn">엑셀 저장</button>
+                            <a href="member/edit"><button class="bottombtn">추가</button></a>
+                            </div>
+                            <div class="slider_container">
+                                <button class="slider"><</button>
+                                <button class="slider">1</button>
+                                <button class="slider">2</button>
+                                <button class="slider">3</button>
+                                <button class="slider">4</button>
+                                <button class="slider">></button>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+        </div>
+        
+            <footer>
+
+            </footer>
+    </body>
+
+</html>
