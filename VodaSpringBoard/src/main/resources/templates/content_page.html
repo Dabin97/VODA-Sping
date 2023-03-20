@@ -542,23 +542,24 @@ $(function(){
                     <img src="img/flipped.png" class="pic">
                     <iframe width="700" height="420" src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-                    <ul>
-                        <li>제목: 플립 (2017)</li>
-                        <li>장르: 멜로/로맨스, 드라마</li>
-                        <li>등급: 12세 관람가</li>
-                        <li>감독: 로브 라이너</li>
-                        <li>출연: 매들린 캐롤, 캘런 맥오리피, 존 마호니, 안소니 에드워즈......</li><br>
-                        <li>줄거리: 새로 이사 온 미소년 브라이스를 보고 첫눈에 사랑을 직감한 7살 소녀 줄리. 솔직하고 용감한 줄리는 자신의 마음을 적극적으로 표현하지만 브라이스는 그런
-                            줄리가 마냥 부담스럽다. 줄리의 러브빔을 요리조리 피해 다니기를 6년! 브라이스는 줄리에게 받은 달걀을 쓰레기통에 버리다 들키고, 화가 난 줄리는 그날부터 브라이스를
-                            피하기 시작한다. 하지만 성가신 그녀가 사라지자 브라이스는 오히려 전 같지 않게 줄리가 신경 쓰이기 시작하는데…</li><br>
+                    <ul th:each="board : ${bList}">
+                    <input type="hidden" name="bno" th:value="${board.bno }">
+                        <li>제목: [[${board.title }]]</li>
+                        <li>장르: [[${board.genre }]]</li>
+                        <li>감독: [[${board.pd }]]</li>
+                        <li>출연: [[${board.casting }]]</li><br>
+                        <li>줄거리: [[${board.content }]]</li>
                     </ul>
                 </article>
                 <article>
+                <form action="/review/write" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:value="${session.dto.id }">
                     <div class="write">
                         <p class="tab">리뷰를 작성해 주세요</p>
                         <textarea class="txt" autofocus></textarea>
                         <input type="submit" value="작성" class="submit">
                     </div>
+                </form>
                     <div class="my">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>

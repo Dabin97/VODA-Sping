@@ -49,23 +49,23 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/review/like/{rno}")
-	public ResponseEntity<String> reviewLike(@PathVariable(name = "rno") int rno, 
-			HttpSession session){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		
-		int result = boardService.insertReviewLike(rno,dto.getId());
-		
-		if(result == 0)
-			map.put("msg", "좋아요를 취소하셨습니다.");
-		else
-			map.put("msg", "좋아요를 하셨습니다.");
-		
-		map.put("blike",boardService.selectReviewLike(rno));
-		
-		return new ResponseEntity(map,HttpStatus.OK);
-	}
+//	@RequestMapping("/review/like/{rno}")
+//	public ResponseEntity<String> reviewLike(@PathVariable(name = "rno") int rno, 
+//			HttpSession session){
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
+//		
+//		int result = boardService.insertReviewLike(rno,dto.getId());
+//		
+//		if(result == 0)
+//			map.put("msg", "좋아요를 취소하셨습니다.");
+//		else
+//			map.put("msg", "좋아요를 하셨습니다.");
+//		
+//		map.put("blike",boardService.selectReviewLike(rno));
+//		
+//		return new ResponseEntity(map,HttpStatus.OK);
+//	}
 	
 
 	
