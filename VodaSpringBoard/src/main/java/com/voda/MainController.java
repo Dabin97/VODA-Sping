@@ -1,74 +1,89 @@
 package com.voda;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.voda.service.BoardService;
-import com.voda.service.MemberService;
 import com.voda.dto.MemberDTO;
+import com.voda.service.MemberService;
+
+
 
 @Controller
 public class MainController {
 	private MemberService memberService;
-	private BoardService boardService;
-
-	public MainController(MemberService memberService, BoardService boardService) {
+	
+	
+	public MainController(MemberService memberService) {
+		
 		this.memberService = memberService;
-		this.boardService = boardService;
 	}
 
-	@RequestMapping("/")
-	public String index() {
-		return "index";
+////////////////////회원 페이지//////////////////////////////
+
+	
+
+	@RequestMapping("/main")
+	public String main() {
+		return "main";
 	}
 	
 	@RequestMapping("/register")
 	public String registerView() {
 		return "register";
 	}
-	
-	@RequestMapping("/login")
-	public String login(String id, String passwd, HttpSession session) {
+
+	@RequestMapping("/login/member")
+	public String memberLogin(String id, String passwd, HttpSession session) {
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("dto", dto);
 		return "redirect:/main";
 	}
 	
-	@RequestMapping("/main")
-	public String main() {
-		return "main";
+	
+	////////////////////관리자 페이지//////////////////////////////
+	@RequestMapping("/admin/index")
+	public String adminLogin() {
+		return "admin_before_login";
+	} 
+	
+	@RequestMapping("/admin/login")
+	public String adminLogin(String id, String passwd, HttpSession session) {
+		MemberDTO dto = memberService.login(id, passwd);
+		session.setAttribute("dto", dto);
+		return "redirect:/admin_main";
 	}
 	
-	
-	@RequestMapping("/review/like/{rno}")
-	public ResponseEntity<String> reviewLike(@PathVariable(name = "rno") int rno, 
-			HttpSession session){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		
-		int result = boardService.insertReviewLike(rno,dto.getId());
-		
-		if(result == 0)
-			map.put("msg", "좋아요를 취소하셨습니다.");
-		else
-			map.put("msg", "좋아요를 하셨습니다.");
-		
-		map.put("blike",boardService.selectReviewLike(rno));
-		
-		return new ResponseEntity(map,HttpStatus.OK);
+	@RequestMapping("/admin_main")
+	public String adminMain() {
+		return "admin_main";
 	}
 	
+	@RequestMapping("/member/add/view")
+	public String memberAddView() {
+		return "admin_member_add";
+	}
 
+	@RequestMapping("/member/add")
+	public String memberAdd(MemberDTO dto) {
+		memberService.insertMember(dto);
+		return "redirect:/admin_list_member";
+	}
 	
 	
+	//회원 삭제 팝업창 만들기
+	@RequestMapping("/member/delete")
+	public String memberDelete(MemberDTO dto) {
+		//회원 삭제 버튼 누른 후 팝업창 뜨고 ok누르면 멤버 리스트로 리턴
+		//무튼 ok 눌렀을 때 멤버 삭제...
+		return "redirect:/admin_list_member";
+	}
 	
+	@RequestMapping("/member/delete/view")
+	public String memberDeleteView() {
+		return "/admin_list_member";
+	}	
+	
+//테이블 수정 창이나 팝업창에서 cancle 버튼 누르면 memberlist.html 이동 혹은 창만 닫힘 (->만들기..)
 }

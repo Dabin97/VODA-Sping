@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VODA 로그인</title>
+        <title>admin_main</title>
 
         <style>
             *{
                 margin: 0;
                 padding: 0;
-                background-color: black;
             }
 
             header{
@@ -28,6 +27,12 @@
                 display: flex;
             }
 
+            .nav_container {
+                width: 250px;
+                height: 730px;
+                background-color: #e9e9e9;
+            }
+
             .main_logo {
                 width: 250px;
                 display: flex;
@@ -35,6 +40,12 @@
                 margin-bottom: 20px;
             }
 
+            h2{
+                text-align: left;
+                margin-left: 18px;
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
 
             ul {
                 margin-left: 40px;
@@ -42,8 +53,7 @@
             }
 
             .section_container {
-                width: 1200px;
-                margin: 0 auto;
+                width: 950px;
                 height: 600px;
             }
 
@@ -55,7 +65,7 @@
             .sign_in_container{
                 display: inline-block;
                 width: 280px;
-                margin-left: 450px;
+                margin-left: 335px;
                 margin-top: 100px;
             }
             .text {
@@ -84,7 +94,6 @@
             }
 
             input {
-                color:white;
                 width: 200px;
                 height: 20px;
             }
@@ -98,15 +107,6 @@
                 position: relative;
                 margin: 0 auto;
             }
-            td{
-                color: white;
-            }
-            .register{
-                left: 820px;
-                bottom: 630px;
-                position: absolute;
-                color: white
-            }
         </style>
     </head>
 
@@ -116,14 +116,21 @@
         </header>
         <div class="main_container">
             <div class="nav_container">
-
+                <nav>
+                    <img src="../A_Admin/img/main_logo.png" alt="logo" class="main_logo">
+                    <h2>관리자 페이지</h2>
+                    <br>
+                    <div class="nav">
+                        <img class="lock" src="../A_Admin/img/lock_icon.png" alt="lock_icon">
+                    </div>
+                </nav>
             </div>   
                 <div class="section_container">
                     
                     <section>
                             <div class="sign_in_container">
-                                <form action="/login/member" method="post">
-                                    <img src="img/VODA_logo.png" alt="logo" class="main_logo" > <!-- href="/main"-->
+                                <form action="/admin/login" method="post">
+                                    <img src="../A_Admin/img/main_logo.png" alt="logo" class="main_logo">
                                     <table>
                                         <tr>
                                             <td class="text">아이디</td>
@@ -134,11 +141,10 @@
                                             <td><input type="password" name="passwd" placeholder="비밀번호를 입력하세요"></td>
                                         </tr>
                                     </table>
-                               
+                                
                                 <div class="btn_container">
                                     <br>
                                     <button>로그인</button>
-                                    <a href="/register/view" class="register">회원가입</a> 
                                 </div>
                             </form>
                             </div>
