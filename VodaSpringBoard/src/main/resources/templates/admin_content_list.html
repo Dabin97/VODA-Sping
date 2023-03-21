@@ -228,6 +228,7 @@
                 position: relative;
             }
         </style>
+            
     </head>
 
     <body>
@@ -260,7 +261,7 @@
                             <a href="/admin/content/list" class="main_nav"><li>컨텐츠 관리</li></a>
                                 <div class="dropdown-content">
                                     <a href="/admin/content/list" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
-                                    <a href="/admin/content/edit" class="sub_nav"><p>-컨텐츠 등록</p></a>
+                                    <a href="/admin/content/register/view" class="sub_nav"><p>-컨텐츠 등록</p></a>
                                     <a href="/admin/content/new" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
                                     <a href="/admin/content/expire" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
                                 </div>
@@ -310,31 +311,32 @@
                                     <th>Edit</th>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="board : ${blist}"> 
+                                    <tr th:each="board : ${list}"> 
                                         <td class="chb">[[${board.bno}]]</td>
-                                        <td>[[${board.ott}]]</td>
+                                        <td>[[${board.ott_no}]]</td>
                                         <td>[[${board.title}]]</td>
-                                        <td>[[${board.expireDate}]]</td> <!--만료일만 따로 board에 넣기-->
-                                        <td><a th:href="/admin/content"><button>편집</button></a> <a th:href="/content/delete"><button>삭제</button></a></td>
+                                        <td>[[${board.bdate}]]</td>
+                                        <td>[[${board.new_expire}]]</td> 
+                                        <td>
+                                            <button id="btn_update"><a th:href="@{/admin/content/edit/view/{bno}(bno=${board.bno })}">편집</a></button>
+                                            <button id="btn_delete"><a th:href="@{/admin/content/delete/{bno}(bno=${board.bno })}">삭제</a></button>
+                                        </td>
                                     </tr>
                                 </tbody>
-                                <tfoot> <!--pagging 다시 작업하기-->
+                                <tfoot> 
                                     <tr>
                                         <td colspan="7">
-                                            <!-- 이전 페이지 그룹으로 이동 -->
-                                            <a th:if="${pagging.priviousPageGroup }" th:href="@{/main(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
+                                            <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/content/list(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
                                     
                                             <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
                 
-                                            <!-- 현재 페이지 번호는 링크를 제거하고 글자를 빨간색으로 변경 -->
                                             <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
-                                            
-                                            <!-- 현재 페이지 번호가 아닌 페이지 번호는 링크를 생성 -->						
-                                            <a th:if="${i != pagging.currentPageNo }" th:href="@{/main(pageNo=${i})}" th:text="${i}"></a>
+                                           				
+                                            <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/content/list(pageNo=${i})}" th:text="${i}"></a>
                                             
                                             </th:block>
                                     
-                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/main(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
+                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/content/list(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
                                         </td>
                                     </tr>
                                 </tfoot>

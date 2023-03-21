@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Content Page</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <style>
+     * {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: white;
+      }
+      .flex_container{
+          width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+      }
+        header{
+        padding-top: 20px;
+      }
+      header img{
+        width: 100px;
+        padding-left: 100px;
+        margin-top: 10px;
+      }
+    header input{
+        position: absolute;
+        margin-top: 10px;
+        right: 0;
+        background-color: rgb(34, 34, 34);
+        border: none;
+    }
+    header a{
+        padding-left: 20px;
+        text-decoration: none;
+    }
+    .login{
+        padding-left: 290px;
+    }
+        .poster {
+            text-align: center;
+        }
+        .pic{
+            width: 300px;
+        }
+        .heart{
+            position: absolute;
+            right: 810px;
+            width: 30px;
+            background-color: rgba(255, 255, 255, 0);
+        }
+        .info{
+            text-align: center;
+        }
+
+        .tab {
+            background-color: rgb(91, 91, 91);
+            width: 100%;
+        }
+        .tab p {
+            background-color: rgb(91, 91, 91);
+            display: inline-block;
+        }
+
+        .link {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+        .write {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+        }
+        .submit {
+            color: white;
+            background-color: rgb(91, 91, 91);
+            width: 50px;
+            height: 20px;
+            border: 1px solid white;
+            margin-left: 20px;
+        }   
+        .best {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+
+        }
+
+        .new {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+ 
+
+        }
+
+        .my {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+
+        }
+
+        .txt {
+            resize: none;
+            border: none;
+            background-color: rgb(198, 198, 198);
+            width: 1000px;
+            height: 140px;
+            margin-top: 10px;
+        }
+        .like{
+            display: inline-block;
+            margin-left: 20px;
+        }
+        .read {
+            resize: none;
+            border: none;
+            background-color: rgb(198, 198, 198);
+            width: 1100px;
+            height: 140px;
+            margin-top: 10px;
+        }
+        span img{
+            background-color: rgb(91, 91, 91);
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        span a{
+            background-color: rgb(91, 91, 91);
+        }
+        span p{
+            background-color: rgb(91, 91, 91);
+            margin-right: 10px;
+        }
+        footer {
+            width: 1200px;
+            height: 80px;
+            position: fixed;
+            bottom: 0;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        footer img {
+            width: 40px;
+            background-color: rgba(0, 0, 0, 0);
+            height: 40px;
+            margin: 20px 80px;
+        }
+
+        footer a {
+            margin-right: 30px;
+            padding: 10px;
+            margin-top: 30px;
+            text-decoration: none;
+            color: rgb(168, 168, 168);
+        }
+
+        .more {
+            height: 100px;
+        }
+
+        .top {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background-image: url(img/up-arrow.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            bottom: 20px;
+            right: 200px;
+            border-radius: 100px;
+        }
+
+        .space {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+        }
+
+        .zoom {
+            height: 40px;
+            width: 300px;
+            border: 1px solid rgb(91, 91, 91);
+            box-sizing: border-box;
+            outline: none;
+            background-image: url(img/zoom.png);
+            background-repeat: no-repeat;
+            background-size: 30px;
+            background-position: 5px center;
+            padding-left: 43px;
+        }
+        article {
+            margin: 50px 0;
+            padding: 10px;
+        }
+        ul {
+            list-style: none;
+            color: white;
+        } 
+        .hide {
+        display: none !important;
+        }
+
+    .rel_search {
+        position: absolute;
+        right: 110px;
+        z-index: 6;
+        margin-top: 50px;
+        float: right;
+        border: 1px solid gray;
+        color: white;
+        width: 300px;
+        height: 150px;
+        overflow: auto;
+        box-sizing: border-box;
+        }
+    
+    .search_input{
+        color: white;
+        position: absolute;
+        right: 110px;
+        /* bottom: 150px; */
+    }
+
+    .pop_rel_keywords {
+        list-style: none;
+        margin-right: 50px;
+        }
+
+    .pop_rel_keywords > li {
+        line-height : 250%
+        }
+
+    .rel_search::-webkit-scrollbar {
+     display: none;
+   }
+        span{
+            display: inline-block;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .result{
+            margin: 0px 5px;
+            
+        }
+        button{
+            background-color: rgb(91, 91, 91);
+            border: none;
+        }
+    </style>
+    <script>
+    $(function(){
+        $('.heart').on({ //하트 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') === 'img/heart_full.png')
+                ? 'img/heart.png'
+                : 'img/heart_full.png';
+            $(this).attr('src', src);
+            }
+        });
+
+        $('#best_like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+		$('#best_like').click(function(){
+			$.ajax({
+				url:'/review/like/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#best_like_cnt').text(r.rlike);
+				}
+			});
+		});
+
+        $('#best_dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+		$('#best_dislike').click(function(){
+			$.ajax({
+				url:'/review/dislike/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#best_dislike_cnt').text(r.rdisike);
+				}
+			});
+		});
+
+        $('#write_like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+		$('#write_like').click(function(){
+			$.ajax({
+				url:'/review/like/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#write_like_cnt').text(r.rlike);
+				}
+			});
+		});
+
+
+        $('#write_dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+        $('#write_dislike').click(function(){
+			$.ajax({
+				url:'/review/dislike/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#write_dislike_cnt').text(r.rdisike);
+				}
+			});
+		});
+
+
+        $('#new_like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+		$('#new_like').click(function(){
+			$.ajax({
+				url:'/review/like/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#new_like_cnt').text(r.rlike);
+				}
+			});
+		});
+
+
+        $('#new_dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+        $('#new_dislike').click(function(){
+			$.ajax({
+				url:'/review/dislike/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#new_dislike_cnt').text(r.rdisike);
+				}
+			});
+		});
+
+        
+        
+        
+
+        //연관검색어
+        const ul = document.querySelector(".pop_rel_keywords");
+        const searchInput = document.querySelector(".search_input");
+        const relContainer = document.querySelector(".rel_search");
+        let cache = '';
+
+
+        const checkInput = () => {
+            const beforeInput = searchInput.value;
+            timer(beforeInput);
+        }
+
+
+        const timer = (beforeInput) => {
+        setTimeout(() => {
+
+            if(searchInput.value === beforeInput) {
+            console.log("입력멈춤");
+            loadData(searchInput.value);
+            checkInput();
+            
+            } else {
+            console.log("입력변함");
+            checkInput();
+            }
+        
+            if(searchInput.value === "") {
+            relContainer.classList.add("hide");
+            } else {
+            relContainer.classList.remove("hide");
+            }
+        }, 500);
+        }
+  
+
+
+        const loadData = (input) => {
+        const url = `https://completion.amazon.com/api/2017/suggestions?session-id=135-3077052-6015425&customer-id=&request-id=DMRETXPQ3PZJQ5TKYSWX&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=undefined&prefix=${input}&event=onFocusWithSearchTerm&limit=11&fb=1&suggestion-type=KEYWORD&suggestion-type=WIDGET&_=1615280967091`;
+        
+        if(cache === url) return;
+        else {
+        cache = url;
+        fetch(url)
+        .then((res) => res.json())
+        .then(res => fillSearch(res.suggestions))
+        }
+        }
+
+        const fillSearch = (suggestArr) => {
+        ul.innerHTML = "";
+        suggestArr.forEach((el, idx) => {
+            const li = document.createElement("li");
+            li.innerHTML = el.value;
+            ul.appendChild(li);
+        }) 
+            
+        const liList = document.querySelectorAll(".pop_rel_keywords li");
+        }
+
+        const highlightText = () => {
+        }
+        checkInput();
+        
+        // 요구사항 1 - esc를 누르면 추천 검색어 창이 닫여야 합니다.
+        $(document).keydown(function(e){
+            var code = e.keyCode || e.which;
+        
+            if (code == 27) {
+                $('.rel_search').hide();
+                location.reload();
+            }
+        });
+
+
+        //리뷰박스 추가 ajax
+        $(function(){
+       // let input =document.querySelector('input');
+        $.ajax({
+				url : 'search',
+				data : param,
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					//결과값 저장할 태그를 조립
+					let tag = '';
+					for(i=0;i<r.length;i++){		
+						tag += `<input type='text' class='review_name' value='\${r[i].REVIEW_NAME}'>`;
+					    tag += `<input type='text' class='review_date' value='\${r[i].REVIEW_DATE}'>`;
+					}
+					$('.read').prepend(tag);
+				}
+			});
+       });
+        // 
+
+
+
+    });
+    </script>
+</head>
+
+<body>
+    <div class="flex_container">
+        <header>
+            <img src="img/VODA_logo.png" alt="">
+            <a href="main_page.html">BEST</a>
+            <a href="new_expire.html">NEW/EXPIRE</a>
+            <a href="search.html">ALL</a>
+            <a href="register.html" class="login">LOGIN</a>
+            <input type="text" placeholder="search" class= "search_input zoom" >
+                <container class = "rel_search">
+                    <ul class="pop_rel_keywords"></ul>
+                </container>
+        </header>
+        <div class="main_container">
+            <section>
+            <article class="info">
+                <div class="poster">
+                    <img src="img/heart.png" class="heart">
+                    <img src="img/flipped.png" class="pic">
+                    <iframe width="700" height="420" th:src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                    <ul>
+                        <li>제목: 플립 (2017)</li>
+                        <li>장르: 멜로/로맨스, 드라마</li>
+                        <li>등급: 12세 관람가</li>
+                        <li>감독: 로브 라이너</li>
+                        <li>출연: 매들린 캐롤, 캘런 맥오리피, 존 마호니, 안소니 에드워즈......</li><br>
+                        <li>줄거리: 새로 이사 온 미소년 브라이스를 보고 첫눈에 사랑을 직감한 7살 소녀 줄리. 솔직하고 용감한 줄리는 자신의 마음을 적극적으로 표현하지만 브라이스는 그런
+                            줄리가 마냥 부담스럽다. 줄리의 러브빔을 요리조리 피해 다니기를 6년! 브라이스는 줄리에게 받은 달걀을 쓰레기통에 버리다 들키고, 화가 난 줄리는 그날부터 브라이스를
+                            피하기 시작한다. 하지만 성가신 그녀가 사라지자 브라이스는 오히려 전 같지 않게 줄리가 신경 쓰이기 시작하는데…</li><br>
+                    </ul>
+                </article>
+                <article>
+                    <div class="write">
+                        <p class="tab">리뷰를 작성해 주세요</p>
+                        <textarea class="txt" autofocus></textarea>
+                        <input type="submit" value="작성" class="submit">
+                    </div>
+                    <div class="my">
+                        <div class="tab">
+                            <p>내가 작성한 리뷰</p>
+                            <span class="like">
+                                <p id="write_like_cnt">[[${review.rlike }]]</p>
+                                <button onclick="w_like()"><img src="img/like.png" id="write_like"></button>
+                                <p id="write_dislike_cnt">[[${review.rdislike }]]</p>
+                                <button onclick="w_dislike()"><img src="img/dislike.png" id="write_dislike"></button>
+                            </span>
+                        </div>
+                        <input type="text" readonly class="read">
+                    </div>
+                    <div class="best">
+                        <div class="tab">
+                            <p>베스트 리뷰</p>
+                            <span class="like">
+                                <p id="best_like_cnt">[[${review.rlike }]]</p>
+                                <button onclick="b_like()"><img src="img/like.png" id="best_like"></button>
+                                <p id="best_dislike_cnt">[[${review.rdislike }]]</p>
+                                <button onclick="b_dislike()"><img src="img/dislike.png" id="best_dislike"></button>
+                            </span>
+                        </div>
+                        <input type="text" readonly class="read">
+                    </div>
+                    <div class="new">
+                        <div class="tab">
+                            <p>최신 리뷰</p>
+                            <span class="like">
+                                <p id="new_like_cnt">[[${review.rlike }]]</p>
+                                <button onclick="n_like()"><img src="img/like.png" id="new_like"></button>
+                                <p id="new_dislike_cnt">[[${review.rdislike }]]</p>
+                                <button onclick="n_dislike()"><img src="img/dislike.png" id="new_dislike"></button>
+                            </span>
+                        </div>
+                        <input type="text" readonly class="read">
+                    </div>
+                    <div class="more">
+                    </div>
+                </article>
+                <a href="#top" class="top"></a>
+                <div class="space"></div>
+            </section>
+        </div>
+        <footer>
+            <a href="main_page.html"><img src="img/home.png"></a>
+            <a href="new_expire.html"><img src="img/cinema.png"></a>
+            <a href="search.html"><img src="img/explore.png"></a>
+            <a href="my_page.html"><img src="img/mypage.png"></a>
+        </footer>
+    </div>
+</body>
+</html>

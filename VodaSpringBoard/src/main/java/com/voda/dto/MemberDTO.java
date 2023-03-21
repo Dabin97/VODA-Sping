@@ -1,6 +1,7 @@
 package com.voda.dto;
 
-import org.apache.ibatis.type.Alias; 
+import org.apache.ibatis.type.Alias;
+
 @Alias("member")
 public class MemberDTO {
 	private String id;
@@ -10,10 +11,13 @@ public class MemberDTO {
 	private String email;
 
 	
-	public MemberDTO() {	}
+	public MemberDTO() {
+		super();
+	}
 
 
 	public MemberDTO(String id, String passwd, String name, String nick, String email) {
+		super();
 		this.id = id;
 		this.passwd = passwd;
 		this.name = name;
