@@ -2,13 +2,28 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.voda.mapper.BoardMapper"> <!-- com.voda.mapper맞는지 확인 -->
+<mapper namespace="com.voda.mapper.BoardMapper"> 
+	<resultMap type="board" id="board"> 
+		<!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
+		<id column="bno" property="bno"/>
+		<result column="title" property="title"/>
+		<result column="pd" property="pd"/>
+		<result column="casting" property="casting"/>
+		<result column="content" property="content"/>
+		<result column="new_date" property="newDate"/>
+		<result column="expire_date" property="expireDate"/>
+		<result column="genre" property="genre"/>
+		<result column="poster_video" property="posterVideo"/>
+		<result column="ott_no" property="ottNo"/>
+	</resultMap>
+		
+		
 	<select id="selectBoardList" resultType="board" parameterType="hashMap">
 		SELECT * FROM BOARD_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
 	</select>
 	<select id="selectBoardCount" resultType="int">
 		select count(*) from board_table_view
-	</select>
+	</select> 
 	<insert id="insertBoardImage" parameterType="hashmap">
 		insert into board_image values(#{fno},#{path})
 	</insert>
@@ -22,8 +37,8 @@
 		select board_bno_seq.nextval from dual
 	</select>
 	<insert id="insertBoard" parameterType="board">
-		insert into board_table(bno, title, pd, casting, content,new_exprie, bdate, genre, poster_video,ott_no) values(
-			#{bno},#{title},#{pd},#{casting}, #{content},#{new_exprie}, #{bdate}, #{genre},#{poster_video}, #{ott_no}
+		insert into board_table (bno, title, pd, casting, content,new_date,exprie_date, genre, poster_video,ott_no) values(
+			#{bno},#{title},#{pd},#{casting}, #{content},#{newDate},#{expireDate}, #{genre},#{posterVideo}, #{ottNo}
 		)
 	</insert>
 	<insert id="insertFile" parameterType="file"> <!-- fno를 (SELECT max(fno) FROM board_file WHERE bno = #{bno})+1 서브쿼리로 변경, 제일 큰번호뒤에 새로운 파일이 붙도록 함 / 만약 기존파일이 아무것도 없으면 0이 나오도록 nvl을 넣어준다. -->
@@ -39,7 +54,8 @@
 	</select>
 	<update id="updateBoard" parameterType="board">
 		update board_table 
-		set title=#{title}, pd=#{pd}, casting=#{casting}, content=#{content}, new_expire=#{new_expire}, genre =#{genre},poster_video=#{poster_video},ott_no=#{ott_no}
+		set title=#{title}, pd=#{pd}, casting=#{casting}, content=#{content}, new_date=#{newDate},expire_date=#{expireDate},
+		 genre =#{genre},poster_video=#{posterVideo},ott_no=#{ottNo}
 		where bno = #{bno}
 	</update>
 	<select id="deleteFileList" parameterType="hashMap" resultType="string">  <!-- sql문 안에 foreach문 구분자 콤마 -->

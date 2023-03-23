@@ -304,21 +304,21 @@
                             <table>
                                 <thead>
                                     <th class="chb">Number</th>
-                                    <th>OTT</th>
+                                    <th>OTT</th> 
                                     <th>Title</th>
-                                    <th>Register-Date</th>
+                                    <th>New-Date</th>
                                     <th>Expire-Date</th>
                                     <th>Edit</th>
                                 </thead>
                                 <tbody>
                                     <tr th:each="board : ${list}"> 
                                         <td class="chb">[[${board.bno}]]</td>
-                                        <td>[[${board.ott_no}]]</td>
-                                        <td>[[${board.title}]]</td>
-                                        <td>[[${board.bdate}]]</td>
-                                        <td>[[${board.new_expire}]]</td> 
+                                        <td>[[${board.ottNo}]]</td>
+                                        <td><a th:href="@{/admin/content/detail/{bno}(bno=${board.bno })}">[[${board.title }]]</a></td>
+                                        <td>[[${board.newDate}]]</td>
+                                        <td>[[${board.expireDate}]]</td> 
                                         <td>
-                                            <button id="btn_update"><a th:href="@{/admin/content/edit/view/{bno}(bno=${board.bno })}">편집</a></button>
+                                            <button id="btn_update"><a href="/admin/content/write">편집</a></button>
                                             <button id="btn_delete"><a th:href="@{/admin/content/delete/{bno}(bno=${board.bno })}">삭제</a></button>
                                         </td>
                                     </tr>

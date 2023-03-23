@@ -63,8 +63,8 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/admin/content/add") //등록
-	public String adminContentAppend(BoardDTO dto, @RequestParam("file") MultipartFile[] file) {
+	@RequestMapping("/admin/content/register") //등록
+	public String adminContentRegister(BoardDTO dto, @RequestParam("file") MultipartFile[] file) {
 			int bno = boardService.insertBoard(dto);
 			
 			//파일 업로드할 경로 설정
@@ -203,25 +203,13 @@ public class MainController {
 		return view;
 	}
 	
-	
-	@RequestMapping("/admin/content/edit/view/{bno}") //boardView메소드와 동일 필요없는것만 제거 - 수정창 이동
-	public ModelAndView adminContentUpdateView(@PathVariable(name ="bno")int bno) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("admin_content_edit");
-
-		//게시글 조회
-		BoardDTO board = boardService.selectBoard(bno);
-		//첨부파일 목록 조회
-		List<FileDTO> fList = boardService.selectFileList(bno);
-		
-		view.addObject("board", board);
-		view.addObject("fList", fList);
-		
-		return view;
+	@RequestMapping("/admin/content/write") //수정창 이동
+	public String adminContentEditview() {
+		return "admin_content_edit";
 	}
 	
 	@RequestMapping("/admin/content/edit") //수정메소드
-	public String adminContentUdate(BoardDTO dto, String[] del_file, @RequestParam("file") MultipartFile[] file) { //del_file : 삭제할 파일번호, 여러개받을거라 배열로
+	public String adminContentUpdate(BoardDTO dto, String[] del_file, @RequestParam("file") MultipartFile[] file) { //del_file : 삭제할 파일번호, 여러개받을거라 배열로
 		boardService.updateBoard(dto);
 		//파일 삭제 - 물리적
 		//삭제할 파일 목록 받기 -- del_file에 아무것도 없을때 터지므로 if문으로 걸러준다.
@@ -265,8 +253,25 @@ public class MainController {
 				e.printStackTrace();
 			}
 		}
-		return "redirect:/admin/content/list" + dto.getBno();
+		return "redirect:/admin/content/list";
 	}
+	
+	@RequestMapping("/admin/content/detail")
+	public ModelAndView adminContentDetail(@PathVariable("bno") int bno, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_content_detail");
+		
+		//게시글 조회
+		BoardDTO board = boardService.selectBoard(bno);
+		//첨부파일 목록 조회
+		List<FileDTO> fList = boardService.selectFileList(bno);
+	
+		
+		view.addObject("board", board);
+		view.addObject("fList", fList);
+		
+		return view;
+		}
 
 	
 	@RequestMapping("/admin/content/delete/{bno}") //게시글 첨부파일 댓글삭제 모두 

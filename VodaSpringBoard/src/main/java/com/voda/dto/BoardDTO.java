@@ -11,12 +11,11 @@ public class BoardDTO {
 	private String pd;
 	private String casting; 
 	private String content;
-	private String poster; //poster를 따로 넣을지 그냥 board_image 테이블을 따로 만들었으니 뺄지 결정할것
-	private Date new_expire;
-	private Date bdate;
+	private String newDate;
+	private String expireDate;
 	private int genre;
-	private String post_video; //따로 테이블로 뺼지 고민
-	private int ott_no;
+	private String posterVideo; 
+	private int ottNo;
 	
 	public BoardDTO() {	}
 
@@ -60,28 +59,20 @@ public class BoardDTO {
 		this.content = content;
 	}
 
-	public String getPoster() {
-		return poster;
+	public String getNewDate() {
+		return newDate;
 	}
 
-	public void setPoster(String poster) {
-		this.poster = poster;
+	public void setNewDate(String newDate) {
+		this.newDate = newDate;
 	}
 
-	public Date getNew_expire() {
-		return new_expire;
+	public String getExpireDate() {
+		return expireDate;
 	}
 
-	public void setNew_expire(Date new_expire) {
-		this.new_expire = new_expire;
-	}
-
-	public Date getBdate() {
-		return bdate;
-	}
-
-	public void setBdate(Date bdate) {
-		this.bdate = bdate;
+	public void setExpireDate(String expireDate) {
+		this.expireDate = expireDate;
 	}
 
 	public int getGenre() {
@@ -92,28 +83,34 @@ public class BoardDTO {
 		this.genre = genre;
 	}
 
-	public String getPost_video() {
-		return post_video;
+	public String getPostVideo() {
+		return posterVideo;
 	}
 
-	public void setPost_video(String post_video) {
-		this.post_video = post_video;
+	public void setPostVideo(String posterVideo) {
+		this.posterVideo = posterVideo;
 	}
 
-	public int getOtt_no() {
-		return ott_no;
+	public int getOttNo() {
+		return ottNo;
 	}
 
-	public void setOtt_no(int ott_no) {
-		this.ott_no = ott_no;
+	public void setOttNo(int ottNo) {
+		this.ottNo = ottNo;
 	}
 
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", pd=" + pd + ", casting=" + casting + ", content="
-				+ content + ", poster=" + poster + ", new_expire=" + new_expire + ", bdate=" + bdate + ", genre="
-				+ genre + ", post_video=" + post_video + ", ott_no=" + ott_no + "]";
+				+ content + ", newDate=" + newDate + ", expireDate=" + expireDate + ", genre=" + genre + ", posterVideo="
+				+ posterVideo + ", ottNo=" + ottNo + "]";
 	}
+
+	
+	
+	
+	
+	
 	
 	
 }

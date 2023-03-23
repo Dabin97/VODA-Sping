@@ -259,8 +259,31 @@
                 margin-left: 10px;
             }
         </style>
-
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script>
+            $.datepicker.setDefaults({
+                dateFormat: 'yy-mm-dd',
+                prevText: '이전 달',
+                nextText: '다음 달',
+                monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+                monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+                dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+                showMonthAfterYear: true,
+                yearSuffix: '년'
+            });
+        
+            $(function() {
+                $("#datepicker1").datepicker();
+                $("#datepicker2").datepicker();
+            });
+        
+        </script>
+
+        <script th:inline="javascript">
             $(function(){
                 let poster_img = document.querySelector('.poster_img');
                 let file_tag= document.querySelector('#file');
@@ -286,9 +309,6 @@
                 e.preventDefault();
             }
 
-            $(".regi_btn").click(function(){
-                window.history.back();
-            })
 
             });
         </script>
@@ -301,32 +321,32 @@
         <div class="main_container">
             <div class="nav_container">
                 <nav>
-                    <a href="../A_Admin/admin_main.html"><img src="../D_AdminContents/img/main_logo.png" alt="logo" class="main_logo"></a>
+                    <a href="/admin/main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
                     <h2>관리자 페이지</h2>
                     <br>
                     <ul class="nav">
                         <span class="dropdown">
-                            <a href="../B_AdminMember/admin_list_member.html" class="main_nav"><li>회원 관리</li></a>
+                            <a href="/memberList" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
-                                <a href="../B_AdminMember/admin_list_member.html" class="sub_nav"><p>-회원 리스트</p></a>
-                                <a href="../B_AdminMember/admin_withdrawal_member.html" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
+                                <a href="/memberList" class="sub_nav"><p>-회원 리스트</p></a> <!--회원관리랑 회원 리스트가 똑같은지 확인할것-->
+                                <a href="/membersecessionList" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
                             </div>
                         </span>
                         <br>
                         <span class="dropdown">
-                            <a href="../C_AdminReview/admin_review.html"  class="main_nav"><li>리뷰 관리</li></a>
+                            <a href="/adminReview"  class="main_nav"><li>리뷰 관리</li></a>
                                 <div class="dropdown-content">
-                                    <a href="../C_AdminReview/admin_review.html"  class="sub_nav"><p>-리뷰 리스트</p></a>
+                                    <a href="/adminReview"  class="sub_nav"><p>-리뷰 리스트</p></a>
                                 </div>
                         </span>
                         <br>
                         <span class="dropdown">
-                            <a href="../D_AdminContents/admin_content_list.html" class="main_nav"><li>컨텐츠 관리</li></a>
+                            <a href="/admin/content/list" class="main_nav"><li>컨텐츠 관리</li></a>
                                 <div class="dropdown-content">
-                                    <a href="../D_AdminContents/admin_content_list.html" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
-                                    <a href="../D_AdminContents/admin_content_register.html" class="sub_nav"><p>-컨텐츠 등록</p></a>
-                                    <a href="../D_AdminContents/admin_content_new.html" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
-                                    <a href="../D_AdminContents/admin_content_expire.html" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
+                                    <a href="/admin/content/list" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
+                                    <a href="/admin/content/register/view" class="sub_nav"><p>-컨텐츠 등록</p></a>
+                                    <a href="/adminContentNew" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
+                                    <a href="/adminContentExpire" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
                                 </div>
                         </span>
                     </ul>
@@ -346,7 +366,7 @@
                         <p class="title">컨텐츠 등록</p>
                         <hr>
                         
-                        <form action="admin/content/add" method="post" enctype="multipart/form-data"> 
+                        <form action="/admin/content/register" method="post" enctype="multipart/form-data"> 
                             <table>
                                 <thead>
                                 <tr>
@@ -370,11 +390,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="subject">신규/만료</td>
+                                    <td class="subject">신규</td>
                                     <td colspan="4">
-                                        <input type="checkbox" name="chk_info" value="NEW" class="chk_info">신규
-                                        <input type="checkbox" name="chk_info" value="EXPIRE" class="chk_info">만료
-                                        <input type="checkbox" name="chk_info" value="NONE" class="chk_info" checked="checked">해당사항없음
+                                        신규: <input type="text" id="datepicker1" placeholder="NEW" class="chk_info">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">만료</td>
+                                    <td colspan="4">
+                                        만료: <input type="text" id="datepicker2" placeholder="EXPIRE" class="chk_info">
                                     </td>
                                 </tr>
                                 <tr>
@@ -405,8 +429,8 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        <a href="/admin/content/add"><button type="button" class="regi_btn">등록</button></a> 
-                                        <button type="button" class="regi_btn">취소</button>
+                                        <button type="submit" class="regi_btn">등록</button>
+                                        <button class="regi_btn" href="javascript:history.back();">취소</button>
                                     </td>
                                 </tr>
                             </tfoot>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>admin_content_edit</title>
+        <title>admin_content_detail</title>
 
         <style>
             *{
@@ -258,45 +258,7 @@
             .chk_info {
                 margin-left: 10px;
             }
-            .file{
-                width: 190px;
-                height: 200px;
-            }
         </style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/js/ckeditor.js"></script>
-<script src="/js/UploadAdapter.js"></script>
-        <script th:inline="javascript">
-            window.onload = () => { //파일 드래그해서 등록하기
-            let poster_img = document.querySelector('.poster_img');
-            let file_tag= document.querySelector('#file');
-            
-            poster_img.ondrop = (e) => {
-                e.preventDefault();
-                //드롭된 파일 리스트 가져오기
-                const data = e.dataTransfer;
-                console.log(data);
-                //파일 리스트를 띄우기
-                console.log(data.files);
-                //파일 태그에 드래그한 파일 정보 연결
-                file_tag.files = data.files;
-                
-            }
-            file_area.ondragover = (e) =>{
-                e.preventDefault();
-            }
-            file_area.ondragenter = (e) =>{
-                e.preventDefault();
-            }
-            file_area.ondragleave = (e) =>{
-                e.preventDefault();
-            }
-
-            }
-        </script>
-
-
     </head>
 
     <body>
@@ -341,42 +303,31 @@
                     <section>
                         <div class="login_info_bar">
                             <div class="user_icon">
-                            <img src="/img/user_icon.png">
+                            <img src="../D_AdminContents/img/user_icon.png">
                             </div>
                             <div class="user_info">
                             <p>로그인 중</p> 
-                            <a href="/admin/logout"><button class="logout">로그아웃</button></a>
+                            <a href="../A_Admin/admin_before_login.html"><button class="logout">로그아웃</button></a>
                             </div>
                         </div>
-                        <p class="title">컨텐츠 수정</p>
+                        <p class="title">컨텐츠</p>
                         <hr>
-
-                    <form action="/admin/content/edit" method="post" enctype="multipart/form-data">
                         <table>
                             <thead>
                             <tr>
-                                <td colspan="5" class="poster">
-                                    <div class="poster_img"><br>
-                                        <input type="file" name="file" id="file">
-                                        <div th:each="file : ${fList}">
-                                            <input type="hidden" name="bno" th:value="${board.bno }"> <!--bno?fno?-->
-                                            <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName }]]</a><br> <!--수정완료버튼을 누르고 다시 들어갔을때 첨부한 파일이 보이는 div-->
-                                            <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}" style="width:150px;">
-                                        </div>
-                                    </div>
-                                </td>
+                                <td colspan="5" class="poster"><div class="poster_img">포스터 등록<br><input type="image"></div></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="subject">OTT</td>    
-                                <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다.-->
-                                    <input type="radio" name="chk_info" value="netflix" class="chk_info">넷플릭스 
-                                    <input type="radio" name="chk_info" value="watcha" class="chk_info">왓챠
-                                    <input type="radio" name="chk_info" value="wavve" class="chk_info">웨이브
-                                    <input type="radio" name="chk_info" value="tving" class="chk_info">티빙
-                                    <input type="radio" name="chk_info" value="laftel" class="chk_info">라프텔
-                                    <input type="radio" name="chk_info" value="disney+" class="chk_info">디즈니+
+                                <td class="subject">OTT</td>
+                                <td colspan="4">
+                                    <input type="radio" name="chk_info" value="넷플릭스" class="chk_info">넷플릭스
+                                    <input type="radio" name="chk_info" value="왓챠" class="chk_info">왓챠
+                                    <input type="radio" name="chk_info" value="웨이브" class="chk_info">웨이브
+                                    <input type="radio" name="chk_info" value="티빙" class="chk_info">티빙
+                                    <input type="radio" name="chk_info" value="라프텔" class="chk_info">라프텔
+                                    <input type="radio" name="chk_info" value="디즈니+" class="chk_info">디즈니+
                                 </td>
                             </tr>
                             <tr>
@@ -389,43 +340,43 @@
                             </tr>
                             <tr>
                                 <td class="subject">제목</td>
-                                <td colspan="4"><input type="text" placeholder="제목을 입력하세요" class="txtbox" id="title"></td>
+                                <td colspan="4">[[${board.title }]]</td>
                             </tr>
                             <tr>
                                 <td class="subject">장르</td>
-                                <td colspan="4"><input type="text" placeholder="장르를 입력하세요" class="txtbox" id="genre"></td>
+                                <td colspan="4">[[${board.genre }]]</td>
                             </tr>
                             <tr>
                                 <td class="subject">감독</td>
-                                <td colspan="4"><input type="text" placeholder="감독을 입력하세요" class="txtbox" id="director"></td>
+                                <td colspan="4">[[${board.pd }]]</td>
                             </tr>
                             <tr>
                                 <td class="subject">출연</td>
-                                <td colspan="4"><input type="text" placeholder="출연진을 입력하세요" class="txtbox" id="cast"></td>
+                                <td colspan="4">[[${board.title }]]</td>
                             </tr>
                             <tr aria-rowspan="2">
                                 <td class="subject summary_text">내용</td>
-                                <td colspan="4" class="summary_text"><input type="text" placeholder="내용을 입력하세요" class="s_txtbox" id="content"></td>
+                                <td colspan="4" class="summary_text">[[${board.content }]]</td>
                             </tr>
-                            <tr  aria-rowspan="2">
-                                <td class="subject summary_text">컨텐츠 <br>비디오</td>
-                                <td colspan="4"><input type="text" placeholder="컨텐츠 비디오 url을 입력하세요" class="txtbox" id="video"></td>
-                            </tr>
+
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="5">
-                                    <button type="submit" class="regi_btn">수정 완료</button>
-                                    <a href="javascript:history.back();" class="regi_btn">취소</a>
+                                    <button class="regi_btn" href="/admin/content/write">수정하기</button>
+                                    <button class="regi_btn" href="javascript:history.back();">취소</button>
                                 </td>
                             </tr>
                         </tfoot>
                         </table>
-                    </form>
                         
                     </section>
                 </div>
         </div>
+        
+            <footer>
+
+            </footer>
     </body>
 
 </html>
