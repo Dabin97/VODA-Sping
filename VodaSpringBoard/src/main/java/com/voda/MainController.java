@@ -1,7 +1,10 @@
 package com.voda;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,10 @@ import com.voda.dto.SecessionDTO;
 import com.voda.service.MemberService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
+
+
+
+import com.voda.dto.MemberDTO;
 
 
 
@@ -39,18 +46,25 @@ public class MainController {
 		return "main";
 	}
 	
+	
 	@RequestMapping("/register")
 	public String registerView() {
 		return "register";
 	}
 
+<<<<<<< HEAD
 	@RequestMapping("/login/member")
 	public String memberLogin(String id, String passwd, HttpSession session) {
+=======
+	@RequestMapping("/login")
+	public String login(String id, String passwd, HttpSession session) {
+>>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("dto", dto);
 		return "redirect:/main";
 	}
 	
+<<<<<<< HEAD
 	
 	////////////////////관리자 페이지//////////////////////////////
 	@RequestMapping("/admin/index")
@@ -163,4 +177,11 @@ public class MainController {
 //		return view;
 //	}
 
+=======
+	@RequestMapping("/member/edit")
+	public String memberEdit() {
+		return "admin_member_edit";
+	}
+
+>>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
 }
