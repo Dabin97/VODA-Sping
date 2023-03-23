@@ -1,6 +1,7 @@
 package com.voda.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,33 @@ public MemberService(MemberMapper mapper) {
 		return mapper.insertMember(dto);
 		
 	}
+
+
+	public List<MemberDTO> selectAllMember() {
+		
+		return mapper.selectAllMember();
+	}
+
+
+	public List<MemberDTO> selectMemberList(int pageNo, int i) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNo", pageNo);
+		map.put("contentCount", i);
+		return mapper.selectMemberList(map);
+
+	}
+
+
+	public int selectMemberCount() {
+		return mapper.selectMemberCount();
+	}
+
+
+	
+
+
+
+
+
   
 }

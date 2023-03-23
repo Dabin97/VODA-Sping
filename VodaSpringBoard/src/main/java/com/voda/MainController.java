@@ -1,23 +1,33 @@
 package com.voda;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.voda.dto.MemberDTO;
+import com.voda.dto.SecessionDTO;
 import com.voda.service.MemberService;
+import com.voda.service.SecessionService;
+import com.voda.vo.PaggingVO;
 
 
 
 @Controller
 public class MainController {
 	private MemberService memberService;
+	private SecessionService secessionService;
 	
 	
-	public MainController(MemberService memberService) {
+	
+	public MainController(MemberService memberService, SecessionService secessionService) {
 		
 		this.memberService = memberService;
+		this.secessionService = secessionService;
 	}
 
 ////////////////////회원 페이지//////////////////////////////
@@ -55,14 +65,70 @@ public class MainController {
 		return "redirect:/admin_main";
 	}
 	
-	@RequestMapping("/admin_main")
+	@RequestMapping("/admin_main") 
 	public String adminMain() {
 		return "admin_main";
 	}
+//	
+//	@RequestMapping("/admin/member/list")
+//	public ModelAndView memberList(ModelAndView view) {
+//		List<MemberDTO> list = memberService.selectAllMember();
+//		view.addObject("list", list);
+//		view.setViewName("admin_list_member");
+//		return view;
+//	}
+//	
+	@RequestMapping("/admin/member/list")
+	public ModelAndView memberList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_list_member");
+		// 게시판 글목록
+		List<MemberDTO> list = memberService.selectMemberList(pageNo, 7);
+		// 페이징 정보
+		int count = memberService.selectMemberCount();
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+
+		view.addObject("list", list);
+		view.addObject("pagging", pagging);
+
+		return view;
+	}
+	
+//	@RequestMapping("/admin/member/list")
+//	public ModelAndView memberList(
+//			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+//		ModelAndView view = new ModelAndView();
+//		List<MemberDTO> list = memberService.selectMemberList(pageNo);
+//		view.addObject("list", list);
+//		PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
+//		view.addObject("pagging", pagging);
+//		view.setViewName("admin_qna");
+//		return view;
+//	}
+
 	
 	@RequestMapping("/member/add/view")
 	public String memberAddView() {
 		return "admin_member_add";
+	}
+
+
+	@RequestMapping("/admin/secession")
+	public ModelAndView secessionList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_withdrawal_member");
+		// 게시판 글목록
+		System.out.println(pageNo);
+		List<SecessionDTO> list = secessionService.selectMemberList(pageNo, 7);
+		
+		// 페이징 정보
+		int count = secessionService.selectMemberCount();
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+
+		view.addObject("list", list);
+		view.addObject("pagging", pagging);
+
+		return view;
 	}
 
 	@RequestMapping("/member/add")
@@ -84,6 +150,17 @@ public class MainController {
 	public String memberDeleteView() {
 		return "/admin_list_member";
 	}	
-	
-//테이블 수정 창이나 팝업창에서 cancle 버튼 누르면 memberlist.html 이동 혹은 창만 닫힘 (->만들기..)
+//	
+//	@RequestMapping("/list/paging")
+//	public ModelAndView memberListPaiging(
+//			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+//		ModelAndView view = new ModelAndView();
+//		List<MemberDTO> list = memberService.selectAllMember(pageNo);
+//		view.addObject("list", list);
+//		PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
+//		view.addObject("pagging", pagging);
+//		view.setViewName("admin_list_member");
+//		return view;
+//	}
+
 }

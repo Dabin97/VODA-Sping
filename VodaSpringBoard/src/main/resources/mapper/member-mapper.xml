@@ -17,5 +17,15 @@
 <insert id="insertMember" parameterType="member">
 		insert into member_table values(#{id},#{passwd},#{name},#{nick},#{email})
 </insert>
+<select id="selectAllMember" resultType="member">
+		select * from member_table 
+	</select>	
+<select id="selectMemberCount" resultType="int">
+		select count(*) from member_table
+	</select>
+<select id="selectMemberList" resultType="member" parameterType="hashMap">
+        SELECT * FROM MEMBER_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
+    </select>
 
+    
 </mapper>
