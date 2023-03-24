@@ -1,5 +1,6 @@
 package com.voda.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
+import com.voda.dto.MemberDTO;
 import com.voda.mapper.BoardMapper;
 
 @Service
@@ -57,11 +59,11 @@ public class BoardService {
 	}
 
 	public int insertBoard(BoardDTO dto) {
-		int bno = mapper.selectBoardBno();
-		dto.setBno(bno);
-		mapper.insertBoard(dto);
-		return bno; 
-	}
+        int bno = mapper.selectBoardBno();
+        dto.setBno(bno);
+        mapper.insertBoard(dto);
+        return bno; 
+    }
 
 	public int insertFile(FileDTO fileDTO) {
 		return mapper.insertFile(fileDTO);
@@ -97,15 +99,26 @@ public class BoardService {
 		mapper.deleteBoard(bno);
 	}
 
-	public List<BoardDTO> selectBoardList(int pageNo, int i) {
+	public List<BoardDTO> selectBoardList(int pageNo, int i){
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("pageNo",pageNo);
 		map.put("contentCount", i);
+		
 		return mapper.selectBoardList(map);
 	}
 
 	public int selectBoardCount() {
 		return mapper.selectBoardCount();
 	}
+
+	public List<MemberDTO> selectSearchContent(String kind, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		return mapper.selectSearchContent(map);
+	}
+
+
 
 }

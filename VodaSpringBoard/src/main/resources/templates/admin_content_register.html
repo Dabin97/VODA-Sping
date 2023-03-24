@@ -259,9 +259,9 @@
                 margin-left: 10px;
             }
         </style>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+       <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+       <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
         <script>
             $.datepicker.setDefaults({
                 dateFormat: 'yy-mm-dd',
@@ -277,13 +277,12 @@
             });
         
             $(function() {
-                $("#datepicker1").datepicker();
-                $("#datepicker2").datepicker();
+                $("#newDate").datepicker();
+                $("#expireDate").datepicker();
             });
+            </script>
         
-        </script>
-
-        <script th:inline="javascript">
+            <script th:inline="javascript">
             $(function(){
                 let poster_img = document.querySelector('.poster_img');
                 let file_tag= document.querySelector('#file');
@@ -360,7 +359,7 @@
                             </div>
                             <div class="user_info">
                             <p>로그인 중</p> 
-                            <a href="/admin/logout"><button class="logout">로그아웃</button></a>
+                            <button class="logout" href="/admin/logout">로그아웃</button>
                             </div>
                         </div>
                         <p class="title">컨텐츠 등록</p>
@@ -380,56 +379,66 @@
                             <tbody>
                                 <tr>
                                     <td class="subject">OTT</td>    
-                                    <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다.-->
-                                        <input type="radio" name="chk_info" value="netflix" class="chk_info">넷플릭스 
-                                        <input type="radio" name="chk_info" value="watcha" class="chk_info">왓챠
-                                        <input type="radio" name="chk_info" value="wavve" class="chk_info">웨이브
-                                        <input type="radio" name="chk_info" value="tving" class="chk_info">티빙
-                                        <input type="radio" name="chk_info" value="laftel" class="chk_info">라프텔
-                                        <input type="radio" name="chk_info" value="disney+" class="chk_info">디즈니+
+                                    <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다. value를 숫자로 넣었는데 제대로 ott_no에 들어가는지 확인해야한다.-->
+                                        <select name="ottNo">
+                                            <option value="1" name="chk_info">넷플릭스 </option>
+                                            <option value="2" name="chk_info">디즈니+</option>
+                                            <option value="3" name="chk_info">라프텔</option>
+                                            <option value="4" name="chk_info">왓챠</option>
+                                            <option value="5" name="chk_info">웨이브</option>
+                                            <option value="6" name="chk_info">티빙</option>
+                                        </select>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">제목</td>
+                                    <td colspan="4"><input type="text" placeholder="제목을 입력하세요" class="txtbox" id="title" name="title"></td>
                                 </tr>
                                 <tr>
                                     <td class="subject">신규</td>
                                     <td colspan="4">
-                                        신규: <input type="text" id="datepicker1" placeholder="NEW" class="chk_info">
+                                        신규: <input type="text" name="newDate" id="newDate" placeholder="NEW" class="chk_info">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="subject">만료</td>
                                     <td colspan="4">
-                                        만료: <input type="text" id="datepicker2" placeholder="EXPIRE" class="chk_info">
+                                        만료: <input type="text" name="expireDate" id="expireDate" placeholder="EXPIRE" class="chk_info">
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="subject">장르</td>    
+                                    <td colspan="4"> 
+                                        <select name="genre">
+                                            <option value="1">영화</option>
+                                            <option value="2">드라마</option>
+                                            <option value="3">애니</option>
+                                            <option value="4">예능</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="subject">제목</td>
-                                    <td colspan="4"><input type="text" placeholder="제목을 입력하세요" class="txtbox" id="title"></td>
-                                </tr>
-                                <tr>
-                                    <td class="subject">장르</td>
-                                    <td colspan="4"><input type="text" placeholder="장르를 입력하세요" class="txtbox" id="genre"></td>
-                                </tr>
-                                <tr>
                                     <td class="subject">감독</td>
-                                    <td colspan="4"><input type="text" placeholder="감독을 입력하세요" class="txtbox" id="director"></td>
+                                    <td colspan="4"><input type="text" placeholder="감독을 입력하세요" class="txtbox" id="pd" name="pd"></td>
                                 </tr>
                                 <tr>
                                     <td class="subject">출연</td>
-                                    <td colspan="4"><input type="text" placeholder="출연진을 입력하세요" class="txtbox" id="cast"></td>
+                                    <td colspan="4"><input type="text" placeholder="출연진을 입력하세요" class="txtbox" id="casting" name="casting"></td>
                                 </tr>
                                 <tr aria-rowspan="2">
                                     <td class="subject summary_text">내용</td>
-                                    <td colspan="4" class="summary_text"><input type="text" placeholder="내용을 입력하세요" class="s_txtbox" id="content"></td>
+                                    <td colspan="4" class="summary_text"><input type="text" placeholder="내용을 입력하세요" class="s_txtbox" id="content" name="content"></td>
                                 </tr>
                                 <tr  aria-rowspan="2">
                                     <td class="subject summary_text">컨텐츠 <br>비디오</td>
-                                    <td colspan="4"><input type="text" placeholder="컨텐츠 비디오 url을 입력하세요" class="txtbox" id="video"></td>
+                                    <td colspan="4"><input type="text" placeholder="컨텐츠 비디오 url을 입력하세요" class="txtbox" id="posterVideo" name="posterVideo"></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        <button type="submit" class="regi_btn">등록</button>
+                                        <button type="submit" class="regi_btn">등록</button> <!--submit으로 바꿔주어야 서버로 값이 들어간다.-->
                                         <button class="regi_btn" href="javascript:history.back();">취소</button>
                                     </td>
                                 </tr>

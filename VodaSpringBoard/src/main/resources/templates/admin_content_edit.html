@@ -263,14 +263,33 @@
                 height: 200px;
             }
         </style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script>
+    $.datepicker.setDefaults({
+        dateFormat: 'yy-mm-dd',
+        prevText: '이전 달',
+        nextText: '다음 달',
+        monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년'
+    });
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/js/ckeditor.js"></script>
+    $(function() {
+        $("#newDate").datepicker();
+        $("#expireDate").datepicker();
+    });
+    </script>
 <script src="/js/UploadAdapter.js"></script>
         <script th:inline="javascript">
-            window.onload = () => { //파일 드래그해서 등록하기
-            let poster_img = document.querySelector('.poster_img');
-            let file_tag= document.querySelector('#file');
+            $(function(){
+                let poster_img = document.querySelector('.poster_img');
+                let file_tag= document.querySelector('#file');
             
             poster_img.ondrop = (e) => {
                 e.preventDefault();
@@ -293,7 +312,7 @@
                 e.preventDefault();
             }
 
-            }
+            });
         </script>
 
 
@@ -351,81 +370,100 @@
                         <p class="title">컨텐츠 수정</p>
                         <hr>
 
-                    <form action="/admin/content/edit" method="post" enctype="multipart/form-data">
-                        <table>
+                        <form action="/admin/content/edit" method="post" enctype="multipart/form-data"> 
+                            <input type="hidden" name="bno" th:value="${board.bno}">
+                            <table>
                             <thead>
-                            <tr>
-                                <td colspan="5" class="poster">
-                                    <div class="poster_img"><br>
-                                        <input type="file" name="file" id="file">
-                                        <div th:each="file : ${fList}">
-                                            <input type="hidden" name="bno" th:value="${board.bno }"> <!--bno?fno?-->
-                                            <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName }]]</a><br> <!--수정완료버튼을 누르고 다시 들어갔을때 첨부한 파일이 보이는 div-->
-                                            <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}" style="width:150px;">
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="subject">OTT</td>    
-                                <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다.-->
-                                    <input type="radio" name="chk_info" value="netflix" class="chk_info">넷플릭스 
-                                    <input type="radio" name="chk_info" value="watcha" class="chk_info">왓챠
-                                    <input type="radio" name="chk_info" value="wavve" class="chk_info">웨이브
-                                    <input type="radio" name="chk_info" value="tving" class="chk_info">티빙
-                                    <input type="radio" name="chk_info" value="laftel" class="chk_info">라프텔
-                                    <input type="radio" name="chk_info" value="disney+" class="chk_info">디즈니+
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="subject">신규/만료</td>
-                                <td colspan="4">
-                                    <input type="checkbox" name="chk_info" value="NEW" class="chk_info">신규
-                                    <input type="checkbox" name="chk_info" value="EXPIRE" class="chk_info">만료
-                                    <input type="checkbox" name="chk_info" value="NONE" class="chk_info" checked="checked">해당사항없음
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="subject">제목</td>
-                                <td colspan="4"><input type="text" placeholder="제목을 입력하세요" class="txtbox" id="title"></td>
-                            </tr>
-                            <tr>
-                                <td class="subject">장르</td>
-                                <td colspan="4"><input type="text" placeholder="장르를 입력하세요" class="txtbox" id="genre"></td>
-                            </tr>
-                            <tr>
-                                <td class="subject">감독</td>
-                                <td colspan="4"><input type="text" placeholder="감독을 입력하세요" class="txtbox" id="director"></td>
-                            </tr>
-                            <tr>
-                                <td class="subject">출연</td>
-                                <td colspan="4"><input type="text" placeholder="출연진을 입력하세요" class="txtbox" id="cast"></td>
-                            </tr>
-                            <tr aria-rowspan="2">
-                                <td class="subject summary_text">내용</td>
-                                <td colspan="4" class="summary_text"><input type="text" placeholder="내용을 입력하세요" class="s_txtbox" id="content"></td>
-                            </tr>
-                            <tr  aria-rowspan="2">
-                                <td class="subject summary_text">컨텐츠 <br>비디오</td>
-                                <td colspan="4"><input type="text" placeholder="컨텐츠 비디오 url을 입력하세요" class="txtbox" id="video"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5">
-                                    <button type="submit" class="regi_btn">수정 완료</button>
-                                    <a href="javascript:history.back();" class="regi_btn">취소</a>
-                                </td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                    </form>
-                        
-                    </section>
-                </div>
+                                <!-- 기존 첨부 파일 -->
+                                <tr>
+                                    </td>
+                                    <td colspan="5" class="poster">
+                                        <p th:each="file : ${fList}">
+                                            <th:block>[[${file.fileName}]] <label><input type="checkbox" name="del_file" th:value="${file.fno}"> 삭제</label> <br> </th:block>
+                                            <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}" class="poster_img">
+                                        </p>
+                                    </td>
+                                </tr>
+                                <!-- 새 첨부 파일 -->
+                                <tr>
+                                    <td colspan="2" id="file_form">
+                                        <input type="file" name="file">
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="subject">OTT</td>    
+                                    <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다. value를 숫자로 넣었는데 제대로 ott_no에 들어가는지 확인해야한다.-->
+                                        <select name="ottNo">
+                                            <option value="1" name="chk_info">넷플릭스 </option>
+                                            <option value="2" name="chk_info">디즈니+</option>
+                                            <option value="3" name="chk_info">라프텔</option>
+                                            <option value="4" name="chk_info">왓챠</option>
+                                            <option value="5" name="chk_info">웨이브</option>
+                                            <option value="6" name="chk_info">티빙</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">제목</td>
+                                    <td colspan="4"><input type="text" placeholder="제목을 입력하세요" class="txtbox" id="title" name="title" th:value="${board.title}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">신규</td>
+                                    <td colspan="4">
+                                        신규: <input type="text" name="newDate" id="newDate" placeholder="NEW" class="chk_info"  th:value="${board.newDate}"> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">만료</td>
+                                    <td colspan="4">
+                                        만료: <input type="text" name="expireDate" id="expireDate" placeholder="EXPIRE" class="chk_info"  th:value="${board.expireDate}">
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="subject">장르</td>    
+                                    <td colspan="4"> 
+                                        <select name="genre">
+                                            <option value="1" th:selected="${board.genre}==1">영화</option>
+                                            <option value="2" th:selected="${board.genre}==2">드라마</option>
+                                            <option value="3" th:selected="${board.genre}==3">애니</option>
+                                            <option value="4" th:selected="${board.genre}==4">예능</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">감독</td>
+                                    <td colspan="4"><input type="text" placeholder="감독을 입력하세요" class="txtbox" id="pd" name="pd" th:value="${board.pd}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">출연</td>
+                                    <td colspan="4"><input type="text" placeholder="출연진을 입력하세요" class="txtbox" id="casting" name="casting" th:value="${board.casting}"></td>
+                                </tr>
+                                <tr aria-rowspan="2">
+                                    <td class="subject summary_text">내용</td>
+                                    <td colspan="4" class="summary_text"><input type="text" placeholder="내용을 입력하세요" class="s_txtbox" id="content" name="content" th:value="${board.content}"></td>
+                                </tr>
+                                <tr  aria-rowspan="2">
+                                    <td class="subject summary_text">컨텐츠 <br>비디오</td>
+                                    <td colspan="4"><input type="text" placeholder="컨텐츠 비디오 url을 입력하세요" class="txtbox" id="posterVideo" name="posterVideo" th:value="${board.posterVideo}"></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <button type="submit" class="regi_btn" id="edit_btn">수정 완료</button> 
+                                        <button class="regi_btn" href="javascript:history.back();">취소</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            </table>
+                        </form>
+                
+            </section>
         </div>
-    </body>
+    </div>
+</body>
 
 </html>

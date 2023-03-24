@@ -16,6 +16,7 @@ public class BoardDTO {
 	private int genre;
 	private String posterVideo; 
 	private int ottNo;
+	private String ottName;
 	
 	public BoardDTO() {	}
 
@@ -83,11 +84,11 @@ public class BoardDTO {
 		this.genre = genre;
 	}
 
-	public String getPostVideo() {
+	public String getPosterVideo() {
 		return posterVideo;
 	}
 
-	public void setPostVideo(String posterVideo) {
+	public void setPosterVideo(String posterVideo) {
 		this.posterVideo = posterVideo;
 	}
 
@@ -99,13 +100,24 @@ public class BoardDTO {
 		this.ottNo = ottNo;
 	}
 
+	public String getOttName() {
+		return ottName;
+	}
+
+	public void setOttName(String ottName) {
+		this.ottName = ottName;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", pd=" + pd + ", casting=" + casting + ", content="
-				+ content + ", newDate=" + newDate + ", expireDate=" + expireDate + ", genre=" + genre + ", posterVideo="
-				+ posterVideo + ", ottNo=" + ottNo + "]";
+				+ content + ", newDate=" + newDate + ", expireDate=" + expireDate + ", genre=" + genre
+				+ ", posterVideo=" + posterVideo + ", ottNo=" + ottNo + ", ottName=" + ottName + "]";
 	}
+	
+	 
 
+	
 	
 	
 	

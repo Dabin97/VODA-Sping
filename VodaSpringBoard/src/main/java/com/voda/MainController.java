@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,25 @@ public class MainController {
 	public String main() {
 		return "main";
 	} 
+	
+	
+	@RequestMapping("/admin/content/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
+	public ModelAndView adminContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_content_list");
+		//게시판 글목록
+		List<BoardDTO> list = boardService.selectBoardList(pageNo, 7);
+		 
+		//페이징 정보
+		int count = boardService.selectBoardCount();
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+		
+		view.addObject("list",list); 
+		view.addObject("pagging",pagging); 
+		
+		return view;
+	}
+	
 	@RequestMapping("/register/view")
 	public String registerView() {
 		return "register";
@@ -80,7 +100,7 @@ public class MainController {
 				//원본 파일명 뽑음
 				String originFileName = file[i].getOriginalFilename();
 				//저장할 파일명
-				String fileName = date + "_" + i  +originFileName+originFileName.substring(originFileName.lastIndexOf('.'));
+				String fileName = date + "_" + i + originFileName +originFileName.substring(originFileName.lastIndexOf('.'));
 				System.out.println("저장할 파일명 : " + fileName);
 				
 				//실제 파일이 업로드 되는 부분
@@ -185,28 +205,24 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+
 	
-	@RequestMapping("/admin/content/list")
-	public ModelAndView adminContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
+	@RequestMapping("/admin/content/write/{bno}") //수정창 이동
+	public ModelAndView adminContentEditview(@PathVariable(name ="bno")int bno) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("admin_content_list");
-		//게시판 글목록
-		List<BoardDTO> list = boardService.selectBoardList(pageNo, 7);
-		 
-		//페이징 정보
-		int count = boardService.selectBoardCount();
-		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+		view.setViewName("admin_content_edit");
 		
-		view.addObject("list",list); 
-		view.addObject("pagging",pagging); 
+		//게시글 조회
+		BoardDTO board = boardService.selectBoard(bno);
+		//첨부파일 목록 조회
+		List<FileDTO> fList = boardService.selectFileList(bno);
+		
+		view.addObject("board", board);
+		view.addObject("fList", fList);
 		
 		return view;
 	}
 	
-	@RequestMapping("/admin/content/write") //수정창 이동
-	public String adminContentEditview() {
-		return "admin_content_edit";
-	}
 	
 	@RequestMapping("/admin/content/edit") //수정메소드
 	public String adminContentUpdate(BoardDTO dto, String[] del_file, @RequestParam("file") MultipartFile[] file) { //del_file : 삭제할 파일번호, 여러개받을거라 배열로
@@ -256,7 +272,7 @@ public class MainController {
 		return "redirect:/admin/content/list";
 	}
 	
-	@RequestMapping("/admin/content/detail")
+	@RequestMapping("/admin/content/detail/{bno}")
 	public ModelAndView adminContentDetail(@PathVariable("bno") int bno, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("admin_content_detail");
@@ -292,7 +308,19 @@ public class MainController {
 	}
 	
 	
+	@RequestMapping("/content/search") // 검색 부분
+	public ResponseEntity<String> selectSearchContentList(String kind, String search){
+		List<MemberDTO> list = boardService.selectSearchContent(kind,search);
+		
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
 	
+	@RequestMapping("/admin/logout")
+	public String logoutAdmin(HttpSession session){
+		session.invalidate();
+		return "redirect:/admin_before_login"; //index로 보내서 오류뜸
+	}
+
 	
 	
 	
