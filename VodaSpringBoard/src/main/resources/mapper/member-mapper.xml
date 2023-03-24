@@ -13,6 +13,10 @@
 		
 	</resultMap>
 	<select id="login" parameterType="HashMap" resultMap="member">
+<<<<<<< HEAD
 		select * from member_table where id = #{id} and passwd = #{passwd} 
+=======
+		select * from member_table where id = #{id} and passwd = #{passwd}
+>>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 	</select>
 </mapper>

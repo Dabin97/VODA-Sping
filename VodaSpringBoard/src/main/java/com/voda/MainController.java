@@ -1,5 +1,6 @@
 package com.voda;
 
+<<<<<<< HEAD
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+=======
+import java.util.HashMap;
+
+>>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -22,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,15 +37,27 @@ import com.voda.dto.MemberDTO;
 import com.voda.service.BoardService;
 import com.voda.service.MemberService;
 import com.voda.vo.PaggingVO;
+=======
+import org.springframework.web.servlet.ModelAndView;
+
+import com.voda.service.BoardService;
+import com.voda.service.MemberService;
+import com.voda.dto.MemberDTO;
+>>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 
 @Controller
 public class MainController {
 	private MemberService memberService;
 	private BoardService boardService;
+<<<<<<< HEAD
 	
 
 	public MainController(MemberService memberService, BoardService boardService) {
 		super();
+=======
+
+	public MainController(MemberService memberService, BoardService boardService) {
+>>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 		this.memberService = memberService;
 		this.boardService = boardService;
 	}
@@ -77,6 +95,7 @@ public class MainController {
 		return "register";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/admin/content/register/view")
 	public String adminContentRegisterView() {
 		return "admin_content_register";
@@ -335,5 +354,41 @@ public class MainController {
 	
 	
 	
+=======
+	@RequestMapping("/login")
+	public String login(String id, String passwd, HttpSession session) {
+		MemberDTO dto = memberService.login(id, passwd);
+		session.setAttribute("dto", dto);
+		return "redirect:/main";
+	}
+	
+	@RequestMapping("/main")
+	public String main() {
+		return "main";
+	}
+	
+	
+	@RequestMapping("/review/like/{rno}")
+	public ResponseEntity<String> reviewLike(@PathVariable(name = "rno") int rno, 
+			HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
+		
+		int result = boardService.insertReviewLike(rno,dto.getId());
+		
+		if(result == 0)
+			map.put("msg", "좋아요를 취소하셨습니다.");
+		else
+			map.put("msg", "좋아요를 하셨습니다.");
+		
+		map.put("blike",boardService.selectReviewLike(rno));
+		
+		return new ResponseEntity(map,HttpStatus.OK);
+	}
+	
+
+	
+	
+>>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 	
 }
