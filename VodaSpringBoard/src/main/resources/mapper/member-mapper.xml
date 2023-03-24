@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.voda.mapper.MemberMapper">
+<<<<<<< HEAD
 	<resultMap type="member" id="member"> 
 		<!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
 		<id column="id" property="id"/>
@@ -18,5 +19,31 @@
 =======
 		select * from member_table where id = #{id} and passwd = #{passwd}
 >>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
+=======
+<resultMap type="member" id="member"> 
+        <!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
+        <id column="id" property="id"/>
+        <result column="passwd" property="passwd"/>
+        <result column="name" property="name"/>
+        <result column="nick" property="nick"/>
+        <result column="email" property="email"/>
+    </resultMap>
+<select id="login" parameterType="hashMap" resultMap="member">
+        select * from member_table where id = #{id} and passwd = #{passwd}
+    </select>
+<insert id="insertMember" parameterType="member">
+		insert into member_table values(#{id},#{passwd},#{name},#{nick},#{email})
+</insert>
+<select id="selectAllMember" resultType="member">
+		select * from member_table 
+	</select>	
+<select id="selectMemberCount" resultType="int">
+		select count(*) from member_table
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 	</select>
+<select id="selectMemberList" resultType="member" parameterType="hashMap">
+        SELECT * FROM MEMBER_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
+    </select> 
+
+    
 </mapper>

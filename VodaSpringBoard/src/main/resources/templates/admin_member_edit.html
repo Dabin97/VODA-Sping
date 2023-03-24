@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>admin_main</title>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                border-collapse: collapse;
+            }
+
+            header{
+                width: 1200px;
+                height: 10px;
+                margin:0 auto;
+            }
+
+
+
+            .main_container{
+                width: 1200px;
+                height: 730px;
+                margin:0 auto;
+                display: flex;
+            }
+
+            .nav_container {
+                width: 250px;
+                height: 730px;
+                background-color: #e9e9e9;
+            }
+
+            .main_logo {
+                width: 250px;
+                display: flex;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            h2{
+                text-align: left;
+                margin-left: 18px;
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+
+            ul {
+                margin-left: 40px;
+                color: rgb(70, 81, 0);
+            }
+            .section_container {
+                width: 950px;
+            }
+
+            .login_info_bar {
+                width: 950px;
+                height: 50px;
+                text-align: right;
+            }
+
+            .member_search {
+                width: 950px;
+                height: 50px;
+                font-size: 32px;
+                padding-left: 50px;
+                margin-top:30px;
+                color: rgb(70, 81, 0);
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight: bold;
+                margin-left: 50px;
+                margin-bottom: 20px;
+                color: rgb(70, 81, 0);
+            }
+
+            hr {
+                margin-left: 30px;
+            }
+
+            select {
+                width: 80px;
+                height: 35px;
+                margin-left: 100px;
+            }
+
+            .textbox{
+                width: 300px;
+                height: 32px;
+            }
+            .search_table {
+                width: 650px;
+                margin-left: 150px;
+                margin-top:50px;
+            }
+
+            b {
+                margin-left: 100px;
+            }
+            .bottombtn {
+                width: 80px;
+                height: 30px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-bottom: 30px;
+            }
+
+            .slider {
+                margin-left: 10px;
+                margin-top: 100px;
+                width: 50px;
+                height: 50px;
+                background-color: #e2e2e2;
+                border-radius: 10px;
+                border: none;
+                font-size: 16px;
+                
+            }
+
+            .slider:hover {
+                background-color: rgb(194, 231, 142);
+                color: rgb(70, 81, 0);
+            }
+
+            .slider_container {
+                width: 650px;
+                text-align: center;
+            }
+
+            .btn_container{
+                width: 650px;
+                text-align: right;
+            }
+
+            .user_icon {
+                display: inline-block;
+            }
+            
+            .user_info {
+                display: inline-block;   
+            }
+
+            .main_nav {
+                font-size: 24px;
+                text-decoration: none;
+                color: black;
+                position : relative;
+                display : inline-block;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            .sub_nav {
+                text-decoration: none;
+                color: dimgray;
+            }
+
+            .sub_nav:hover{
+                color: rgb(194, 231, 142);
+            }
+
+            .select {
+                color: rgb(194, 231, 142);
+                text-decoration: none;
+            }
+
+            button{
+                border:none;
+                border-radius: 5px;
+            }
+
+            button:hover{
+                background-color: rgb(194, 231, 142);
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+
+            table{
+                
+                margin: 0 auto;
+                width: 400px;
+                margin-top: 30px;
+            }
+
+            tbody{
+                border: 2px solid #e2e2e2;
+            }
+
+            thead{
+                border: 2px solid #e2e2e2;
+            }
+            
+            .poster {
+                height: 200px;
+                text-align: center;
+            }
+            
+            .poster_img {
+                width: 190px;
+                border: 2px solid #e2e2e2;
+                height: 200px;
+                border-top: none;
+                display: inline-block;
+                text-align: right;
+                border-bottom: none;
+            }
+
+            tbody td {
+                border: 2px solid #e2e2e2;
+                
+            }
+
+            .subject {
+                
+                text-align: center;
+                font-weight: bold;
+                height: 30px;
+                background-color: rgb(194, 231, 142);
+                color: rgb(70, 81, 0);
+            }
+
+            .txtbox {
+                height: 30px;
+                width: 675px;
+                margin-left: 10px;
+                border:none
+            }
+
+            .s_txtbox{
+                width: 676px;
+                height: 80px;
+                margin-left: 10px;
+                border: none;
+            }
+
+            tfoot{
+                border: none;
+                text-align: right;
+            }
+            
+            .regi_btn {
+                width: 80px;
+                height: 30px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-bottom: 30px;
+            }
+
+            .summary_text {
+                height: 80px;
+            }
+
+            .chk_info {
+                margin-left: 10px;
+            }
+            .member_info{
+                margin-top: 15px;
+                margin-left: 35px;
+                zoom: 1.5;
+            }
+            .btn_cancle{
+                margin-top: 30px;
+                margin-left: 160px;
+                margin-right: 350px;
+                width: 140px;
+                height: 70px;
+            }
+            .btn_submit{
+               
+                width: 140px;
+                height: 70px;
+            }
+            .btn_edit{
+                
+                display: block;
+                margin: auto;
+                width: 70px;
+                height: 35px;
+            }
+            .btn_edit_div{
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <div class="main_container">
+            <div class="nav_container">
+                <nav>
+                    <a href="../A_Admin/admin_main.html"><img src="../D_AdminContents/img/main_logo.png" alt="logo" class="main_logo"></a>
+                    <h2>관리자 페이지</h2>
+                    <br>
+                    <ul class="nav">
+                        <span class="dropdown">
+                            <a href="../B_AdminMember/admin_list_member.html" class="main_nav"><li>회원 관리</li></a>
+                            <div class="dropdown-content">
+                                <a href="../B_AdminMember/admin_list_member.html" class="sub_nav"><p>-회원 리스트</p></a>
+                                <a href="../B_AdminMember/admin_withdrawal_member.html" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
+                            </div>
+                        </span>
+                        <br>
+                        <span class="dropdown">
+                            <a href="../C_AdminReview/admin_review.html"  class="main_nav"><li>리뷰 관리</li></a>
+                                <div class="dropdown-content">
+                                    <a href="../C_AdminReview/admin_review.html"  class="sub_nav"><p>-리뷰 리스트</p></a>
+                                </div>
+                        </span>
+                        <br>
+                        <span class="dropdown">
+                            <a href="../D_AdminContents/admin_content_list.html" class="main_nav"><li>컨텐츠 관리</li></a>
+                                <div class="dropdown-content">
+                                    <a href="../D_AdminContents/admin_content_list.html" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
+                                    <a href="../D_AdminContents/admin_content_register.html" class="sub_nav"><p>-컨텐츠 등록</p></a>
+                                    <a href="../D_AdminContents/admin_content_new.html" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
+                                    <a href="../D_AdminContents/admin_content_expire.html" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
+                                </div>
+                        </span>
+                    </ul>
+                </nav>
+            </div>   
+                <div class="section_container">  
+                    <section>
+                        <div class="login_info_bar">
+                            <div class="user_icon">
+                            <img src="../D_AdminContents/img/user_icon.png">
+                            </div>
+                            <div class="user_info">
+                            <p>로그인 중</p> 
+                            <a href="../A_Admin/admin_before_login.html"><button class="logout">로그아웃</button></a>
+                            </div>
+                        </div>
+                        <p class="title">회원 추가</p>
+                        <hr>
+
+                        <form action="http://nam3324.synology.me:32769">
+                            <input type="checkbox" name="member_edit" class="member_info">회원 기본정보
+                        <table>         
+                            <colgroup>
+                                <col width="25%" />
+                                <col width="25%" />
+                                
+                            </colgroup>
+                              <tbody>
+                                <tr>
+                                    <td class="subject">아이디</td>
+                                    <td>123</td>
+                                  </tr>
+                                <tr>
+                                  <td class="subject">비밀번호</td>
+                                  <td>123</td>
+                                </tr>
+                                <tr>
+                                  <td class="subject">이메일</td>
+                                  <td>123</td>
+                                </tr>
+                                <tr>
+                                  <td class="subject">가입일</td>
+                                  <td>123</td>
+                                </tr>
+                              </tbody>
+                          </table> 
+                          <div class="btn_edit_div">
+                            <button class="btn_edit">정보수정</button>
+                          </div>                            
+                               
+
+                        <input type="checkbox" name="member_edit" class="member_info">사이트 가입정보
+                        <table>         
+                            <colgroup>
+                                <col width="25%" />
+                                <col width="25%" />
+                                
+                            </colgroup>
+                              <tbody>
+                                <tr>
+                                    <td class="subject">주소</td>
+                                    <td>123</td>
+                                  </tr>
+                                <tr>
+                                  <td class="subject">전화번호</td>
+                                  <td>123</td>
+                                </tr>
+                                <tr>
+                                  <td class="subject">생년월일(필수)</td>
+                                  <td>123</td>
+                                </tr>
+                                <tr>
+                                  <td class="subject">성별</td>
+                                  <td>123</td>
+                                </tr>
+                              </tbody> 
+                            </table>
+                            <div class="btn_edit_div">
+                                <button class="btn_edit">정보수정</button>
+                              </div> 
+
+                            <a href="../B_AdminMember/admin_list_member.html"><button class="btn_cancle">CANCLE</button></a>
+                            <a href="../B_AdminMember/admin_list_member.html"><button class="btn_submit">SUBMIT</button></a>
+                    </form>
+                    </section>
+                </div>
+        </div>
+        
+            <footer>
+
+            </footer>
+    </body>
+
+</html>

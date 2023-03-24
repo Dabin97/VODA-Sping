@@ -1,6 +1,7 @@
 package com.voda;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,14 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 =======
 import java.util.HashMap;
+=======
+import java.util.List;
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 
 >>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 <<<<<<< HEAD
@@ -40,14 +41,22 @@ import com.voda.vo.PaggingVO;
 =======
 import org.springframework.web.servlet.ModelAndView;
 
-import com.voda.service.BoardService;
-import com.voda.service.MemberService;
 import com.voda.dto.MemberDTO;
+<<<<<<< HEAD
 >>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
+=======
+import com.voda.dto.SecessionDTO;
+import com.voda.service.MemberService;
+import com.voda.service.SecessionService;
+import com.voda.vo.PaggingVO;
+
+
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 
 @Controller
 public class MainController {
 	private MemberService memberService;
+<<<<<<< HEAD
 	private BoardService boardService;
 <<<<<<< HEAD
 	
@@ -58,13 +67,31 @@ public class MainController {
 
 	public MainController(MemberService memberService, BoardService boardService) {
 >>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
+=======
+	private SecessionService secessionService;
+	
+	
+	
+	public MainController(MemberService memberService, SecessionService secessionService) {
+	
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 		this.memberService = memberService;
-		this.boardService = boardService;
+		this.secessionService = secessionService;
 	}
 
+<<<<<<< HEAD
 	@RequestMapping("/")
 	public String index() {
 		return "index"; 
+=======
+////////////////////회원 페이지//////////////////////////////
+
+	
+
+	@RequestMapping("/main")
+	public String main() {
+		return "main";
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 	}
 	
 	@RequestMapping("/main")
@@ -94,6 +121,7 @@ public class MainController {
 	public String registerView() {
 		return "register";
 	}
+<<<<<<< HEAD
 	
 <<<<<<< HEAD
 	@RequestMapping("/admin/content/register/view")
@@ -357,38 +385,127 @@ public class MainController {
 =======
 	@RequestMapping("/login")
 	public String login(String id, String passwd, HttpSession session) {
+=======
+
+	@RequestMapping("/login/member")
+	public String memberLogin(String id, String passwd, HttpSession session) {
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("dto", dto);
 		return "redirect:/main";
 	}
 	
-	@RequestMapping("/main")
-	public String main() {
-		return "main";
+	
+	////////////////////관리자 페이지//////////////////////////////
+	@RequestMapping("/admin/index")
+	public String adminLogin() {
+		return "admin_before_login";
+	} 
+	
+	@RequestMapping("/admin/login")
+	public String adminLogin(String id, String passwd, HttpSession session) {
+		MemberDTO dto = memberService.login(id, passwd);
+		session.setAttribute("dto", dto);
+		return "redirect:/admin_main";
 	}
 	
-	
-	@RequestMapping("/review/like/{rno}")
-	public ResponseEntity<String> reviewLike(@PathVariable(name = "rno") int rno, 
-			HttpSession session){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		
-		int result = boardService.insertReviewLike(rno,dto.getId());
-		
-		if(result == 0)
-			map.put("msg", "좋아요를 취소하셨습니다.");
-		else
-			map.put("msg", "좋아요를 하셨습니다.");
-		
-		map.put("blike",boardService.selectReviewLike(rno));
-		
-		return new ResponseEntity(map,HttpStatus.OK);
+	@RequestMapping("/admin_main") 
+	public String adminMain() {
+		return "admin_main";
+	}
+//	
+//	@RequestMapping("/admin/member/list")
+//	public ModelAndView memberList(ModelAndView view) {
+//		List<MemberDTO> list = memberService.selectAllMember();
+//		view.addObject("list", list);
+//		view.setViewName("admin_list_member");
+//		return view;
+//	}
+//	
+	@RequestMapping("/admin/member/list")
+	public ModelAndView memberList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_list_member");
+		// 게시판 글목록
+		List<MemberDTO> list = memberService.selectMemberList(pageNo, 7);
+		// 페이징 정보
+		int count = memberService.selectMemberCount();
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+
+		view.addObject("list", list);
+		view.addObject("pagging", pagging);
+
+		return view;
 	}
 	
+//	@RequestMapping("/admin/member/list")
+//	public ModelAndView memberList(
+//			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+//		ModelAndView view = new ModelAndView();
+//		List<MemberDTO> list = memberService.selectMemberList(pageNo);
+//		view.addObject("list", list);
+//		PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
+//		view.addObject("pagging", pagging);
+//		view.setViewName("admin_qna");
+//		return view;
+//	}
 
 	
+	@RequestMapping("/member/add/view")
+	public String memberAddView() {
+		return "admin_member_add";
+	}
+
+
+	@RequestMapping("/admin/secession")
+	public ModelAndView secessionList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_withdrawal_member");
+		// 게시판 글목록
+		System.out.println(pageNo);
+		List<SecessionDTO> list = secessionService.selectMemberList(pageNo, 7);
+		
+		// 페이징 정보
+		int count = secessionService.selectMemberCount();
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+
+		view.addObject("list", list);
+		view.addObject("pagging", pagging);
+
+		return view;
+	}
+
+	@RequestMapping("/member/add")
+	public String memberAdd(MemberDTO dto) {
+		memberService.insertMember(dto);
+		return "redirect:/admin_list_member";
+	}
 	
 >>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 	
+	//회원 삭제 팝업창 만들기
+	@RequestMapping("/member/delete")
+	public String memberDelete(MemberDTO dto) {
+		//회원 삭제 버튼 누른 후 팝업창 뜨고 ok누르면 멤버 리스트로 리턴
+		//무튼 ok 눌렀을 때 멤버 삭제...
+		return "redirect:/admin_list_member";
+	}
+	
+	@RequestMapping("/member/delete/view")
+	public String memberDeleteView() {
+		return "/admin_list_member";
+	}	
+//	
+//	@RequestMapping("/list/paging")
+//	public ModelAndView memberListPaiging(
+//			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+//		ModelAndView view = new ModelAndView();
+//		List<MemberDTO> list = memberService.selectAllMember(pageNo);
+//		view.addObject("list", list);
+//		PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
+//		view.addObject("pagging", pagging);
+//		view.setViewName("admin_list_member");
+//		return view;
+//	}
+
 }

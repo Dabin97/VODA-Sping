@@ -23,6 +23,12 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
@@ -30,6 +36,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<<<<<<< HEAD
 <<<<<<< HEAD
 			<dependency>
 =======
@@ -39,6 +46,8 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+=======
+>>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
