@@ -35,17 +35,27 @@ public interface BoardMapper {
 =======
 import java.util.HashMap;
 
-public class BoardMapper {
+import org.apache.ibatis.annotations.Mapper;
 
-	public int insertReviewLike(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+@Mapper
+public interface BoardMapper {
 
+	int insertReviewLike(HashMap<String, Object> map);
+	int deleteReviewLike(HashMap<String, Object> map);
+	int insertReviewHate(HashMap<String, Object> map);
+	int deleteReviewHate(HashMap<String, Object> map);
+	int selectReviewLike(int rno);
+	int selectReviewHate(int rno);
+	
+	
+
+<<<<<<< HEAD
 	public void deleteReviewLike(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		
 	}
 >>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
+=======
+>>>>>>> fba97c7c0f8b54f59b4ab4c11e527291457685a8
 
 }
