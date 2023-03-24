@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VodaSpringBoardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VodaSpringBoardApplication.class, args);
+		SpringApplication.run(VodaSpringBoardApplication.class, args); 
 	}
-
-}
-	
+ 
+}  
+	    

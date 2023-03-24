@@ -58,7 +58,7 @@
         text-decoration: none;
     }
     .login{
-        padding-left: 290px;
+        padding-left: 270px;
     }
     footer{
     width: 1200px;
@@ -458,11 +458,11 @@
 <body>
     <div class="flex_container">
         <header>
-            <img src="img/VODA_logo.png" alt="">
+            <img src="img/VODA_logo.png" alt="" href="/main">
             <a href="main_page.html">BEST</a>
             <a href="new_expire.html">NEW/EXPIRE</a>
             <a href="search.html">ALL</a>
-            <a href="/" class="login">LOGIN</a>
+            <a href="/member/logout" class="login">로그아웃</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
                 <container class = "rel_search">
                     <ul class="pop_rel_keywords"></ul>
@@ -503,11 +503,12 @@
             <h1>
                 <img src="img/Union-left.png" alt="">BEST REVIEW<img src="img/Union-right.png" alt="">
             </h1>
+            <form action="/content_page" method="post">
             <div class="content_box">
                 <img src="img/더 랍스터.png" alt="" class="best_poster"> 
                 <div class="explanation">
                     <p>BEST 01</p>
-                    <p class="ex_title">더 랍스터(The Lobster)</p>
+                     <a href="/content_page" class="content"><p class="ex_title">더 랍스터(The Lobster)</p></a>
                     <div class="best_review">
                         <p class="up_down">
                             <img src="img/dislike_full.png" class="dislike">
@@ -575,7 +576,7 @@
                     <!--이 아래로 2개더 미니박스가 추가되어야함-->
                 </div>
             </div>
-           
+           </form>
 
             </article>
 

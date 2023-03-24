@@ -1,23 +1,19 @@
 package com.voda.service;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.voda.dto.ManagerDTO;
-import com.voda.dto.MemberDTO;
 import com.voda.mapper.MemberMapper;
+import com.voda.dto.MemberDTO;
 
 @Service
 public class MemberService {
-  private MemberMapper mapper;
-
-public MemberService(MemberMapper mapper) {
+private MemberMapper mapper;
 	
-	this.mapper = mapper;
-}
-
+	public MemberService(MemberMapper mapper) {
+		this.mapper = mapper;
+	}
 
 	public MemberDTO login(String id, String passwd) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -26,50 +22,4 @@ public MemberService(MemberMapper mapper) {
 		return mapper.login(map);
 	}
 
-
-	public int insertMember(MemberDTO dto) {
-		return mapper.insertMember(dto);
-		
-	}
-
-
-	public List<MemberDTO> selectAllMember() {
-		
-		return mapper.selectAllMember();
-	}
-
-
-	public List<MemberDTO> selectMemberList(int pageNo, int i) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pageNo", pageNo);
-		map.put("contentCount", i);
-		return mapper.selectMemberList(map);
-
-	}
-
-
-	public int selectMemberCount() {
-		return mapper.selectMemberCount();
-	}
-
-
-	public int editMember(MemberDTO dto) {
-		return mapper.editMember(dto);
-		
-	}
-
-
-	public MemberDTO selectMember(String id) {
-		
-		return mapper.selectMember(id);
-	}
-
-
-	public ManagerDTO loginAdmin(String mid, String mpasswd) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("mid", mid);
-		map.put("mpasswd", mpasswd);
-		return mapper.loginAdmin(map);
-	}
-  
 }

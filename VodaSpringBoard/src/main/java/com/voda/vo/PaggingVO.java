@@ -7,7 +7,7 @@ public class PaggingVO {
 	private int currentPageNo;
 	//한 페이지당 출력할 게시글 개수
 	private int pageOfContentCount;
-	//게시판 하단에 나타낼 페이지 번호 개수
+	//게시판 하단에 나타낼 페이지 번호 개수 - 고정해서 사용함 final
 	private final int pageGroupOfCount = 4;
 	
 	public PaggingVO(int count, int currentPageNo, int pageOfContentCount) {
@@ -68,9 +68,4 @@ public class PaggingVO {
 	
 	
 }
-
-
-
-
-
 
