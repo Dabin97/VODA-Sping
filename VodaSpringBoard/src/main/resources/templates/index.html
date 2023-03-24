@@ -84,13 +84,12 @@
             }
 
             input {
-            color: white;
+                color:white;
                 width: 200px;
                 height: 20px;
             }
 
             .text{
-            	color: white;
                 font-weight: bold;
             }
             .lock {
@@ -123,8 +122,8 @@
                     
                     <section>
                             <div class="sign_in_container">
-                                <form action="/login" method="post">
-                                    <img src="img/VODA_logo.png" alt="logo" class="main_logo" href="/main">
+                                <form action="/login/member" method="post">
+                                    <img src="img/VODA_logo.png" alt="logo" class="main_logo" > <!-- href="/main"-->
                                     <table>
                                         <tr>
                                             <td class="text">아이디</td>
@@ -135,12 +134,17 @@
                                             <td><input type="password" name="passwd" placeholder="비밀번호를 입력하세요"></td>
                                         </tr>
                                     </table>
+                               
                                 <div class="btn_container">
                                     <br>
                                     <button>로그인</button>
-                                    <a href="/register" class="register">회원가입</a>
+<<<<<<< HEAD
+                                    <a href="/register/view" class="register">회원가입</a> 
+=======
+                                    <a href="/register/view" class="register">회원가입</a>
+>>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
                                 </div>
-                                </form>
+                            </form>
                             </div>
                         </div>
                     </section>

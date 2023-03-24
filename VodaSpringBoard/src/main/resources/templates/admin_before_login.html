@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>admin_main</title>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            header{
+                width: 1200px;
+                height: 10px;
+                margin:0 auto;
+            }
+
+
+
+            .main_container{
+                width: 1200px;
+                height: 730px;
+                margin:0 auto;
+                display: flex;
+            }
+
+            .nav_container {
+                width: 250px;
+                height: 730px;
+                background-color: #e9e9e9;
+            }
+
+            .main_logo {
+                width: 250px;
+                display: flex;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            h2{
+                text-align: left;
+                margin-left: 18px;
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+
+            ul {
+                margin-left: 40px;
+                color: rgb(70, 81, 0);
+            }
+
+            .section_container {
+                width: 950px;
+                height: 600px;
+            }
+
+            .login {
+                left: 700px;
+                position: relative;
+            }
+
+            .sign_in_container{
+                display: inline-block;
+                width: 280px;
+                margin-left: 335px;
+                margin-top: 100px;
+            }
+            .text {
+                text-align: left;
+            }
+            
+            .btn_container {
+                text-align: center;
+                width: 280px;
+            }
+
+            button {
+                display: inline-block;
+                width: 270px;
+                height: 35px;
+                background-color: rgb(194, 231, 142);
+                border: 0px;
+                border-radius: 10px;
+                font-size: 24px;
+                color: rgb(70, 81, 0);
+            }
+
+            button:hover{
+                background-color: rgb(70, 81, 0);
+                color: rgb(194, 231, 142);
+            }
+
+            input {
+                width: 200px;
+                height: 20px;
+            }
+
+            .text{
+                font-weight: bold;
+            }
+            .lock {
+                width: 100px;
+                display: flex;
+                position: relative;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <div class="main_container">
+            <div class="nav_container">
+                <nav>
+                    <img src="/img/voda_logo.png" alt="logo" class="main_logo">
+                    <h2>관리자 페이지</h2>
+                    <br>
+                    <div class="nav">
+                        <img class="lock" src="/img/lock_icon.png" alt="lock_icon">
+                    </div>
+                </nav>
+            </div>   
+                <div class="section_container">
+                    
+                    <section>
+                            <div class="sign_in_container">
+                                <form action="/admin/login" method="post">
+                                    <img src="/img/voda_logo.png" alt="logo" class="main_logo">
+                                    <table>
+                                        <tr>
+                                            <td class="text">아이디</td>
+                                            <td><input type="text" name="mid" placeholder="아이디를 입력하세요"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text">비밀번호</td>
+                                            <td><input type="password" name="mpasswd" placeholder="비밀번호를 입력하세요"></td>
+                                        </tr>
+                                    </table>
+                                
+                                <div class="btn_container">
+                                    <br>
+                                    <button>로그인</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+        </div>
+        
+            <footer>
+
+            </footer>
+    </body>
+
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+        body{
+            color: #a7f2dc;
+        }
+        h1{
+            text-align: center;
+            margin-top: 40px;
+        }
+        .container{
+            width: 700px;
+            padding: 40px;
+            margin: 0 auto;
+            
+        }
+        form > ul > li{
+            margin-top: 10px;
+        }
+        form > ul{
+            list-style: none;
+        }
+        form > ul > ul{
+            list-style-type: disc; /*그대로라는 뜻*/
+            margin-top: 5px;
+            padding-left: 40px;
+            color:gray;
+        }
+        
+        label{
+            width:400px;
+            font-weight: bold;
+        }
+        .border_bottom{
+            border-bottom: 5px dashed #c4c4c4;
+            
+        }
+        input{
+            border: none;
+            outline: none;
+            height: 50px;
+            width: 80%;
+            font-size: 20px;
+        }
+        .sub_txt{
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            padding-right: 10px;
+            box-sizing: border-box;
+            color: 	#a7f2dc;
+        }
+       
+        .btn_next{
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            background-color: gray;
+        }
+        .btn_next:hover{
+            background-color: #a7f2dc;
+        
+        }
+        .true{
+            color: blue;
+            font-weight: bold;
+        }
+        .false{
+            color: red;
+            font-weight: bold;
+        }
+
+        input[type=checkbox]{
+            transform: scale(0.5);
+        }
+
+        label{
+            display: inline-block;
+            width:100px;
+           
+        }
+        header img{
+            width: 300px;
+            height: 80px;
+            padding-top: 20px;
+            display: block;
+            margin:auto;
+        }
+        input[name=ott]{
+            width: 30px;
+            height: 30px;
+        }
+        #interest{
+            
+            width: 200px;
+            margin-bottom: 30px;
+        }
+        .ott_choice{
+            color: white;
+        }
+        /* .sub_txt{
+            color: white;
+        } */
+        input{
+            color: white;
+        }
+    </style>
+    <script>
+        //아이디 값 체크하는 함수
+        //1. 글자수가 8~20글자 사이
+        //2. 숫자만 쓰면 X
+        //3. 아이디 입력하는 곳 아래에 아이디 체크 결과에 따른 메세지 출력
+        function idCheck(){
+            let id = document.querySelector('#id');
+            let id_result =document.querySelector('.id_result');
+
+            if(id.value.length<8 || id.value.length>20){
+                id_result.innerHTML = '아이디는 글자수 8~20글자 사이로 사용하세요.';
+                if(id_result.classList.contains('true')){   //만약 true 클래스가 있다면
+                    id_result.classList.remove('true');}    //true 클래스 지워주기
+                if(!id_result.classList.contains('false')){ //false 클래스가 있는지?
+                    id_result.classList.add('false'); }     //false 클래스 추가
+                return false;
+            }
+
+            if(!isNaN(id.value)){
+                id_result.innerHTML = '아이디는 숫자만 쓸 수 없습니다.';
+                if(id_result.classList.contains('true'))  
+                    id_result.classList.remove('true');    
+                if(!id_result.classList.contains('false')) 
+                    id_result.classList.add('false');     
+                return false;
+            }
+
+            if(id_result.classList.contains('false'))
+                id_result.classList.remove('true');  
+            
+            if(!id_result.classList.contains('true'))  
+                id_result.classList.add('true'); 
+            
+            id_result.innerHTML = '아이디가 올바르게 입력되었습니다.';
+            return true;
+        }
+
+        //암호 값 체크하는 함수
+        //1. 2번 입력한 암호가 서로 일치하는지?
+        //2. 암호도 8~20글자만 허용
+        //3. 특수문자가 포함되어 있는지?
+        // 하단에 메세지가 떠야함
+        function passCheck(){
+            let pass = document.querySelector('#pass');
+            let pass_chk = document.querySelector('#pass_chk');
+            let pass_result = document.querySelector('.pass_result');
+
+            //정규식으로 암호 형식 체크
+            let reg = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&^])[A-Za-z\d@$!%*#?&^]{8,20}$/;
+            if(!reg.test(pass.value)){
+                pass_result.innerHTML = '암호는 형식에 일치하지 않습니다.';
+                if(pass_result.classList.contains('true'))
+                    pass_result.classList.remove('true');
+                if(!pass_result.classList.contains('false')) //false 클래스가 있는지?
+                    pass_result.classList.add('false');//false 클래스 추가
+                return false;
+            }
+           
+            if(pass.value != pass_chk.value){
+                pass_result.innerHTML = '암호가 일치하지 않습니다.';
+                if(pass_result.classList.contains('true'))
+                    pass_result.classList.remove('true');
+                if(!pass_result.classList.contains('false'))
+                    pass_result.classList.add('false');
+                return false;
+            }
+
+            if(pass_result.classList.contains('false'))
+                pass_result.classList.remove('false');
+            if(!pass_result.classList.contains('true'))
+                pass_result.classList.add('true');
+            
+            pass_result.innerHTML = '암호가 올바르게 입력되었습니다.';
+            return true;           
+        }
+
+        //닉네임 기능
+        //1. 닉네임은 20글자까지만 입력이 가능하게끔 처림
+        //2. 입력한 글자개수를 0/20 형식으로 sub_txt에 넣음
+        function nickCheck(){
+            let nick = document.querySelector('#nick');
+            let sub_txt = document.querySelector('#nick+.sub_txt');
+
+            if(nick.value.length < 1){
+                return false;
+            }
+            
+            if(nick.value.length > 20){
+                nick.value = nick.value.substr(0,20); //20글자에서 자르기
+            }
+            sub_txt.innerHTML = `${nick.value.length}/20`;
+
+            return true;
+        }
+
+        //1. 전화번호는 숫자만 허용
+        //2. - 는 들어가면 안됨
+        //3. 전화번호 길이 10 또는 11
+        //전화번호 형식이 일치하면 클래스 true 적용, 아니면 false 적용
+        function telCheck(){
+            let tel = document.querySelector('#tel');
+            
+            if(isNaN(tel.value)){
+                if(tel.classList.contains('true'))
+                    tel.classList.remove('true');
+                if(!tel.classList.contains('false'))
+                    tel.classList.add('false')
+                return false;
+            }
+            if(tel.value.length < 10 || tel.value.length > 11){
+                if(tel.classList.contains('true'))
+                    tel.classList.remove('true');
+                if(!tel.classList.contains('false'))
+                    tel.classList.add('false');
+                return false;
+            }
+            if(tel.classList.contains('false'))
+                tel.classList.remove('false');
+            if(!tel.classList.contains('true'))
+                tel.classList.add('true');
+
+            return true;
+        }
+
+        
+
+        window.onload = () => {
+            let id = document.querySelector('#id');
+            let pass = document.querySelector('#pass');
+            let pass_chk = document.querySelector('#pass_chk');
+            id.onkeyup = idCheck;
+            pass.onkeyup = pass_chk.onkeyup = passCheck;
+            let nick = document.querySelector('#nick');
+            nick.onkeyup = nickCheck;
+            let tel = document.querySelector('#tel');
+            tel.onkeyup = telCheck;
+            
+            //가입할 회원정보를 제출하기 전에 최종적으로 모든 데이터를 체크
+            //1. 모든 체크에 통과하면 서버로 데이터 제출
+            //2. 모든 체크에 통과하지 못하면 submit  이벤트를 정지
+            let frm = document.querySelector('#frm');
+
+            frm.onsubmit = (e) => {
+                if(!idCheck())
+                    e.preventDefault(); 
+                else if(!passCheck())
+                    e.preventDefault(); 
+                else if(!nickCheck())
+                    e.preventDefault(); 
+            }
+        }
+    </script>
+</head>
+<body>
+    
+      <header>
+        <img src="img/VODA_logo.png" alt="logo">
+      </header>  
+   <section>
+    <div class="container">
+        <h2>회원 가입 정보를 입력해 주세요.</h2>
+        <form action="/register" id="form" method="post">
+            <ul>
+                <li><label for="id">아이디</label></li>
+                <li class="border_bottom">
+                    <input type="text" id="id" placeholder="아이디를 입력하세요"><span class="sub_txt"></span>
+                </li>
+                <li class="id_result"></li>
+                <ul th:each="member :${list}">
+                    <li>[[${member.idResult}]]</li> <!--아이디를 입력하면 아래에 출력되도록? 아니면 아이디 후보?-->
+                    <li>[[${member.idResult}]]</li>
+                </ul>
+                <li><label for="pass">비밀번호</label></li>
+                <li class="border_bottom">
+                    <input type="password" id="pass" placeholder="비밀번호">
+                </li>
+                <li class="border_bottom">
+                    <input type="password" id="pass_chk" placeholder="비밀번호 재입력">
+                </li>
+                <li class="pass_result"></li>
+                <li><label for="nick">닉네임</label></li>
+                <li class="border_bottom">
+                    <input type="text" id="nick" placeholder="닉네임을 입력하세요"><span class="sub_txt">0/20</span>
+                </li>
+                
+                  <li><label for="interest" id="interest">관심분야(OTT)</label><br>
+                    <p class="ott_choice">
+                        넷플릭스<input type="checkbox" name="ott" value="netflix">
+                        왓챠<input type="checkbox" name="ott" value="watcha">
+                        디즈니 플러스<input type="checkbox" name="ott" value="disneyplus">
+                        티빙<input type="checkbox" name="ott" value="tving">
+                        라프텔<input type="checkbox" name="ott" value="laftel">
+                        웨이브<input type="checkbox" name="ott" value="wavve">
+                    </p>     
+                </li>
+               <li>
+<<<<<<< HEAD
+                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;" href="/register">회원 가입 신청</button>
+=======
+                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">회원 가입 신청</button>
+>>>>>>> e484cca1b55f86259538034f4b577b15647d80d0
+               </li>
+                     
+            </ul>
+
+        </form>
+    </div>
+
+
+   </section>
+  
+</body>
+</html>
