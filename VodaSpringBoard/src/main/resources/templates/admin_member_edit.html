@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="UTF-8">
@@ -266,14 +266,12 @@
                 zoom: 1.5;
             }
             .btn_cancle{
-                margin-top: 30px;
-                margin-left: 160px;
-                margin-right: 350px;
+               
                 width: 140px;
                 height: 70px;
             }
             .btn_submit{
-               
+                margin-right: 100px;
                 width: 140px;
                 height: 70px;
             }
@@ -284,8 +282,27 @@
                 width: 70px;
                 height: 35px;
             }
-            .btn_edit_div{
-                margin-top: 30px;
+            
+
+            .div_btn_submit{
+                float: left;
+                margin-left: 200px;
+                margin-top: 50px;
+            }
+
+            .div_btn_cancle{
+               float:left;
+               margin-top: 50px;
+               margin-left: 260px;
+            }
+            .text{
+                margin-top: 6px;
+                margin-left: 40px;
+                font-weight: bold;
+            }
+            input { 
+                width: 100%;
+                height: 30px;
             }
         </style>
     </head>
@@ -295,15 +312,15 @@
         <div class="main_container">
             <div class="nav_container">
                 <nav>
-                    <a href="../A_Admin/admin_main.html"><img src="../D_AdminContents/img/main_logo.png" alt="logo" class="main_logo"></a>
+                    <a href="/admin_main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
                     <h2>관리자 페이지</h2>
                     <br>
                     <ul class="nav">
                         <span class="dropdown">
-                            <a href="../B_AdminMember/admin_list_member.html" class="main_nav"><li>회원 관리</li></a>
+                            <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
-                                <a href="../B_AdminMember/admin_list_member.html" class="sub_nav"><p>-회원 리스트</p></a>
-                                <a href="../B_AdminMember/admin_withdrawal_member.html" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
+                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a>
+                                <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
                             </div>
                         </span>
                         <br>
@@ -334,77 +351,47 @@
                             </div>
                             <div class="user_info">
                             <p>로그인 중</p> 
-                            <a href="../A_Admin/admin_before_login.html"><button class="logout">로그아웃</button></a>
+                            <a href="../A_Admin/admin_before_login.html"><button class="logout">로그아웃</button></a> <!--로그아웃 처리-->
                             </div>
                         </div>
-                        <p class="title">회원 추가</p>
+                        <p class="title">정보 수정</p>
                         <hr>
-
-                        <form action="http://nam3324.synology.me:32769">
-                            <input type="checkbox" name="member_edit" class="member_info">회원 기본정보
+                           
                         <table>         
                             <colgroup>
                                 <col width="25%" />
                                 <col width="25%" />
-                                
                             </colgroup>
-                              <tbody>
+                           <form action="/member/edit" method="post">
+                            <tbody>
                                 <tr>
                                     <td class="subject">아이디</td>
-                                    <td>123</td>
+                                    <td><input type="text" name="id" th:value="${dto.id}" ></td>
                                   </tr>
                                 <tr>
                                   <td class="subject">비밀번호</td>
-                                  <td>123</td>
+                                  <td><input type="password" name="passwd" th:value="${dto.passwd}" ></td>
                                 </tr>
+                                <tr>
+                                    <td class="subject">이름</td>
+                                    <td><input type="text" name="name" th:value="${dto.name}" ></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="subject">닉네임</td>
+                                    <td><input type="text" name="nick" th:value="${dto.nick}"></td>
+                                  </tr>
                                 <tr>
                                   <td class="subject">이메일</td>
-                                  <td>123</td>
-                                </tr>
-                                <tr>
-                                  <td class="subject">가입일</td>
-                                  <td>123</td>
+                                  <td><input type="text" name="email" th:value="${dto.email}"></td>
                                 </tr>
                               </tbody>
                           </table> 
-                          <div class="btn_edit_div">
-                            <button class="btn_edit">정보수정</button>
-                          </div>                            
-                               
-
-                        <input type="checkbox" name="member_edit" class="member_info">사이트 가입정보
-                        <table>         
-                            <colgroup>
-                                <col width="25%" />
-                                <col width="25%" />
-                                
-                            </colgroup>
-                              <tbody>
-                                <tr>
-                                    <td class="subject">주소</td>
-                                    <td>123</td>
-                                  </tr>
-                                <tr>
-                                  <td class="subject">전화번호</td>
-                                  <td>123</td>
-                                </tr>
-                                <tr>
-                                  <td class="subject">생년월일(필수)</td>
-                                  <td>123</td>
-                                </tr>
-                                <tr>
-                                  <td class="subject">성별</td>
-                                  <td>123</td>
-                                </tr>
-                              </tbody> 
-                            </table>
-                            <div class="btn_edit_div">
-                                <button class="btn_edit">정보수정</button>
-                              </div> 
-
-                            <a href="../B_AdminMember/admin_list_member.html"><button class="btn_cancle">CANCLE</button></a>
-                            <a href="../B_AdminMember/admin_list_member.html"><button class="btn_submit">SUBMIT</button></a>
-                    </form>
+                              <div class="div_btn_submit">
+                                <button class="btn_submit" type="submit">SUBMIT</button>
+                                <button class="btn_cancle" href="javascript:history.back();">CANCLE</button>
+                              </div>   
+                            </form>
+                             
                     </section>
                 </div>
         </div>

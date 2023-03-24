@@ -203,7 +203,6 @@
                 font-weight: bold;
                 color: rgb(70, 81, 0);
             }
-<<<<<<< HEAD
             section tfoot{
             font-size: 0px;
         }
@@ -243,13 +242,10 @@
                 }
             }
             </script>
-    </head>
-    
-=======
-        </style>
-    </head>
+    </head> 
 
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
+
+
     <body>
         <header>
 
@@ -257,26 +253,15 @@
         <div class="main_container">
             <div class="nav_container">
                 <nav>
-<<<<<<< HEAD
                     <a href="/admin_main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
-=======
-                    <a href="../A_Admin/admin_main.html"><img src="../B_AdminMember/img/main_logo.png" alt="logo" class="main_logo"></a>
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
                     <h2>관리자 페이지</h2>
                     <br>
                     <ul class="nav">
                         <span class="dropdown">
-<<<<<<< HEAD
                             <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
                                 <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a>
                                 <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
-=======
-                            <a href="../B_AdminMember/admin_list_member.html" class="main_nav"><li>회원 관리</li></a>
-                            <div class="dropdown-content">
-                                <a href="../B_AdminMember/admin_list_member.html" class="sub_nav"><p>-회원 리스트</p></a>
-                                <a href="../B_AdminMember/admin_withdrawal_member.html" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
                             </div>
                         </span>
                         <br>
@@ -307,11 +292,7 @@
                             </div>
                             <div class="user_info">
                             <p>로그인 중</p> 
-<<<<<<< HEAD
                             <button class="logout">로그아웃</button> <!--로그아웃 처리-->
-=======
-                            <a href="../A_Admin/admin_before_login.html"><button class="logout">로그아웃</button></a>
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
                             </div>
                         </div>
                         <p class="title">탈퇴 대기 회원</p>
@@ -329,20 +310,12 @@
                             <table>
                                 <thead>
                                     <th class="chb"><input type="checkbox"></th>
-<<<<<<< HEAD
                                     <th>No</th>
                                     <th>ID</th>
-=======
-                                    <th>Board-Name</th>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Membership-Date</th>
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
                                     <th>Request-date</th>
                                     <th>Reason</th>
                                 </thead>
                                 <tbody>
-<<<<<<< HEAD
                                     <th:block th:each="secession : ${list}">
                                     <tr>
                                         <td class="chb"><input type="checkbox"></td>
@@ -352,6 +325,7 @@
                                         <td>[[${secession.reason}]]</td>
                                     </tr>
                                     </th:block>
+                                    </tbody>
                                     <tfoot>
                                         <tr>
                                          <td colspan="7">
@@ -381,74 +355,12 @@
                                          </td>
                                      </tr>
                                     </tfoot>
-=======
-                                    <tr>
-                                        <td class="chb"><input type="checkbox"></td>
-                                        <td>1</td>
-                                        <td>testid1</td>
-                                        <td>이승욱</td>
-                                        <td>1992.07.16</td>
-                                        <td>2023-02-13</td>
-                                        <td>휴면 계정</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="chb"><input type="checkbox"></td>
-                                        <td>2</td>
-                                        <td>testid2</td>
-                                        <td>노주연</td>
-                                        <td>2023.03.12</td>
-                                        <td>2023-02-13</td>
-                                        <td>휴면 계정</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="chb"><input type="checkbox"></td>
-                                        <td>3</td>
-                                        <td>testid3</td>
-                                        <td>김다빈</td>
-                                        <td>2022.10.10</td>
-                                        <td>2023-02-13</td>
-                                        <td>휴면 계정</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="chb"><input type="checkbox"></td>
-                                        <td>4</td>
-                                        <td>testid4</td>
-                                        <td>안가영</td>
-                                        <td>2023.01.08</td>
-                                        <td>2023-02-13</td>
-                                        <td>휴면 계정</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="chb"><input type="checkbox"></td>
-                                        <td>5</td>
-                                        <td>testid5</td>
-                                        <td>남상규</td>
-                                        <td>2023.03.10</td>
-                                        <td>2023-02-13</td>
-                                        <td>휴면 계정</td>
-                                    </tr>
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
-                                </tbody>
                             </table>
                             <div class="btn_container">
                             <button class="bottombtn">탈퇴 취소</button>
-<<<<<<< HEAD
                             <button onclick="delete_confirm()" class="bottombtn">탈퇴 등록</button>
                             </div>
                             
-=======
-                            <button class="bottombtn">탈퇴 등록</button>
-                            </div>
-                            <div class="slider_container">
-                                <button class="slider"><</button>
-                                <button class="slider">1</button>
-                                <button class="slider">2</button>
-                                <button class="slider">3</button>
-                                <button class="slider">4</button>
-                                <button class="slider">></button>
-
-                            </div>
->>>>>>> db9fbcbbda40993a7db66c067ea1a0739e8e5672
                         </div>
                     </section>
                 </div>

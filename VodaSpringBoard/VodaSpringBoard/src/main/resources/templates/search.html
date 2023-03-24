@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Search</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: white;
+      }
+      .flex_container{
+          width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+      }
+      .t{
+        width: 100%;
+        height: 120px;
+        position: absolute;
+        border: none;
+      }
+
+    header img{
+        height: 150px;
+        display: block;
+        margin: auto;
+      }
+    header input{
+        position: absolute;
+        margin-top: 50px;
+        right: 0;
+    }
+    ul{
+        list-style: none;
+        color: white;
+    }
+    header li > img{
+        width: 60px;
+        height: 60px;
+        float: left;
+    }
+    nav{
+        text-align: center;
+        height: 70px;
+        background-color: gray;
+        margin-bottom: 40px;
+        
+    }
+    nav a{
+        background-color: gray;
+        border: none;
+        color: #a7f2dc;
+        text-decoration: none;
+        font-size: 32px;
+        font-weight: bold;
+        padding: 10px 20px;
+        width: 100px;
+        height: 50px;
+        display: inline-block;
+        text-align: center;
+   
+    }
+
+    nav a:hover,nav a:active{
+        background-color: rgb(99, 98, 98);
+    }
+    #new{
+        color: greenyellow;
+    }
+    #expire{
+        color:deepskyblue;
+    }
+ 
+    .new_content img, .expire_content img{
+        width: 150px;
+        height: 200px;
+        margin: 20px 30px 50px 20px;
+        box-shadow: 5px 5px 5px #000;
+    }
+
+    footer{
+    width: 1200px;
+    height: 80px;
+    position: fixed ;
+    bottom: 0;
+    margin: 0 auto;
+    text-align: center;
+}
+footer img{
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    height: 40px;
+    margin: 20px 80px;
+}
+footer a{
+    margin-right: 30px;
+    padding: 10px;
+    margin-top: 30px;
+    text-decoration: none;
+    color: rgb(168, 168, 168);
+}
+     
+      .top{
+        position: fixed;
+        width: 70px;
+        height: 70px;
+        background-image: url(img/up.png);
+        background-repeat: no-repeat;
+        bottom: 20px;
+        right: 200px;
+        border-radius: 100px;
+      }
+   
+      .zoom{
+        height: 40px;
+        width: 300px;
+        border: 1px solid rgb(91, 91, 91);
+        box-sizing: border-box;
+        outline: none;
+        background-image: url(img/zoom.png);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: 5px center;
+        padding-left: 43px;
+    }
+    .thumnail img{
+        text-align: center;
+        width: 200px;
+        height: 330px; 
+      }
+      .thumnail>.star{
+        width: 30px;
+        height: 30px;
+        margin-left: 0px;
+      }
+      .bx-wrapper{  
+        margin:0 auto;
+        border: none;
+        box-shadow: none;
+      }
+     .bx-wrapper img{
+        margin: 0 auto;
+     }
+      .bx-prev{
+        left: -40px !important;
+      }
+      .bx-next{
+        right: -40px !important;
+      }
+
+    .star_box{
+        width: 200px;
+        height: 30px;
+        color: #a7f2dc;
+        font-weight: bold;
+        margin-left: 43px;
+        margin-bottom: 30px;
+        background-color: gray;
+        background-image: url("img/star.png");
+        font-size: 20px;
+    }
+    select{
+        width: 70px; 
+        height: 35px;
+        font-weight: bold;
+        background-color: gray;
+        color: #a7f2dc;
+        display: inline-block;
+        
+    }
+    /* .main_container{
+        margin-top: 30px;
+    } */
+    .choice{
+        text-align: right; 
+        height: 35px;
+        margin-bottom: 30px;
+    }
+    .hide {
+      display: none !important;
+    }
+
+    .rel_search {
+        position: absolute;
+        right: 0;
+        z-index: 6;
+        margin-top: 90px;
+        float: right;
+        border: 1px solid gray;
+        color: white;
+        width: 300px;
+        height: 150px;
+        overflow: auto;
+        box-sizing: border-box;
+    }
+
+
+    .pop_rel_keywords {
+      list-style: none;
+      margin-right: 30%;
+
+    }
+
+    .pop_rel_keywords > li {
+      line-height : 250%
+    }
+
+    #test::-webkit-scrollbar {
+     display: none;
+   }
+    </style>
+    <script>
+
+$(function(){
+  const ul = document.querySelector(".pop_rel_keywords");
+  const searchInput = document.querySelector(".zoom");
+  const relContainer = document.querySelector(".rel_search");
+  let cache = '';
+
+
+  const checkInput = () => {
+      const beforeInput = searchInput.value;
+      timer(beforeInput);
+  }
+
+
+  const timer = (beforeInput) => {
+  setTimeout(() => {
+
+    if(searchInput.value === beforeInput) {
+      console.log("입력멈춤");
+      loadData(searchInput.value);
+      checkInput();
+      
+    } else {
+      console.log("입력변함");
+      checkInput();
+    }
+   
+    if(searchInput.value === "") {
+      relContainer.classList.add("hide");
+    } else {
+      relContainer.classList.remove("hide");
+    }
+  }, 500);
+}
+  
+
+
+const loadData = (input) => {
+  const url = `https://completion.amazon.com/api/2017/suggestions?session-id=135-3077052-6015425&customer-id=&request-id=DMRETXPQ3PZJQ5TKYSWX&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=undefined&prefix=${input}&event=onFocusWithSearchTerm&limit=11&fb=1&suggestion-type=KEYWORD&suggestion-type=WIDGET&_=1615280967091`;
+  
+  if(cache === url) return;
+  else {
+ cache = url;
+  fetch(url)
+  .then((res) => res.json())
+  .then(res => fillSearch(res.suggestions))
+  }
+}
+
+const fillSearch = (suggestArr) => {
+  ul.innerHTML = "";
+  suggestArr.forEach((el, idx) => {
+    const li = document.createElement("li");
+    li.innerHTML = el.value;
+    ul.appendChild(li);
+  }) 
+     
+   const liList = document.querySelectorAll(".pop_rel_keywords li");
+
+  
+}
+
+const highlightText = () => {
+
+
+}
+
+checkInput();
+
+$(document).keydown(function(e){
+    var code = e.keyCode || e.which;
+ 
+    if (code == 27) {
+        $('.rel_search').hide();
+        location.reload();
+    }
+});
+
+        $('.thumnail').bxSlider({
+          pager : false,
+          slideWidth : 600,
+          slideMargin : 20,
+          minSlides:4,
+          maxSlides:8,
+          moveSlides:1,
+          touchEnabled : false
+        });
+    });
+    </script>
+</head>
+<body>
+    <div class="flex_container">
+        <header>
+          
+              <input type="text" placeholder="검색" class="zoom">
+              <container class = "rel_search" id="test">
+                <ul class="pop_rel_keywords">
+                </ul>
+            </container>
+            
+            <img src="img/logo_white.png" alt="">  
+            <h1 style="font-weight: bold;">Search your contents!</h1>
+            <ul>
+                <li><img src="img/netflix.png" alt=""></li>
+                <li><img src="img/왓챠.png" alt=""></li>
+                <li><img src="img/wavve.png" alt=""></li>
+                <li><img src="img/Fotoram.io-removebg-preview (2).png" alt=""></li>
+                <li><img src="img/disney.png" alt=""></li>
+                <li><img src="img/laftel_logo.png" alt=""></li>
+            </ul>
+        </header>
+        <nav>
+            <a href="#">전체</a>
+            <a href="#">영화</a>
+            <a href="#">드라마</a>
+            <a href="#">예능</a>
+            <a href="#">애니</a>
+        </nav>
+        <div class="choice">
+        <select>
+           <option value="best">인기순</option>
+           <option value="new">최신순</option>
+           <option value="gpa">평점순</option>
+        </select>
+       </div>
+        <div class="main_container">
+            <section>
+                <article>
+                <div class="thumnail">
+                        <div>
+                          <div class="poster">
+                            <img src="img/img1.jpg" />
+                            </div>
+                                <div class="star_box">★5.0</div> 
+                                    <img src="img/img5.jpg" /> 
+                                    <div class="star_box">★5.0</div>         
+                          </div>  
+                        <div>
+                          <div class="poster">
+                            <img src="img/img2.jpg" />     
+                            </div>
+                            <div class="star_box">★5.0</div> 
+                               <img src="img/img6.jpg" />  
+                               <div class="star_box">★5.0</div>   
+                        </div>  
+                        <div>
+                          <div class="poster">
+                            <img src="img/img3.jpg" />     
+                            </div>
+                            <div class="star_box">★5.0</div> 
+                               <img src="img/img7.jpg" />   
+                               <div class="star_box">★5.0</div>  
+                         </div>  
+                        <div>
+                          <div class="poster">
+                            <img src="img/img4.jpg" />     
+                            </div>
+                            <div class="star_box">★5.0</div> 
+                               <img src="img/img8.jpg" /> 
+                               <div class="star_box">★5.0</div>    
+                          </div>  
+                          </div>            
+                </article>
+                <div class="t"></div>
+            </section>    
+            <footer>
+              <a href="main_page.html"><img src="img/home.png"></a>
+              <a href="new_expire.html"><img src="img/video.png"></a>
+              <a href="search.html"><img src="img/explore.png"></a>
+              <a href="my_page.html"><img src="img/profile.png"></a>
+          </footer>
+    </div>
+</body>
+</html>
