@@ -27,5 +27,7 @@ public interface MemberMapper {
 	MemberDTO selectMember(String id);
 
 	ManagerDTO loginAdmin(HashMap<String, Object> map); //관리자 로그인
+
+	int deleteMember(String id);
 }
 

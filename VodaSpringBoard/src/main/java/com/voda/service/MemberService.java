@@ -71,5 +71,10 @@ public MemberService(MemberMapper mapper) {
 		map.put("mpasswd", mpasswd);
 		return mapper.loginAdmin(map);
 	}
+
+
+	public int deleteMember(String id) {
+		return mapper.deleteMember(id);
+	}
   
 }

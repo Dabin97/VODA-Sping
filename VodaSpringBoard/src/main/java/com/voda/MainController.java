@@ -1,6 +1,7 @@
 package com.voda;
 
 import java.io.BufferedOutputStream;
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -143,19 +144,19 @@ public class MainController {
 		}
 		
 
-		//회원 삭제 팝업창 만들기
-		@RequestMapping("/member/delete")
-		public String memberDelete(MemberDTO dto) {
-		//회원 삭제 버튼 누른 후 팝업창 뜨고 ok누르면 멤버 리스트로 리턴
-		//무튼 ok 눌렀을 때 멤버 삭제...
-			return "redirect:/admin_list_member";
+		@RequestMapping("/member/delete/{id}")
+		public ResponseEntity<String> deleteMember(@PathVariable String id) {
+			int result = memberService.deleteMember(id);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("count", String.valueOf(result));
+			if(result != 0) {
+				map.put("message", "데이터 삭제 성공");
+			}else {
+				map.put("message", "데이터 삭제 실패");
+				System.out.println(result);
+			}
+			return new ResponseEntity(map,HttpStatus.OK);
 		}
-		
-		@RequestMapping("/member/delete/view")
-			public String memberDeleteView() {
-			return "/admin_list_member";
-		}	
-	
 		
 		
 		

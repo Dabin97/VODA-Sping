@@ -247,18 +247,37 @@
 	}
 
         </style>
-        <script type="text/javascript">
 
-            function delete_confirm(){
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script src="/js/jquery-3.6.3.js"></script>
+       <script type="text/javascript">
+        $(function(){ 
+            $(".del").click(function(){
+                let id= $(this).parent().prevAll('.id').text();//클릭한 버튼의 id를 저장
+                let obj = $(this).parent().prevAll('.id');
+                let param = "id="+id;
+                // let obj = $(this).parent().prevAll('.id');
+                console.log(id);
                 if(confirm("회원을 삭제하시겠습니까?")){
                     //실제로 회원이 삭제될 것
-                    alert("회원이 삭제되었습니다");
-                }else{
-                    
+                    $.ajax({ 
+                        url:'/member/delete/'+id,
+                        type:'post',
+                        dataType:'json',
+                        success:function(r){
+                        console.log(r);
+                        if(r.count=='1'){
+                            location.reload();
+                            $(obj).remove();//해당 태그 삭제
+                            alert("회원이 삭제되었습니다");
+                        }
+                        }
+                    });
                 }
-            }
+            });
+        });
+     </script>
 
-        </script>
     </head>
 
     <body>
@@ -327,19 +346,20 @@
                                     <th class="chb"><input type="checkbox"></th>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>EMail</th>
+                                    <th>Email</th>
                                     <th>Edit</th>
                                 </thead>
                                 <tbody>
                                     <th:block th:each="member : ${list}">
                                     <tr>
                                         <td class="chb"><input type="checkbox"></td>
-                                        <td>[[${member.id}]]</td>
+                                        <td class="id">[[${member.id}]]</td>
                                         <td>[[${member.name}]]</td>
                                         <td>[[${member.email}]]</td>
-                                        <td><a th:href="@{/member/edit/view/{id}(id=${member.id})}"><button>관리</button></a>
-                                             <a href="/member/delete/view"><button onclick="delete_confirm()" class="del">삭제</button></td>
-                                            
+                                        <td>
+                                            <a th:href="@{/member/edit/view/{id}(id=${member.id})}"><button>관리</button></a>
+                                            <button class="del">삭제</button>
+                                        </td>  
                                     </tr>
                                    </th:block>
                                    </tbody>
