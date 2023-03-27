@@ -1,7 +1,5 @@
 package com.voda;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,97 +7,159 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-=======
-import java.util.HashMap;
-=======
-import java.util.List;
->>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
-
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
+import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
+import com.voda.dto.SecessionDTO;
 import com.voda.service.BoardService;
 import com.voda.service.MemberService;
-import com.voda.vo.PaggingVO;
-=======
-import org.springframework.web.servlet.ModelAndView;
-
-import com.voda.dto.MemberDTO;
-<<<<<<< HEAD
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
-=======
-import com.voda.dto.SecessionDTO;
-import com.voda.service.MemberService;
+import com.voda.service.ReviewService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
-
-
->>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 
 @Controller
 public class MainController {
 	private MemberService memberService;
-<<<<<<< HEAD
 	private BoardService boardService;
-<<<<<<< HEAD
-	
-
-	public MainController(MemberService memberService, BoardService boardService) {
-		super();
-=======
-
-	public MainController(MemberService memberService, BoardService boardService) {
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
-=======
+	private ReviewService reviewService;
 	private SecessionService secessionService;
 	
-	
-	
-	public MainController(MemberService memberService, SecessionService secessionService) {
-	
->>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
+
+	public MainController(MemberService memberService, BoardService boardService, ReviewService reviewService, SecessionService secessionService) {
+		super();
 		this.memberService = memberService;
+		this.boardService = boardService;
+		this.reviewService = reviewService;
 		this.secessionService = secessionService;
-	}
-
-<<<<<<< HEAD
-	@RequestMapping("/")
-	public String index() {
-		return "index"; 
-=======
-////////////////////회원 페이지//////////////////////////////
-
-	
-
-	@RequestMapping("/main")
-	public String main() {
-		return "main";
->>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
-	}
-	
-	@RequestMapping("/main")
-	public String main() {
-		return "main";
 	} 
 	
+	@RequestMapping("/index")
+	public String index() {
+		return "index"; 
+	}
 	
+	
+	@RequestMapping("/main")
+	public String main() {
+		return "main"; 
+	}
+	
+	
+	@RequestMapping("/content_page")
+	public String contentview(HttpSession session) {
+		return "content_page";
+	} 
+		////////////////////관리자 페이지////////////////////////////////
+		@RequestMapping("/admin/index")
+		public String adminIndex() {
+			return "admin_before_login";
+			} 
+		
+		@PostMapping("/admin/login")
+		public String adminLogin(String mid, String mpasswd, HttpSession session) {
+			ManagerDTO dto = memberService.loginAdmin(mid, mpasswd);
+			session.setAttribute("manager", dto);
+			if(dto == null) { return "admin_before_login";}
+			return "redirect:/admin_main";
+			}
+
+		
+		
+		@RequestMapping("/admin_main") 
+		public String adminMain() {
+			return "admin_main";
+			}
+		
+		@GetMapping("/admin/logout")
+		public String logoutAdmin(HttpSession session){
+			session.invalidate();
+			return "redirect:/admin/index"; //index로 보내서 오류뜸
+			}
+
+		@RequestMapping("/admin/member/list")
+		public ModelAndView memberList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+			ModelAndView view = new ModelAndView();
+			view.setViewName("admin_list_member");
+			// 게시판 글목록
+			List<MemberDTO> list = memberService.selectMemberList(pageNo, 7);
+			// 페이징 정보
+			int count = memberService.selectMemberCount();
+			PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+			
+			view.addObject("list", list);
+			view.addObject("pagging", pagging);
+			
+			return view;
+		}
+		
+		@RequestMapping("/member/edit/view/{id}")
+		public ModelAndView memberEditView(@PathVariable String id,ModelAndView view) {
+			MemberDTO dto = memberService.selectMember(id);
+			view.addObject("dto", dto);
+			view.setViewName("admin_member_edit");
+			return view;
+		}
+	
+		
+		@RequestMapping("/member/edit")
+		public String memberEdit(MemberDTO dto) {
+			int result = memberService.editMember(dto);   
+			return "redirect:/admin/member/list";
+		}
+		
+		@RequestMapping("/admin/secession")
+		public ModelAndView secessionList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+			ModelAndView view = new ModelAndView();
+			view.setViewName("admin_withdrawal_member");
+			// 게시판 글목록
+			List<SecessionDTO> list = secessionService.selectMemberList(pageNo, 7);
+			// 페이징 정보
+			int count = secessionService.selectMemberCount();
+			PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+			view.addObject("list", list);
+			view.addObject("pagging", pagging);
+			return view;
+		}
+		
+
+		//회원 삭제 팝업창 만들기
+		@RequestMapping("/member/delete")
+		public String memberDelete(MemberDTO dto) {
+		//회원 삭제 버튼 누른 후 팝업창 뜨고 ok누르면 멤버 리스트로 리턴
+		//무튼 ok 눌렀을 때 멤버 삭제...
+			return "redirect:/admin_list_member";
+		}
+		
+		@RequestMapping("/member/delete/view")
+			public String memberDeleteView() {
+			return "/admin_list_member";
+		}	
+	
+		
+		
+		
+		
 	@RequestMapping("/admin/content/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
 	public ModelAndView adminContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
 		ModelAndView view = new ModelAndView();
@@ -121,15 +181,12 @@ public class MainController {
 	public String registerView() {
 		return "register";
 	}
-<<<<<<< HEAD
 	
-<<<<<<< HEAD
 	@RequestMapping("/admin/content/register/view")
 	public String adminContentRegisterView() {
 		return "admin_content_register";
 	}
 	
-<<<<<<< HEAD
 	
 	@RequestMapping("/admin/content/register") //등록
 	public String adminContentRegister(BoardDTO dto, @RequestParam("file") MultipartFile[] file) {
@@ -198,46 +255,6 @@ public class MainController {
 			map.put("message", "파일 업로드 중 에러 발생");
 		}
 		return new ResponseEntity(map,HttpStatus.OK); 
-=======
-//	@RequestMapping("/review/write")
-//	public String reviewWrite() {
-//		reurn 
-//	}
-	@RequestMapping("/review/like/{rno}")
-	public ResponseEntity<String> reviewLike(@PathVariable(name = "rno") int rno, 
-			HttpSession session){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		
-		int result = boardService.insertReviewLike(rno,dto.getId());
-		
-		if(result == 0)
-			map.put("msg", "좋아요를 취소하셨습니다.");
-		else
-			map.put("msg", "좋아요를 하셨습니다.");
-		
-		map.put("rlike",boardService.selectReviewLike(rno));
-		
-		return new ResponseEntity(map,HttpStatus.OK);
-	}
-	
-	@RequestMapping("/review/hate/{rno}")
-	public ResponseEntity<String> reviewHate(@PathVariable(name = "rno") int rno, 
-			HttpSession session){
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		
-		int result = boardService.insertReviewHate(rno,dto.getId());
-		
-		if(result == 0)
-			map.put("msg", "싫어요를 취소하셨습니다.");
-		else
-			map.put("msg", "싫어요를 하셨습니다.");
-		
-		map.put("bhate",boardService.selectReviewHate(rno));
-		
-		return new ResponseEntity(map,HttpStatus.OK);
->>>>>>> fba97c7c0f8b54f59b4ab4c11e527291457685a8
 	}
 	
 	@RequestMapping("/image/{fno}")
@@ -402,151 +419,84 @@ public class MainController {
 		
 		return new ResponseEntity(list,HttpStatus.OK);
 	}
+
 	
-	@RequestMapping("/admin/logout")
-	public String logoutAdmin(HttpSession session){
-		session.invalidate();
-		return "redirect:/admin_before_login"; //index로 보내서 오류뜸
+	@RequestMapping("/admin/content/new") //신작 컨텐츠 리스트
+	public ModelAndView adminNewContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_content_new");
+		//게시판 글목록
+		List<BoardDTO> list = boardService.selectNewList(pageNo, 7);
+		 
+		//페이징 정보
+		int count = boardService.selectBoardCount(); //그대로 둬도 되는지 확인
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+		
+		view.addObject("list",list); 
+		view.addObject("pagging",pagging); 
+		
+		return view;
 	}
-
 	
+	@RequestMapping("/admin/content/expire") //만료 컨텐츠 리스트
+	public ModelAndView adminExpireContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_content_expire");
+		//게시판 글목록
+		List<BoardDTO> list = boardService.selectExpireList(pageNo, 7);
+		 
+		//페이징 정보
+		int count = boardService.selectBoardCount(); 
+		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+		
+		view.addObject("list",list); 
+		view.addObject("pagging",pagging); 
+		
+		return view;
+	}
 	
+	@RequestMapping("/member/review/register")
+	public String registerReview(ReviewDTO dto) {
+		reviewService.insertReview(dto);
+		return "redirect:/content_page";
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-=======
-	@RequestMapping("/login")
+	@PostMapping("/login")
 	public String login(String id, String passwd, HttpSession session) {
-=======
-
-	@RequestMapping("/login/member")
-	public String memberLogin(String id, String passwd, HttpSession session) {
->>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 		MemberDTO dto = memberService.login(id, passwd);
-		session.setAttribute("dto", dto);
+		session.setAttribute("member", dto);
+		if(dto == null) {
+				return "redirect:/index";
+		}
 		return "redirect:/main";
 	}
 	
-	
-	////////////////////관리자 페이지//////////////////////////////
-	@RequestMapping("/admin/index")
-	public String adminLogin() {
-		return "admin_before_login";
-	} 
-	
-	@RequestMapping("/admin/login")
-	public String adminLogin(String id, String passwd, HttpSession session) {
-		MemberDTO dto = memberService.login(id, passwd);
-		session.setAttribute("dto", dto);
-		return "redirect:/admin_main";
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
-	@RequestMapping("/admin_main") 
-	public String adminMain() {
-		return "admin_main";
-	}
-//	
-//	@RequestMapping("/admin/member/list")
-//	public ModelAndView memberList(ModelAndView view) {
-//		List<MemberDTO> list = memberService.selectAllMember();
-//		view.addObject("list", list);
-//		view.setViewName("admin_list_member");
-//		return view;
-//	}
-//	
-	@RequestMapping("/admin/member/list")
-	public ModelAndView memberList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("admin_list_member");
-		// 게시판 글목록
-		List<MemberDTO> list = memberService.selectMemberList(pageNo, 7);
-		// 페이징 정보
-		int count = memberService.selectMemberCount();
-		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
-
-		view.addObject("list", list);
-		view.addObject("pagging", pagging);
-
-		return view;
-	}
 	
-//	@RequestMapping("/admin/member/list")
-//	public ModelAndView memberList(
-//			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
-//		ModelAndView view = new ModelAndView();
-//		List<MemberDTO> list = memberService.selectMemberList(pageNo);
-//		view.addObject("list", list);
-//		PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
-//		view.addObject("pagging", pagging);
-//		view.setViewName("admin_qna");
-//		return view;
-//	}
-
-	
-	@RequestMapping("/member/add/view")
-	public String memberAddView() {
-		return "admin_member_add";
-	}
-
-
-	@RequestMapping("/admin/secession")
-	public ModelAndView secessionList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("admin_withdrawal_member");
-		// 게시판 글목록
-		System.out.println(pageNo);
-		List<SecessionDTO> list = secessionService.selectMemberList(pageNo, 7);
+	@RequestMapping("/review")
+	public class ReviewController {
+		private ReviewService reviewService;
 		
-		// 페이징 정보
-		int count = secessionService.selectMemberCount();
-		PaggingVO pagging = new PaggingVO(count, pageNo, 7);
-
-		view.addObject("list", list);
-		view.addObject("pagging", pagging);
-
-		return view;
-	}
-
-	@RequestMapping("/member/add")
-	public String memberAdd(MemberDTO dto) {
-		memberService.insertMember(dto);
-		return "redirect:/admin_list_member";
+		public ReviewController(ReviewService reviewService) {
+			this.reviewService = reviewService;
+		}
+		
+		@RequestMapping("/review/register")
+		public String memberReviewRegister(ReviewDTO dto) {
+		reviewService.insertReview(dto);
+		return "redirect:/member/review";
+		}
+	
+	
+	
 	}
 	
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 	
-	//회원 삭제 팝업창 만들기
-	@RequestMapping("/member/delete")
-	public String memberDelete(MemberDTO dto) {
-		//회원 삭제 버튼 누른 후 팝업창 뜨고 ok누르면 멤버 리스트로 리턴
-		//무튼 ok 눌렀을 때 멤버 삭제...
-		return "redirect:/admin_list_member";
-	}
 	
-	@RequestMapping("/member/delete/view")
-	public String memberDeleteView() {
-		return "/admin_list_member";
-	}	
-//	
-//	@RequestMapping("/list/paging")
-//	public ModelAndView memberListPaiging(
-//			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
-//		ModelAndView view = new ModelAndView();
-//		List<MemberDTO> list = memberService.selectAllMember(pageNo);
-//		view.addObject("list", list);
-//		PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
-//		view.addObject("pagging", pagging);
-//		view.setViewName("admin_list_member");
-//		return view;
-//	}
-
+	
 }

@@ -34,6 +34,40 @@
 		FROM BOARD_TABLE_VIEW b 
 		WHERE ceil(rw / #{contentCount}) = #{pageNo}
 	</select>	
+	<select id="selectNewList" resultType="board" parameterType="hashMap">
+		SELECT * FROM 
+		(SELECT b.bno, 
+		       b.title, 
+		       b.pd, 
+		       b.casting, 
+		       b.content, 
+		       b.genre, 
+		       b.poster_video as posterVideo, 
+		       TO_CHAR(b.new_date,'YYYY-MM-DD') AS newDate, 
+		       TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expireDate, 
+		       b.ott_no AS ottNo, 
+		       (select ott_name from ott_table ot where ot.ott_no = b.ott_no) AS ottName,
+		       ROW_NUMBER() OVER (ORDER BY b.new_date DESC) AS rnum <!-- 날짜 최신순으로 뽑도록 구역을 잡음 -->
+		FROM BOARD_TABLE_VIEW b)
+		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
+	</select>
+	<select id="selectExpireList" resultType="board" parameterType="hashMap">
+	SELECT * FROM 
+		(SELECT b.bno, 
+		       b.title, 
+		       b.pd, 
+		       b.casting, 
+		       b.content, 
+		       b.genre, 
+		       b.poster_video as posterVideo, 
+		       TO_CHAR(b.new_date,'YYYY-MM-DD') AS newDate, 
+		       TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expireDate, 
+		       b.ott_no AS ottNo, 
+		       (select ott_name from ott_table ot where ot.ott_no = b.ott_no) AS ottName,
+		       ROW_NUMBER() OVER (ORDER BY b.expire_date DESC) AS rnum <!-- 날짜 최신순으로 뽑도록 구역을 잡음 -->
+		FROM BOARD_TABLE_VIEW b)
+		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
+	</select>
 	
 	<select id="selectBoard" resultType="board" parameterType="int"> 
 		SELECT b.bno, 

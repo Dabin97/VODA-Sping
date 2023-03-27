@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
 import com.voda.mapper.MemberMapper;
 
@@ -52,11 +53,23 @@ public MemberService(MemberMapper mapper) {
 	}
 
 
-	
+	public int editMember(MemberDTO dto) {
+		return mapper.editMember(dto);
+		
+	}
 
 
+	public MemberDTO selectMember(String id) {
+		
+		return mapper.selectMember(id);
+	}
 
 
-
+	public ManagerDTO loginAdmin(String mid, String mpasswd) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mid", mid);
+		map.put("mpasswd", mpasswd);
+		return mapper.loginAdmin(map);
+	}
   
 }

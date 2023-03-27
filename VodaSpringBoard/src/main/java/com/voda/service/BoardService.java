@@ -1,6 +1,5 @@
 package com.voda.service;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,12 +9,6 @@ import org.springframework.stereotype.Service;
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
-=======
-import java.util.HashMap;
-
-import org.springframework.stereotype.Service;
-
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 import com.voda.mapper.BoardMapper;
 
 @Service
@@ -39,29 +32,10 @@ public class BoardService {
 		return r;
 	}
 
-	public int selectReviewLike(int rno) {
-		return mapper.selectReviewLike(rno);
+	public Object selectReviewLike(int rno) {
+		return null;
 	}
 
-	public int insertReviewHate(int rno, String id) {
-		int r = 0;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rno", rno);
-		map.put("id", id);
-		try {
-			r = mapper.insertReviewHate(map);
-		}catch (Exception e) {
-			mapper.deleteReviewHate(map);
-		}
-		return r;
-	}
-
-	public int selectReviewHate(int rno) {
-		return mapper.selectReviewHate(rno);
-
-	}
-
-<<<<<<< HEAD
 	public int uploadImage(String absolutePath) {
 		//이미지 파일 번호 시퀸스로 생성한 결과를 받아옴
 				int fno = mapper.selectImageFileNo();
@@ -145,8 +119,22 @@ public class BoardService {
 		return mapper.selectSearchContent(map);
 	}
 
+	public List<BoardDTO> selectNewList(int pageNo, int i) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNo",pageNo);
+		map.put("contentCount", i);
+		return mapper.selectNewList(map);
+	}
+
+	public List<BoardDTO> selectExpireList(int pageNo, int i) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNo",pageNo);
+		map.put("contentCount", i);
+		return mapper.selectExpireList(map);
+	}
 
 
-=======
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
+	
+
+
 }

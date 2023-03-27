@@ -277,26 +277,23 @@
     </head>
 
     <body>
-        <header>
-
-        </header>
         <div class="main_container">
             <div class="nav_container">
                 <nav>
-                    <a href="/admin/main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
+                    <a href="/admin_main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
                     <h2>관리자 페이지</h2>
                     <br>
                     <ul class="nav">
                         <span class="dropdown">
-                            <a href="/memberList" class="main_nav"><li>회원 관리</li></a>
+                            <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
-                                <a href="/memberList" class="sub_nav"><p>-회원 리스트</p></a> <!--회원관리랑 회원 리스트가 똑같은지 확인할것-->
-                                <a href="/membersecessionList" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
+                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a> 
+                                <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
                             </div>
                         </span>
                         <br>
                         <span class="dropdown">
-                            <a href="/adminReview"  class="main_nav"><li>리뷰 관리</li></a>
+                            <a href="/adminReview"  class="main_nav"><li>리뷰 관리</li></a> <!--관리자 페이지 리뷰 리스트 경로-->
                                 <div class="dropdown-content">
                                     <a href="/adminReview"  class="sub_nav"><p>-리뷰 리스트</p></a>
                                 </div>
@@ -313,26 +310,28 @@
                         </span>
                     </ul>
                 </nav>
-            </div>    
+            </div> 
                 <div class="section_container">  
                     <section>
-                        <div class="login_info_bar">
-                            <div class="user_icon">
-                            <img src="/img/user_icon.png">
+                        <form action="/admin/logout">
+                            <div class="login_info_bar">
+                                <div class="user_icon">
+                                <img src="/img/user_icon.png">
+                                </div>
+                                <div class="user_info">
+                                <p>로그인 중</p> 
+                                <button class="logout">로그아웃</button> <!--로그아웃 처리-->
+                                </div>
                             </div>
-                            <div class="user_info">
-                            <p>로그인 중</p> 
-                            <button class="logout" href="/admin/logout">로그아웃</button>
-                            </div>
-                        </div>
+                        </form>
                         <p class="title">컨텐츠 리스트</p>
                         <hr>
                         <div class="member_search">         
-                            <b class="b">검색</b> <!--검색기능했던거 찾아보기 grade search-->
+                            <b class="b">검색</b> 
                             <br>
                             <select name="kind">
                                 <option value="title">제목</option>
-                                <option value="ott_name">ott</option> <!--?-->
+                                <option value="ott_name">ott</option> 
                             </select>
                             <input type="text" class="textbox" name="search" placeholder="검색어 입력">
                             <button type="button" class="btn_search">검색</button>

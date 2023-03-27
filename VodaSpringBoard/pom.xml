@@ -6,11 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.9</version>
-<<<<<<< HEAD
 		<relativePath/> <!-- lookup parent from repository -->  
-=======
-		<relativePath/> <!-- lookup parent from repository -->
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 	</parent>
 	<groupId>com.voda</groupId>
 	<artifactId>VodaSpringBoard</artifactId>
@@ -23,12 +19,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
@@ -36,18 +26,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<<<<<<< HEAD
-<<<<<<< HEAD
 			<dependency>
-=======
-		<dependency>
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-=======
->>>>>>> eab48375fa17dd4eab6d1f9a7acf1010fd7e90e1
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

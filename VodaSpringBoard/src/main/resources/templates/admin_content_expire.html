@@ -19,8 +19,6 @@
                 margin:0 auto;
             }
 
-
-
             .main_container{
                 width: 1200px;
                 height: 730px;
@@ -69,6 +67,7 @@
                 padding-left: 50px;
                 margin-top:30px;
                 color: rgb(70, 81, 0);
+                margin-left :100px;
             }
 
             .title {
@@ -86,7 +85,7 @@
             select {
                 width: 80px;
                 height: 35px;
-                margin-left: 100px;
+
             }
 
             .textbox{
@@ -99,6 +98,7 @@
                 margin-top:50px;
             }
 
+          
             thead {
                 text-align: center;
                 font-size: 16px;
@@ -112,6 +112,7 @@
             }
             .chb {
                 width: 50px;
+                padding-left: 5px;
             }
             td {
                 width: 200px;
@@ -203,53 +204,79 @@
                 font-weight: bold;
                 color: rgb(70, 81, 0);
             }
+            .b {
+                margin-left: 0px;
+            }
             section tfoot{
-            font-size: 0px;
-        }
-        section tfoot a:link,section tfoot a:visited{
-            display: inline-block;
-            padding:0px 10px;
-            text-decoration: none;
-            color:black;
-            font-size: 16px !important;
-        }
-        
-        .current_page{
-            display: inline-block;
-            padding:0px 10px;
-            font-size: 16px !important;
-            color:red;
-            font-weight: bold;
-        }
-        tfoot > tr > td{
-            position: relative;
-        }
-        section table td,section table th{
-		border:2px solid #e2e2e2;
-		text-align: center;
-		padding:10px 0px;
-	}
+                font-size: 0px;
+            }
+            section tfoot a:link,section tfoot a:visited{
+                display: inline-block;
+                padding:0px 10px;
+                text-decoration: none;
+                color:black;
+                font-size: 16px !important;
+            }
+            
+            .current_page{
+                display: inline-block;
+                padding:0px 10px;
+                font-size: 16px !important;
+                color:red;
+                font-weight: bold;
+            }
+            tfoot > tr > td{
+                position: relative;
+            }
         </style>
 
-        <script type="text/javascript">
+<script src="/js/jquery-3.6.3.js"></script>
 
-            function delete_confirm(){
-                if(confirm("해당 회원을 탈퇴시키겠습니까?")){
-                    //실제로 회원이 삭제될 것
-                    alert("회원을 탈퇴시켰습니다");
-                }else{
-                    
+<script th:inline="javascript">
+    $(function(){  
+        $('.btn_search').click(function(){
+            let param = '';
+            $('.member_search input,.member_search select').each(function(i, obj){
+                console.log($(obj).attr('name'),$(obj).val());
+                param += $(obj).attr('name')+"="+$(obj).val() + "&"
+            });
+            console.log(param);
+            //ajax로 search로 param을 전달하고
+            //검색 결과를 받아서 tbody에 출력
+            $.ajax({
+                url : '/content/search',
+                data : param,
+                type : 'post',
+                dataType : 'json',
+                success:function(r){
+                    console.log(r);
+                    //결과값 저장할 태그를 조립
+                    let tag = '';
+                    for(i=0;i<r.length;i++){
+                        tag += '<tr>';
+                        tag += '<td class="chb">'+r[i].bno+'</td>';
+                        tag += '<td>'+r[i].ottName+'</td>';
+                        tag += `<td><a th:href="@{/admin/content/detail/${r[i].bno}(bno=\${board.bno })}">${r[i].title}</a></td>`;
+                        tag += '<td>'+r[i].newDate+'</td>';
+                        tag += '<td>'+r[i].expireDate+'</td>';
+                        tag += `<td><button id="btn_update"><a href="/admin/content/write">편집</a></button>
+                                <button id="btn_delete"><a th:href="@{/admin/content/delete/${r[i].bno}(bno=\${board.bno })}">삭제</a></button>
+                                </td>`;
+                        tag += '</tr>';
+                    }
+                    $('tbody').html(tag);
                 }
-            }
-            </script>
-    </head> 
+            });
+        });
+        $(".btn_reset").click(function(){
+            location.href="/admin/content/list";
+        });
+    });
 
-
+</script>
+    </head>
 
     <body>
-        <header>
-
-        </header>
         <div class="main_container">
             <div class="nav_container">
                 <nav>
@@ -260,7 +287,7 @@
                         <span class="dropdown">
                             <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
-                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a>
+                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a> 
                                 <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
                             </div>
                         </span>
@@ -283,92 +310,82 @@
                         </span>
                     </ul>
                 </nav>
-            </div>   
+            </div> 
                 <div class="section_container">  
                     <section>
-                        <div class="login_info_bar">
-                            <div class="user_icon">
-                            <img src="../B_AdminMember/img/user_icon.png">
+                        <form action="/admin/logout">
+                            <div class="login_info_bar">
+                                <div class="user_icon">
+                                <img src="/img/user_icon.png">
+                                </div>
+                                <div class="user_info">
+                                <p>로그인 중</p> 
+                                <button class="logout">로그아웃</button> <!--로그아웃 처리-->
+                                </div>
                             </div>
-                            <div class="user_info">
-                            <p>로그인 중</p> 
-                            <button class="logout">로그아웃</button> <!--로그아웃 처리-->
-                            </div>
-                        </div>
-                        <p class="title">탈퇴 대기 회원</p>
+                        </form> 
+
+                        <p class="title">만료 컨텐츠 리스트</p>
                         <hr>
                         <div class="member_search">         
-                            <b>검색</b>
+                            <b class="b">검색</b> 
                             <br>
-                            <select name="search">
-                                <option value="1">이름</option>
-                                <option value="2">아이디</option>
+                            <select name="kind">
+                                <option value="title">제목</option>
+                                <option value="ott_name">ott</option> 
                             </select>
-                            <input type="text" class="textbox">
+                            <input type="text" class="textbox" name="search" placeholder="검색어 입력">
+                            <button type="button" class="btn_search">검색</button>
+                            <button type="button" class="btn_reset">검색 초기화</button>
                         </div>
+
                         <div class="search_table">
                             <table>
                                 <thead>
-                                    <th class="chb"><input type="checkbox"></th>
-                                    <th>No</th>
-                                    <th>ID</th>
-                                    <th>Request-date</th>
-                                    <th>Reason</th>
+                                    <th class="chb">Number</th>
+                                    <th>OTT</th>
+                                    <th>Title</th>
+                                    <th>New-Date</th>
+                                    <th style="color: red;">Expire-Date</th>
+                                    <th>Edit</th>
                                 </thead>
                                 <tbody>
-                                    <th:block th:each="secession : ${list}">
-                                    <tr>
-                                        <td class="chb"><input type="checkbox"></td>
-                                        <td>[[${secession.sno}]]</td>
-                                        <td>[[${secession.id}]]</td>
-                                        <td>[[${secession.sdate}]]</td>
-                                        <td>[[${secession.reason}]]</td>
+                                    <tr th:each="board : ${list}"> 
+                                        <td class="chb">[[${board.bno}]]</td>
+                                        <input type="hidden" name="ottNo" th:value="${board.ottNo}"> <!-- ottNo -->
+                                        <td>[[${board.ottName}]]</td>
+                                        <td><a th:href="@{/admin/content/detail/{bno}(bno=${board.bno })}">[[${board.title}]]</a></td>
+                                        <td>[[${board.newDate}]]</td>
+                                        <td>[[${board.expireDate}]]</td> 
+                                        <td>
+                                            <button id="btn_delete"><a th:href="@{/admin/content/write/{bno}(bno=${board.bno })}">편집</a></button>
+                                            <button id="btn_delete"><a th:href="@{/admin/content/delete/{bno}(bno=${board.bno })}">삭제</a></button>
+                                        </td>
                                     </tr>
-                                    </th:block>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                         <td colspan="7">
-                                             <!-- 이전 페이지 그룹으로 이동 -->
-                                             <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
-                                             
-                                             <!-- 
-                                                 페이징 결과 출력
-                                                     PaggingVO에 있는 getStartPageOfPageGroup
-                                                                     getEndPageOfPageGroup
-                                                     이용해서 Thymeleaf를 이용해서 게시판 페이지 번호를 출력	
-                                              -->
-                                             <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
-                 
-                                             <!-- 현재 페이지 번호는 링크를 제거하고 글자를 빨간색으로 변경 -->
-                                             <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
-                                             
-                                             <!-- 현재 페이지 번호가 아닌 페이지 번호는 링크를 생성 -->						
-                                             <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/secession(pageNo=${i})}" th:text="${i}"></a>
-                                             
-                                             </th:block>
-                                                  
-                                              <!-- 다음 페이지 그룹으로 이동 
-                                                      >>를 클릭시 다음 그룹의 첫번째 페이지로 이동
-                                              -->	
-                                                 <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
-                                         </td>
-                                     </tr>
-                                    </tfoot>
+                                </tbody>
+                                <tfoot> 
+                                    <tr>
+                                        <td colspan="7">
+                                            <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/content/expire(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
+                                    
+                                            <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
+                
+                                            <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
+                                           				
+                                            <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/content/expire(pageNo=${i})}" th:text="${i}"></a>
+                                            
+                                            </th:block>
+                                    
+                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/content/expire(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
-                            <div class="btn_container">
-                            <button class="bottombtn">탈퇴 취소</button>
-                            <button onclick="delete_confirm()" class="bottombtn">탈퇴 등록</button>
-                            </div>
-                            
-                        </div>
+                            <button id="bottombtn"><a th:href="@{/admin/content/register/view}">추가</a></button>
                     </section>
                 </div>
         </div>
-        
-            <footer>
 
-            </footer>
     </body>
 
 </html>

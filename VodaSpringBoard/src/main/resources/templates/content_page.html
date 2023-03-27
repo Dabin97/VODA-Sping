@@ -4,11 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Content Page</title>
-<<<<<<< HEAD
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-=======
-<    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <style>
@@ -273,18 +269,8 @@
             border: none;
         }
     </style>
-    
     <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
     $(function(){
-=======
-$(function(){
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
-=======
-	$(function(){
-	
->>>>>>> fba97c7c0f8b54f59b4ab4c11e527291457685a8
         $('.heart').on({ //하트 이미지 변경
         'click': function() {
             var src = ($(this).attr('src') === 'img/heart_full.png')
@@ -293,7 +279,7 @@ $(function(){
             $(this).attr('src', src);
             }
         });
-        
+
         $('#best_like').on({ //like 이미지 변경
         'click': function() {
             var src = ($(this).attr('src') == 'img/like_full.png')
@@ -338,6 +324,96 @@ $(function(){
 			});
 		});
 
+        $('#write_like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+		$('#write_like').click(function(){
+			$.ajax({
+				url:'/review/like/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#write_like_cnt').text(r.rlike);
+				}
+			});
+		});
+
+
+        $('#write_dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+        $('#write_dislike').click(function(){
+			$.ajax({
+				url:'/review/dislike/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#write_dislike_cnt').text(r.rdisike);
+				}
+			});
+		});
+
+
+        $('#new_like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+		$('#new_like').click(function(){
+			$.ajax({
+				url:'/review/like/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#new_like_cnt').text(r.rlike);
+				}
+			});
+		});
+
+
+        $('#new_dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+        
+        $('#new_dislike').click(function(){
+			$.ajax({
+				url:'/review/dislike/[[${review.rno}]]',
+				type : 'post',
+				dataType : 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+					$('#new_dislike_cnt').text(r.rdisike);
+				}
+			});
+		});
 
         
         
@@ -464,50 +540,44 @@ $(function(){
                 <div class="poster">
                     <img src="img/heart.png" class="heart">
                     <img src="img/flipped.png" class="pic">
-<<<<<<< HEAD
                     <iframe width="700" height="420" th:src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-=======
-                    <iframe width="700" height="420" src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
                 </div>
-                    <ul th:each="board : ${bList}">
-                    <input type="hidden" name="bno" th:value="${board.bno }">
-                        <li>제목: [[${board.title }]]</li>
-                        <li>장르: [[${board.genre }]]</li>
-                        <li>감독: [[${board.pd }]]</li>
-                        <li>출연: [[${board.casting }]]</li><br>
-                        <li>줄거리: [[${board.content }]]</li>
+                    <ul>
+                        <li>제목: 플립 (2017)</li>
+                        <li>장르: 멜로/로맨스, 드라마</li>
+                        <li>등급: 12세 관람가</li>
+                        <li>감독: 로브 라이너</li>
+                        <li>출연: 매들린 캐롤, 캘런 맥오리피, 존 마호니, 안소니 에드워즈......</li><br>
+                        <li>줄거리: 새로 이사 온 미소년 브라이스를 보고 첫눈에 사랑을 직감한 7살 소녀 줄리. 솔직하고 용감한 줄리는 자신의 마음을 적극적으로 표현하지만 브라이스는 그런
+                            줄리가 마냥 부담스럽다. 줄리의 러브빔을 요리조리 피해 다니기를 6년! 브라이스는 줄리에게 받은 달걀을 쓰레기통에 버리다 들키고, 화가 난 줄리는 그날부터 브라이스를
+                            피하기 시작한다. 하지만 성가신 그녀가 사라지자 브라이스는 오히려 전 같지 않게 줄리가 신경 쓰이기 시작하는데…</li><br>
                     </ul>
                 </article>
                 <article>
-                <form action="/review/write" method="post">
-                <input type="hidden" name="id" th:value="${review.rno }">
                     <div class="write">
                         <p class="tab">리뷰를 작성해 주세요</p>
-                        <textarea name="rwrite_review" class="txt" autofocus></textarea>
+                        <textarea class="txt" autofocus></textarea>
                         <input type="submit" value="작성" class="submit">
                     </div>
-                </form>
                     <div class="my">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>
                             <span class="like">
                                 <p id="write_like_cnt">[[${review.rlike }]]</p>
-                               <a href="#" id="btn_like"><img src="/img/like.png" alt=""></a>
-                                <p id="write_dislike_cnt">[[${review.rhate }]]</p>
-                                <a href="#" id="btn_hate"><img src="/img/dislike.png" alt=""></a>
+                                <button onclick="w_like()"><img src="img/like.png" id="write_like"></button>
+                                <p id="write_dislike_cnt">[[${review.rdislike }]]</p>
+                                <button onclick="w_dislike()"><img src="img/dislike.png" id="write_dislike"></button>
                             </span>
                         </div>
                         <input type="text" readonly class="read">
                     </div>
-                    <div>
                     <div class="best">
                         <div class="tab">
                             <p>베스트 리뷰</p>
                             <span class="like">
                                 <p id="best_like_cnt">[[${review.rlike }]]</p>
                                 <button onclick="b_like()"><img src="img/like.png" id="best_like"></button>
-                                <p id="best_dislike_cnt">[[${review.rhate }]]</p>
+                                <p id="best_dislike_cnt">[[${review.rdislike }]]</p>
                                 <button onclick="b_dislike()"><img src="img/dislike.png" id="best_dislike"></button>
                             </span>
                         </div>
@@ -519,12 +589,11 @@ $(function(){
                             <span class="like">
                                 <p id="new_like_cnt">[[${review.rlike }]]</p>
                                 <button onclick="n_like()"><img src="img/like.png" id="new_like"></button>
-                                <p id="new_dislike_cnt">[[${review.rhate }]]</p>
+                                <p id="new_dislike_cnt">[[${review.rdislike }]]</p>
                                 <button onclick="n_dislike()"><img src="img/dislike.png" id="new_dislike"></button>
                             </span>
                         </div>
                         <input type="text" readonly class="read">
-                    </div>
                     </div>
                     <div class="more">
                     </div>

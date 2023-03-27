@@ -1,6 +1,5 @@
 package com.voda.mapper;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,31 +30,8 @@ public interface BoardMapper {
 	List<BoardDTO> selectBoardList(HashMap<String, Object> map);
 	int selectBoardCount();
 	List<MemberDTO> selectSearchContent(HashMap<String, Object> map);
+	List<BoardDTO> selectNewList(HashMap<String, Object> map);
+	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
 	
-=======
-import java.util.HashMap;
-
-import org.apache.ibatis.annotations.Mapper;
-
-@Mapper
-public interface BoardMapper {
-
-	int insertReviewLike(HashMap<String, Object> map);
-	int deleteReviewLike(HashMap<String, Object> map);
-	int insertReviewHate(HashMap<String, Object> map);
-	int deleteReviewHate(HashMap<String, Object> map);
-	int selectReviewLike(int rno);
-	int selectReviewHate(int rno);
-	
-	
-
-<<<<<<< HEAD
-	public void deleteReviewLike(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		
-	}
->>>>>>> d2dd624d3cf6421541d07926c0a5279697b2d111
-=======
->>>>>>> fba97c7c0f8b54f59b4ab4c11e527291457685a8
 
 }
