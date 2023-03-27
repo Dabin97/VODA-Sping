@@ -49,15 +49,21 @@ public class MainController {
 
 	public MainController(MemberService memberService, BoardService boardService, ReviewService reviewService, SecessionService secessionService) {
 		super();
-		this.memberService = memberService;
+		this.memberService = memberService; 
 		this.boardService = boardService;
 		this.reviewService = reviewService;
 		this.secessionService = secessionService;
 	} 
 	
+	
 	@RequestMapping("/index")
 	public String index() {
 		return "index"; 
+	}
+	
+	@RequestMapping("/before_login_main")
+	public String before_login_main() {
+		return "before_login_main"; 
 	}
 	
 	
@@ -66,11 +72,27 @@ public class MainController {
 		return "main"; 
 	}
 	
+	@RequestMapping("/my_page")
+	public String my_page() {
+		return "my_page"; 
+	}
+	
+	@RequestMapping("/search")
+	public String search() {
+		return "search"; 
+	}
+	
 	
 	@RequestMapping("/content_page")
 	public String contentview(HttpSession session) {
 		return "content_page";
-	} 
+	}
+	
+	@RequestMapping("/new_expire")
+	public String new_expire(HttpSession session) {
+		return "new_expire";
+	}
+	
 		////////////////////관리자 페이지////////////////////////////////
 		@RequestMapping("/admin/index")
 		public String adminIndex() {
