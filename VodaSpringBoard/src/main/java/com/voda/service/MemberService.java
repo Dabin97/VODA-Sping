@@ -34,7 +34,6 @@ public MemberService(MemberMapper mapper) {
 
 
 	public List<MemberDTO> selectAllMember() {
-		
 		return mapper.selectAllMember();
 	}
 
@@ -60,7 +59,6 @@ public MemberService(MemberMapper mapper) {
 
 
 	public MemberDTO selectMember(String id) {
-		
 		return mapper.selectMember(id);
 	}
 

@@ -235,7 +235,7 @@
 
             function delete_confirm(){
                 if(confirm("해당 회원을 탈퇴시키겠습니까?")){
-                    //실제로 회원이 삭제될 것
+                    $
                     alert("회원을 탈퇴시켰습니다");
                 }else{
                     
@@ -247,54 +247,8 @@
 
 
     <body>
-        <header>
+        <th:block th:include="/fragments/header.html"></th:block>
 
-        </header>
-        <div class="main_container">
-            <div class="nav_container">
-                <nav>
-                    <a href="/admin_main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
-                    <h2>관리자 페이지</h2>
-                    <br>
-                    <ul class="nav">
-                        <span class="dropdown">
-                            <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
-                            <div class="dropdown-content">
-                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a>
-                                <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
-                            </div>
-                        </span>
-                        <br>
-                        <span class="dropdown">
-                            <a href="/adminReview"  class="main_nav"><li>리뷰 관리</li></a> <!--관리자 페이지 리뷰 리스트 경로-->
-                                <div class="dropdown-content">
-                                    <a href="/adminReview"  class="sub_nav"><p>-리뷰 리스트</p></a>
-                                </div>
-                        </span>
-                        <br>
-                        <span class="dropdown">
-                            <a href="/admin/content/list" class="main_nav"><li>컨텐츠 관리</li></a>
-                                <div class="dropdown-content">
-                                    <a href="/admin/content/list" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
-                                    <a href="/admin/content/register/view" class="sub_nav"><p>-컨텐츠 등록</p></a>
-                                    <a href="/admin/content/new" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
-                                    <a href="/admin/content/expire" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
-                                </div>
-                        </span>
-                    </ul>
-                </nav>
-            </div>   
-                <div class="section_container">  
-                    <section>
-                        <div class="login_info_bar">
-                            <div class="user_icon">
-                            <img src="../B_AdminMember/img/user_icon.png">
-                            </div>
-                            <div class="user_info">
-                            <p>로그인 중</p> 
-                            <button class="logout">로그아웃</button> <!--로그아웃 처리-->
-                            </div>
-                        </div>
                         <p class="title">탈퇴 대기 회원</p>
                         <hr>
                         <div class="member_search">         
@@ -365,10 +319,7 @@
                     </section>
                 </div>
         </div>
-        
-            <footer>
 
-            </footer>
     </body>
 
 </html>

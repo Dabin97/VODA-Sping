@@ -319,54 +319,8 @@
     </head>
 
     <body>
-        <header>
+        <th:block th:include="/fragments/header.html"></th:block>
 
-        </header>
-        <div class="main_container">
-            <div class="nav_container">
-                <nav>
-                    <a href="/admin/main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
-                    <h2>관리자 페이지</h2>
-                    <br>
-                    <ul class="nav">
-                        <span class="dropdown">
-                            <a href="/memberList" class="main_nav"><li>회원 관리</li></a>
-                            <div class="dropdown-content">
-                                <a href="/memberList" class="sub_nav"><p>-회원 리스트</p></a> <!--회원관리랑 회원 리스트가 똑같은지 확인할것-->
-                                <a href="/membersecessionList" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
-                            </div>
-                        </span>
-                        <br>
-                        <span class="dropdown">
-                            <a href="/adminReview"  class="main_nav"><li>리뷰 관리</li></a>
-                                <div class="dropdown-content">
-                                    <a href="/adminReview"  class="sub_nav"><p>-리뷰 리스트</p></a>
-                                </div>
-                        </span>
-                        <br>
-                        <span class="dropdown">
-                            <a href="/admin/content/list" class="main_nav"><li>컨텐츠 관리</li></a>
-                                <div class="dropdown-content">
-                                    <a href="/admin/content/list" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
-                                    <a href="/admin/content/register/view" class="sub_nav"><p>-컨텐츠 등록</p></a>
-                                    <a href="/adminContentNew" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
-                                    <a href="/adminContentExpire" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
-                                </div>
-                        </span>
-                    </ul>
-                </nav>
-            </div>   
-                <div class="section_container">  
-                    <section>
-                        <div class="login_info_bar">
-                            <div class="user_icon">
-                            <img src="/img/user_icon.png">
-                            </div>
-                            <div class="user_info">
-                            <p>로그인 중</p> 
-                            <a href="/admin/logout"><button class="logout">로그아웃</button></a>
-                            </div>
-                        </div>
                         <p class="title">컨텐츠 수정</p>
                         <hr>
 

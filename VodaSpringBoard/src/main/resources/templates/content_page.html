@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Content Page</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <style>
@@ -74,7 +74,7 @@
         }
         .write {
             box-sizing: border-box;
-            height: 200px;
+            height: 220px;
             background-color: rgb(91, 91, 91);
             color: white;
             margin-bottom: 30px;
@@ -255,22 +255,48 @@
     .rel_search::-webkit-scrollbar {
      display: none;
    }
-        span{
-            display: inline-block;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0);
-        }
-        .result{
-            margin: 0px 5px;
-            
-        }
-        button{
-            background-color: rgb(91, 91, 91);
-            border: none;
-        }
-    </style>
-    <script>
-    $(function(){
+   
+   span{
+     display: inline-block;
+     right: 0;
+     background-color: rgba(0, 0, 0, 0);
+   }
+   
+   .result{
+     margin: 0px 5px;
+   }
+   
+   button{
+     background-color: rgb(91, 91, 91);
+     border: none;
+   }
+   
+   .star {
+     background-color: rgb(91, 91, 91);
+     display: inline-block;
+     float: right;
+     margin-right: 140px;
+   }
+        
+   .starrate {
+     font-size: 12px;
+     margin-left: 30px;
+     color: goldenrod;
+   }
+
+    .starratebox {
+      font-size: 16px;
+      color: goldenrod;    	
+   }
+   
+   .read {
+   	color : black !important ;
+   	font-size : 16px !important ;
+   }
+    	
+</style>
+<script>
+$(function(){
         $('.heart').on({ //하트 이미지 변경
         'click': function() {
             var src = ($(this).attr('src') === 'img/heart_full.png')
@@ -280,142 +306,7 @@
             }
         });
 
-        $('#best_like').on({ //like 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') == 'img/like_full.png')
-                ? 'img/like.png'
-                : 'img/like_full.png';
-            $(this).attr('src', src);
-            }
-        });
-        
-		$('#best_like').click(function(){
-			$.ajax({
-				url:'/review/like/[[${review.rno}]]',
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-					$('#best_like_cnt').text(r.rlike);
-				}
-			});
-		});
 
-        $('#best_dislike').on({ //dislike 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') == 'img/dislike_full.png')
-                ? 'img/dislike.png'
-                : 'img/dislike_full.png';
-            $(this).attr('src', src);
-            }
-        });
-        
-		$('#best_dislike').click(function(){
-			$.ajax({
-				url:'/review/dislike/[[${review.rno}]]',
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-					$('#best_dislike_cnt').text(r.rdisike);
-				}
-			});
-		});
-
-        $('#write_like').on({ //like 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') == 'img/like_full.png')
-                ? 'img/like.png'
-                : 'img/like_full.png';
-            $(this).attr('src', src);
-            }
-        });
-        
-		$('#write_like').click(function(){
-			$.ajax({
-				url:'/review/like/[[${review.rno}]]',
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-					$('#write_like_cnt').text(r.rlike);
-				}
-			});
-		});
-
-
-        $('#write_dislike').on({ //dislike 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') == 'img/dislike_full.png')
-                ? 'img/dislike.png'
-                : 'img/dislike_full.png';
-            $(this).attr('src', src);
-            }
-        });
-        
-        $('#write_dislike').click(function(){
-			$.ajax({
-				url:'/review/dislike/[[${review.rno}]]',
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-					$('#write_dislike_cnt').text(r.rdisike);
-				}
-			});
-		});
-
-
-        $('#new_like').on({ //like 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') == 'img/like_full.png')
-                ? 'img/like.png'
-                : 'img/like_full.png';
-            $(this).attr('src', src);
-            }
-        });
-        
-		$('#new_like').click(function(){
-			$.ajax({
-				url:'/review/like/[[${review.rno}]]',
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-					$('#new_like_cnt').text(r.rlike);
-				}
-			});
-		});
-
-
-        $('#new_dislike').on({ //dislike 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') == 'img/dislike_full.png')
-                ? 'img/dislike.png'
-                : 'img/dislike_full.png';
-            $(this).attr('src', src);
-            }
-        });
-        
-        $('#new_dislike').click(function(){
-			$.ajax({
-				url:'/review/dislike/[[${review.rno}]]',
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-					$('#new_dislike_cnt').text(r.rdisike);
-				}
-			});
-		});
-
-        
         
         
 
@@ -436,12 +327,12 @@
         setTimeout(() => {
 
             if(searchInput.value === beforeInput) {
-            console.log("입력멈춤");
+            // console.log("입력멈춤");
             loadData(searchInput.value);
             checkInput();
             
             } else {
-            console.log("입력변함");
+            // console.log("입력변함");
             checkInput();
             }
         
@@ -491,44 +382,23 @@
                 location.reload();
             }
         });
-
-
-        //리뷰박스 추가 ajax
-        $(function(){
-       // let input =document.querySelector('input');
-        $.ajax({
-				url : 'search',
-				data : param,
-				type : 'post',
-				dataType : 'json',
-				success:function(r){
-					console.log(r);
-					//결과값 저장할 태그를 조립
-					let tag = '';
-					for(i=0;i<r.length;i++){		
-						tag += `<input type='text' class='review_name' value='\${r[i].REVIEW_NAME}'>`;
-					    tag += `<input type='text' class='review_date' value='\${r[i].REVIEW_DATE}'>`;
-					}
-					$('.read').prepend(tag);
-				}
-			});
-       });
-        // 
+        
+      });
 
 
 
-    });
+
     </script>
 </head>
 
 <body>
     <div class="flex_container">
         <header>
-            <img src="img/VODA_logo.png" alt="">
+            <img src="/img/VODA_logo.png" alt="logo">
             <a href="main_page.html">BEST</a>
             <a href="new_expire.html">NEW/EXPIRE</a>
             <a href="search.html">ALL</a>
-            <a href="register.html" class="login">LOGIN</a>
+            <a href="/member/logout" class="login">로그아웃</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
                 <container class = "rel_search">
                     <ul class="pop_rel_keywords"></ul>
@@ -540,10 +410,10 @@
                 <div class="poster">
                     <img src="img/heart.png" class="heart">
                     <img src="img/flipped.png" class="pic">
-                    <iframe width="700" height="420" th:src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="700" height="420" src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                     <ul>
-                        <li>제목: 플립 (2017)</li>
+                        <li>제목: 플립</li>
                         <li>장르: 멜로/로맨스, 드라마</li>
                         <li>등급: 12세 관람가</li>
                         <li>감독: 로브 라이너</li>
@@ -553,19 +423,31 @@
                             피하기 시작한다. 하지만 성가신 그녀가 사라지자 브라이스는 오히려 전 같지 않게 줄리가 신경 쓰이기 시작하는데…</li><br>
                     </ul>
                 </article>
+
                 <article>
                     <div class="write">
-                        <p class="tab">리뷰를 작성해 주세요</p>
-                        <textarea class="txt" autofocus></textarea>
-                        <input type="submit" value="작성" class="submit">
-                    </div>
+                        <p class="tab">리뷰를 작성해 주세요 </p>
+                        <input type="hidden" th:value="${session.member.id}">
+                        <textarea class="txt" autofocus name="review_content"></textarea>
+                        <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="star_no">
+                        <option value="">== 별점 ==</option>
+              			<option value="1" class="starrate">☆☆☆☆★</option>
+              			<option value="2" class="starrate">☆☆☆★★</option>
+              			<option value="3" class="starrate">☆☆★★★</option>
+              			<option value="4" class="starrate">☆★★★★</option>
+              			<option value="5" class="starrate">★★★★★</option>
+            			</select>
+                        </p>
+                        <button class="submit">작성</button>
+					</div>
+                    
+
                     <div class="my">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>
-                            <span class="like">
-                                <p id="write_like_cnt">[[${review.rlike }]]</p>
-                                <button onclick="w_like()"><img src="img/like.png" id="write_like"></button>
-                                <p id="write_dislike_cnt">[[${review.rdislike }]]</p>
+                            <p class="starrate">평점 : ☆☆☆☆★</p>
+                            <span class="like">       
+                                <button onclick="w_like()"><img src="img/like.png" id="write_like"></button>                         
                                 <button onclick="w_dislike()"><img src="img/dislike.png" id="write_dislike"></button>
                             </span>
                         </div>
@@ -574,26 +456,24 @@
                     <div class="best">
                         <div class="tab">
                             <p>베스트 리뷰</p>
+                            <p class="starrate">평점 : ★★★★★</p>
                             <span class="like">
-                                <p id="best_like_cnt">[[${review.rlike }]]</p>
-                                <button onclick="b_like()"><img src="img/like.png" id="best_like"></button>
-                                <p id="best_dislike_cnt">[[${review.rdislike }]]</p>
+                                <button onclick="b_like()"><img src="img/like.png" id="best_like"></button>                       
                                 <button onclick="b_dislike()"><img src="img/dislike.png" id="best_dislike"></button>
                             </span>
                         </div>
-                        <input type="text" readonly class="read">
+                         <p class="read"></p>
                     </div>
                     <div class="new">
                         <div class="tab">
                             <p>최신 리뷰</p>
-                            <span class="like">
-                                <p id="new_like_cnt">[[${review.rlike }]]</p>
-                                <button onclick="n_like()"><img src="img/like.png" id="new_like"></button>
-                                <p id="new_dislike_cnt">[[${review.rdislike }]]</p>
+                            <p class="starrate">평점 : ☆☆★★★</p>
+                            <span class="like">                             
+                                <button onclick="n_like()"><img src="img/like.png" id="new_like"></button>                        
                                 <button onclick="n_dislike()"><img src="img/dislike.png" id="new_dislike"></button>
                             </span>
                         </div>
-                        <input type="text" readonly class="read">
+                        <p class="read" ><br> "아름다운 영화의 메세지 만큼 조용하지만 아늑한 동네의 전경과 해 질 녘 풍경."<br>철학이 담긴 대사가 관객을 즐겁게 하는 영화 <br><br> -어떤 사람은 평범한 사람을 만나고, 어떤 사람은 광택 나는 사람을 만나고, 어떤 사람은 빛나는 사람을 만나지.<br>하지만 모든 사람은 일생에 단 한번 무지개 같이 변하는 사람을 만난단다.</p>
                     </div>
                     <div class="more">
                     </div>
@@ -604,9 +484,9 @@
         </div>
         <footer>
             <a href="main_page.html"><img src="img/home.png"></a>
-            <a href="new_expire.html"><img src="img/cinema.png"></a>
+            <a href="new_expire.html"><img src="img/video.png"></a>
             <a href="search.html"><img src="img/explore.png"></a>
-            <a href="my_page.html"><img src="img/mypage.png"></a>
+            <a href="my_page.html"><img src="img/profile.png"></a>
         </footer>
     </div>
 </body>
