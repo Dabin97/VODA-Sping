@@ -22,17 +22,6 @@
           position: relative;
       }
     
-    header img{
-        height: 150px;
-        display: block;
-        margin: auto;
-        margin-bottom: 10px;
-      }
-    header input{
-        position: absolute;
-        margin-top: 50px;
-        right: 0;
-    }
     article{
         margin-bottom: 40px;
     }
@@ -47,10 +36,11 @@
     .profile a{
         text-decoration: none;
     }
-    .nick{
+    .nickname{
         color: #a7f2dc;
         font-size: 32px;
         font-weight: bold;
+        
     }
     .setting img{
         width: 20px;
@@ -248,10 +238,6 @@ footer a{
                     bookmark.slideDown();
                 }
             });
-            $('.logout').click(function(){
-                alert('로그아웃 완료 메인페이지로 이동합니다.');
-                location.href="main_page.html";
-            });
 
             //연관검색어
         const ul = document.querySelector(".pop_rel_keywords");
@@ -330,20 +316,15 @@ footer a{
 </head>
 <body>
     <div class="flex_container">
-        <header>
-            <input type="text" placeholder="검색" class= "search_input zoom" >
-            <container class = "rel_search">
-                <ul class="pop_rel_keywords"></ul>
-            </container>
-            <img src="img/logo_white.png" alt="">  
-        </header>
+		<th:block th:include="/fragments/user_header.html"></th:block>
+		<br>
         <div class="main_container">
         <section>
             <article>
                 <div class="profile">
                     <img src="img/profile.png">
                     <div>
-                        <p class="nick">[[${session.member.id}]]</p>
+                        <p class="nickname">[[${session.member.id}]]</p>
                         <p><a href="/logout" class="logout">로그아웃</a></p>
                     </div>
                     <p class="setting">
