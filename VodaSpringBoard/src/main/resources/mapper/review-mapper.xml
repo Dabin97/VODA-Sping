@@ -22,6 +22,9 @@
 			   r.id	(select id from member m where m.id = r.id)
 			   r.star_no as starNo
 		FROM REVIEW_TABLE_VIEW r
-		WHERE ceil(rw / #{ReviewCount}) = #{pageNo}
-	</select>	
+		WHERE ceil(rw / #{reviewCount}) = #{pageNo}
+	</select>
+		<select id="selectReviewCount" resultType="int">
+		select count(*) from review_table_view
+	</select> 
 </mapper>
