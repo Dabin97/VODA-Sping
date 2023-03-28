@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.voda.mapper.ReviewMapper"> <!-- com.voda.mapper맞는지 확인 -->
-	<insert id="insertReview" parameterType="review">
-		insert into review_table(rno, rdate, review_content, bno, id, star_no) values(review_seq.nextval, #{review_content},#{id},#{star_no})
-	</insert>
-</mapper>
