@@ -35,7 +35,7 @@
         .search_input{
         color: white;
         position: absolute;
-        right: 110px;
+        right: 80px;
         /* bottom: 150px; */
     }
    
@@ -50,34 +50,30 @@
         padding-left: 280px;
     }
     
+
+    
     </style>
     
     
 	
         <header>
              <th:block th:if="${session.member == null}">
-            <img src="img/VODA_logo.png" alt="" href="/main">
-            <a href="main_page.html">BEST</a>
-            <a href="new_expire.html">NEW/EXPIRE</a>
-            <a href="search.html">ALL</a>
+            <a href="/main"><img src="img/VODA_logo.png" alt=""></a>
+            <a href="/main">BEST</a>
+            <a href="/new_expire">NEW/EXPIRE</a>
+            <a href="/search">ALL</a>
             <a href="/index" class="index">▶로그인</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
-            <container class = "rel_search">
-            <ul class="pop_rel_keywords"></ul>
-            </container>
             </th:block>
             
         	<th:block th:if="${session.member != null}">
-            <img src="img/VODA_logo.png" alt="" href="/main">
-            <a href="main_page.html">BEST</a>
-            <a href="new_expire.html">NEW/EXPIRE</a>
-            <a href="search.html">ALL</a>
+            <a href="/main"><img src="img/VODA_logo.png" alt=""></a>
+            <a href="/main">BEST</a>
+            <a href="/new_expire">NEW/EXPIRE</a>
+            <a href="/search">ALL</a>
             <a href="/my_page" class="nick">[[${session.member.id}]]</a>님 로그인
             <a href="/logout" class="login">▶로그아웃</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
-                <container class = "rel_search">
-                    <ul class="pop_rel_keywords"></ul>
-                </container>
             </th:block>
         </header>
 	
