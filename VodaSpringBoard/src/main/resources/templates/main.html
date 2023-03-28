@@ -38,28 +38,7 @@
       .bx-next{
         right: -40px !important;
       }
-      header{
-        padding-top: 20px;
-      }
-      header img{
-        width: 100px;
-        padding-left: 100px;
-        margin-top: 10px;
-      }
-    header input{
-        position: absolute;
-        margin-top: 10px;
-        right: 0;
-        background-color: rgb(34, 34, 34);
-        border: none;
-    }
-    header a{
-        padding-left: 20px;
-        text-decoration: none;
-    }
-    .login{
-        padding-left: 23px;
-    }
+
     footer{
     width: 1200px;
     height: 80px;
@@ -137,39 +116,7 @@
         display: none !important;
         }
 
-    .rel_search {
-        position: absolute;
-        right: 110px;
-        z-index: 6;
-        margin-top: 50px;
-        float: right;
-        border: 1px solid gray;
-        color: white;
-        width: 300px;
-        height: 150px;
-        overflow: auto;
-        box-sizing: border-box;
-        }
-    
-    .search_input{
-        color: white;
-        position: absolute;
-        right: 110px;
-        /* bottom: 150px; */
-    }
 
-    .pop_rel_keywords {
-        list-style: none;
-        margin-right: 50px;
-        }
-
-    .pop_rel_keywords > li {
-        line-height : 250%
-        }
-
-    .rel_search::-webkit-scrollbar {
-     display: none;
-   }
    .slider > div > img{
         width: 100%;
         height: 500px;
@@ -328,13 +275,7 @@
     .click, .click img{
         background-color: rgb(34, 34, 34);;
     }
-    
-    .nick{
-        color: #a7f2dc;
-        font-size: 32px;
-        font-weight: bold;
-    	margin-left : 50px;
-    }
+ 
     </style>
     <script>
        $(function(){
@@ -464,18 +405,7 @@
 </head>
 <body>
     <div class="flex_container">
-        <header>
-            <img src="img/VODA_logo.png" alt="" href="/main">
-            <a href="main_page.html">BEST</a>
-            <a href="new_expire.html">NEW/EXPIRE</a>
-            <a href="search.html">ALL</a>
-            <a href="/my_page" class="nick">[[${session.member.id}]]</a>님 로그인
-            <a href="/logout" class="login">▶로그아웃</a>
-            <input type="text" placeholder="search" class= "search_input zoom" >
-                <container class = "rel_search">
-                    <ul class="pop_rel_keywords"></ul>
-                </container>
-        </header>
+		<th:block th:include="/fragments/user_header.html"></th:block>
         <div class="main_container">
         <section>
             <article>
