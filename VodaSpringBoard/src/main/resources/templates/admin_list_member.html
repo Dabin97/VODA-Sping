@@ -232,7 +232,7 @@
         
         .current_page{
             display: inline-block;
-            padding:0px 10px;
+            padding:0px 10px; 
             font-size: 16px !important;
             color:red;
             font-weight: bold;
@@ -247,18 +247,34 @@
 	}
 
         </style>
-        <script type="text/javascript">
-
-            function delete_confirm(){
-                if(confirm("회원을 삭제하시겠습니까?")){
-                    //실제로 회원이 삭제될 것
-                    alert("회원이 삭제되었습니다");
-                }else{
-                    
-                }
-            }
-
-        </script>
+       <script type="text/javascript">
+        $(function(){
+           $(".del").click(delete_confirm); // 삭제 버튼 클릭 시 delete_confirm 함수 호출
+     
+           function delete_confirm(){
+            //   let id = $(this).parent().parent().children().first().text();
+            //   let obj = $(this).parent().parent();
+              let param = "id="+id;
+     
+              if(confirm("회원을 삭제하시겠습니까?")){
+                 //실제로 회원이 삭제될 것
+                 $.ajax({
+                    url:'/member/delete/'+id,
+                    type:'post',
+                    dataType:'json',
+                    success:function(r){
+                       console.log(r);
+                       if(r.count=='1'){
+                          location.reload();
+                          $(obj).remove();
+                       }
+                       alert("회원이 삭제되었습니다");
+                    }
+                 }); 
+              }
+           }
+        });
+     </script>
     </head>
 
     <body>
@@ -279,12 +295,6 @@
                             <div class="dropdown-content">
                                 <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a>
                                 <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
-
-                            <a href="../B_AdminMember/admin_list_member.html" class="main_nav"><li>회원 관리</li></a>
-                            <div class="dropdown-content">
-                                <a href="../B_AdminMember/admin_list_member.html" class="sub_nav"><p>-회원 리스트</p></a>
-                                <a href="../B_AdminMember/admin_withdrawal_member.html" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
-
                             </div>
                         </span>
                         <br>
@@ -311,7 +321,7 @@
                     <section>
                         <div class="login_info_bar">
                             <div class="user_icon">
-                            <img src="../B_AdminMember/img/user_icon.png">
+                                <img src="/img/voda_logo.png" style="height:30px; width: 75px; ">
                             </div>
                             <div class="user_info">
                             <p>로그인 중</p> 
@@ -346,7 +356,7 @@
                                         <td>[[${member.name}]]</td>
                                         <td>[[${member.email}]]</td>
                                         <td><a th:href="@{/member/edit/view/{id}(id=${member.id})}"><button>관리</button></a>
-                                             <a href="/member/delete/view"><button onclick="delete_confirm()" class="del">삭제</button></td>
+                                        <button onclick="delete_confirm()" class="del">삭제</button></td>
                                             
                                     </tr>
                                    </th:block>

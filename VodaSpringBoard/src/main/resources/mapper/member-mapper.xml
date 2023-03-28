@@ -32,6 +32,9 @@
 <select id="selectMemberList" resultType="member" parameterType="hashMap">
         SELECT * FROM MEMBER_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
     </select> 
+<delete id="deleteMember" parameterType="string">
+		delete from member_table where id like #{id}
+	</delete>
 
     
 </mapper>
