@@ -12,7 +12,7 @@
 		<result column="bno" property="bno"/>
 		<result column="id" property="id"/>
 		<result column="star_no" property="starNo"/>
-</resultMap>
+</resultMap>	
 	
 	<select id="selectReviewList" resultType="review" parameterType="hashMap">
 		SELECT r.rno
