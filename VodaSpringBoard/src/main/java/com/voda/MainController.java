@@ -530,6 +530,23 @@ public class MainController {
 	}
 	
 
+	@RequestMapping("/admin/review/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
+	public ModelAndView adminReviewList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
+	ModelAndView view = new ModelAndView();
+	view.setViewName("admin_review_list");
+	//게시판 글목록
+	List<ReviewDTO> list = reviewService.selectReviewList(pageNo, 7);
+	 
+	//페이징 정보
+	int count = reviewService.selectReviewCount();
+	PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+	
+	view.addObject("list",list); 
+	view.addObject("pagging",pagging); 
+	
+	return view;
+}
+
 
 		
 //		@RequestMapping("/member/delete/view")

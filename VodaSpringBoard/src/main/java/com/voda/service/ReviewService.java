@@ -1,7 +1,11 @@
 package com.voda.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.voda.dto.BoardDTO;
 import com.voda.dto.ReviewDTO;
 import com.voda.mapper.ReviewMapper;
 
@@ -15,6 +19,19 @@ public class ReviewService {
 
 	public int insertReview(ReviewDTO dto) {
 		return mapper.insertReview(dto);
+	}
+
+	public List<ReviewDTO> selectReviewList(int pageNo, int i) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pageNo",pageNo);
+		map.put("contentCount", i);
+		
+		return mapper.selectReviewList(map);
+	}
+
+	public int selectReviewCount() {
+		return mapper.selectReviewCount();
 	}
 
 
