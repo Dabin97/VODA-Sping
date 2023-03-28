@@ -38,28 +38,7 @@
       .bx-next{
         right: -40px !important;
       }
-      header{
-        padding-top: 20px;
-      }
-      header img{
-        width: 100px;
-        padding-left: 100px;
-        margin-top: 10px;
-      }
-    header input{
-        position: absolute;
-        margin-top: 10px;
-        right: 0;
-        background-color: rgb(34, 34, 34);
-        border: none;
-    }
-    header a{
-        padding-left: 20px;
-        text-decoration: none;
-    }
-    .index{
-        padding-left: 280px;
-    }
+
     footer{
     width: 1200px;
     height: 80px;
@@ -457,17 +436,7 @@
 </head>
 <body>
     <div class="flex_container">
-        <header>
-            <img src="img/VODA_logo.png" alt="" href="/main">
-            <a href="main_page.html">BEST</a>
-            <a href="new_expire.html">NEW/EXPIRE</a>
-            <a href="search.html">ALL</a>
-            <a href="/index" class="index">▶로그인</a>
-            <input type="text" placeholder="search" class= "search_input zoom" >
-                <container class = "rel_search">
-                    <ul class="pop_rel_keywords"></ul>
-                </container>
-        </header>
+		<th:block th:include="/fragments/user_header.html"></th:block>
         <div class="main_container">
         <section>
             <article>

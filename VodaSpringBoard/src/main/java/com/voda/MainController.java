@@ -55,7 +55,7 @@ public class MainController {
 	} 
 	
 	
-	@RequestMapping("/index")
+	@RequestMapping("/index") 
 	public String index() {
 		return "index"; 
 	}
@@ -497,7 +497,7 @@ public class MainController {
 		return "redirect:/content_page";
 	}
 	
-	@PostMapping("/login") //login/member와 같은 기능?
+	@PostMapping("/member_login") //login/member와 같은 기능?
 	public String login(String id, String passwd, HttpSession session) {
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("member", dto);
@@ -529,19 +529,22 @@ public class MainController {
 		}
 	}
 	
-	//회원 삭제 팝업창 만들기
-		@RequestMapping("/member/delete/{id}")
-		public ResponseEntity<String> delete(@PathVariable String id) {
-			int result = memberService.deleteMember(id);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("count", String.valueOf(result));
-			if(result != 0) {
-				map.put("message", "데이터 삭제 성공");
-			}else {
-				map.put("message", "데이터 삭제 실패");
-			}
-			return new ResponseEntity(map,HttpStatus.OK);
-		}
+	@RequestMapping("/admin/review/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
+	public ModelAndView adminReviewList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
+	ModelAndView view = new ModelAndView();
+	view.setViewName("admin_review_list");
+	//게시판 글목록
+	List<ReviewDTO> list = reviewService.selectReviewList(pageNo, 7);
+	 
+	//페이징 정보
+	int count = reviewService.selectReviewCount();
+	PaggingVO pagging = new PaggingVO(count, pageNo, 7);
+	
+	view.addObject("list",list); 
+	view.addObject("pagging",pagging); 
+	
+	return view;
+}
 
 		
 //		@RequestMapping("/member/delete/view")

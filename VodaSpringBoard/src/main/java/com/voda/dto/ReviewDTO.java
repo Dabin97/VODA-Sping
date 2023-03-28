@@ -8,23 +8,23 @@ import org.apache.ibatis.type.Alias;
 public class ReviewDTO {
 	private int rno;
 	private Date rdate;
-	private String review_content;
+	private String reviewContent;
 	private int bno;
 	private String id;
-	private String star_no;
+	private String starNo;
 	
 	public ReviewDTO() {
 		
 	}
 
-	public ReviewDTO(int rno, Date rdate, String review_content, int bno, String id, String star_no) {
+	public ReviewDTO(int rno, Date rdate, String reviewContent, int bno, String id, String starNo) {
 		super();
 		this.rno = rno;
 		this.rdate = rdate;
-		this.review_content = review_content;
+		this.reviewContent = reviewContent;
 		this.bno = bno;
 		this.id = id;
-		this.star_no = star_no;
+		this.starNo = starNo;
 	}
 
 	public int getRno() {
@@ -43,12 +43,12 @@ public class ReviewDTO {
 		this.rdate = rdate;
 	}
 
-	public String getReview_content() {
-		return review_content;
+	public String getReviewContent() {
+		return reviewContent;
 	}
 
-	public void setReview_content(String review_content) {
-		this.review_content = review_content;
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
 	}
 
 	public int getBno() {
@@ -67,19 +67,20 @@ public class ReviewDTO {
 		this.id = id;
 	}
 
-	public String getStar_no() {
-		return star_no;
+	public String getStarNo() {
+		return starNo;
 	}
 
-	public void setStar_no(String star_no) {
-		this.star_no = star_no;
+	public void setStarNo(String starNo) {
+		this.starNo = starNo;
 	}
 
 	@Override
 	public String toString() {
-		return "ReviewDTO [rno=" + rno + ", rdate=" + rdate + ", review_content=" + review_content + ", bno=" + bno
-				+ ", id=" + id + ", star_no=" + star_no + "]";
+		return "ReviewDTO [rno=" + rno + ", rdate=" + rdate + ", reviewContent=" + reviewContent + ", bno=" + bno
+				+ ", id=" + id + ", starNo=" + starNo + "]";
 	}
 	
 	
+
 }

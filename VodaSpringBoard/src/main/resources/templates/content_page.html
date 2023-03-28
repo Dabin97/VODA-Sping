@@ -427,7 +427,6 @@ $(function(){
                 <article>
                     <div class="write">
                         <p class="tab">리뷰를 작성해 주세요 </p>
-                        <input type="hidden" th:value="${session.member.id}">
                         <textarea class="txt" autofocus name="review_content"></textarea>
                         <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="star_no">
                         <option value="">== 별점 ==</option>
@@ -482,12 +481,7 @@ $(function(){
                 <div class="space"></div>
             </section>
         </div>
-        <footer>
-            <a href="main_page.html"><img src="img/home.png"></a>
-            <a href="new_expire.html"><img src="img/video.png"></a>
-            <a href="search.html"><img src="img/explore.png"></a>
-            <a href="my_page.html"><img src="img/profile.png"></a>
-        </footer>
+		<th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
 </html>

@@ -22,12 +22,12 @@
           position: relative;
       }
     
-    header img{
+    .header img{
         height: 150px;
         display: block;
         margin: auto;
       }
-    header input{
+    .header input{
         position: absolute;
         margin-top: 50px;
         right: 0;
@@ -36,7 +36,7 @@
         list-style: none;
         color: white;
     }
-    header li > img{
+    .header li > img{
         width: 60px;
         height: 60px;
         float: left;
@@ -165,9 +165,9 @@ footer a{
 </head>
 <body>
     <div class="flex_container">
-        <header>
-              <input type="text" placeholder="검색" class="zoom">
-            <img src="img/logo_white.png" alt="">  
+    	<th:block th:include="/fragments/user_header.html"></th:block>
+        <div class="header">
+            <br>
             <h1 style="font-weight: bold;">신작 만료작을 한눈에!</h1>
             <ul>
                 <li><img src="img/netflix.png" alt=""></li>
@@ -177,7 +177,7 @@ footer a{
                 <li><img src="img/laftel_logo-removebg-preview.png" alt=""></li>
                 <li><img src="img/disney_remove.png" alt=""></li>
             </ul>
-        </header>
+        </div>
         <nav class="not">
             <a href="#new">new</a>
             <a href="#expire">expire</a>
