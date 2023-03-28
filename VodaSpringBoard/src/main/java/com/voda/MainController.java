@@ -529,6 +529,7 @@ public class MainController {
 		}
 	}
 	
+
 	@RequestMapping("/admin/review/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
 	public ModelAndView adminReviewList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
 	ModelAndView view = new ModelAndView();
@@ -545,6 +546,7 @@ public class MainController {
 	
 	return view;
 }
+
 
 		
 //		@RequestMapping("/member/delete/view")
