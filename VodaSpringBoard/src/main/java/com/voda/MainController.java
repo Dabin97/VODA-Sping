@@ -78,7 +78,12 @@ public class MainController {
 	
 	@RequestMapping("/search")
 	public String search() {
-		return "search"; 
+		return "search";  
+	}
+	
+	@RequestMapping("/edit")
+	public String edit() {
+		return "profile_edit";  
 	}
 	
 	
