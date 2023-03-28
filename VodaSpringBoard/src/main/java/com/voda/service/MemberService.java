@@ -34,7 +34,6 @@ public MemberService(MemberMapper mapper) {
 
 
 	public List<MemberDTO> selectAllMember() {
-		
 		return mapper.selectAllMember();
 	}
 
@@ -60,7 +59,6 @@ public MemberService(MemberMapper mapper) {
 
 
 	public MemberDTO selectMember(String id) {
-		
 		return mapper.selectMember(id);
 	}
 
@@ -70,6 +68,11 @@ public MemberService(MemberMapper mapper) {
 		map.put("mid", mid);
 		map.put("mpasswd", mpasswd);
 		return mapper.loginAdmin(map);
+	}
+
+
+	public int deleteMember(String id) {
+		return mapper.deleteMember(id);
 	}
   
 }

@@ -98,25 +98,25 @@ public class MainController {
 	}
 	
 		////////////////////관리자 페이지////////////////////////////////
-		@RequestMapping("/admin/index")
-		public String adminIndex() {
-			return "admin_before_login";
-			} 
-		
-		@PostMapping("/admin/login")
-		public String adminLogin(String mid, String mpasswd, HttpSession session) {
-			ManagerDTO dto = memberService.loginAdmin(mid, mpasswd);
-			session.setAttribute("manager", dto);
-			if(dto == null) { return "admin_before_login";}
-			return "redirect:/admin_main";
-			}
+	@RequestMapping("/admin/index")
+	public String adminIndex() {
+		return "admin_before_login";
+		} 
+	
+	@PostMapping("/admin/login")
+	public String adminLogin(String mid, String mpasswd, HttpSession session) {
+		ManagerDTO dto = memberService.loginAdmin(mid, mpasswd);
+		session.setAttribute("dto", dto); 
+		if(dto == null) { return "admin_before_login";}
+		return "redirect:/admin_main";
+		}
 
-		
-		
-		@RequestMapping("/admin_main") 
-		public String adminMain() {
-			return "admin_main";
-			}
+	
+	
+	@RequestMapping("/admin_main") 
+	public String adminMain() {
+		return "admin_main";
+		}
 		
 		@GetMapping("/admin/logout")
 		public String logoutAdmin(HttpSession session){
@@ -170,21 +170,30 @@ public class MainController {
 		}
 		
 
-		//회원 삭제 팝업창 만들기
-		@RequestMapping("/member/delete")
-		public String memberDelete(MemberDTO dto) {
-		//회원 삭제 버튼 누른 후 팝업창 뜨고 ok누르면 멤버 리스트로 리턴
-		//무튼 ok 눌렀을 때 멤버 삭제...
-			return "redirect:/admin_list_member";
+		@RequestMapping("/member/delete/{id}")
+		public ResponseEntity<String> deleteMember(@PathVariable String id) {
+			int result = memberService.deleteMember(id);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("count", String.valueOf(result));
+			if(result != 0) {
+				map.put("message", "데이터 삭제 성공");
+			}else {
+				map.put("message", "데이터 삭제 실패");
+				System.out.println(result);
+			}
+			return new ResponseEntity(map,HttpStatus.OK);
 		}
 		
-		@RequestMapping("/member/delete/view")
-			public String memberDeleteView() {
-			return "/admin_list_member";
-		}	
-	
+
+		@RequestMapping("/login/member") // /login과 같은 메소드인지 확인할것
+		public String memberLogin(String id, String passwd, HttpSession session) {
+			MemberDTO dto = memberService.login(id, passwd);
+			session.setAttribute("dto", dto);
+			
+			return "redirect:/main";
+		}
 		
-		
+
 		
 		
 	@RequestMapping("/admin/content/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
@@ -488,7 +497,7 @@ public class MainController {
 		return "redirect:/content_page";
 	}
 	
-	@PostMapping("/login")
+	@PostMapping("/login") //login/member와 같은 기능?
 	public String login(String id, String passwd, HttpSession session) {
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("member", dto);
@@ -518,12 +527,40 @@ public class MainController {
 		reviewService.insertReview(dto);
 		return "redirect:/member/review";
 		}
-	
-	
-	
 	}
 	
-	
+	//회원 삭제 팝업창 만들기
+		@RequestMapping("/member/delete/{id}")
+		public ResponseEntity<String> delete(@PathVariable String id) {
+			int result = memberService.deleteMember(id);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("count", String.valueOf(result));
+			if(result != 0) {
+				map.put("message", "데이터 삭제 성공");
+			}else {
+				map.put("message", "데이터 삭제 실패");
+			}
+			return new ResponseEntity(map,HttpStatus.OK);
+		}
+
+		
+//		@RequestMapping("/member/delete/view")
+//			public String memberDeleteView() {
+//			return "/admin_list_member";
+//		}	
+		//
+		//@RequestMapping("/list/paging")
+		//public ModelAndView memberListPaiging(
+		//@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
+		//ModelAndView view = new ModelAndView();
+		//List<MemberDTO> list = memberService.selectAllMember(pageNo);
+		//view.addObject("list", list);
+		//PaggingVO pagging = new  PaggingVO(memberService.selectMemberCount(),	pageNo, 5);
+		//view.addObject("pagging", pagging);
+		//view.setViewName("admin_list_member");
+		//return view;
+		//}
+		
 	
 	
 }

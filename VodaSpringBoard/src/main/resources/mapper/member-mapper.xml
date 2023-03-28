@@ -15,34 +15,40 @@
 	<select id="login" parameterType="HashMap" resultType="member">
 		select * from member_table where id = #{id} and passwd = #{passwd} 
 	</select>
-
+	
 	<select id="loginAdmin" parameterType="hashMap" resultType="manager">
         select * from manager_table where mid = #{mid} and mpasswd = #{mpasswd}
     </select>   
+    
 	<select id="selectMember" parameterType="String" resultType="member">
 		select * from member_table where id like #{id}
 	</select>
 	
-<update id="editMember" parameterType="member">
+	<update id="editMember" parameterType="member">
 		update member_table set name=#{name}, passwd=#{passwd},
 		nick=#{nick}, email=#{email}   
 		where id like #{id}
 	</update>
 
-<insert id="insertMember" parameterType="member">
-		insert into member_table values(#{id},#{passwd},#{name},#{nick},#{email})
-</insert>
-<select id="selectAllMember" resultType="member">
-		select * from member_table 
-	</select>	
-<select id="selectMemberCount" resultType="int">
-		select count(*) from member_table
-	</select>
-<select id="selectMemberList" resultType="member" parameterType="hashMap">
-        SELECT * FROM MEMBER_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
+	<insert id="insertMember" parameterType="member">
+			insert into member_table values(#{id},#{passwd},#{name},#{nick},#{email})
+	</insert>
+	
+	<select id="selectAllMember" resultType="member">
+			select * from member_table 
+		</select>	
+		
+	<select id="selectMemberCount" resultType="int">
+			select count(*) from member_table
+		</select>
+		
+	<select id="selectMemberList" resultType="member" parameterType="hashMap">
+	        SELECT * FROM MEMBER_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
     </select> 
-
-
+    
+	<delete id="deleteMember" parameterType="String">
+		delete from member_table where id = #{id}
+	</delete>
 	
 
 </mapper>
