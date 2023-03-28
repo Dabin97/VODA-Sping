@@ -72,8 +72,8 @@ public MemberService(MemberMapper mapper) {
 		return mapper.loginAdmin(map);
 	}
 
+
 	public int deleteMember(String id) {
-		
 		return mapper.deleteMember(id);
 	}
   

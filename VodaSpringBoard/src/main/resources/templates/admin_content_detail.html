@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>admin_main</title>
+        <title>admin_content_detail</title>
 
         <style>
             *{
@@ -183,9 +183,8 @@
             }
 
             table{
-                
                 margin: 0 auto;
-                width: 400px;
+                width: 800px;
                 margin-top: 30px;
             }
 
@@ -218,14 +217,13 @@
             }
 
             .subject {
-                
+                width: 100px;
                 text-align: center;
                 font-weight: bold;
                 height: 30px;
                 background-color: rgb(194, 231, 142);
                 color: rgb(70, 81, 0);
             }
-
             .txtbox {
                 height: 30px;
                 width: 675px;
@@ -260,51 +258,15 @@
             .chk_info {
                 margin-left: 10px;
             }
-            .member_info{
-                margin-top: 15px;
-                margin-left: 35px;
-                zoom: 1.5;
-            }
-            .btn_cancle{
-               
-                width: 140px;
-                height: 70px;
-            }
-            .btn_submit{
-                margin-right: 100px;
-                width: 140px;
-                height: 70px;
-            }
-            .btn_edit{
-                
-                display: block;
-                margin: auto;
-                width: 70px;
-                height: 35px;
-            }
-            
-
-            .div_btn_submit{
-                float: left;
-                margin-left: 200px;
-                margin-top: 50px;
-            }
-
-            .div_btn_cancle{
-               float:left;
-               margin-top: 50px;
-               margin-left: 260px;
-            }
-            .text{
-                margin-top: 6px;
-                margin-left: 40px;
-                font-weight: bold;
-            }
-            input { 
-                width: 100%;
-                height: 30px;
-            }
         </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" th:inline="javascript">
+            $(function(){
+                $('#btn_update').click(function(){
+                    location.href = '/admin/content/write/[[${board.bno}]]';
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -318,9 +280,7 @@
                         <span class="dropdown">
                             <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
-
                                 <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a> 
-
                                 <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
                             </div>
                         </span>
@@ -349,8 +309,6 @@
                         <form action="/admin/logout">
                             <div class="login_info_bar">
                                 <div class="user_icon">
-                                  
-                                <img src="/img/voda_logo.png" style="height:30px; width: 75px; ">
                                 <img src="/img/user_icon.png">
                                 </div>
                                 <div class="user_info">
@@ -359,45 +317,84 @@
                                 </div>
                             </div>
                         </form>
-
-                        <p class="title">정보 수정</p>
-                        <hr>   
-
-                        <table>         
-                            <colgroup>
-                                <col width="25%" />
-                                <col width="25%" />
-                            </colgroup>
-                           <form action="/member/edit" method="post">
+                        <p class="title">컨텐츠</p>
+                        <hr>
+                            <table>
+                                <thead>
+                                <tr>
+                                <td colspan="5" class="poster">
+                                    <p th:each="file : ${fList}">
+                                        <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName}]]</a> <br>
+                                        <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}">
+                                    </p>
+                                </td>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr>
-                                    <td class="subject">아이디</td>
-                                    <td><input type="text" name="id" th:value="${dto.id}" ></td>
-                                  </tr>
-                                <tr>
-                                  <td class="subject">비밀번호</td>
-                                  <td><input type="password" name="passwd" th:value="${dto.passwd}" ></td>
+                                    <td class="subject">OTT</td>    
+                                    <td colspan="4"> 
+                                        <th:block th:if="${board.ottNo} == 1">넷플릭스</th:block>
+                                        <th:block th:if="${board.genre} == 2">디즈니+</th:block>
+                                        <th:block th:if="${board.genre} == 3">라프텔</th:block>
+                                        <th:block th:if="${board.genre} == 4">왓챠</th:block>
+                                        <th:block th:if="${board.genre} == 5">웨이브</th:block>
+                                        <th:block th:if="${board.genre} == 6">티빙</th:block>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="subject">이름</td>
-                                    <td><input type="text" name="name" th:value="${dto.name}" ></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="subject">닉네임</td>
-                                    <td><input type="text" name="nick" th:value="${dto.nick}"></td>
-                                  </tr>
-                                <tr>
-                                  <td class="subject">이메일</td>
-                                  <td><input type="text" name="email" th:value="${dto.email}"></td>
+                                    <td class="subject">제목</td>
+                                    <td colspan="4">[[${board.title}]]</td>
                                 </tr>
-                              </tbody>
-                          </table> 
-                              <div class="div_btn_submit">
-                                <button class="btn_submit" type="submit">SUBMIT</button>
-                                <button class="btn_cancle" href="javascript:history.back();">CANCLE</button>
-                              </div>   
-                            </form>
-                             
+                                <tr>
+                                    <td class="subject">신규</td>
+                                    <td colspan="4">
+                                        [[${board.newDate}]]
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">만료</td>
+                                    <td colspan="4">
+                                        [[${board.expireDate}]]
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="subject">장르</td>    
+                                    <td colspan="4"> 
+                                        <th:block th:if="${board.genre} == 1">영화</th:block>
+                                        <th:block th:if="${board.genre} == 2">드라마</th:block>
+                                        <th:block th:if="${board.genre} == 3">애니</th:block>
+                                        <th:block th:if="${board.genre} == 4">예능</th:block>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">감독</td>
+                                    <td colspan="4"> [[${board.pd}]]</td>
+                                </tr>
+                                <tr>
+                                    <td class="subject">출연</td>
+                                    <td colspan="4"> [[${board.casting}]]</td>
+                                </tr>
+                                <tr aria-rowspan="2">
+                                    <td class="subject summary_text">내용</td>
+                                    <td colspan="4" class="summary_text">[[${board.content}]]</td>
+                                </tr>
+                                <tr  aria-rowspan="2">
+                                    <td class="subject summary_text">컨텐츠<br>비디오</td>
+                                    <td colspan="4"> [[${board.posterVideo}]]</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <button class="regi_btn" id="btn_update">수정</button> 
+                                        <button id="btn_delete"><a th:href="@{/admin/content/delete/{bno}(bno=${board.bno })}">삭제</a></button>
+                                        <button class="regi_btn" href="javascript:history.back();">취소</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            </table>
                     </section>
                 </div>
         </div>

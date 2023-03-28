@@ -247,6 +247,9 @@
 	}
 
         </style>
+
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script src="/js/jquery-3.6.3.js"></script>
        <script type="text/javascript">
         $(function(){
            $(".del").click(delete_confirm); // 삭제 버튼 클릭 시 delete_confirm 함수 호출
@@ -275,6 +278,7 @@
            }
         });
      </script>
+
     </head>
 
     <body>
@@ -284,7 +288,6 @@
         <div class="main_container">
             <div class="nav_container">
                 <nav>
-
                     <a href="/admin_main"><img src="/img/voda_logo.png" alt="logo" class="main_logo"></a>
                     <h2>관리자 페이지</h2>
                     <br>
@@ -293,25 +296,25 @@
 
                             <a href="/admin/member/list" class="main_nav"><li>회원 관리</li></a>
                             <div class="dropdown-content">
-                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a>
+                                <a href="/admin/member/list" class="sub_nav"><p>-회원 리스트</p></a> 
                                 <a href="/admin/secession" class="sub_nav"><p>-탈퇴 대기 회원</p></a>
                             </div>
                         </span>
                         <br>
                         <span class="dropdown">
-                            <a href="../C_AdminReview/admin_review.html"  class="main_nav"><li>리뷰 관리</li></a>
+                            <a href="/adminReview"  class="main_nav"><li>리뷰 관리</li></a> <!--관리자 페이지 리뷰 리스트 경로-->
                                 <div class="dropdown-content">
-                                    <a href="../C_AdminReview/admin_review.html"  class="sub_nav"><p>-리뷰 리스트</p></a>
+                                    <a href="/adminReview"  class="sub_nav"><p>-리뷰 리스트</p></a>
                                 </div>
                         </span>
                         <br>
                         <span class="dropdown">
-                            <a href="../D_AdminContents/admin_content_list.html" class="main_nav"><li>컨텐츠 관리</li></a>
+                            <a href="/admin/content/list" class="main_nav"><li>컨텐츠 관리</li></a>
                                 <div class="dropdown-content">
-                                    <a href="../D_AdminContents/admin_content_list.html" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
-                                    <a href="../D_AdminContents/admin_content_register.html" class="sub_nav"><p>-컨텐츠 등록</p></a>
-                                    <a href="../D_AdminContents/admin_content_new.html" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
-                                    <a href="../D_AdminContents/admin_content_expire.html" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
+                                    <a href="/admin/content/list" class="sub_nav"><p>-전체 컨텐츠 리스트</p></a>
+                                    <a href="/admin/content/register/view" class="sub_nav"><p>-컨텐츠 등록</p></a>
+                                    <a href="/admin/content/new" class="sub_nav"><p>-신규 컨텐츠 리스트</p></a>
+                                    <a href="/admin/content/expire" class="sub_nav"><p>-만료 컨텐츠 리스트</p></a>
                                 </div>
                         </span>
                     </ul>
@@ -321,7 +324,9 @@
                     <section>
                         <div class="login_info_bar">
                             <div class="user_icon">
-                                <img src="/img/voda_logo.png" style="height:30px; width: 75px; ">
+
+                            <img src="/img/voda_logo.png" style="height:30px; width: 75px; ">
+                            <img src="/img/user_icon.png">
                             </div>
                             <div class="user_info">
                             <p>로그인 중</p> 
@@ -345,19 +350,19 @@
                                     <th class="chb"><input type="checkbox"></th>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>EMail</th>
+                                    <th>Email</th>
                                     <th>Edit</th>
                                 </thead>
                                 <tbody>
                                     <th:block th:each="member : ${list}">
                                     <tr>
                                         <td class="chb"><input type="checkbox"></td>
-                                        <td>[[${member.id}]]</td>
+                                        <td class="id">[[${member.id}]]</td>
                                         <td>[[${member.name}]]</td>
                                         <td>[[${member.email}]]</td>
                                         <td><a th:href="@{/member/edit/view/{id}(id=${member.id})}"><button>관리</button></a>
                                         <button onclick="delete_confirm()" class="del">삭제</button></td>
-                                            
+
                                     </tr>
                                    </th:block>
                                    </tbody>

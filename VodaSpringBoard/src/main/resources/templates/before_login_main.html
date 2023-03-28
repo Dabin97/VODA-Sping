@@ -57,8 +57,8 @@
         padding-left: 20px;
         text-decoration: none;
     }
-    .login{
-        padding-left: 23px;
+    .index{
+        padding-left: 280px;
     }
     footer{
     width: 1200px;
@@ -328,13 +328,6 @@
     .click, .click img{
         background-color: rgb(34, 34, 34);;
     }
-    
-    .nick{
-        color: #a7f2dc;
-        font-size: 32px;
-        font-weight: bold;
-    	margin-left : 50px;
-    }
     </style>
     <script>
        $(function(){
@@ -469,8 +462,7 @@
             <a href="main_page.html">BEST</a>
             <a href="new_expire.html">NEW/EXPIRE</a>
             <a href="search.html">ALL</a>
-            <a href="/my_page" class="nick">[[${session.member.id}]]</a>님 로그인
-            <a href="/logout" class="login">▶로그아웃</a>
+            <a href="/index" class="index">▶로그인</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
                 <container class = "rel_search">
                     <ul class="pop_rel_keywords"></ul>

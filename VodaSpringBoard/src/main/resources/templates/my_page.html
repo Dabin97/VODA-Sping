@@ -343,8 +343,8 @@ footer a{
                 <div class="profile">
                     <img src="img/profile.png">
                     <div>
-                        <p class="nick">닉네임</p>
-                        <p><a href="#" class="logout">로그아웃</a></p>
+                        <p class="nick">[[${session.member.id}]]</p>
+                        <p><a href="/logout" class="logout">로그아웃</a></p>
                     </div>
                     <p class="setting">
                         <a href="#">
@@ -421,12 +421,7 @@ footer a{
             <div class="space"></div>
         </section>
         </div>
-        <footer>
-            <a href="main_page.html"><img src="img/home.png"></a>
-            <a href="new_expire.html"><img src="img/video.png"></a>
-            <a href="search.html"><img src="img/explore.png"></a>
-            <a href="my_page.html"><img src="img/profile.png"></a>
-        </footer>
+		<th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
 </html>
