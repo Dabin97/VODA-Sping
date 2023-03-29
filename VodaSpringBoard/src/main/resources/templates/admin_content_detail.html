@@ -258,6 +258,9 @@
             .chk_info {
                 margin-left: 10px;
             }
+            #poster_img{
+                width: 200px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script type="text/javascript" th:inline="javascript">
@@ -280,7 +283,7 @@
                                 <td colspan="5" class="poster">
                                     <p th:each="file : ${fList}">
                                         <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName}]]</a> <br>
-                                        <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}">
+                                        <img id="poster_img" th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}">
                                     </p>
                                 </td>
                                 </tr>
