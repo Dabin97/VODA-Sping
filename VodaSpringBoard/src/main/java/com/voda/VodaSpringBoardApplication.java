@@ -8,7 +8,7 @@ public class VodaSpringBoardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(VodaSpringBoardApplication.class, args); 
-	}
+	} 
  
 }  
 	          
