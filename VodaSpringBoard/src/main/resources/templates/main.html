@@ -327,79 +327,6 @@
             }
         });
 
-        //연관검색어
-        const ul = document.querySelector(".pop_rel_keywords");
-        const searchInput = document.querySelector(".search_input");
-        const relContainer = document.querySelector(".rel_search");
-        let cache = '';
-
-
-        const checkInput = () => {
-            const beforeInput = searchInput.value;
-            timer(beforeInput);
-        }
-
-
-        const timer = (beforeInput) => {
-        setTimeout(() => {
-
-            if(searchInput.value === beforeInput) {
-            // console.log("입력멈춤");
-            loadData(searchInput.value);
-            checkInput();
-            
-            } else {
-            // console.log("입력변함");
-            checkInput();
-            }
-        
-            if(searchInput.value === "") {
-            relContainer.classList.add("hide");
-            } else {
-            relContainer.classList.remove("hide");
-            }
-        }, 500);
-        }
-  
-
-
-        const loadData = (input) => {
-        const url = `https://completion.amazon.com/api/2017/suggestions?session-id=135-3077052-6015425&customer-id=&request-id=DMRETXPQ3PZJQ5TKYSWX&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=undefined&prefix=${input}&event=onFocusWithSearchTerm&limit=11&fb=1&suggestion-type=KEYWORD&suggestion-type=WIDGET&_=1615280967091`;
-        
-        if(cache === url) return;
-        else {
-        cache = url;
-        fetch(url)
-        .then((res) => res.json())
-        .then(res => fillSearch(res.suggestions))
-        }
-        }
-
-        const fillSearch = (suggestArr) => {
-        ul.innerHTML = "";
-        suggestArr.forEach((el, idx) => {
-            const li = document.createElement("li");
-            li.innerHTML = el.value;
-            ul.appendChild(li);
-        }) 
-            
-        const liList = document.querySelectorAll(".pop_rel_keywords li");
-        }
-
-        const highlightText = () => {
-        }
-        checkInput();
-        
-        // 요구사항 1 - esc를 누르면 추천 검색어 창이 닫여야 합니다.
-        $(document).keydown(function(e){
-            var code = e.keyCode || e.which;
-        
-            if (code == 27) {
-                $('.rel_search').hide();
-                location.reload();
-            }
-        });
-        
       });
     </script> 
 </head>
@@ -494,26 +421,7 @@
                         </p>
                     </div>
                 </div>
-            <!--여기부터 미니박스 시작-->
-                <div>
-                    <div class="mini_box click" th:each="board : ${list}">
-                        <img th:src="[[${board.poster}]]" alt="best_poster_mini" class="mini_poster"> <!--포스터 이미지 경로를 어떻게 이어야하는지?-->
-                        <div class="mini_explanation click">
-                            <p>BEST 01</p>
-                            <p>[[${board.title}]]</p>
-                            <p class="star mini">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <span style="padding-left: 10px;">[[${star.count}]]</span> <!--별점 숫자가 테이블에 없는거같음, 테이블로 추가해야하는지 아니면 따로 메소드로 별점을 계산해서 넣어야하는지..-->
-                            </p>
-                        </div>  
-                    </div>  
-                    <!--이 아래로 2개더 미니박스가 추가되어야함-->
-                </div>
-            </div>
+            </div> <!--container_box-->
            </form>
 
             </article>

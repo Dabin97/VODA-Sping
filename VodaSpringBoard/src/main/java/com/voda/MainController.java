@@ -307,13 +307,13 @@ public class MainController {
 			e1.printStackTrace();
 		}
 		
-		response.setHeader("Content-Disposition", "attachement;fileName="+fileName);
+		response.setHeader("Content-Disposition", "attachement;fileName="+fileName); //기존 헤더에 새롭게 설정한 값으로 덮어 쓴다. setHeader
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setContentLength((int)file.length());
 		try(FileInputStream fis = new FileInputStream(file);
 			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());) {
 			
-			byte[] buffer = new byte[1024*1024];
+			byte[] buffer = new byte[1024*1024]; 
 			
 			while(true) {
 				int size = fis.read(buffer);
@@ -327,8 +327,8 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력
-	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
+	@RequestMapping("/filedown") //board_view 첨부파일 목록 출력
+	public void fileDown(int bno, @RequestParam(name = "fno", defaultValue = "0") int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
 		
 		try (BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream()); 
@@ -363,7 +363,6 @@ public class MainController {
 		
 		return view;
 	}
-	
 	
 	@RequestMapping("/admin/content/edit") //수정메소드
 	public String adminContentUpdate(BoardDTO dto, String[] del_file, @RequestParam("file") MultipartFile[] file) { //del_file : 삭제할 파일번호, 여러개받을거라 배열로
@@ -422,7 +421,6 @@ public class MainController {
 		BoardDTO board = boardService.selectBoard(bno);
 		//첨부파일 목록 조회
 		List<FileDTO> fList = boardService.selectFileList(bno);
-	
 		
 		view.addObject("board", board);
 		view.addObject("fList", fList);
