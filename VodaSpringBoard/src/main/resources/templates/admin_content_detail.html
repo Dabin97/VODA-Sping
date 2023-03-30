@@ -282,9 +282,9 @@
                                 <tr>
                                 <td colspan="5" class="poster">
                                     <p th:each="file : ${fList}">
-                                        <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName}]]</a> <br>
-                                        <img id="poster_img" th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}">
-                                    </p>
+                                        <a th:href="@{/image/{fno}(fno=${file.fno})}">[[${file.fileName}]]</a> <br>
+                                        <img id="poster_img" th:if="${file.type == 'image' }" th:src="@{/image/{fno}(fno=${file.fno})}">
+                                    </p>                                    
                                 </td>
                                 </tr>
                             </thead>
@@ -293,11 +293,11 @@
                                     <td class="subject">OTT</td>    
                                     <td colspan="4"> 
                                         <th:block th:if="${board.ottNo} == 1">넷플릭스</th:block>
-                                        <th:block th:if="${board.genre} == 2">디즈니+</th:block>
-                                        <th:block th:if="${board.genre} == 3">라프텔</th:block>
-                                        <th:block th:if="${board.genre} == 4">왓챠</th:block>
-                                        <th:block th:if="${board.genre} == 5">웨이브</th:block>
-                                        <th:block th:if="${board.genre} == 6">티빙</th:block>
+                                        <th:block th:if="${board.ottNo} == 2">디즈니+</th:block>
+                                        <th:block th:if="${board.ottNo} == 3">라프텔</th:block>
+                                        <th:block th:if="${board.ottNo} == 4">왓챠</th:block>
+                                        <th:block th:if="${board.ottNo} == 5">웨이브</th:block>
+                                        <th:block th:if="${board.ottNo} == 6">티빙</th:block>
                                     </td>
                                 </tr>
                                 <tr>

@@ -17,7 +17,16 @@ public class BoardDTO {
 	private String posterVideo; 
 	private int ottNo;
 	private String ottName;
+	private String path;
 	
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public BoardDTO() {	}
 
 	public int getBno() {

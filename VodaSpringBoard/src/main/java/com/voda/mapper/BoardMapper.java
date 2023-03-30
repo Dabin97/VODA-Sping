@@ -32,6 +32,8 @@ public interface BoardMapper {
 	List<MemberDTO> selectSearchContent(HashMap<String, Object> map);
 	List<BoardDTO> selectNewList(HashMap<String, Object> map);
 	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
+	List<BoardDTO> selectMainContentList();
+	FileDTO selectMainImageFile();
 	
 
 }
