@@ -66,10 +66,46 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/main")
-	public String main() {
-		return "main"; 
-	}
+//	@RequestMapping("/main") -기존 메인이동메서드
+//	public String main() {
+//		return "main"; 
+//	}
+	
+	
+	@RequestMapping("/main") //메인 베스트 컨텐츠 -test중
+	public ModelAndView MainContentList() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("main");
+		//게시판 글목록
+//		String list = dto.getPath();
+		List<BoardDTO> list = boardService.selectMainContentList();
+		System.out.println(list.toString());
+		view.addObject("list",list); 
+		
+		return view;
+	} 
+	 
+//	@RequestMapping("/mainImage") //test중
+//	public void mainImageDown(HttpServletResponse response) {
+//		FileDTO dto = boardService.selectMainImageFile();
+//		
+//		try(FileInputStream fis = new FileInputStream(dto.getPath());
+//			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());) {
+//			
+//			byte[] buffer = new byte[1024*1024]; 
+//			
+//			while(true) {
+//				int size = fis.read(buffer);
+//				if(size == -1) break;
+//				bos.write(buffer,0,size);
+//				bos.flush();
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	
 	
 	@RequestMapping("/my_page")
 	public String my_page() {
@@ -273,7 +309,7 @@ public class MainController {
 		String date = sdf.format(Calendar.getInstance().getTime());		
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("dto");
-		String fileName = date + "_" + dto.getId() +originFileName+ originFileName.substring(originFileName.lastIndexOf('.'));
+		String fileName = date + "_" + dto.getId() +originFileName+ originFileName.substring(originFileName.lastIndexOf('.')); //확장자 자르기
 		System.out.println("저장할 파일명 : " + fileName);
 		
 		File savefile =  new File(root + fileName); 
@@ -471,6 +507,8 @@ public class MainController {
 		
 		return view;
 	}
+	
+
 	
 	@RequestMapping("/admin/content/expire") //만료 컨텐츠 리스트
 	public ModelAndView adminExpireContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {

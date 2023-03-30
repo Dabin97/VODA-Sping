@@ -133,6 +133,16 @@ public class BoardService {
 		return mapper.selectExpireList(map);
 	}
 
+	public List<BoardDTO> selectMainContentList() {
+		return mapper.selectMainContentList();
+	}
+
+	public FileDTO selectMainImageFile() {
+		return mapper.selectMainImageFile();
+	}
+
+	
+
 
 	
 

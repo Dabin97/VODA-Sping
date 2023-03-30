@@ -16,6 +16,7 @@
 		<result column="poster_video" property="posterVideo"/>
 		<result column="ott_no" property="ottNo"/>
 		<result column="ott_name" property="ottName"/>
+		<result column="path" property="path"/>
 	</resultMap>
 		
 		
@@ -101,6 +102,10 @@
 		select * from board_image where fno = #{fno}
 	</select>
 	
+	<select id="selectMainImageFile" parameterType="int" resultType="file">
+		select * from board_image
+	</select>
+	
 	<select id="selectFile" parameterType="hashMap" resultType="file">
 		select * from board_file where bno = #{bno} and fno = #{fno}
 	</select>
@@ -169,6 +174,9 @@
 		AND ${kind} LIKE '%' || #{search} || '%'
 	</select> 
 
+	<select id="selectMainContentList" resultMap="board">
+		select * from board_table	
+	</select>
 	
 	
 </mapper>
