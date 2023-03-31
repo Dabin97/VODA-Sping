@@ -72,10 +72,10 @@
         }
         .btn_next:hover{
             background-color: #a7f2dc;
-        
+            color: black !important;
         }
         .true{
-            color: blue;
+            color: rgb(194, 231, 142);
             font-weight: bold;
         }
         .false{
@@ -117,8 +117,19 @@
         input{
             color: white;
         }
+        .idCheck{
+            height: 30px;
+            width: 70px;
+            font-weight: bold;
+            background-color:  rgb(194, 231, 142);
+            color:black;
+        }
     </style>
-    <script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+     <script src="/js/jquery-3.6.3.js"></script>
+    <script type="text/javascript">
+        
         //아이디 값 체크하는 함수
         //1. 글자수가 8~20글자 사이
         //2. 숫자만 쓰면 X
@@ -126,6 +137,7 @@
         function idCheck(){
             let id = document.querySelector('#id');
             let id_result =document.querySelector('.id_result');
+            console.log(id);
 
             if(id.value.length<8 || id.value.length>20){
                 id_result.innerHTML = '아이디는 글자수 8~20글자 사이로 사용하세요.';
@@ -146,7 +158,7 @@
             }
 
             if(id_result.classList.contains('false'))
-                id_result.classList.remove('true');  
+                id_result.classList.remove('false');  
             
             if(!id_result.classList.contains('true'))  
                 id_result.classList.add('true'); 
@@ -158,8 +170,8 @@
         //암호 값 체크하는 함수
         //1. 2번 입력한 암호가 서로 일치하는지?
         //2. 암호도 8~20글자만 허용
-        //3. 특수문자가 포함되어 있는지?
-        // 하단에 메세지가 떠야함
+        //3. 특수문자가 포함되어 있는지?, 대문자가 포함되는지?
+        // // 하단에 메세지가 떠야함
         function passCheck(){
             let pass = document.querySelector('#pass');
             let pass_chk = document.querySelector('#pass_chk');
@@ -213,34 +225,6 @@
             return true;
         }
 
-        //1. 전화번호는 숫자만 허용
-        //2. - 는 들어가면 안됨
-        //3. 전화번호 길이 10 또는 11
-        //전화번호 형식이 일치하면 클래스 true 적용, 아니면 false 적용
-        function telCheck(){
-            let tel = document.querySelector('#tel');
-            
-            if(isNaN(tel.value)){
-                if(tel.classList.contains('true'))
-                    tel.classList.remove('true');
-                if(!tel.classList.contains('false'))
-                    tel.classList.add('false')
-                return false;
-            }
-            if(tel.value.length < 10 || tel.value.length > 11){
-                if(tel.classList.contains('true'))
-                    tel.classList.remove('true');
-                if(!tel.classList.contains('false'))
-                    tel.classList.add('false');
-                return false;
-            }
-            if(tel.classList.contains('false'))
-                tel.classList.remove('false');
-            if(!tel.classList.contains('true'))
-                tel.classList.add('true');
-
-            return true;
-        }
 
         
 
@@ -252,8 +236,7 @@
             pass.onkeyup = pass_chk.onkeyup = passCheck;
             let nick = document.querySelector('#nick');
             nick.onkeyup = nickCheck;
-            let tel = document.querySelector('#tel');
-            tel.onkeyup = telCheck;
+    
             
             //가입할 회원정보를 제출하기 전에 최종적으로 모든 데이터를 체크
             //1. 모든 체크에 통과하면 서버로 데이터 제출
@@ -268,31 +251,64 @@
                 else if(!nickCheck())
                     e.preventDefault(); 
             }
+
+             $('.idCheck').click(function() {
+             var username = $('#id').val();
+            console.log(username);
+            $.ajax({
+                type: 'POST',
+                url: '/idCheck',
+                data: {id: id},
+                success: function(response) {
+                if (response === 'duplicated') {
+                    $('.msg').text('This username is already taken.');
+                } else {
+                    $('.msg').text('This username is available.');
+                }
+                },
+                error: function() {
+                alert('An error occurred while processing your request.');
+                }
+            });
+        });
+
         }
+
+       
+   
+
+      
+
     </script>
 </head>
 <body>
     
       <header>
-        <img src="img/VODA_logo.png" alt="logo">
+        <img src="/img/voda_logo.png" alt="logo">
       </header>  
    <section>
     <div class="container">
         <h2>회원 가입 정보를 입력해 주세요.</h2>
-        <form action="/register" id="form" method="post">
+        <form action="/register" id="frm" method="post">
             <ul>
+                <li><label for="name">이름</label></li>
+                <li class="border_bottom">
+                    <input type="text" id="name" placeholder="이름을 입력하세요">
+                </li>
                 <li><label for="id">아이디</label></li>
                 <li class="border_bottom">
-                    <input type="text" id="id" placeholder="아이디를 입력하세요"><span class="sub_txt"></span>
+                    <input type="text" id="id" name="id" placeholder="아이디를 입력하세요"><button class="idCheck" type="button">중복확인</button>
+                    <span class="sub_txt"></span>
+                    <span class="msg"></span>
                 </li>
                 <li class="id_result"></li>
                 <ul th:each="member :${list}">
-                    <li>[[${member.idResult}]]</li> <!--아이디를 입력하면 아래에 출력되도록? 아니면 아이디 후보?-->
-                    <li>[[${member.idResult}]]</li>
+                    <!-- <li>[[${member.idResult}]]</li> 아이디를 입력하면 아래에 출력되도록? 아니면 아이디 후보?
+                    <li>[[${member.idResult}]]</li> -->
                 </ul>
                 <li><label for="pass">비밀번호</label></li>
                 <li class="border_bottom">
-                    <input type="password" id="pass" placeholder="비밀번호">
+                    <input type="password" id="pass" placeholder="비밀번호(8~32자리)">
                 </li>
                 <li class="border_bottom">
                     <input type="password" id="pass_chk" placeholder="비밀번호 재입력">
@@ -302,8 +318,12 @@
                 <li class="border_bottom">
                     <input type="text" id="nick" placeholder="닉네임을 입력하세요"><span class="sub_txt">0/20</span>
                 </li>
+                <li><label for="email">이메일</label></li>
+                <li class="border_bottom">
+                    <input type="text" id="email" placeholder="이메일을 입력하세요">
+                </li>
                 
-                  <li><label for="interest" id="interest">관심분야(OTT)</label><br>
+                  <!-- <li><label for="interest" id="interest">관심분야(OTT)</label><br>
                     <p class="ott_choice">
                         넷플릭스<input type="checkbox" name="ott" value="netflix">
                         왓챠<input type="checkbox" name="ott" value="watcha">
@@ -312,9 +332,9 @@
                         라프텔<input type="checkbox" name="ott" value="laftel">
                         웨이브<input type="checkbox" name="ott" value="wavve">
                     </p>     
-                </li>
+                </li> -->
                <li>
-                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">회원 가입 신청</button>
+                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;" id="submit" disabled="disabled">회원 가입 신청</button>
                </li>
                      
             </ul>
