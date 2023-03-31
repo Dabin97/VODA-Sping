@@ -107,10 +107,14 @@
     	SELECT * FROM board_file WHERE bno = #{bno}
 	</select>
 	
-	
-	<select id="selectMainImageFile" parameterType="int" resultType="file">
-		select * from board_image
+	<select id="selectNewImageFile" parameterType="int" resultType="file">
+    	SELECT path
+		FROM board_file f
+		JOIN board_table b ON b.bno = f.bno
+		WHERE b.bno = #{bno}
+		ORDER BY new_date DESC
 	</select>
+	
 	
 	<select id="selectMainImageFile" parameterType="int" resultType="file">
 		select * from board_image
@@ -185,10 +189,7 @@
 		WHERE ot.ott_no = b.ott_no
 		AND ${kind} LIKE '%' || #{search} || '%'
 	</select> 
-
-	<select id="selectMainContentList" resultMap="board">
-		select * from board_table	
-	</select>
+	
 	
 	
 	

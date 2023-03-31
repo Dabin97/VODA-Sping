@@ -47,8 +47,8 @@ public class BoardService {
 		return fno;
 	}
 
-	public FileDTO selectImageFile(int fno) {
-		return mapper.selectImageFile(fno);
+	public FileDTO selectImageFile(int bno) {
+		return mapper.selectImageFile(bno);
 	}
 
 	public FileDTO selectFile(int bno, int fno) {
@@ -149,9 +149,8 @@ public class BoardService {
 	    return list;
 	}
 
-
-	public FileDTO selectMainImageFile() {
-		return mapper.selectMainImageFile();
+	public FileDTO selectNewImageFile(int bno) {
+		return mapper.selectNewImageFile(bno);
 	}
 
 

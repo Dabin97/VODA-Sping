@@ -424,7 +424,6 @@
             <h1>
                 <img src="img/Union-left.png" alt="">BEST REVIEW<img src="img/Union-right.png" alt="">
             </h1>
-            <!-- <form action="/content_page" method="post"> -->
             <div class="content_box"> <!-- best_table을 따로 만들고 좋아요or찜 카운트를 사용해서 rank 1위로 뽑아야함 -->
                 <img src="img/더 랍스터.png" alt="" class="best_poster"> 
                 <div class="explanation">
@@ -478,7 +477,6 @@
                     </div>
                 </div>
             </div><!--container_box-->
-           <!-- </form> -->
             </article>
 
             <article> <!--신작만료 박스 시작-->
@@ -487,7 +485,7 @@
                     <th:block th:each="board: ${list}">
                       <div>
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <img th:src="@{/newImage/{bno}(bno=${board.bno})}" class="thumbnail">
                       </div>
                     </th:block>
                   </div>
