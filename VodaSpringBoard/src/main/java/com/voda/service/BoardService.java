@@ -38,13 +38,13 @@ public class BoardService {
 
 	public int uploadImage(String absolutePath) {
 		//이미지 파일 번호 시퀸스로 생성한 결과를 받아옴
-				int fno = mapper.selectImageFileNo();
-				//받아온 파일 경로를 board_image 폴더 저장
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("fno", fno);
-				map.put("path", absolutePath);
-				mapper.insertBoardImage(map);
-				return fno;
+		int fno = mapper.selectImageFileNo();
+		//받아온 파일 경로를 board_image 폴더 저장
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fno", fno);
+		map.put("path", absolutePath);
+		mapper.insertBoardImage(map);
+		return fno;
 	}
 
 	public FileDTO selectImageFile(int fno) {
@@ -132,6 +132,30 @@ public class BoardService {
 		map.put("contentCount", i);
 		return mapper.selectExpireList(map);
 	}
+
+	public List<BoardDTO> selectMainContentList() {
+	    List<BoardDTO> list = mapper.selectMainContentList();
+
+	    for (BoardDTO board : list) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return list;
+	}
+
+
+	public FileDTO selectMainImageFile() {
+		return mapper.selectMainImageFile();
+	}
+
+
+	
 
 
 	
