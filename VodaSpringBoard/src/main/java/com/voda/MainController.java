@@ -59,7 +59,7 @@ public class MainController {
 	@RequestMapping("/index") 
 	public String index() {
 		return "index"; 
-	}
+	} 
 	
 	@RequestMapping("/before_login_main")
 	public ModelAndView before_login_main() {
@@ -570,7 +570,7 @@ public class MainController {
 }
 
 
-		
+		 
 //		@RequestMapping("/member/delete/view")
 //			public String memberDeleteView() {
 //			return "/admin_list_member";

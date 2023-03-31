@@ -112,10 +112,6 @@
 		select * from board_image
 	</select>
 	
-	<select id="selectMainImageFile" parameterType="int" resultType="file">
-		select * from board_image
-	</select>
-	
 	<select id="selectFile" parameterType="hashMap" resultType="file">
 		select * from board_file where bno = #{bno} and fno = #{fno}
 	</select>
@@ -185,10 +181,7 @@
 		WHERE ot.ott_no = b.ott_no
 		AND ${kind} LIKE '%' || #{search} || '%'
 	</select> 
-
-	<select id="selectMainContentList" resultMap="board">
-		select * from board_table	
-	</select>
+	
 	
 	
 	
