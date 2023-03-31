@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Search</title>
-
+<title>New Expire</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
@@ -21,13 +21,7 @@
           flex-direction: column;
           position: relative;
       }
-      .t{
-        width: 100%;
-        height: 120px;
-        position: absolute;
-        border: none;
-      }
-
+    
     .header img{
         height: 150px;
         display: block;
@@ -47,18 +41,15 @@
         height: 60px;
         float: left;
     }
-    
     nav{
-        text-align: center;
         height: 70px;
         background-color: gray;
-        margin-bottom: 40px;
-        
+        margin-bottom: 50px;
     }
     nav a{
         background-color: gray;
         border: none;
-        color: #a7f2dc;
+        color: rgb(194, 231, 142);
         text-decoration: none;
         font-size: 32px;
         font-weight: bold;
@@ -67,249 +58,116 @@
         height: 50px;
         display: inline-block;
         text-align: center;
-   
     }
 
-
-.flex_container {
-	width: 1200px;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	position: relative;
+    nav a:hover,nav a:active{
+        background-color: rgb(99, 98, 98);
+    }
+    #new{
+        color: greenyellow;
+    }
+    #expire{
+        color:deepskyblue;
+    }
+    .poster{
+        position: relative;
+        background-color: rgb(184, 184, 184);
+    }
+    .ott{
+        width: 40px !important;
+        height: 40px !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+    }
+    article > h1{
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+    .content_box img{
+        width: 150px;
+        height: 200px;
+        margin: 20px 30px 50px 20px;
+        box-shadow: 5px 5px 5px #000;
+    }
+    .content_box{
+        background-color: rgb(184, 184, 184);
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: row;
+    } 
+    .explanation{
+        width: 950px;
+        background-color: rgb(184, 184, 184);
+        padding-top: 15px;
+    }
+    .explanation p{
+        background-color: rgb(184, 184, 184);
+        color: black;
+    }
+    .explanation p:first-child{
+        font-size: 24px;
+        font-weight: bold;
+    }
+    footer{
+    width: 1200px;
+    height: 80px;
+    position: fixed ;
+    bottom: 0;
+    margin: 0 auto;
+    text-align: center;
 }
-
-.t {
-	width: 100%;
-	height: 120px;
-	position: absolute;
-	border: none;
+footer img{
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    height: 40px;
+    margin: 20px 80px;
 }
-
-header img {
-	height: 150px;
-	display: block;
-	margin: auto;
+footer a{
+    margin-right: 30px;
+    padding: 10px;
+    margin-top: 30px;
+    text-decoration: none;
+    color: rgb(168, 168, 168);
 }
-
-header input {
-	position: absolute;
-	margin-top: 50px;
-	right: 0;
-}
-
-ul {
-	list-style: none;
-	color: white;
-}
-
-header li>img {
-	width: 60px;
-	height: 60px;
-	float: left;
-}
-
-nav {
-	text-align: center;
-	height: 70px;
-	background-color: gray;
-	margin-bottom: 40px;
-}
-
-nav a {
-	background-color: gray;
-	border: none;
-	color: #a7f2dc;
-	text-decoration: none;
-	font-size: 32px;
-	font-weight: bold;
-	padding: 10px 20px;
-	width: 100px;
-	height: 50px;
-	display: inline-block;
-	text-align: center;
-}
-
-nav a:hover, nav a:active {
-	background-color: rgb(99, 98, 98);
-}
-
-#new {
-	color: greenyellow;
-}
-
-#expire {
-	color: deepskyblue;
-}
-
-.new_content img, .expire_content img {
-	width: 150px;
-	height: 200px;
-	margin: 20px 30px 50px 20px;
-	box-shadow: 5px 5px 5px #000;
-}
-
-footer {
-	width: 1200px;
-	height: 80px;
-	position: fixed;
-	bottom: 0;
-	margin: 0 auto;
-	text-align: center;
-}
-
-footer img {
-	width: 40px;
-	background-color: rgba(0, 0, 0, 0);
-	height: 40px;
-	margin: 20px 80px;
-}
-
-footer a {
-	margin-right: 30px;
-	padding: 10px;
-	margin-top: 30px;
-	text-decoration: none;
-	color: rgb(168, 168, 168);
-}
-
-.top {
-	position: fixed;
-	width: 70px;
-	height: 70px;
-	background-image: url(img/up.png);
-	background-repeat: no-repeat;
-	bottom: 20px;
-	right: 200px;
-	border-radius: 100px;
-}
-
-.zoom {
-	height: 40px;
-	width: 300px;
-	border: 1px solid rgb(91, 91, 91);
-	box-sizing: border-box;
-	outline: none;
-	background-image: url(img/zoom.png);
-	background-repeat: no-repeat;
-	background-size: 30px;
-	background-position: 5px center;
-	padding-left: 43px;
-}
-
-.thumnail img {
-	text-align: center;
-	width: 200px;
-	height: 330px;
-}
-
-.thumnail>.star {
-	width: 30px;
-	height: 30px;
-	margin-left: 0px;
-}
-
-.bx-wrapper {
-	margin: 0 auto;
-	border: none;
-	box-shadow: none;
-}
-
-.bx-wrapper img {
-	margin: 0 auto;
-}
-
-.bx-prev {
-	left: -40px !important;
-}
-
-.bx-next {
-	right: -40px !important;
-}
-
-.star_box {
-	width: 200px;
-	height: 30px;
-	color: #a7f2dc;
-	font-weight: bold;
-	margin-left: 43px;
-	margin-bottom: 30px;
-	background-color: gray;
-	background-image: url("img/star.png");
-	font-size: 20px;
-}
-
-select {
-	width: 70px;
-	height: 35px;
-	font-weight: bold;
-	background-color: gray;
-	color: #a7f2dc;
-	display: inline-block;
-}
-/* .main_container{
-        margin-top: 30px;
-    } */
-.choice {
-	text-align: right;
-	height: 35px;
-	margin-bottom: 30px;
-}
-
-.hide {
-	display: none !important;
-}
-
-.rel_search {
-	position: absolute;
-	right: 0;
-	z-index: 6;
-	margin-top: 90px;
-	float: right;
-	border: 1px solid gray;
-	color: white;
-	width: 300px;
-	height: 150px;
-	overflow: auto;
-	box-sizing: border-box;
-}
-
-.pop_rel_keywords {
-	list-style: none;
-	margin-right: 30%;
-}
-
-.pop_rel_keywords>li {
-	line-height: 250%
-}
-
-#test::-webkit-scrollbar {
-	display: none;
-}
-</style>
-<script>
-
-$(function(){
-
-
-        $('.thumnail').bxSlider({
-          pager : false,
-          slideWidth : 600,
-          slideMargin : 20,
-          minSlides:4,
-          maxSlides:8,
-          moveSlides:1,
-          touchEnabled : false
-        });
-    });
-    </script>
+    .top{
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        background-size: 100%;
+        background-image: url(img/up-arrow.png);
+        background-repeat: no-repeat;
+        bottom: 20px;
+        right: 200px;
+        border-radius: 100px;
+      }
+      .space{
+        width: 100%;
+        height: 100px;
+        position: absolute;
+      }
+      .zoom{
+        height: 40px;
+        width: 300px;
+        border: 1px solid rgb(91, 91, 91);
+        box-sizing: border-box;
+        outline: none;
+        background-image: url(img/zoom.png);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: 5px center;
+        padding-left: 43px;
+    }
+    
+    </style>
 </head>
 <body>
-
     <div class="flex_container">
     	<th:block th:include="/fragments/user_header.html"></th:block>
-		<br>
         <div class="header">
+            <br>
             <h1 style="font-weight: bold;">Search your contents!</h1>
             <ul>
                 <li><img src="img/netflix.png" alt=""></li>
@@ -320,63 +178,29 @@ $(function(){
                 <li><img src="img/disney_remove.png" alt=""></li>
             </ul>
         </div>
-        <nav>
+        <nav class="not">
             <a href="#">전체</a>
             <a href="#">영화</a>
             <a href="#">드라마</a>
             <a href="#">예능</a>
             <a href="#">애니</a>
         </nav>
-        <div class="choice">
-        <select>
-           <option value="best">인기순</option>
-           <option value="new">최신순</option>
-           <option value="gpa">평점순</option>
-        </select>
-       </div>
         <div class="main_container">
-			<section>
-				<article>
-					<div class="thumnail" th:each="file : ${flist}">
-						<div>
-							<div class="poster" >
-								<img th:if="${file.type == 'image' }" th:src="@{/content_page/{fno}(fno=${file.bno },fno=${file.fno})}">
-							</div>
-							<div class="star_box">★5.0</div>
-							<img src="img/poster5.jpg" />
-							<div class="star_box">★5.0</div>
-						</div>
-						<div>
-							<div class="poster">
-								<img src="img/poster2.jpg" />
-							</div>
-							<div class="star_box">★5.0</div>
-							<img src="img/poster6.jpg" />
-							<div class="star_box">★5.0</div>
-						</div>
-						<div>
-							<div class="poster">
-								<img src="img/poster3.jpg" />
-							</div>
-							<div class="star_box">★5.0</div>
-							<img src="img/poster7.jpg" />
-							<div class="star_box">★5.0</div>
-						</div>
-						<div>
-							<div class="poster">
-								<img src="img/poster4.jpg" />
-							</div>
-							<div class="star_box">★5.0</div>
-							<img src="img/poster8.jpg" />
-							<div class="star_box">★5.0</div>
-						</div>
-					</div>
-				</article>
-				</form>
-				<div class="t"></div>
-			</section>
-			<th:block th:include="/fragments/footer.html"></th:block>
-		</div>
-
+            <article> <!--신작만료 박스 시작-->
+                <h2>
+                   <img src="img/Union-left.png" alt="">NEW CONTENTS<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                      </div>
+                    </th:block>
+                  </div>
+            </article>
+        </div>
+		<th:block th:include="/fragments/footer.html"></th:block>
+    </div>
 </body>
 </html>

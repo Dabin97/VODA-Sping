@@ -94,8 +94,14 @@ public class MainController {
 	}
 	
 	@RequestMapping("/search")
-	public String search() {
-		return "search";  
+	public ModelAndView SearchContentList() {
+	    ModelAndView view = new ModelAndView();
+	    view.setViewName("search");
+	    
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view; 
 	}
 	
 	@RequestMapping("/edit")
