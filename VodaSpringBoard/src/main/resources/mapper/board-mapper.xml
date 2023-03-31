@@ -93,9 +93,7 @@
 	<select id="selectFileList" resultType="file" parameterType="int">
 		select * from board_file where bno = #{bno} order by fno
 	</select>
-	
-	
-	
+
 	<select id="selectBoardCount" resultType="int">
 		select count(*) from board_table_view
 	</select> 
@@ -109,6 +107,10 @@
     	SELECT * FROM board_file WHERE bno = #{bno}
 	</select>
 	
+	
+	<select id="selectMainImageFile" parameterType="int" resultType="file">
+		select * from board_image
+	</select>
 	
 	<select id="selectMainImageFile" parameterType="int" resultType="file">
 		select * from board_image
@@ -184,6 +186,9 @@
 		AND ${kind} LIKE '%' || #{search} || '%'
 	</select> 
 
+	<select id="selectMainContentList" resultMap="board">
+		select * from board_table	
+	</select>
 	
 	
 	

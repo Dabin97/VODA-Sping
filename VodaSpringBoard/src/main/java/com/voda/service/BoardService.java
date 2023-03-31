@@ -154,11 +154,6 @@ public class BoardService {
 		return mapper.selectMainImageFile();
 	}
 
-	public BoardDTO selectBoardByBno(int bno) {
-		return mapper.selectBoardByBno(bno);
-	}
-
-
 
 
 	

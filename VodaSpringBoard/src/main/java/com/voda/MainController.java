@@ -73,7 +73,6 @@ public class MainController {
 	}
 	
 	
-	
 
 	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
 	public ModelAndView MainContentList() {
@@ -86,6 +85,7 @@ public class MainController {
 	    return view;
 	}
 
+	
 	
 	
 	@RequestMapping("/my_page")
@@ -363,6 +363,8 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+
+
 
 	
 	
