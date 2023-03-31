@@ -62,15 +62,16 @@ public class MainController {
 	}
 	
 	@RequestMapping("/before_login_main")
-	public String before_login_main() {
-		return "before_login_main"; 
+	public ModelAndView before_login_main() {
+		ModelAndView view = new ModelAndView();
+	    view.setViewName("before_login_main");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view;
 	}
 	
-	
-//	@RequestMapping("/main") -기존 메인이동메서드
-//	public String main() {
-//		return "main"; 
-//	}
 	
 
 	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
@@ -83,6 +84,8 @@ public class MainController {
 
 	    return view;
 	}
+
+	
 	
 	
 	@RequestMapping("/my_page")
@@ -307,9 +310,9 @@ public class MainController {
 		return new ResponseEntity(map,HttpStatus.OK); 
 	}
 	
-	@RequestMapping("/image/{fno}")
-	public void imageDown(@PathVariable("fno") int fno, HttpServletResponse response) {
-		FileDTO dto = boardService.selectImageFile(fno);
+	@RequestMapping("/image/{bno}")
+	public void imageDown(@PathVariable("bno") int bno, HttpServletResponse response) {
+		FileDTO dto = boardService.selectImageFile(bno);
 		
 		String path = dto.getPath();
 		File file = new File(path);
@@ -317,7 +320,7 @@ public class MainController {
 		
 		try {
 			fileName = URLEncoder.encode(fileName,"utf-8");
-		} catch (UnsupportedEncodingException e1) {
+		} catch (UnsupportedEncodingException e1) { 
 			e1.printStackTrace();
 		}
 		
@@ -341,26 +344,29 @@ public class MainController {
 	}
 	
 	
-//	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 - file다운로드 메서드이므로 필요없음 / 위의 imageDown메서드를 통해서 출력할수있다. 
-//	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
-//		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
-//		
-//		try (BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream()); 
-//			 FileInputStream fis = new FileInputStream(dto.getPath());) {
-//
-//			byte[] buffer = new byte[1024 * 1024];
-//
-//			while (true) {
-//				int count = fis.read(buffer);
-//				if (count == -1) break;
-//				bos.write(buffer, 0, count);
-//				bos.flush();
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
+	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
+		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
+		
+		try (BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream()); 
+			 FileInputStream fis = new FileInputStream(dto.getPath());) {
 
+			byte[] buffer = new byte[1024 * 1024];
+
+			while (true) {
+				int count = fis.read(buffer);
+				if (count == -1) break;
+				bos.write(buffer, 0, count);
+				bos.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
+	
 	
 	@RequestMapping("/admin/content/write/{bno}") //수정창 이동
 	public ModelAndView adminContentEditview(@PathVariable(name ="bno")int bno) {

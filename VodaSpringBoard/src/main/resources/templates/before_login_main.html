@@ -441,43 +441,98 @@
         <section>
             <article>
                 <div class="slider">
-                    <div class="poster" th:each="board : ${list}">
-                        <img th:src="[[${board.poster}]]" alt=""> <!--이미지 경로를 받아오기-->
-                       <p class="poster_story">[[${board.content}]]</p>
-                        <div class="comments">
-                            <p class="star">
-                                <img src="img/green_star_full.png" alt=""> <!--해당 컨텐츠에 해당하는 별점 이미지로 변경해야함-->
-                                <img src="img/green_star.png" alt="">
-                                <img src="img/green_star.png" alt="">
-                                <img src="img/green_star.png" alt="">
-                                <img src="img/green_star.png" alt="">
-                                <p style="padding-left: 20px;">[[${board.review_content}]]</p> 
-                                <!--th:each="board : ${list}" board list안에 review_content를 넣어서 each문에서 같이 뽑아야함. 따라서 ${board.review_content}-->
-                            </p>
-                            <br>
-                            <p class="star">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <p style="padding-left: 20px;">[[${review.review_content}]]</p>
-                            </p>
-                        </div>
-                        <a th:href="@{/detail/{bno}(bno=${board.bno})}">[[${board.poster}]]</a>
+                    <div class="poster">
+                       <p><img src="img/라라랜드로고.png" alt="" class="poster_logo"></p>
+                       <p class="poster_story">
+                            꿈꾸는 이들이 모이는 곳, LA. 우연히 만난 배우 지망생 미아와 재즈 피아니스트 세바스찬은 서로를 향한 사랑을 키워간다. 
+                            각자의 꿈으로 인해 가슴 아픈 딜레마를 마주하게 될 줄은 모르고.
+                        </p>
+                        <img src="img/라라랜드스틸컷.jpg" alt="">
                     </div>
+                    <div class="poster">
+                        <p><img src="img/어바웃타임로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            평범한 청년이 알게 된 가문의 놀라운 비밀. 
+                            그건 바로 집안의 남자들에게 시간을 되돌리는 능력이 있다는 것. 
+                            청년은 첫눈에 반한 여인의 마음을 얻기 위해 그 특별한 능력을 사용하기로 한다. 
+                            그리고 그녀와의 꿈 같은 시간이 시작된다.
+                        </p>
+                        
+                        <img src="img/어바웃타임스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/이터널선샤인로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            옛 여자친구가 자신에 대한 기억을 모두 지우기 위해 실험적인 치료를 받았다는 사실을 
+                            알게 된 한 남자는 자신도 같은 치료를 받기로 한다.
+                        </p>
+                        
+                        <img src="img/이터널선샤인스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/시카고로고.png" alt="" class="poster_logo">
+                        </p><p class="poster_story">
+                            1920년, 향락의 도시 시카고. 살인죄로 수감된 록시는 언론을 교묘하게 이용하는 불패의 변호사를 
+                            고용해 스타덤에 오른다. 그리고 자신의 운명을 가를 재판이란 무대에 올라 화려한 연극을 시작한다. 아카데미 수상에 빛나는 뮤지컬 영화.
+                        </p>
+                        
+                        <img src="img/시카고스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/인턴로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            뜨거운 열정으로 단기간에 회사를 키워낸 30대 열혈 여성 CEO. 
+                            사별과 은퇴를 겪고 공허한 일상을 보내다가 새내기로 입사한 70세 남성 인턴. 문제없을까, 이 어색한 조합.
+                        </p>
+                       
+                        <img src="img/인턴스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/위플래쉬로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            완벽을 추구하는 음악 교수의 지도에 따라, 앤드류는 재즈 뮤지션으로 성공하겠다는 일념에 불탄다. 성공의 대가로 인격이 파괴될지라도.
+                        </p>
+                       
+                        <img src="img/위플래쉬스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/미니언즈2로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            우상이었던 슈퍼빌런들에게 외면당한 12살 그루. 내가 얼마나 나쁜 악당인지 보여주겠어. 시끌벅적 정신없는 미니언즈들과 함께!
+                        </p>
+                       
+                        <img src="img/미니언즈2스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/맘마미아로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            그리스 섬에서 열리는 결혼식을 앞둔 젊은 여성. 자유로운 영혼을 지닌 엄마의 옛 연인 세 명을 결혼식에 초대하는데. 그녀의 진짜 아빠는 셋 중 과연 누구일까?
+                        </p>
+                        
+                        <img src="img/맘마미아스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/호텔델루나_제목로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            서울 도심에 수상한 호텔이 있다. 천년 영업에 숙박한 사람이 없다. 왜? 산 사람은 안 받으니까. 귀신만 묵는 그곳에 인간 지배인이 왔다. 
+                            알고 보면 심약한 이 남자, 고객 응대 잘 해낼까? 외모와 달리 괴팍한 사장은 어찌 감당하누.
+                        </p>
+                      
+                        <img src="img/호텔델루나스틸컷.jpg" alt="">
+                    </div>
+                  </div>
             </article>
 
             <article>
             <h1>
                 <img src="img/Union-left.png" alt="">BEST REVIEW<img src="img/Union-right.png" alt="">
             </h1>
-            <form action="/content_page" method="post">
-            <div class="content_box">
+            <!-- <form action="/content_page" method="post"> -->
+            <div class="content_box"> <!-- best_table을 따로 만들고 좋아요or찜 카운트를 사용해서 rank 1위로 뽑아야함 -->
                 <img src="img/더 랍스터.png" alt="" class="best_poster"> 
                 <div class="explanation">
                     <p>BEST 01</p>
-                     <a href="/content_page" class="content"><p class="ex_title">더 랍스터(The Lobster)</p></a>
+                    <a href="/content_page" class="content"><p class="ex_title">더 랍스터(The Lobster)</p></a>
                     <div class="best_review">
                         <p class="up_down">
                             <img src="img/dislike_full.png" class="dislike">
@@ -508,7 +563,7 @@
                         </p>
                         <p class="up_down">
                             <img src="img/like_full.png" class="like">
-                            <span>809</span>
+                            <span>808</span>
                         </p>
                         <p class="star">
                             <img src="img/green_star_full.png" alt="">
@@ -525,47 +580,31 @@
                         </p>
                     </div>
                 </div>
-            <!--여기부터 미니박스 시작-->
-                <div>
-                    <div class="mini_box click" th:each="board : ${list}">
-                        <img th:src="[[${board.poster}]]" alt="best_poster_mini" class="mini_poster"> <!--포스터 이미지 경로를 어떻게 이어야하는지?-->
-                        <div class="mini_explanation click">
-                            <p>BEST 01</p>
-                            <p>[[${board.title}]]</p>
-                            <p class="star mini">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <img src="img/green_star_full.png" alt="">
-                                <span style="padding-left: 10px;">[[${star.count}]]</span> <!--별점 숫자가 테이블에 없는거같음, 테이블로 추가해야하는지 아니면 따로 메소드로 별점을 계산해서 넣어야하는지..-->
-                            </p>
-                        </div>  
-                    </div>  
-                    <!--이 아래로 2개더 미니박스가 추가되어야함-->
-                </div>
-            </div>
-           </form>
-
+            </div><!--container_box-->
+           <!-- </form> -->
             </article>
 
-            <article>
+            <article> <!--신작만료 박스 시작-->
                 <h2>NEW</h2>
-                <div class="thumnail new_end_search" >
-                    <div th:each="board : ${list}"> <!--신작만료작만 담은 list를 따로 만들어야할것같음-->
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
                         <img src="img/heart.png" class="heart">
-                        <img src="[[${board.poster}]]" > <!--신작용 포스터만 보이게..-->
-                    </div>
-                </div>
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                      </div>
+                    </th:block>
+                  </div>
             </article>
             <article>
                 <h2>EXPIRE</h2>
-                <div class="thumnail new_end_search">
-                    <div th:each="board : ${list}">
+                <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
                         <img src="img/heart.png" class="heart">
-                        <img src="[[${board.poster}]]" > <!--신작용 포스터만 보이게..-->
-                    </div>
-                </div>
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                      </div>
+                    </th:block>
+                  </div>
             </article>
             <a href="#top" class="top"></a>
             <div class="space"></div>
