@@ -11,7 +11,7 @@
       }
       header img{
         width: 100px;
-        padding-left: 100px;
+        padding-left: 50px;
         margin-top: 10px;
       }
       
@@ -30,13 +30,13 @@
     
     .login{
         padding-left: 23px;
+        color : grey;
     }
     
         .search_input{
         color: white;
         position: absolute;
         right: 80px;
-
         /* bottom: 150px; */
     }
    
@@ -50,6 +50,8 @@
         .index{
         padding-left: 280px;
     }
+    
+
     
     </style>
     
@@ -70,7 +72,7 @@
             <a href="/main">BEST</a>
             <a href="/new_expire">NEW/EXPIRE</a>
             <a href="/search">ALL</a>
-            <a href="/my_page" class="nick">[[${session.member.id}]]</a>님 로그인
+            <a href="/my_page" class="nick">[[${session.member.name}]]</a>님 로그인
             <a href="/logout" class="login">▶로그아웃</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
             </th:block>

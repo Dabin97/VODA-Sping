@@ -55,7 +55,7 @@ public class MainController {
 		this.secessionService = secessionService;
 	} 
 	
-	
+	 
 	@RequestMapping("/index") 
 	public String index() {
 		return "index"; 
