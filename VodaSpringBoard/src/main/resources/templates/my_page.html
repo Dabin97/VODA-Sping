@@ -217,6 +217,10 @@ footer a{
     .rel_search::-webkit-scrollbar {
      display: none;
    }
+   
+   .logout {
+   	color : grey;
+   }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -325,7 +329,7 @@ footer a{
                     <img src="img/profile.png">
                     <div>
                         <p class="nickname">[[${session.member.id}]]</p>
-                        <p><a href="/logout" class="logout">로그아웃</a></p>
+                        <p><a href="/logout" class="logout">▶로그아웃</a></p>
                     </div>
                     <p class="setting">
                         <a href="/edit" class=edit>
