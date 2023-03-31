@@ -134,12 +134,32 @@ public class BoardService {
 	}
 
 	public List<BoardDTO> selectMainContentList() {
-		return mapper.selectMainContentList();
+	    List<BoardDTO> list = mapper.selectMainContentList();
+
+	    for (BoardDTO board : list) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return list;
 	}
+
 
 	public FileDTO selectMainImageFile() {
 		return mapper.selectMainImageFile();
 	}
+
+	public BoardDTO selectBoardByBno(int bno) {
+		return mapper.selectBoardByBno(bno);
+	}
+
+
+
 
 	
 

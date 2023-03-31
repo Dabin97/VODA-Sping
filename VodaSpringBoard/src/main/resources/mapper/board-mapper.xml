@@ -86,9 +86,15 @@
 		where bno = #{bno}
 	</select>
 	
+	<select id="selectMainContentList" resultMap="board">
+		select * from board_table	
+	</select>
+	
 	<select id="selectFileList" resultType="file" parameterType="int">
 		select * from board_file where bno = #{bno} order by fno
 	</select>
+	
+	
 	
 	<select id="selectBoardCount" resultType="int">
 		select count(*) from board_table_view
@@ -98,9 +104,11 @@
 		insert into board_image values(#{fno},#{path})
 	</insert>
 	
+
 	<select id="selectImageFile" parameterType="int" resultType="file">
-		select * from board_image where fno = #{fno}
+    	SELECT * FROM board_file WHERE bno = #{bno}
 	</select>
+	
 	
 	<select id="selectMainImageFile" parameterType="int" resultType="file">
 		select * from board_image
@@ -109,6 +117,8 @@
 	<select id="selectFile" parameterType="hashMap" resultType="file">
 		select * from board_file where bno = #{bno} and fno = #{fno}
 	</select>
+	
+
 	
 	 <select id="selectBoardBno" resultType="int">
         select board_bno_seq.nextval from dual
@@ -174,9 +184,7 @@
 		AND ${kind} LIKE '%' || #{search} || '%'
 	</select> 
 
-	<select id="selectMainContentList" resultMap="board">
-		select * from board_table	
-	</select>
+	
 	
 	
 </mapper>

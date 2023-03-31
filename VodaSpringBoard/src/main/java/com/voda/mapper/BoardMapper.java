@@ -34,6 +34,8 @@ public interface BoardMapper {
 	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
 	List<BoardDTO> selectMainContentList();
 	FileDTO selectMainImageFile();
+	BoardDTO selectBoardByBno(int bno);
+	
 	
 
 }

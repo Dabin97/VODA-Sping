@@ -32,6 +32,7 @@ import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.ReviewDTO;
 import com.voda.dto.SecessionDTO;
+import com.voda.mapper.BoardMapper;
 import com.voda.service.BoardService;
 import com.voda.service.MemberService;
 import com.voda.service.ReviewService;
@@ -61,50 +62,30 @@ public class MainController {
 	}
 	
 	@RequestMapping("/before_login_main")
-	public String before_login_main() {
-		return "before_login_main"; 
+	public ModelAndView before_login_main() {
+		ModelAndView view = new ModelAndView();
+	    view.setViewName("before_login_main");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view;
 	}
 	
 	
-//	@RequestMapping("/main") -기존 메인이동메서드
-//	public String main() {
-//		return "main"; 
-//	}
 	
-	
-	@RequestMapping("/main") //메인 베스트 컨텐츠 -test중
+
+	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
 	public ModelAndView MainContentList() {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("main");
-		//게시판 글목록
-//		String list = dto.getPath();
-		List<BoardDTO> list = boardService.selectMainContentList();
-		System.out.println(list.toString());
-		view.addObject("list",list); 
-		
-		return view;
-	} 
-	 
-//	@RequestMapping("/mainImage") //test중
-//	public void mainImageDown(HttpServletResponse response) {
-//		FileDTO dto = boardService.selectMainImageFile();
-//		
-//		try(FileInputStream fis = new FileInputStream(dto.getPath());
-//			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());) {
-//			
-//			byte[] buffer = new byte[1024*1024]; 
-//			
-//			while(true) {
-//				int size = fis.read(buffer);
-//				if(size == -1) break;
-//				bos.write(buffer,0,size);
-//				bos.flush();
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
+	    ModelAndView view = new ModelAndView();
+	    view.setViewName("main");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view;
+	}
+
 	
 	
 	@RequestMapping("/my_page")
@@ -309,7 +290,7 @@ public class MainController {
 		String date = sdf.format(Calendar.getInstance().getTime());		
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("dto");
-		String fileName = date + "_" + dto.getId() +originFileName+ originFileName.substring(originFileName.lastIndexOf('.')); //확장자 자르기
+		String fileName = date + "_" + dto.getId() +originFileName+ originFileName.substring(originFileName.lastIndexOf('.'));
 		System.out.println("저장할 파일명 : " + fileName);
 		
 		File savefile =  new File(root + fileName); 
@@ -329,9 +310,9 @@ public class MainController {
 		return new ResponseEntity(map,HttpStatus.OK); 
 	}
 	
-	@RequestMapping("/image/{fno}")
-	public void imageDown(@PathVariable("fno") int fno, HttpServletResponse response) {
-		FileDTO dto = boardService.selectImageFile(fno);
+	@RequestMapping("/image/{bno}")
+	public void imageDown(@PathVariable("bno") int bno, HttpServletResponse response) {
+		FileDTO dto = boardService.selectImageFile(bno);
 		
 		String path = dto.getPath();
 		File file = new File(path);
@@ -339,17 +320,17 @@ public class MainController {
 		
 		try {
 			fileName = URLEncoder.encode(fileName,"utf-8");
-		} catch (UnsupportedEncodingException e1) {
+		} catch (UnsupportedEncodingException e1) { 
 			e1.printStackTrace();
 		}
 		
-		response.setHeader("Content-Disposition", "attachement;fileName="+fileName); //기존 헤더에 새롭게 설정한 값으로 덮어 쓴다. setHeader
+		response.setHeader("Content-Disposition", "attachement;fileName="+fileName);
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setContentLength((int)file.length());
 		try(FileInputStream fis = new FileInputStream(file);
 			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());) {
 			
-			byte[] buffer = new byte[1024*1024]; 
+			byte[] buffer = new byte[1024*1024];
 			
 			while(true) {
 				int size = fis.read(buffer);
@@ -363,8 +344,8 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/filedown") //board_view 첨부파일 목록 출력
-	public void fileDown(int bno, @RequestParam(name = "fno", defaultValue = "0") int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
+	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
+	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
 		
 		try (BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream()); 
@@ -384,6 +365,7 @@ public class MainController {
 	}
 
 	
+	
 	@RequestMapping("/admin/content/write/{bno}") //수정창 이동
 	public ModelAndView adminContentEditview(@PathVariable(name ="bno")int bno) {
 		ModelAndView view = new ModelAndView();
@@ -399,6 +381,7 @@ public class MainController {
 		
 		return view;
 	}
+	
 	
 	@RequestMapping("/admin/content/edit") //수정메소드
 	public String adminContentUpdate(BoardDTO dto, String[] del_file, @RequestParam("file") MultipartFile[] file) { //del_file : 삭제할 파일번호, 여러개받을거라 배열로
@@ -447,6 +430,7 @@ public class MainController {
 		}
 		return "redirect:/admin/content/list";
 	}
+	
 	
 	@RequestMapping("/admin/content/detail/{bno}")
 	public ModelAndView adminContentDetail(@PathVariable("bno") int bno, HttpSession session) {
