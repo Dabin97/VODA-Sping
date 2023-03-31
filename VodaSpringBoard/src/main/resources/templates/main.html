@@ -327,13 +327,6 @@
             $(this).attr('src', src);
             }
         });
-
-
-
-
-
-
-
       });
     </script> 
 </head>
@@ -382,6 +375,7 @@
                         <img src="img/시카고스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
+
                         <p><img src="img/인턴로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             뜨거운 열정으로 단기간에 회사를 키워낸 30대 열혈 여성 CEO. 
@@ -489,30 +483,25 @@
 
             <article> <!--신작만료 박스 시작-->
                 <h2>NEW</h2>
-
-
-
-
-                <div class="slider">
+                  <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
-                      <div class="thumnail new_end_search">
-                        <img th:src="${board.path}">
+                      <div>
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
                       </div>
                     </th:block>
                   </div>
-
-
-
-
             </article>
             <article>
                 <h2>EXPIRE</h2>
-                <div class="thumnail new_end_search" href="/expire/content/list">
-                    <div >
+                <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
                         <img src="img/heart.png" class="heart">
-                        <!-- <img th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno},fno=${file.fno})}">  -->
-                    </div>
-                </div>
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                      </div>
+                    </th:block>
+                  </div>
             </article>
             <a href="#top" class="top"></a>
             <div class="space"></div>
