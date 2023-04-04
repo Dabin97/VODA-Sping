@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <style>
         * {
         margin: 0;
@@ -161,7 +164,60 @@ footer a{
         padding-left: 43px;
     }
     
+        h2 img{
+        width: 30px;
+        height: 30px;
+    }
+    
+        article{
+        margin: 20px 0px 50px 0px;
+        padding: 10px;
+    }
+    article > h1, article > h2{
+        font-size: 32px;
+        margin-bottom: 20px;
+        margin-left: 100px;
+    }
+    .thumnail img{
+        width: 300px;
+        height: 350px;
+    }
+    .heart{
+        position: absolute;
+        right: 0;
+        width: 30px !important;
+        height: 30px !important;
+        background-color: rgba(255, 255, 255, 0);
+    }
+          .bx-wrapper{
+        margin:0 100px;
+        border: none;
+        box-shadow: none;
+        
+      }
+      .bx-prev{
+        left: -40px !important;
+      }
+      .bx-next{
+        right: -40px !important;
+      }
+    
     </style>
+    <script>
+    $(function(){
+
+        $('.new_end_search').bxSlider({
+          pager : false,
+          slideWidth : 400,
+          useCSS : true,
+          slideMargin: 20,
+          minSlides:5,
+          maxSlides:5,
+          moveSlides:1,
+          touchEnabled : false
+        });
+    });
+    </script>
 </head>
 <body>
     <div class="flex_container">
@@ -188,13 +244,103 @@ footer a{
         <div class="main_container">
             <article> <!--신작만료 박스 시작-->
                 <h2>
-                   <img src="img/Union-left.png" alt="">NEW CONTENTS<img src="img/Union-right.png" alt="">
+                   <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
                       <div>
                         <img src="img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                      </div>
+                    </th:block>
+                  </div>
+                  <br>
+                  <br>
+                <h2>
+                   <img src="img/Union-left.png" alt="">NETFILIX<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                       <span th:if="${board.ottNo == 1}">
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        </span>
+                      </div>
+                    </th:block>
+                  </div>
+                  <br>
+                  <br>
+                <h2>
+                   <img src="img/Union-left.png" alt="">WATCHA<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                       <span th:if="${board.ottNo == 4}">
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        </span>
+                      </div>
+                    </th:block>
+                  </div>
+                                                      <br>
+                  <br>
+                <h2>
+                   <img src="img/Union-left.png" alt="">WAVVE<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                       <span th:if="${board.ottNo == 5}">
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        </span>
+                      </div>
+                    </th:block>
+                  </div>
+                                                                        <br>
+                  <br>
+                <h2>
+                   <img src="img/Union-left.png" alt="">TVING<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                       <span th:if="${board.ottNo == 6}">
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        </span>
+                      </div>
+                    </th:block>
+                  </div>
+                                                                                          <br>
+                  <br>
+                <h2>
+                   <img src="img/Union-left.png" alt="">LAFTEL<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                       <span th:if="${board.ottNo == 3}">
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        </span>
+                      </div>
+                    </th:block>
+                  </div>
+                                                                                                            <br>
+                  <br>
+                <h2>
+                   <img src="img/Union-left.png" alt="">DISNEY+<img src="img/Union-right.png" alt="">
+                </h2>
+                  <div class="new_end_search"> 
+                    <th:block th:each="board: ${list}">
+                      <div>
+                      	<span th:if="${board.ottNo == 2}">
+                        <img src="img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        </span>
                       </div>
                     </th:block>
                   </div>
