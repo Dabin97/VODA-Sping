@@ -349,7 +349,6 @@ public class MainController {
 		}
 	}
 	
-	
 	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
@@ -574,6 +573,14 @@ public class MainController {
 	
 	return view;
 }
+	@RequestMapping("/content/detail/{bno}")
+	public ModelAndView updateView(@PathVariable int bno, ModelAndView mv, HttpSession session) {
+		BoardDTO dto = boardService.selectBoard(bno,session);
+		mv.addObject("board", dto);
+		mv.setViewName("content_page");
+		return mv;
+	}
+
 
 
 		 

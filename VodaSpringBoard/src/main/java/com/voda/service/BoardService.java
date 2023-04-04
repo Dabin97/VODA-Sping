@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.BoardDTO;
@@ -152,6 +154,10 @@ public class BoardService {
 
 	public FileDTO selectMainImageFile() {
 		return mapper.selectMainImageFile();
+	}
+
+	public BoardDTO selectBoard(int bno, HttpSession session) {
+		return mapper.selectBoard(bno);
 	}
 
 
