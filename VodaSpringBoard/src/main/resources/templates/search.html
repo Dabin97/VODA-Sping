@@ -231,6 +231,11 @@ footer a{
         border-radius: 100px;
       }
       
+      .new_end_search{
+      	width : 980px;
+      	height : 256px;
+      }
+      
     </style>
     <script>
     $(function(){
@@ -244,10 +249,16 @@ footer a{
             moveSlides:1,
             touchEnabled : false
           });
-        $('#selectBox').onchange({
-        	
-        })
     });
+    
+    alert($(this).val());
+    
+		$('#selectBox1').change(function(){
+			var tag = "";
+			if($(this).val() == "2"){
+				 alert("저는 "+$(this).val()+"입니다.");
+			};
+		});
     </script>
 </head>
 <body>
@@ -270,18 +281,17 @@ footer a{
             <article> <!--신작만료 박스 시작-->
                 <h2>
                    <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
-<select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie" class="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
+<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
+    <option value="1">전체</option>
+    <option value="2">영화</option>
+    <option value="3">드라마</option>
+    <option value="4">예능</option>
+    <option value="5">애니</option>
 </select>
                 </h2>
-
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                      <div id="select">
+                    <th:block th:each="board: ${list}" class="selectopt">
+                    	<div class="all">
                         <img src="img/heart.png" class="heart">
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
@@ -291,7 +301,7 @@ footer a{
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">NETFILIX<img src="img/Union-right.png" alt="" id="netflix">
-                   <select name="selectBox" form="myForm" class="selectBox">
+                   <select name="selectBox" form="myForm" class="selectBox" id="selectBox" onchange="selectBoxChange(this.value);">
     <option value="all">전체</option>
     <option value="movie">영화</option>
     <option value="drama">드라마</option>
@@ -303,7 +313,7 @@ footer a{
                     <th:block th:each="board: ${list}">
                         <div th:if="${board.ottNo == 1}">
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>
@@ -323,7 +333,7 @@ footer a{
                     <th:block th:each="board: ${list}">
                        <div th:if="${board.ottNo == 4}">
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>
@@ -343,7 +353,7 @@ footer a{
                     <th:block th:each="board: ${list}">
                        <div th:if="${board.ottNo == 5}">
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>
@@ -364,7 +374,7 @@ footer a{
                        <div>
                     	<span th:if="${board.ottNo == 6}">
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </span>
                       </div>
                     </th:block>
@@ -385,7 +395,7 @@ footer a{
                     <th:block th:each="board: ${list}">
                        <div th:if="${board.ottNo == 3}">
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>
@@ -405,7 +415,7 @@ footer a{
                     <th:block th:each="board: ${list}">
                       	<div th:if="${board.ottNo == 2}">
                         <img src="img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>

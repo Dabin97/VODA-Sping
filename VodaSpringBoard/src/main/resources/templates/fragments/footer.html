@@ -27,16 +27,16 @@
 	
         <footer>
         	<th:block th:if="${session.member == null}">
-            <a href="/before_login_main" class="before_login_main"><img src="img/home.png"></a>
-            <a href="/new_expire" class="new_expire"><img src="img/video.png"></a>
-            <a href="/search" class="search"><img src="img/explore.png"></a>
-            <a href="/index" class="my_page"><img src="img/profile.png"></a>
+            <a href="/before_login_main" class="before_login_main"><img src="/img/home.png"></a>
+            <a href="/new_expire" class="new_expire"><img src="/img/video.png"></a>
+            <a href="/search" class="search"><img src="/img/explore.png"></a>
+            <a href="/index" class="my_page"><img src="/img/profile.png"></a>
             </th:block>
             <th:block th:if="${session.member != null}">
-            <a href="/main" class="main"><img src="img/home.png"></a>
-            <a href="/new_expire" class="new_expire"><img src="img/video.png"></a>
-            <a href="/search" class="search"><img src="img/explore.png"></a>
-            <a href="/my_page" class="my_page"><img src="img/profile.png"></a>
+            <a href="/main" class="main"><img src="/img/home.png"></a>
+            <a href="/new_expire" class="new_expire"><img src="/img/video.png"></a>
+            <a href="/search" class="search"><img src="/img/explore.png"></a>
+            <a href="/my_page" class="my_page"><img src="/img/profile.png"></a>
             </th:block>
         </footer>
 	

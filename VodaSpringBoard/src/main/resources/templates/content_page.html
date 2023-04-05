@@ -56,9 +56,7 @@
             width: 30px;
             background-color: rgba(255, 255, 255, 0);
         }
-        .info{
-            text-align: center;
-        }
+
 
         .tab {
             background-color: rgb(91, 91, 91);
@@ -293,14 +291,51 @@ footer a{
    	font-size : 16px !important ;
    }
     	
+   .thumbnail {
+   	width : 300px;
+   	height : 420px;
+   }
+   
+   .content_info1 {
+    font-size : 20px;
+    color : #eff7e9;
+    font-weight : bold;
+   }
+   .content_info2 {
+   	font-size : 16px;
+   	color : #e0dcdc;
+   }
+   
+   .info_div {
+    margin : 0 auto;
+   	width : 800px;
+   } 
+   
+   .title_info{
+
+   	font-size : 40px;
+   	color : #dff5d0;
+   	font-weight : bold;
+   }
+   
+   .color {
+   color : #e0dcdc;
+      	font-size : 16px;
+   }
+   
+   .font {
+      	font-weight : bold;
+    color : #eff7e9;
+      	   	font-size : 18px;
+   }
 </style>
 <script>
 $(function(){
         $('.heart').on({ //하트 이미지 변경
         'click': function() {
-            var src = ($(this).attr('src') === 'img/heart_full.png')
-                ? 'img/heart.png'
-                : 'img/heart_full.png';
+            var src = ($(this).attr('src') === '/img/heart_full.png')
+                ? '/img/heart.png'
+                : '/img/heart_full.png';
             $(this).attr('src', src);
             }
         });
@@ -397,24 +432,31 @@ $(function(){
             <section>
             <article class="info">
                 <div class="poster">
-                    <img src="img/heart.png" class="heart">
+                    <img src="/img/heart.png" class="heart">
                     <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
-                    <iframe width="700" height="420" src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe>
                 </div>
+                <div class="info_div">
                     <ul>
-                        <li>제목 : [[${board.title }]]</li>
-                        <li>장르 : [[${board.genre }]]</li>
-                        <li>등급: 12세 관람가</li>
-                        <li>감독 : [[${board.pd}]]</li>
-                        <li>출연 : [[${board.casting }]]</li><br>
-                        <li>줄거리 : [[${board.content }]]</li><br>
+                    	<br>
+                        <li class="title_info">[[${board.title }]]</li>
+                        <br>
+                        <li th:if="${board.genre == 1}" class="font">장르 : <span class="color">영화</span></li>
+                        <li th:if="${board.genre == 2}" class="font">장르 : <span class="color">드라마</span></li>
+                        <li th:if="${board.genre == 3}" class="font">장르 : <span class="color">애니메이션</span></li>
+                        <li th:if="${board.genre == 4}" class="font">장르 : <span class="color">예능</span></li>
+                        <li class="font">감독 : <span class="color">[[${board.pd}]]</span></li>
+                        <li class="font">출연 : <span class="color">[[${board.casting }]]</span></li><br>
+                        <li class="content_info1">작품 정보</li>
+                        <li class="content_info2">[[${board.content }]]</li>
                     </ul>
+                </div>
                 </article>
 
                 <article>
                     <div class="write">
                         <p class="tab">리뷰를 작성해 주세요 </p>
-                        <textarea class="txt" autofocus name="review_content"></textarea>
+                        <textarea class="txt" name="review_content"></textarea>
                         <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="star_no">
                         <option value="">== 별점 ==</option>
               			<option value="1" class="starrate">☆☆☆☆★</option>
@@ -433,8 +475,8 @@ $(function(){
                             <p>내가 작성한 리뷰</p>
                             <p class="starrate">평점 : ☆☆☆☆★</p>
                             <span class="like">       
-                                <button onclick="w_like()"><img src="img/like.png" id="write_like"></button>                         
-                                <button onclick="w_dislike()"><img src="img/dislike.png" id="write_dislike"></button>
+                                <button onclick="w_like()"><img src="/img/like.png" id="write_like"></button>                         
+                                <button onclick="w_dislike()"><img src="/img/dislike.png" id="write_dislike"></button>
                             </span>
                         </div>
                         <input type="text" readonly class="read">
@@ -444,8 +486,8 @@ $(function(){
                             <p>베스트 리뷰</p>
                             <p class="starrate">평점 : ★★★★★</p>
                             <span class="like">
-                                <button onclick="b_like()"><img src="img/like.png" id="best_like"></button>                       
-                                <button onclick="b_dislike()"><img src="img/dislike.png" id="best_dislike"></button>
+                                <button onclick="b_like()"><img src="/img/like.png" id="best_like"></button>                       
+                                <button onclick="b_dislike()"><img src="/img/dislike.png" id="best_dislike"></button>
                             </span>
                         </div>
                          <p class="read"></p>
@@ -455,8 +497,8 @@ $(function(){
                             <p>최신 리뷰</p>
                             <p class="starrate">평점 : ☆☆★★★</p>
                             <span class="like">                             
-                                <button onclick="n_like()"><img src="img/like.png" id="new_like"></button>                        
-                                <button onclick="n_dislike()"><img src="img/dislike.png" id="new_dislike"></button>
+                                <button onclick="n_like()"><img src="/img/like.png" id="new_like"></button>                        
+                                <button onclick="n_dislike()"><img src="/img/dislike.png" id="new_dislike"></button>
                             </span>
                         </div>
                         <p class="read" ><br> "아름다운 영화의 메세지 만큼 조용하지만 아늑한 동네의 전경과 해 질 녘 풍경."<br>철학이 담긴 대사가 관객을 즐겁게 하는 영화 <br><br> -어떤 사람은 평범한 사람을 만나고, 어떤 사람은 광택 나는 사람을 만나고, 어떤 사람은 빛나는 사람을 만나지.<br>하지만 모든 사람은 일생에 단 한번 무지개 같이 변하는 사람을 만난단다.</p>
