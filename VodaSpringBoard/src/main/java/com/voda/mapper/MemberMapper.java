@@ -31,5 +31,8 @@ public interface MemberMapper {
 	int deleteMember(String id);
 
 	MemberDTO idCheck(String id);
+
+
+	
 }
 

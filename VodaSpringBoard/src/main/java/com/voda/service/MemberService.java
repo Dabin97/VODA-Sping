@@ -80,5 +80,6 @@ public MemberService(MemberMapper mapper) {
 		// TODO Auto-generated method stub
 		return mapper.idCheck(id);
 	}
+
   
 }

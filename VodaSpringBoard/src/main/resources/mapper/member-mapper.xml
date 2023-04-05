@@ -52,5 +52,5 @@
 	<select id="idCheck" resultType="member">
 	select id from member_table where id=#{id} 
 	</select>
-
+  
 </mapper>

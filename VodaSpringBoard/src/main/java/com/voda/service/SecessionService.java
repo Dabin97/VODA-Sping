@@ -1,5 +1,6 @@
 package com.voda.service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,4 +30,13 @@ public class SecessionService {
 	public int selectMemberCount() {
 		return mapper.selectMemberCount();
 	}
+
+	public int goSecession(String id, String reason, SecessionDTO dto, LocalDate now) {
+		int sno = mapper.selectSecessionSno();
+        dto.setSno(sno);
+        mapper.goSecession(id,reason,dto,now);
+        return sno; 
+	}
+
+	
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -99,6 +100,27 @@ public class MainController {
 	public String new_expire(HttpSession session) {
 		return "new_expire";
 	}
+	
+	@RequestMapping("/member/secession/view")
+	public String secessionView() {
+		return "member_secession";
+	}
+	
+	@RequestMapping("/member/secession")
+	public String secessionMember(SecessionDTO dto, @RequestParam("id") String id, @RequestParam("reason") String reason, HttpSession session) {
+		  LocalDate now = LocalDate.now();
+		int sno = secessionService.goSecession(id, reason, dto, now);
+		return "redirect:/main";
+	}
+	
+	
+//	@RequestMapping("/member/secession")
+//	public String goSeccesion(MemberDTO dto) {
+//		System.out.println(dto);
+//		int result = memberService.goSecession(dto);
+//		return "redirect:/my_page";
+//	}
+	
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")
@@ -224,8 +246,9 @@ public class MainController {
 	//register 
 	@RequestMapping("/register")
 	public String register(MemberDTO dto) {
+		System.out.println(dto);
 		int result = memberService.insertMember(dto);
-		return "redirect:/main";
+		return "redirect:/index";
 	}
 	
 //	@ResponseBody

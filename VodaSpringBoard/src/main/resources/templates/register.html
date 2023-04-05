@@ -124,6 +124,9 @@
             background-color:  rgb(194, 231, 142);
             color:black;
         }
+        .msg{
+            color: rgb(194, 231, 142);
+        }
     </style>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
      <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
@@ -225,8 +228,31 @@
             return true;
         }
 
+        function duplicate(){
+            var username = $('#id').val();
+            console.log(username);
+            $.ajax({
+                type: 'POST',
+                url: '/idCheck',
+                data: {id: username},
+                success: function(response) {
+                if (response === 'duplicated') {
+                    $('.msg').text('이 아이디는 이미 존재합니다.');
 
+                  
+                } else {
+                    $('.msg').text('사용할 수 있는 아이디입니다.');
+                    
+                }
+                },
+                error: function() {
+                alert('An error occurred while processing your request.');
+                }
+            });
+           
+        }
         
+
 
         window.onload = () => {
             let id = document.querySelector('#id');
@@ -244,12 +270,22 @@
             let frm = document.querySelector('#frm');
 
             frm.onsubmit = (e) => {
-                if(!idCheck())
-                    e.preventDefault(); 
-                else if(!passCheck())
-                    e.preventDefault(); 
-                else if(!nickCheck())
-                    e.preventDefault(); 
+            var idChecked = idCheck();
+            var passChecked = passCheck();
+            var nickChecked = nickCheck();
+
+            if (!idChecked || !passChecked || !nickChecked) {
+                e.preventDefault();
+                return;
+            }
+
+            duplicate();
+
+            var msg = $('.msg').text();
+            if (msg === '이 아이디는 이미 존재합니다.') {
+                e.preventDefault();
+                return;
+            }
             }
 
              $('.idCheck').click(function() {
@@ -258,12 +294,13 @@
             $.ajax({
                 type: 'POST',
                 url: '/idCheck',
-                data: {id: id},
+                data: {id: username},
                 success: function(response) {
                 if (response === 'duplicated') {
-                    $('.msg').text('This username is already taken.');
+                    $('.msg').text('이 아이디는 이미 존재합니다.');
+                   
                 } else {
-                    $('.msg').text('This username is available.');
+                    $('.msg').text('사용할 수 있는 아이디입니다.');
                 }
                 },
                 error: function() {
@@ -272,7 +309,8 @@
             });
         });
 
-        }
+    }
+
 
        
    
@@ -293,14 +331,14 @@
             <ul>
                 <li><label for="name">이름</label></li>
                 <li class="border_bottom">
-                    <input type="text" id="name" placeholder="이름을 입력하세요">
+                    <input type="text" name="name" id="name" placeholder="이름을 입력하세요">
                 </li>
                 <li><label for="id">아이디</label></li>
                 <li class="border_bottom">
                     <input type="text" id="id" name="id" placeholder="아이디를 입력하세요"><button class="idCheck" type="button">중복확인</button>
                     <span class="sub_txt"></span>
-                    <span class="msg"></span>
                 </li>
+                <span class="msg"></span>
                 <li class="id_result"></li>
                 <ul th:each="member :${list}">
                     <!-- <li>[[${member.idResult}]]</li> 아이디를 입력하면 아래에 출력되도록? 아니면 아이디 후보?
@@ -308,7 +346,7 @@
                 </ul>
                 <li><label for="pass">비밀번호</label></li>
                 <li class="border_bottom">
-                    <input type="password" id="pass" placeholder="비밀번호(8~32자리)">
+                    <input type="password" name="passwd" id="pass" placeholder="비밀번호(8~32자리)">
                 </li>
                 <li class="border_bottom">
                     <input type="password" id="pass_chk" placeholder="비밀번호 재입력">
@@ -316,11 +354,11 @@
                 <li class="pass_result"></li>
                 <li><label for="nick">닉네임</label></li>
                 <li class="border_bottom">
-                    <input type="text" id="nick" placeholder="닉네임을 입력하세요"><span class="sub_txt">0/20</span>
+                    <input type="text" id="nick" name="nick" placeholder="닉네임을 입력하세요"><span class="sub_txt">0/20</span>
                 </li>
                 <li><label for="email">이메일</label></li>
                 <li class="border_bottom">
-                    <input type="text" id="email" placeholder="이메일을 입력하세요">
+                    <input type="text" id="email" name="email" placeholder="이메일을 입력하세요">
                 </li>
                 
                   <!-- <li><label for="interest" id="interest">관심분야(OTT)</label><br>
@@ -334,7 +372,7 @@
                     </p>     
                 </li> -->
                <li>
-                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;" id="submit" disabled="disabled">회원 가입 신청</button>
+                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;" id="submit">회원 가입 신청</button>
                </li>
                      
             </ul>
