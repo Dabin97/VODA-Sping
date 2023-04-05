@@ -1,6 +1,5 @@
 package com.voda.mapper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +33,8 @@ public interface BoardMapper {
 	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
 	List<BoardDTO> selectMainContentList();
 	FileDTO selectMainImageFile();
-	FileDTO selectNewImageFile(int bno);
+	List<BoardDTO> selectNewContentList();
+	List<BoardDTO> selectExpireContentList();
 
 	
 

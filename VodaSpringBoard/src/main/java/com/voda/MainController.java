@@ -61,31 +61,49 @@ public class MainController {
 		return "index"; 
 	} 
 	
-	@RequestMapping("/before_login_main")
+	@RequestMapping("/before_login_main")//사용자 페이지 메인 - 로그인안한 버전
 	public ModelAndView before_login_main() {
 		ModelAndView view = new ModelAndView();
 	    view.setViewName("before_login_main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
 	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
 
 	    return view;
 	}
 	
-	
 
-	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
+	@RequestMapping("/main")//사용자 페이지 메인 - 로그인한 버전
 	public ModelAndView MainContentList() {
 	    ModelAndView view = new ModelAndView();
 	    view.setViewName("main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
 	    view.addObject("list", list);
-
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
 	    return view;
 	}
 
-	
+	@RequestMapping("/new_expire")
+	public ModelAndView new_expire(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
 	
 	
 	@RequestMapping("/my_page")
@@ -109,10 +127,7 @@ public class MainController {
 		return "content_page";
 	}
 	
-	@RequestMapping("/new_expire")
-	public String new_expire(HttpSession session) {
-		return "new_expire";
-	}
+
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")
@@ -343,39 +358,7 @@ public class MainController {
 		}
 	}
 	
-	
-	@RequestMapping("/newImage/{bno}")
-	public void newImageDown(@PathVariable("bno") int bno, HttpServletResponse response) {
-		FileDTO dto = boardService.selectNewImageFile(bno);
-		
-		String path = dto.getPath();
-		File file = new File(path);
-		String fileName = dto.getFileName();
-		
-		try {
-			fileName = URLEncoder.encode(fileName,"utf-8");
-		} catch (UnsupportedEncodingException e1) { 
-			e1.printStackTrace();
-		}
-		
-		response.setHeader("Content-Disposition", "attachement;fileName="+fileName);
-		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setContentLength((int)file.length());
-		try(FileInputStream fis = new FileInputStream(file);
-			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());) {
-			
-			byte[] buffer = new byte[1024*1024];
-			
-			while(true) {
-				int size = fis.read(buffer);
-				if(size == -1) break;
-				bos.write(buffer,0,size);
-				bos.flush();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void

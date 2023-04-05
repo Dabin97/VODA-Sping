@@ -1,6 +1,5 @@
 package com.voda.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -149,9 +148,44 @@ public class BoardService {
 	    return list;
 	}
 
-	public FileDTO selectNewImageFile(int bno) {
-		return mapper.selectNewImageFile(bno);
+
+
+	
+	public List<BoardDTO> selectNewContentList() { 
+		List<BoardDTO> nlist = mapper.selectNewContentList();
+
+	    for (BoardDTO board : nlist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return nlist;
 	}
+
+
+
+	public List<BoardDTO> selectExpireContentList() {
+		List<BoardDTO> elist = mapper.selectExpireContentList();
+
+	    for (BoardDTO board : elist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return elist;
+	}
+
+
 
 
 

@@ -587,7 +587,7 @@
             <article> <!--신작만료 박스 시작-->
                 <h2>NEW</h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${nlist}">
                       <div>
                         <img src="img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
@@ -598,7 +598,7 @@
             <article>
                 <h2>EXPIRE</h2>
                 <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${elist}">
                       <div>
                         <img src="img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
