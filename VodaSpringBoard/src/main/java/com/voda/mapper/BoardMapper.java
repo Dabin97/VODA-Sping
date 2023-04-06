@@ -1,6 +1,5 @@
 package com.voda.mapper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface BoardMapper {
 	void deleteReviewLike(HashMap<String, Object> map);
 	int selectImageFileNo();
 	int insertBoardImage(HashMap<String, Object> map);
-	FileDTO selectImageFile(int fno);
+	FileDTO selectImageFile(int bno);
 	FileDTO selectFile(HashMap<String, Object> map);
 	int selectBoardBno();
 	int insertBoard(BoardDTO dto);
@@ -34,6 +33,8 @@ public interface BoardMapper {
 	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
 	List<BoardDTO> selectMainContentList();
 	FileDTO selectMainImageFile();
+	List<BoardDTO> selectNewContentList();
+	List<BoardDTO> selectExpireContentList();
 
 	
 

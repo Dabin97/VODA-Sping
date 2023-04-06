@@ -4,7 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.voda.mapper.BoardMapper"> 
 	<resultMap type="board" id="board"> 
-		<!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
 		<id column="bno" property="bno"/>
 		<result column="title" property="title"/>
 		<result column="pd" property="pd"/>
@@ -35,6 +34,7 @@
 		FROM BOARD_TABLE_VIEW b 
 		WHERE ceil(rw / #{contentCount}) = #{pageNo}
 	</select>	
+  
 	<select id="selectNewList" resultType="board" parameterType="hashMap">
 		SELECT * FROM 
 		(SELECT b.bno, 
@@ -52,6 +52,7 @@
 		FROM BOARD_TABLE_VIEW b)
 		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
 	</select>
+  
 	<select id="selectExpireList" resultType="board" parameterType="hashMap">
 	SELECT * FROM 
 		(SELECT b.bno, 
@@ -90,6 +91,14 @@
 		select * from board_table	
 	</select>
 	
+	<select id="selectNewContentList" resultMap="board">
+		select * from new_board_content_view
+	</select>
+	
+	<select id="selectExpireContentList" resultMap="board">
+		select * from expire_board_content_view
+	</select>
+	
 	<select id="selectFileList" resultType="file" parameterType="int">
 		select * from board_file where bno = #{bno} order by fno
 	</select>
@@ -106,7 +115,6 @@
 	<select id="selectImageFile" parameterType="int" resultType="file">
     	SELECT * FROM board_file WHERE bno = #{bno}
 	</select>
-	
 	
 	<select id="selectMainImageFile" parameterType="int" resultType="file">
 		select * from board_image

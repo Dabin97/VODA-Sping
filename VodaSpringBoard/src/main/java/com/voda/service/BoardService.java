@@ -1,6 +1,5 @@
 package com.voda.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,8 +48,8 @@ public class BoardService {
 		return fno;
 	}
 
-	public FileDTO selectImageFile(int fno) {
-		return mapper.selectImageFile(fno);
+	public FileDTO selectImageFile(int bno) {
+		return mapper.selectImageFile(bno);
 	}
 
 	public FileDTO selectFile(int bno, int fno) {
@@ -152,13 +151,47 @@ public class BoardService {
 	}
 
 
-	public FileDTO selectMainImageFile() {
-		return mapper.selectMainImageFile();
+
+	
+	public List<BoardDTO> selectNewContentList() { 
+		List<BoardDTO> nlist = mapper.selectNewContentList();
+
+	    for (BoardDTO board : nlist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return nlist;
 	}
 
 	public BoardDTO selectBoard(int bno, HttpSession session) {
 		return mapper.selectBoard(bno);
 	}
+
+
+
+	public List<BoardDTO> selectExpireContentList() {
+		List<BoardDTO> elist = mapper.selectExpireContentList();
+
+	    for (BoardDTO board : elist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return elist;
+	}
+
+
 
 
 

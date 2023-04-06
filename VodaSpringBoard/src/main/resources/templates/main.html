@@ -448,7 +448,6 @@
             <h1>
                 <img src="/img/Union-left.png" alt="">BEST CONTENTS<img src="/img/Union-right.png" alt="">
             </h1>
-            <!-- <form action="/content_page" method="post"> -->
             <div class="content_box"> <!-- best_table을 따로 만들고 좋아요or찜 카운트를 사용해서 rank 1위로 뽑아야함 -->
             	<div class="best_poster">
             	<img src="img/heart.png" class="heart">
@@ -504,7 +503,6 @@
                     </div>
                 </div>
             </div><!--container_box-->
-           <!-- </form> -->
             </article>
 
             <article> <!--신작만료 박스 시작-->
@@ -512,7 +510,7 @@
                    <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
                 </h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${nlist}">
                       <div>
                         <img src="/img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
@@ -525,7 +523,7 @@
                    <img src="/img/Union-left.png" alt="">EXPIRE CONTENTS<img src="/img/Union-right.png" alt="">
                 </h2>
                 <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${elist}">
                       <div>
                         <img src="/img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">

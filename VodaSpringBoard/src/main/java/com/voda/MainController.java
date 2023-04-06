@@ -61,31 +61,49 @@ public class MainController {
 		return "index"; 
 	} 
 	
-	@RequestMapping("/before_login_main")
+	@RequestMapping("/before_login_main")//사용자 페이지 메인 - 로그인안한 버전
 	public ModelAndView before_login_main() {
 		ModelAndView view = new ModelAndView();
 	    view.setViewName("before_login_main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
 	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
 
 	    return view;
 	}
 	
-	
 
-	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
+	@RequestMapping("/main")//사용자 페이지 메인 - 로그인한 버전
 	public ModelAndView MainContentList() {
 	    ModelAndView view = new ModelAndView();
 	    view.setViewName("main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
 	    view.addObject("list", list);
-
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
 	    return view;
 	}
 
-	
+	@RequestMapping("/new_expire")
+	public ModelAndView new_expire(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
 	
 	
 	@RequestMapping("/my_page")
@@ -115,10 +133,7 @@ public class MainController {
 		return "content_page";
 	}
 	
-	@RequestMapping("/new_expire")
-	public String new_expire(HttpSession session) {
-		return "new_expire";
-	}
+
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")
@@ -349,6 +364,7 @@ public class MainController {
 		}
 	}
 	
+
 	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
