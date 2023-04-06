@@ -32,6 +32,7 @@ import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.ReviewDTO;
 import com.voda.dto.SecessionDTO;
+import com.voda.mapper.BoardMapper;
 import com.voda.service.BoardService;
 import com.voda.service.MemberService;
 import com.voda.service.ReviewService;
@@ -54,22 +55,38 @@ public class MainController {
 		this.secessionService = secessionService;
 	} 
 	
-	
+	 
 	@RequestMapping("/index") 
 	public String index() {
 		return "index"; 
-	}
+	} 
 	
 	@RequestMapping("/before_login_main")
-	public String before_login_main() {
-		return "before_login_main"; 
+	public ModelAndView before_login_main() {
+		ModelAndView view = new ModelAndView();
+	    view.setViewName("before_login_main");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view;
 	}
 	
 	
-	@RequestMapping("/main")
-	public String main() {
-		return "main"; 
+
+	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
+	public ModelAndView MainContentList() {
+	    ModelAndView view = new ModelAndView();
+	    view.setViewName("main");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view;
 	}
+
+	
+	
 	
 	@RequestMapping("/my_page")
 	public String my_page() {
@@ -77,8 +94,14 @@ public class MainController {
 	}
 	
 	@RequestMapping("/search")
-	public String search() {
-		return "search";  
+	public ModelAndView SearchContentList() {
+	    ModelAndView view = new ModelAndView();
+	    view.setViewName("search");
+	    
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view; 
 	}
 	
 	@RequestMapping("/edit")
@@ -293,9 +316,9 @@ public class MainController {
 		return new ResponseEntity(map,HttpStatus.OK); 
 	}
 	
-	@RequestMapping("/image/{fno}")
-	public void imageDown(@PathVariable("fno") int fno, HttpServletResponse response) {
-		FileDTO dto = boardService.selectImageFile(fno);
+	@RequestMapping("/image/{bno}")
+	public void imageDown(@PathVariable("bno") int bno, HttpServletResponse response) {
+		FileDTO dto = boardService.selectImageFile(bno);
 		
 		String path = dto.getPath();
 		File file = new File(path);
@@ -303,7 +326,7 @@ public class MainController {
 		
 		try {
 			fileName = URLEncoder.encode(fileName,"utf-8");
-		} catch (UnsupportedEncodingException e1) {
+		} catch (UnsupportedEncodingException e1) { 
 			e1.printStackTrace();
 		}
 		
@@ -326,8 +349,7 @@ public class MainController {
 		}
 	}
 	
-	
-	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력
+	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
 		
@@ -347,6 +369,9 @@ public class MainController {
 		}
 	}
 
+
+
+	
 	
 	@RequestMapping("/admin/content/write/{bno}") //수정창 이동
 	public ModelAndView adminContentEditview(@PathVariable(name ="bno")int bno) {
@@ -413,6 +438,7 @@ public class MainController {
 		return "redirect:/admin/content/list";
 	}
 	
+	
 	@RequestMapping("/admin/content/detail/{bno}")
 	public ModelAndView adminContentDetail(@PathVariable("bno") int bno, HttpSession session) {
 		ModelAndView view = new ModelAndView();
@@ -422,7 +448,6 @@ public class MainController {
 		BoardDTO board = boardService.selectBoard(bno);
 		//첨부파일 목록 조회
 		List<FileDTO> fList = boardService.selectFileList(bno);
-	
 		
 		view.addObject("board", board);
 		view.addObject("fList", fList);
@@ -474,6 +499,8 @@ public class MainController {
 		return view;
 	}
 	
+
+	
 	@RequestMapping("/admin/content/expire") //만료 컨텐츠 리스트
 	public ModelAndView adminExpireContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
 		ModelAndView view = new ModelAndView();
@@ -491,7 +518,7 @@ public class MainController {
 		return view;
 	}
 	
-	@RequestMapping("/member/review/register")
+	@RequestMapping("/review/register")
 	public String registerReview(ReviewDTO dto) {
 		reviewService.insertReview(dto);
 		return "redirect:/content_page";
@@ -529,6 +556,7 @@ public class MainController {
 		}
 	}
 	
+
 	@RequestMapping("/admin/review/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
 	public ModelAndView adminReviewList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
 	ModelAndView view = new ModelAndView();
@@ -545,8 +573,43 @@ public class MainController {
 	
 	return view;
 }
+	@RequestMapping("/content/detail/{bno}")
+	public ModelAndView updateView(@PathVariable int bno, ModelAndView mv, HttpSession session) {
+		BoardDTO dto = boardService.selectBoard(bno,session);
+		mv.addObject("board", dto);
+		mv.setViewName("content_page");
+		return mv;
+	}
 
+	
+	@RequestMapping("/review/search") // 검색 부분
+	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){
+		List<ReviewDTO> list = boardService.selectSearchReview(kind,search);
 		
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
+	
+	@RequestMapping("/admin/review/detail/{rno}")
+	public ModelAndView adminReviewDetail(@PathVariable("rno") int rno, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_review_detail");
+		
+		//게시글 조회
+		ReviewDTO review = reviewService.selectReview(rno);
+		
+		view.addObject("review", review);
+		
+		return view;
+		}
+	
+	@RequestMapping("/admin/review/delete/{rno}") //게시글 첨부파일 댓글삭제 모두 
+	public String deleteReview(@PathVariable(name ="rno")int rno) {
+
+		reviewService.deleteReview(rno);
+		return "redirect:/admin/review/list";
+	}
+
+		 
 //		@RequestMapping("/member/delete/view")
 //			public String memberDeleteView() {
 //			return "/admin_list_member";

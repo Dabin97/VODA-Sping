@@ -261,95 +261,56 @@
             #poster_img{
                 width: 200px;
             }
+            #btn_delete{
+                width: 80px;
+                height: 30px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-bottom: 30px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script type="text/javascript" th:inline="javascript">
-            $(function(){
-                $('#btn_update').click(function(){
-                    location.href = '/admin/content/write/[[${board.bno}]]';
-                });
-            });
-        </script>
     </head>
 
     <body>
         <th:block th:include="/fragments/header.html"></th:block>
   
-                        <p class="title">컨텐츠</p>
+                        <p class="title">리뷰</p>
                         <hr>
                             <table>
-                                <thead>
-                                <tr>
-                                <td colspan="5" class="poster">
-                                    <p th:each="file : ${fList}">
-                                        <a th:href="@{/filedown(bno=${file.bno },fno=${file.fno})}">[[${file.fileName}]]</a> <br>
-                                        <img id="poster_img" th:if="${file.type == 'image' }" th:src="@{/filedown(bno=${file.bno },fno=${file.fno})}">
-                                    </p>                                      
-
-                                </td>
-                                </tr>
-                            </thead>
+            
                             <tbody>
                                 <tr>
-                                    <td class="subject">OTT</td>    
-                                    <td colspan="4"> 
-                                        <th:block th:if="${board.ottNo} == 1">넷플릭스</th:block>
-                                        <th:block th:if="${board.ottNo} == 2">디즈니+</th:block>
-                                        <th:block th:if="${board.ottNo} == 3">라프텔</th:block>
-                                        <th:block th:if="${board.ottNo} == 4">왓챠</th:block>
-                                        <th:block th:if="${board.ottNo} == 5">웨이브</th:block>
-                                        <th:block th:if="${board.ottNo} == 6">티빙</th:block>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="subject">제목</td>
-                                    <td colspan="4">[[${board.title}]]</td>
-                                </tr>
-                                <tr>
-                                    <td class="subject">신규</td>
+                                    <td class="subject">Number</td>
                                     <td colspan="4">
-                                        [[${board.newDate}]]
-                                    </td>
+                                        [[${review.rno}]]</td>
                                 </tr>
                                 <tr>
-                                    <td class="subject">만료</td>
+                                    <td class="subject">ID</td>
                                     <td colspan="4">
-                                        [[${board.expireDate}]]
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="subject">장르</td>    
-                                    <td colspan="4"> 
-                                        <th:block th:if="${board.genre} == 1">영화</th:block>
-                                        <th:block th:if="${board.genre} == 2">드라마</th:block>
-                                        <th:block th:if="${board.genre} == 3">애니</th:block>
-                                        <th:block th:if="${board.genre} == 4">예능</th:block>
+                                        [[${review.id}]]
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="subject">감독</td>
-                                    <td colspan="4"> [[${board.pd}]]</td>
+                                    <td class="subject">title</td>
+                                    <td colspan="4">
+                                        [[${review.title}]]
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="subject">출연</td>
-                                    <td colspan="4"> [[${board.casting}]]</td>
+                                    <td class="subject">Date</td>
+                                    <td colspan="4"> [[${review.rDate}]]</td>
                                 </tr>
-                                <tr aria-rowspan="2">
-                                    <td class="subject summary_text">내용</td>
-                                    <td colspan="4" class="summary_text">[[${board.content}]]</td>
-                                </tr>
-                                <tr  aria-rowspan="2">
-                                    <td class="subject summary_text">컨텐츠<br>비디오</td>
-                                    <td colspan="4"> [[${board.posterVideo}]]</td>
+                                <tr>
+                                    <td class="subject">Content</td>
+                                    <td colspan="4"> [[${review.reviewContent}]]</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        <button class="regi_btn" id="btn_update">수정</button> 
-                                        <button id="btn_delete"><a th:href="@{/admin/content/delete/{bno}(bno=${board.bno })}">삭제</a></button>
-                                        <button class="regi_btn" href="javascript:history.back();">취소</button>
+                                        <button id="btn_delete"><a th:href="@{/admin/review/delete/{rno}(rno=${review.rno })}">삭제</a></button>
+                                        <button class="regi_btn"><a th:href="@{/admin/review/list}">취소</a></button>
                                     </td>
                                 </tr>
                             </tfoot>

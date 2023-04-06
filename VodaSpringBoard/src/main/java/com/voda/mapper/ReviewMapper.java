@@ -17,5 +17,11 @@ public interface ReviewMapper {
 
 	int selectReviewCount();
 
+	int reviewDetail(ReviewDTO dto);
+
+	ReviewDTO selectReview(int rno);
+
+	void deleteReview(int rno);
+
 
 }

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 import com.voda.mapper.BoardMapper;
 
 @Service
@@ -38,13 +41,13 @@ public class BoardService {
 
 	public int uploadImage(String absolutePath) {
 		//이미지 파일 번호 시퀸스로 생성한 결과를 받아옴
-				int fno = mapper.selectImageFileNo();
-				//받아온 파일 경로를 board_image 폴더 저장
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("fno", fno);
-				map.put("path", absolutePath);
-				mapper.insertBoardImage(map);
-				return fno;
+		int fno = mapper.selectImageFileNo();
+		//받아온 파일 경로를 board_image 폴더 저장
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fno", fno);
+		map.put("path", absolutePath);
+		mapper.insertBoardImage(map);
+		return fno;
 	}
 
 	public FileDTO selectImageFile(int fno) {
@@ -132,6 +135,42 @@ public class BoardService {
 		map.put("contentCount", i);
 		return mapper.selectExpireList(map);
 	}
+
+	public List<BoardDTO> selectMainContentList() {
+	    List<BoardDTO> list = mapper.selectMainContentList();
+
+	    for (BoardDTO board : list) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return list;
+	}
+
+
+	public FileDTO selectMainImageFile() {
+		return mapper.selectMainImageFile();
+	}
+
+	public BoardDTO selectBoard(int bno, HttpSession session) {
+		return mapper.selectBoard(bno);
+	}
+
+	public List<ReviewDTO> selectSearchReview(String kind, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		return mapper.selectSearchReview(map);
+	}
+
+
+
+	
 
 
 	

@@ -243,7 +243,7 @@
                     //ajax로 search로 param을 전달하고
                     //검색 결과를 받아서 tbody에 출력
                     $.ajax({
-                        url : '/content/search',
+                        url : '/review/search',
                         data : param,
                         type : 'post',
                         dataType : 'json',
@@ -253,13 +253,13 @@
                             let tag = '';
                             for(i=0;i<r.length;i++){
                                 tag += '<tr>';
-                                tag += '<td class="chb">'+r[i].bno+'</td>';
-                                tag += '<td>'+r[i].ottName+'</td>';
-                                tag += `<td><a th:href="@{/admin//detail/${r[i].bno}(bno=\${board.bno })}">${r[i].title}</a></td>`;
-                                tag += '<td>'+r[i].newDate+'</td>';
-                                tag += '<td>'+r[i].expireDate+'</td>';
-                                tag += `<td><button id="btn_update"><a href="/admin/content/write">편집</a></button>
-                                        <button id="btn_delete"><a th:href="@{/admin/content/delete/${r[i].bno}(bno=\${board.bno })}">삭제</a></button>
+                                tag += '<td class="chb">'+r[i].rno+'</td>';
+                                tag += '<td>'+r[i].id+'</td>';
+                                tag += '<td>'+r[i].rDate+'</td>';
+                                tag += '<td>'+r[i].reviewContent+'</td>';
+                                tag += `
+                                        <button id="btn_delete"><a th:href="@{/admin/review/detail/${r[i].rno}(rno=\${review.rno })}">상세</a></button>
+                                        <button id="btn_delete"><a th:href="@{/admin/review/delete/${r[i].rno}(rno=\${review.rno })}">삭제</a></button>
                                         </td>`;
                                 tag += '</tr>';
                             }
@@ -268,7 +268,7 @@
                     });
                 });
                 $(".btn_reset").click(function(){
-                    location.href="/admin/content/list";
+                    location.href="/admin/review/list";
 		        });
             });
 
@@ -279,14 +279,15 @@
     <body>
         <th:block th:include="/fragments/header.html"></th:block>
 
-                        <p class="title">컨텐츠 리스트</p>
+                        <p class="title">리뷰 리스트</p>
                         <hr>
                         <div class="member_search">         
                             <b class="b">검색</b> 
                             <br>
                             <select name="kind">
                                 <option value="title">제목</option>
-                                <option value="ott_name">ott</option> 
+                                <option value="rno">번호</option> 
+                                <option value="id">아이디</option> 
                             </select>
                             <input type="text" class="textbox" name="search" placeholder="검색어 입력">
                             <button type="button" class="btn_search">검색</button>
@@ -296,40 +297,38 @@
                             <table>
                                 <thead>
                                     <th class="chb">Number</th>
-                                    <th>OTT</th> 
-                                    <th>Title</th>
-                                    <th>New-Date</th>
-                                    <th>Expire-Date</th>
+                                    <th>ID</th>
+                                    <th>title</th>
+                                    <th>Date</th>
                                     <th>Edit</th>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="board : ${list}"> 
-                                        <td class="chb">[[${board.bno}]]</td>
-                                        <input type="hidden" name="ottNo" th:value="${board.ottNo}"> <!-- ottNo -->
-                                        <td>[[${board.ottName}]]</td>
-                                        <td><a th:href="@{/admin/content/detail/{bno}(bno=${board.bno })}">[[${board.title}]]</a></td>
-                                        <td>[[${board.newDate}]]</td>
-                                        <td>[[${board.expireDate}]]</td> 
+                                    <tr th:each="review : ${list}"> 
+                                        <td class="chb">[[${review.rno}]]</td>
+                                        <input type="hidden" name="bno" th:value="${review.bno}">
+                                        <td>[[${review.id}]]</td>
+                                        <td>[[${review.title}]]</td>
+                                        <td>[[${review.rDate}]]</td>
                                         <td>
-                                            <button id="btn_delete"><a th:href="@{/admin/content/write/{bno}(bno=${board.bno })}">편집</a></button>
-                                            <button id="btn_delete"><a th:href="@{/admin/content/delete/{bno}(bno=${board.bno })}">삭제</a></button>
+                                            <button id="btn_delete"><a th:href="@{/admin/review/detail/{rno}(rno=${review.rno })}">상세</a></button>
+                                            <button id="btn_delete"><a th:href="@{/admin/review/delete/{rno}(rno=${review.rno })}">삭제</a></button>
                                         </td>
                                     </tr>
                                 </tbody>
                                 <tfoot> 
                                     <tr>
                                         <td colspan="7">
-                                            <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/content/list(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
+                                            <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/review/list(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
                                     
                                             <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
                 
                                             <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
                                            				
-                                            <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/content/list(pageNo=${i})}" th:text="${i}"></a>
+                                            <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/review/list(pageNo=${i})}" th:text="${i}"></a>
                                             
                                             </th:block>
                                     
-                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/content/list(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
+                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/review/list(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
                                         </td>
                                     </tr>
                                 </tfoot>
