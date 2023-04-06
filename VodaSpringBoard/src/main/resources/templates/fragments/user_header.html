@@ -8,6 +8,7 @@
 
       header{
         padding-top: 20px;
+
       }
       header img{
         width: 100px;
@@ -44,11 +45,11 @@
         color: #a7f2dc;
         font-size: 32px;
         font-weight: bold;
-    	margin-left : 50px;
+    	margin-left : 100px;
     }
     
         .index{
-        padding-left: 280px;
+        padding-left: 330px;
     }
     
 
@@ -59,7 +60,7 @@
 	
         <header>
              <th:block th:if="${session.member == null}">
-            <a href="/main"><img src="img/VODA_logo.png" alt=""></a>
+            <a href="/main"><img src="/img/VODA_logo.png" alt=""></a>
             <a href="/main">BEST</a>
             <a href="/new_expire">NEW/EXPIRE</a>
             <a href="/search">ALL</a>
@@ -68,7 +69,7 @@
             </th:block>
             
         	<th:block th:if="${session.member != null}">
-            <a href="/main"><img src="img/VODA_logo.png" alt=""></a>
+            <a href="/main"><img src="/img/VODA_logo.png" alt=""></a>
             <a href="/main">BEST</a>
             <a href="/new_expire">NEW/EXPIRE</a>
             <a href="/search">ALL</a>

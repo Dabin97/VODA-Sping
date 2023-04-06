@@ -34,6 +34,7 @@
 		FROM BOARD_TABLE_VIEW b 
 		WHERE ceil(rw / #{contentCount}) = #{pageNo}
 	</select>	
+  
 	<select id="selectNewList" resultType="board" parameterType="hashMap">
 		SELECT * FROM 
 		(SELECT b.bno, 
@@ -51,6 +52,7 @@
 		FROM BOARD_TABLE_VIEW b)
 		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
 	</select>
+  
 	<select id="selectExpireList" resultType="board" parameterType="hashMap">
 	SELECT * FROM 
 		(SELECT b.bno, 
