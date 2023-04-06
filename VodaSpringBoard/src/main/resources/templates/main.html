@@ -500,7 +500,11 @@
                     <th:block th:each="board: ${list}">
                       <div>
                         <img src="img/heart.png" class="heart">
+<<<<<<< HEAD
                         <a th:href="/content/detail/{bno}(bno=${board.bno})"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+=======
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+>>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
                       </div>
                     </th:block>
                   </div>

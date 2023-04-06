@@ -349,6 +349,10 @@ public class MainController {
 		}
 	}
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
 	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
@@ -581,6 +585,7 @@ public class MainController {
 		return mv;
 	}
 
+<<<<<<< HEAD
 	
 	@RequestMapping("/review/search") // 검색 부분
 	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){
@@ -608,6 +613,8 @@ public class MainController {
 		reviewService.deleteReview(rno);
 		return "redirect:/admin/review/list";
 	}
+=======
+>>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
 
 		 
 //		@RequestMapping("/member/delete/view")

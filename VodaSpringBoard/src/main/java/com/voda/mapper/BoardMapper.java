@@ -35,7 +35,10 @@ public interface BoardMapper {
 	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
 	List<BoardDTO> selectMainContentList();
 	FileDTO selectMainImageFile();
+<<<<<<< HEAD
 	List<ReviewDTO> selectSearchReview(HashMap<String, Object> map);
+=======
+>>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
 
 	
 

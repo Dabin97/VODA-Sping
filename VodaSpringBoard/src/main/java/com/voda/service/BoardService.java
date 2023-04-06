@@ -157,6 +157,7 @@ public class BoardService {
 		return mapper.selectMainImageFile();
 	}
 
+<<<<<<< HEAD
 	public BoardDTO selectBoard(int bno, HttpSession session) {
 		return mapper.selectBoard(bno);
 	}
@@ -169,6 +170,12 @@ public class BoardService {
 	}
 
 
+=======
+
+
+	
+
+>>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
 
 	
 
