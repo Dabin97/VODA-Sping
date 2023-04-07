@@ -74,5 +74,12 @@ public MemberService(MemberMapper mapper) {
 	public int deleteMember(String id) {
 		return mapper.deleteMember(id);
 	}
+
+
+	public MemberDTO idCheck(String id) {
+		// TODO Auto-generated method stub
+		return mapper.idCheck(id);
+	}
+
   
 }

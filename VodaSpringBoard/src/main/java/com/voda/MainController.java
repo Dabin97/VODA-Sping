@@ -6,7 +6,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -21,8 +26,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,7 +47,9 @@ import com.voda.service.ReviewService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
 
+
 @Controller
+
 public class MainController {
 	private MemberService memberService;
 	private BoardService boardService;
@@ -134,6 +144,29 @@ public class MainController {
 	}
 	
 
+	
+	@RequestMapping("/member/secession/view/{id}")
+    public String secessionView(@RequestParam("id") String id, SecessionDTO dto, HttpSession session) {     
+        if(dto.getId() ==id) return "redirect:/profile_edit";
+        else return "member_secession";
+    }
+	
+	
+	
+	@RequestMapping("/member/secession")
+	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
+		int sno = secessionService.goSecession(dto, null);	
+		return "member_secession";
+	}
+	
+	
+//	@RequestMapping("/member/secession")
+//	public String goSeccesion(MemberDTO dto) {
+//		System.out.println(dto);
+//		int result = memberService.goSecession(dto);
+//		return "redirect:/my_page";
+//	}
+	
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")
@@ -255,6 +288,42 @@ public class MainController {
 	public String registerView() {
 		return "register";
 	}
+	
+	//register 
+	@RequestMapping("/register")
+	public String register(MemberDTO dto) {
+		System.out.println(dto);
+		int result = memberService.insertMember(dto);
+		return "redirect:/index";
+	}
+	
+//	@ResponseBody
+//	@RequestMapping("/idCheck")
+//	public int postIdCheck(HttpServletRequest req) throws Exception {
+//	 
+//	 String id = req.getParameter("id");
+//	 MemberDTO idCheck =  memberService.idCheck(id);
+//	 
+//	 int result = 0;
+//	 
+//	 if(idCheck != null) {
+//	  result = 1;
+//	 } 
+//	 
+//	 return result;
+//	}
+	
+
+	  @PostMapping("/idCheck")
+	  @ResponseBody
+	  public String idCheck(@RequestParam String id) {
+	    MemberDTO isDuplicated = memberService.idCheck(id);
+	    if (isDuplicated != null) {
+	      return "duplicated";
+	    } else {
+	      return "available";
+	    }
+	  }
 	
 	@RequestMapping("/admin/content/register/view")
 	public String adminContentRegisterView() {

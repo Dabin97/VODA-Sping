@@ -74,29 +74,34 @@
         .btn_send_no:active{
             background-color: white;
         } */
-        .btn_del{
+        /* .btn_del{
             width: 20%;
             height: 50px;
             border-radius: 10px;
             border: none;
             background-color: gray;
-            margin-right: 300px;
-        }
+            float: left;
+            margin-left: 270px;
+        } */
+       
         .btn_edit{
+            margin-right: 10px;
+            margin-left: 400px;
             width: 20%;
             height: 50px;
             border-radius: 10px;
             border: none;
             background-color: gray;
-            margin-right: 10px;
+           
         }
         .btn_cancle{
+           
             width: 20%;
             height: 50px;
             border-radius: 10px;
             border: none;
             background-color: gray;
-            margin-right: 10px;
+            
         }
         section{
             display: flex;
@@ -226,10 +231,6 @@
             let edit = document.querySelector('.btn_edit');
             let cancle = document.querySelector('.btn_cancle');
 
-            del.onclick = () => {
-                alert('탈퇴하시겠습니까?')
-            }
-
             edit.onclick = () => {
                 alert('수정하시겠습니까?')
             }
@@ -247,8 +248,8 @@
       </header>  
    <section>
     <div class="container">
-        <h2>수정할 정보를 입력하세요.</h2>
-        <form action="profile_edit" id="frm">
+             <h2>수정할 정보를 입력하세요.</h2>
+        <form action="/profile_edit" id="frm">
             <ul>
                 <li><label for="nick">닉네임</label></li>
                 <li class="border_bottom">
@@ -261,7 +262,7 @@
                 <li class="border_bottom">
                     <input type="password" id="pass_chk" placeholder="비밀번호 재입력">
                 </li>
-                <li class="pass_result"></li>   
+                <!-- <li class="pass_result"></li>   
                   <li><label for="interest" id="interest">관심분야(OTT)</label><br>
                     <p class="ott_choice">
                         넷플릭스<input type="checkbox" name="ott" value="netflix">
@@ -271,17 +272,16 @@
                         라프텔<input type="checkbox" name="ott" value="laftel">
                         웨이브<input type="checkbox" name="ott" value="wavve">
                     </p>     
-                </li>
-               <section>
-                   <button class="btn_del" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">회원 탈퇴</button>
+                </li> -->
+                 
                    <button type="submit" class="btn_edit" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">수정</button>
                    <button class="btn_cancle" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">취소</button>
-                </section>
-               
-                     
+                            
             </ul>
-
         </form>
+        <a href="@{/member/secession/view/{id}(id=${session.member.id})}">탈퇴하기</a>
+  
+        
     </div>
    </section>
 </body>
