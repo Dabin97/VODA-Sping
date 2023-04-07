@@ -1,13 +1,11 @@
 package com.voda.service;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.SecessionDTO;
-import com.voda.mapper.MemberMapper;
 import com.voda.mapper.SecessionMapper;
 
 @Service

@@ -145,6 +145,7 @@ public class MainController {
 	}
 	
 
+
 //	@RequestMapping("/member/secession/view/{id}")
 //	public String secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
 //		String msg = "";
@@ -195,13 +196,13 @@ public class MainController {
 //	}
 	
 
+
 	@RequestMapping("/member/secession")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
 		return "redirect:/main";
 	}
 
-	
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")

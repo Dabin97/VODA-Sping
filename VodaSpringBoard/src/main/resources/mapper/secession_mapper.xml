@@ -24,4 +24,5 @@
 	<select id="selectSecessionId" resultType="secession">
         select * from secession_table where id = #{id}
     </select>
+
 </mapper>
