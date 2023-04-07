@@ -4,7 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.voda.mapper.BoardMapper"> 
 	<resultMap type="board" id="board"> 
-		<!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
 		<id column="bno" property="bno"/>
 		<result column="title" property="title"/>
 		<result column="pd" property="pd"/>
@@ -16,6 +15,7 @@
 		<result column="poster_video" property="posterVideo"/>
 		<result column="ott_no" property="ottNo"/>
 		<result column="ott_name" property="ottName"/>
+		<result column="path" property="path"/>
 	</resultMap>
 		
 		
@@ -34,6 +34,7 @@
 		FROM BOARD_TABLE_VIEW b 
 		WHERE ceil(rw / #{contentCount}) = #{pageNo}
 	</select>	
+  
 	<select id="selectNewList" resultType="board" parameterType="hashMap">
 		SELECT * FROM 
 		(SELECT b.bno, 
@@ -51,6 +52,7 @@
 		FROM BOARD_TABLE_VIEW b)
 		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
 	</select>
+  
 	<select id="selectExpireList" resultType="board" parameterType="hashMap">
 	SELECT * FROM 
 		(SELECT b.bno, 
@@ -85,10 +87,22 @@
 		where bno = #{bno}
 	</select>
 	
+	<select id="selectMainContentList" resultMap="board">
+		select * from board_table	
+	</select>
+	
+	<select id="selectNewContentList" resultMap="board">
+		select * from new_board_content_view
+	</select>
+	
+	<select id="selectExpireContentList" resultMap="board">
+		select * from expire_board_content_view
+	</select>
+	
 	<select id="selectFileList" resultType="file" parameterType="int">
 		select * from board_file where bno = #{bno} order by fno
 	</select>
-	
+
 	<select id="selectBoardCount" resultType="int">
 		select count(*) from board_table_view
 	</select> 
@@ -97,13 +111,20 @@
 		insert into board_image values(#{fno},#{path})
 	</insert>
 	
+
 	<select id="selectImageFile" parameterType="int" resultType="file">
-		select * from board_image where fno = #{fno}
+    	SELECT * FROM board_file WHERE bno = #{bno}
+	</select>
+	
+	<select id="selectMainImageFile" parameterType="int" resultType="file">
+		select * from board_image
 	</select>
 	
 	<select id="selectFile" parameterType="hashMap" resultType="file">
 		select * from board_file where bno = #{bno} and fno = #{fno}
 	</select>
+	
+
 	
 	 <select id="selectBoardBno" resultType="int">
         select board_bno_seq.nextval from dual
@@ -168,7 +189,18 @@
 		WHERE ot.ott_no = b.ott_no
 		AND ${kind} LIKE '%' || #{search} || '%'
 	</select> 
-
+	
+	<select id="selectBoardHeart" parameterType="int" resultType="int">
+		select count(*) from heart_table where bno = #{bno} 
+	</select>
+	
+	<insert id="insertBoardHeart" parameterType="hashMap" > 
+		insert into heart_table values(#{bno},#{id})
+	</insert>
+	
+	<delete id="deleteBoardHeart" parameterType="hashMap">
+		delete from heart_table where bno = #{bno} and id = #{id}
+	</delete>
 	
 	
 </mapper>

@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>admin_main</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <style>
             *{
                 margin: 0;
@@ -255,9 +255,10 @@
             $(".del").click(delete_confirm); // 삭제 버튼 클릭 시 delete_confirm 함수 호출
 
             function delete_confirm(){
-            //   let id = $(this).parent().parent().children().first().text();
+               let id = $(this).parent().siblings().eq(1).text();
+               console.log(id);
             //   let obj = $(this).parent().parent();
-            let param = "id="+id;
+           let param = "id="+id;
 
             if(confirm("회원을 삭제하시겠습니까?")){
                 //실제로 회원이 삭제될 것
@@ -277,6 +278,8 @@
             }
             }
         });
+
+        
         </script>
 
     </head>
@@ -313,7 +316,7 @@
                                         <td>[[${member.email}]]</td>
                                         <td>
                                             <a th:href="@{/member/edit/view/{id}(id=${member.id})}"><button>관리</button></a>
-                                            <button class="del">삭제</button>
+                                            <button class="del" onclick="delete_confirm()">삭제</button>
                                         </td>  
                                     </tr>
                                    </th:block>

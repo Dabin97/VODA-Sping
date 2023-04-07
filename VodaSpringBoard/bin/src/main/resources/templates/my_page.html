@@ -22,17 +22,6 @@
           position: relative;
       }
     
-    header img{
-        height: 150px;
-        display: block;
-        margin: auto;
-        margin-bottom: 10px;
-      }
-    header input{
-        position: absolute;
-        margin-top: 50px;
-        right: 0;
-    }
     article{
         margin-bottom: 40px;
     }
@@ -47,10 +36,11 @@
     .profile a{
         text-decoration: none;
     }
-    .nick{
+    .nickname{
         color: #a7f2dc;
         font-size: 32px;
         font-weight: bold;
+        
     }
     .setting img{
         width: 20px;
@@ -227,6 +217,10 @@ footer a{
     .rel_search::-webkit-scrollbar {
      display: none;
    }
+   
+   .logout {
+   	color : grey;
+   }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -248,103 +242,32 @@ footer a{
                     bookmark.slideDown();
                 }
             });
-            $('.logout').click(function(){
-                alert('로그아웃 완료 메인페이지로 이동합니다.');
-                location.href="main_page.html";
-            });
 
-            //연관검색어
-        const ul = document.querySelector(".pop_rel_keywords");
-        const searchInput = document.querySelector(".search_input");
-        const relContainer = document.querySelector(".rel_search");
-        let cache = '';
-
-
-        const checkInput = () => {
-            const beforeInput = searchInput.value;
-            timer(beforeInput);
-        }
-
-
-        const timer = (beforeInput) => {
-        setTimeout(() => {
-
-            if(searchInput.value === beforeInput) {
-            console.log("입력멈춤");
-            loadData(searchInput.value);
-            checkInput();
-            
-            } else {
-            console.log("입력변함");
-            checkInput();
-            }
-        
-            if(searchInput.value === "") {
-            relContainer.classList.add("hide");
-            } else {
-            relContainer.classList.remove("hide");
-            }
-        }, 500);
-        }
-  
-
-
-        const loadData = (input) => {
-        const url = `https://completion.amazon.com/api/2017/suggestions?session-id=135-3077052-6015425&customer-id=&request-id=DMRETXPQ3PZJQ5TKYSWX&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=undefined&prefix=${input}&event=onFocusWithSearchTerm&limit=11&fb=1&suggestion-type=KEYWORD&suggestion-type=WIDGET&_=1615280967091`;
-        
-        if(cache === url) return;
-        else {
-        cache = url;
-        fetch(url)
-        .then((res) => res.json())
-        .then(res => fillSearch(res.suggestions))
-        }
-        }
-
-        const fillSearch = (suggestArr) => {
-        ul.innerHTML = "";
-        suggestArr.forEach((el, idx) => {
-            const li = document.createElement("li");
-            li.innerHTML = el.value;
-            ul.appendChild(li);
-        }) 
-            
-        const liList = document.querySelectorAll(".pop_rel_keywords li");
-        }
-
-        const highlightText = () => {
-        }
-        checkInput();
-        
-        // 요구사항 1 - esc를 누르면 추천 검색어 창이 닫여야 합니다.
-        $(document).keydown(function(e){
-            var code = e.keyCode || e.which;
-        
-            if (code == 27) {
-                $('.rel_search').hide();
-                location.reload();
+            $('.heart').on({ //하트 이미지 변경
+            'click': function() {
+                var src = ($(this).attr('src') === 'img/heart_full.png')
+                    ? 'img/heart.png'
+                    : 'img/heart_full.png';
+                $(this).attr('src', src);
+                $(this).parent().remove(); //찜한걸 풀면 해당 포스터가 없어지도록
             }
         });
+           
         });
     </script>
 </head>
 <body>
     <div class="flex_container">
-        <header>
-            <input type="text" placeholder="검색" class= "search_input zoom" >
-            <container class = "rel_search">
-                <ul class="pop_rel_keywords"></ul>
-            </container>
-            <img src="img/logo_white.png" alt="">  
-        </header>
+		<th:block th:include="/fragments/user_header.html"></th:block>
+		<br>
         <div class="main_container">
         <section>
             <article>
                 <div class="profile">
                     <img src="img/profile.png">
                     <div>
-                        <p class="nick">[[${session.member.id}]]</p>
-                        <p><a href="/logout" class="logout">로그아웃</a></p>
+                        <p class="nickname">[[${session.member.id}]]</p>
+                        <p><a href="/logout" class="logout">▶로그아웃</a></p>
                     </div>
                     <p class="setting">
                         <a href="/edit" class=edit>
