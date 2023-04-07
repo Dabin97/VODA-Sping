@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -144,29 +145,62 @@ public class MainController {
 	}
 	
 
+//	@RequestMapping("/member/secession/view/{id}")
+//	public String secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+//		String msg = "";
+//		if(dto.getId().equals(id)) {
+//	    	msg = "이미 탈퇴신청하셨습니다."; 
+//	        return "profile_edit";
+//	    } else {
+//	        return "member_secession";
+//	    }
+//	}
+	
 	@RequestMapping("/member/secession/view/{id}")
-	public String secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
-	    if(dto.getId().equals(id)) {
-	        return "profile_edit";
+	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
+	    ModelAndView mv = new ModelAndView();
+	    String msg = "";
+	    SecessionDTO secessionDTO = secessionService.selectSecessionId(id);
+	    if (secessionDTO != null) {
+	        mv.addObject("msg", "이미 탈퇴신청하셨습니다.");
+	        mv.setViewName("profile_edit");
 	    } else {
-	        return "member_secession";
+	        mv.setViewName("member_secession");
 	    }
+	    return mv;
 	}
 
+
+//	    @RequestMapping("/secession/view/{id}")
+//	    public ResponseEntity<String> secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+//	        if (dto.getId().equals(id)) {
+//	            return ResponseEntity.badRequest().body("이미 탈퇴신청하셨습니다.");
+//	        } else {
+//	            return ResponseEntity.ok("member_secession");
+//	        }
+//	    }
 	
+
+//	@RequestMapping("/member/secession/view/{id}")
+//	public ModelAndView secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+//	    ModelAndView mv = new ModelAndView();
+//	    String msg = "";
+//	    if(dto.getId().equals(id)) {
+//	    	mv.addObject("msg", "이미 탈퇴신청하셨습니다.");
+//	        mv.setViewName("profile_edit");
+//	    } else {
+//	        mv.setViewName("member_secession");
+//	    }
+//	    return mv;
+//	}
+	
+
 	@RequestMapping("/member/secession")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
 		return "redirect:/main";
 	}
-	
-	
-//	@RequestMapping("/member/secession")
-//	public String goSeccesion(MemberDTO dto) {
-//		System.out.println(dto);
-//		int result = memberService.goSecession(dto);
-//		return "redirect:/my_page";
-//	}
+
 	
 	
 		////////////////////관리자 페이지////////////////////////////////

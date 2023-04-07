@@ -38,5 +38,9 @@ public class SecessionService {
         return sno; 
 	}
 
+	public SecessionDTO selectSecessionId(String id) {
+		return mapper.selectSecessionId(id);
+	}
+
 	
 }
