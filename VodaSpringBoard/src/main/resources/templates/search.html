@@ -200,12 +200,14 @@ footer a{
         box-shadow: none;
         
       }
+	
       .bx-prev{
         left: -40px !important;
       }
       .bx-next{
         right: -40px !important;
       }
+      
       .selectBox {
       	display : inline-block;
       	float : right;
@@ -230,15 +232,22 @@ footer a{
         right: 200px;
         border-radius: 100px;
       }
-      
-      .new_end_search{
-      	width : 980px;
-      	height : 256px;
-      }
+
       
       .hide {
-      	display : none;
+      	display : none !important;
       }
+      
+      .thumbnail{
+      	display : inline-block;
+     	width : 180px ;
+     	height : 270px ; 
+      }
+     
+      .new_end_search {
+      	height : 270px;
+      }
+
     </style>
 <script>
 
@@ -255,7 +264,7 @@ footer a{
         
         $('.new_end_search').bxSlider({
             pager : false,
-            slideWidth : 400,
+            slideWidth : 180,
             useCSS : true,
             slideMargin: 20,
             minSlides:5,
@@ -264,31 +273,71 @@ footer a{
             touchEnabled : false
           });
     });
-      
 
-$(function(){
-  // 첫 번째 select 요소에서 값이 변경될 때마다 이벤트가 발생하도록 설정합니다.
-  $('#selectBox1').change(function(){
-    const tBoxes = document.querySelectorAll(".tBox");
-    if($(this).val() == "2") { // 영화가 선택된 경우
-      tBoxes.forEach(function(tBox) {
-        const genreInput = tBox.querySelector('input[name="genre"]');
-        const genre = genreInput ? genreInput.value : null;
-        if (genre !== "1") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
-          tBox.classList.add("hide");
-        } else {
-          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
-        }
-      });
-    } else { // 영화 이외의 항목이 선택된 경우, 모든 요소를 보이도록 처리합니다.
-      tBoxes.forEach(function(tBox) {
-        tBox.classList.remove("hide");
-      });
-    }
-  });
-});
+    
+    $(function(){
+    	  // 첫 번째 select 요소에서 값이 변경될 때마다 이벤트가 발생하도록 설정합니다.
+    	  $('#selectBox1').change(function(){
+    		slider1 = $(".new_end_search").bxSlider();
+    	    const tBoxes = document.querySelectorAll(".tBox");
+    	    if($(this).val() == "2") { // 영화가 선택된 경우
+    	      tBoxes.forEach(function(tBox) {
+    	        const genreInput = tBox.querySelector('input[name="genre"]');
+    	        const genre = genreInput ? genreInput.value : null;
+    	        if (genre !== "1") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
+    	          tBox.classList.add("hide");
+    	        } else {
+    	          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
+    	        }
+    	      });
+    	    } else if($(this).val() == "3") {
+      	      tBoxes.forEach(function(tBox) {
+      	        const genreInput = tBox.querySelector('input[name="genre"]');
+      	        const genre = genreInput ? genreInput.value : null;
+      	        if (genre !== "2") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
+      	          tBox.classList.add("hide");
+      	        } else {
+      	          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
+      	        }
+      	      });
 
+    	    } else if($(this).val() == "4") {
+        	      tBoxes.forEach(function(tBox) {
+            	        const genreInput = tBox.querySelector('input[name="genre"]');
+            	        const genre = genreInput ? genreInput.value : null;
+            	        if (genre !== "4") {
+            	          tBox.classList.add("hide");
+            	        } else {
+            	          tBox.classList.remove("hide"); 
+            	        }
+            	      });
 
+    	    } else if($(this).val() == "5") {
+      	      tBoxes.forEach(function(tBox) {
+      	        const genreInput = tBox.querySelector('input[name="genre"]');
+      	        const genre = genreInput ? genreInput.value : null;
+      	        if (genre !== "3") { 
+      	          tBox.classList.add("hide");
+      	        } else {
+      	          tBox.classList.remove("hide"); 
+      	        }
+      	      });
+      	        slider1.reloadSlider();
+
+    	    } else if($(this).val() == "1") {
+        	      tBoxes.forEach(function(tBox) {
+            	        const genreInput = tBox.querySelector('input[name="genre"]');
+            	        const genre = genreInput ? genreInput.value : null;
+            	        if (genre == "10") { 
+            	          tBox.classList.add("hide");
+            	        } else {
+            	          tBox.classList.remove("hide"); 
+            	        }
+            	      });
+    	    }
+    	    slider1.reloadShow();
+    	  });
+    	});
 
 
     </script>
@@ -312,19 +361,20 @@ $(function(){
         <div class="main_container">
             <article> <!--신작만료 박스 시작-->
                 <h2>
-                  <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
+                   <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
                   <select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
                       <option value="1">전체</option>
                       <option value="2">영화</option>
                       <option value="3">드라마</option>
                       <option value="4">예능</option>
-                      <option value="5">애니</option>
+                      <option value="5">애니메이션</option>
                   </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
-                    <div>
+                      <div class="tBox">
                         <img src="img/heart.png" class="heart">
+                        <input type="hidden" name="genre" th:value="${board.genre}">
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
@@ -374,19 +424,20 @@ $(function(){
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">WAVVE<img src="img/Union-right.png" alt="" id="wavve">
-                   <select name="selectBox" form="myForm" class="selectBox">
-                      <option value="all">전체</option>
-                      <option value="movie">영화</option>
-                      <option value="drama">드라마</option>
-                      <option value="entertainment">예능</option>
-                      <option value="animation">애니</option>
-                  </select>
-                </h2>   
+
+                   <select name="selectBox" form="myForm" class="selectBox" id="selectBox">
+                    <option value="all">전체</option>
+                    <option value="movie">영화</option>
+                    <option value="drama">드라마</option>
+                    <option value="entertainment">예능</option>
+                    <option value="animation">애니</option>
+                </select>
+                </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
                        <div th:if="${board.ottNo == 5}">
                         <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}" ><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>
@@ -404,11 +455,11 @@ $(function(){
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
-                       <div>
-                    	<span th:if="${board.ottNo == 6}">
+                       <div th:if="${board.ottNo == 6}">
+                    <div class="ssibal">                
                         <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
-                      </span>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}" class="thumbnail"><img th:src="@{/image/{bno}(bno=${board.bno})}" ></a>
+                      </div>
                       </div>
                     </th:block>
                   </div>
@@ -428,7 +479,7 @@ $(function(){
                     <th:block th:each="board: ${list}">
                        <div th:if="${board.ottNo == 3}">
                         <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="	"></a>
                       </div>
                     </th:block>
                   </div>
