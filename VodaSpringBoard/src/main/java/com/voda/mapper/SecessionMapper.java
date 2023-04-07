@@ -17,6 +17,6 @@ public interface SecessionMapper {
 
 	int selectSecessionSno();
 
-	int goSecession(String id, String reason, SecessionDTO dto, LocalDate now);
+	int goSecession(SecessionDTO dto);
 
 }

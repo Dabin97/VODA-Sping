@@ -31,10 +31,10 @@ public class SecessionService {
 		return mapper.selectMemberCount();
 	}
 
-	public int goSecession(String id, String reason, SecessionDTO dto, LocalDate now) {
+	public int goSecession(SecessionDTO dto, String sdate) {
 		int sno = mapper.selectSecessionSno();
         dto.setSno(sno);
-        mapper.goSecession(id,reason,dto,now);
+        mapper.goSecession(dto);
         return sno; 
 	}
 

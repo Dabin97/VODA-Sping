@@ -51,6 +51,17 @@ select{
 }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+     <script src="/js/jquery-3.6.3.js"></script>
+<script type="text/javascript">
+
+var click = true;
+function Click() {
+          alert("탈퇴 신청이 되었습니다"); 
+}
+
+</script>
 <body>
     <header>
         <img src="/img/VODA_logo.png">
@@ -60,7 +71,7 @@ select{
     <h2>탈퇴 사유를 선택해주세요.</h2>
     
     <form action="/member/secession">
-        <input type="hidden" name="id" th:value="${session.id}">
+        <input type="hidden" name="id" th:value="${session.member.id}">
         <div class="choice_div">
         <select name="reason">
             <option value="이용 빈도가 낮음">서비스 불만족</option>
@@ -69,7 +80,7 @@ select{
             <option value="기타">기타</option>
         </select>
     </div>
-    <button class="btn_sec">탈퇴신청</button>
+    <button class="btn_sec" onclick="Click()">탈퇴신청</button>
     </form>
 </section>  
 </body>

@@ -6,6 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -42,7 +46,11 @@ import com.voda.service.ReviewService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import javax.sql.DataSource;
 @Controller
+
 public class MainController {
 	private MemberService memberService;
 	private BoardService boardService;
@@ -101,16 +109,31 @@ public class MainController {
 		return "new_expire";
 	}
 	
+	@Autowired
 	@RequestMapping("/member/secession/view")
-	public String secessionView() {
-		return "member_secession";
+	public String secessionView(@RequestParam("id") String id) {
+		 try (Connection connection = dataSource.getConnection()) {
+		        String sql = "SELECT id FROM secession_table WHERE id = ?";
+		        PreparedStatement statement = connection.prepareStatement(sql);
+		        statement.setString(1, id);
+		        ResultSet resultSet = statement.executeQuery();
+		        if (resultSet.next()) {
+		            return "redirect:/profile_edit"; // 조회 결과가 있는 경우, 에러 페이지로 리다이렉트
+		        } else {
+		            return "member_secession"; // 조회 결과가 없는 경우, 회원 탈퇴 페이지로 이동
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return "member_secession"; // 조회 실패 시, 회원 탈퇴 페이지로 이동
+		    }
 	}
 	
+	
+	
 	@RequestMapping("/member/secession")
-	public String secessionMember(SecessionDTO dto, @RequestParam("id") String id, @RequestParam("reason") String reason, HttpSession session) {
-		  LocalDate now = LocalDate.now();
-		int sno = secessionService.goSecession(id, reason, dto, now);
-		return "redirect:/main";
+	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
+		int sno = secessionService.goSecession(dto, null);	
+		return "member_secession";
 	}
 	
 	
