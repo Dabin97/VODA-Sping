@@ -11,6 +11,7 @@ public class FileDTO {
 	private String type;
 	private int bno;
 	private int fno;
+	 private String newDate;
 	
 	public FileDTO() { }
 	
@@ -31,6 +32,16 @@ public class FileDTO {
 		this.fno = fno;
 	}
 	
+	
+	
+	public String getNewDate() {
+		return newDate;
+	}
+
+	public void setNewDate(String newDate) {
+		this.newDate = newDate;
+	}
+
 	public String getPath() {
 		return path;
 	}

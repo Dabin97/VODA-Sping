@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <style>
+    
+<style>
      * {
         margin: 0;
         padding: 0;
@@ -55,9 +56,7 @@
             width: 30px;
             background-color: rgba(255, 255, 255, 0);
         }
-        .info{
-            text-align: center;
-        }
+
 
         .tab {
             background-color: rgb(91, 91, 91);
@@ -139,6 +138,19 @@
             height: 140px;
             margin-top: 10px;
         }
+        footer img{
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    height: 40px;
+    margin: 20px 80px;
+}
+footer a{
+    margin-right: 30px;
+    padding: 10px;
+    margin-top: 30px;
+    text-decoration: none;
+    color: rgb(168, 168, 168);
+}
         span img{
             background-color: rgb(91, 91, 91);
             width: 20px;
@@ -151,21 +163,6 @@
         span p{
             background-color: rgb(91, 91, 91);
             margin-right: 10px;
-        }
-        footer {
-            width: 1200px;
-            height: 80px;
-            position: fixed;
-            bottom: 0;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        footer img {
-            width: 40px;
-            background-color: rgba(0, 0, 0, 0);
-            height: 40px;
-            margin: 20px 80px;
         }
 
         footer a {
@@ -294,140 +291,112 @@
    	font-size : 16px !important ;
    }
     	
+   .thumbnail {
+   	width : 300px;
+   	height : 420px;
+   }
+   
+   .content_info1 {
+    font-size : 20px;
+    color : #eff7e9;
+    font-weight : bold;
+   }
+   .content_info2 {
+   	font-size : 16px;
+   	color : #e0dcdc;
+   }
+   
+   .info_div {
+    margin : 0 auto;
+   	width : 800px;
+   } 
+   
+   .title_info{
+
+   	font-size : 40px;
+   	color : #dff5d0;
+   	font-weight : bold;
+   }
+   
+   .color {
+   color : #e0dcdc;
+      	font-size : 16px;
+   }
+   
+   .font {
+      	font-weight : bold;
+    color : #eff7e9;
+      	   	font-size : 18px;
+   }
 </style>
-<script>
+
+<script type="text/javascript" th:inline="javascript">
 $(function(){
-        $('.heart').on({ //하트 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') === 'img/heart_full.png')
-                ? 'img/heart.png'
-                : 'img/heart_full.png';
-            $(this).attr('src', src);
-            }
-        });
+        // $('.heart').on({ //하트 이미지 변경
+        // 'click': function() {
+        //     var src = ($(this).attr('src') === '/img/heart_full.png')
+        //         ? '/img/heart.png'
+        //         : '/img/heart_full.png';
+        //     $(this).attr('src', src);
+        //     }
+        // });
 
+        $('.heart').click(function(){
+			$.ajax({
+				url: '/board/heart/[[${board.bno }]]',
+				type: 'post',
+				dataType: 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+                        if(r == 1){ //?
+                        // $('#like_count').text(r.blike); 카운트 대신 이미지 변경 위의 js사용
+                        var src = ($(this).attr('src') === '/img/heart_full.png')
+                            ? '/img/heart.png'
+                            : '/img/heart_full.png';
+                        $(this).attr('src', src);
+                        }
+				}
+			});
+		});
 
         
-        
-
-        //연관검색어
-        const ul = document.querySelector(".pop_rel_keywords");
-        const searchInput = document.querySelector(".search_input");
-        const relContainer = document.querySelector(".rel_search");
-        let cache = '';
-
-
-        const checkInput = () => {
-            const beforeInput = searchInput.value;
-            timer(beforeInput);
-        }
-
-
-        const timer = (beforeInput) => {
-        setTimeout(() => {
-
-            if(searchInput.value === beforeInput) {
-            // console.log("입력멈춤");
-            loadData(searchInput.value);
-            checkInput();
-            
-            } else {
-            // console.log("입력변함");
-            checkInput();
-            }
-        
-            if(searchInput.value === "") {
-            relContainer.classList.add("hide");
-            } else {
-            relContainer.classList.remove("hide");
-            }
-        }, 500);
-        }
-  
-
-
-        const loadData = (input) => {
-        const url = `https://completion.amazon.com/api/2017/suggestions?session-id=135-3077052-6015425&customer-id=&request-id=DMRETXPQ3PZJQ5TKYSWX&page-type=Gateway&lop=en_US&site-variant=desktop&client-info=amazon-search-ui&mid=ATVPDKIKX0DER&alias=aps&b2b=0&fresh=0&ks=undefined&prefix=${input}&event=onFocusWithSearchTerm&limit=11&fb=1&suggestion-type=KEYWORD&suggestion-type=WIDGET&_=1615280967091`;
-        
-        if(cache === url) return;
-        else {
-        cache = url;
-        fetch(url)
-        .then((res) => res.json())
-        .then(res => fillSearch(res.suggestions))
-        }
-        }
-
-        const fillSearch = (suggestArr) => {
-        ul.innerHTML = "";
-        suggestArr.forEach((el, idx) => {
-            const li = document.createElement("li");
-            li.innerHTML = el.value;
-            ul.appendChild(li);
-        }) 
-            
-        const liList = document.querySelectorAll(".pop_rel_keywords li");
-        }
-
-        const highlightText = () => {
-        }
-        checkInput();
-        
-        // 요구사항 1 - esc를 누르면 추천 검색어 창이 닫여야 합니다.
-        $(document).keydown(function(e){
-            var code = e.keyCode || e.which;
-        
-            if (code == 27) {
-                $('.rel_search').hide();
-                location.reload();
-            }
-        });
-        
-      });
-
-
-
-
+});
     </script>
 </head>
 
 <body>
     <div class="flex_container">
-        <header>
-            <img src="/img/VODA_logo.png" alt="logo">
-            <a href="main_page.html">BEST</a>
-            <a href="new_expire.html">NEW/EXPIRE</a>
-            <a href="search.html">ALL</a>
-            <a href="/member/logout" class="login">로그아웃</a>
-            <input type="text" placeholder="search" class= "search_input zoom" >
-                <container class = "rel_search">
-                    <ul class="pop_rel_keywords"></ul>
-                </container>
-        </header>
+    	<th:block th:include="/fragments/user_header.html"></th:block>
         <div class="main_container">
             <section>
             <article class="info">
                 <div class="poster">
-                    <img src="img/heart.png" class="heart">
-                    <img src="img/flipped.png" class="pic">
-                    <iframe width="700" height="420" src="https://www.youtube.com/embed/o8j70yHzTJs?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <img src="/img/heart.png" class="heart">
+                    <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                    <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe>
                 </div>
+                <div class="info_div">
                     <ul>
-                        <li>제목: 플립</li>
-                        <li>장르: 멜로/로맨스, 드라마</li>
-                        <li>등급: 12세 관람가</li>
-                        <li>감독: 로브 라이너</li>
-                        <li>출연: 매들린 캐롤, 캘런 맥오리피, 존 마호니, 안소니 에드워즈......</li><br>
-                        <li>줄거리: 새로 이사 온 미소년 브라이스를 보고 첫눈에 사랑을 직감한 7살 소녀 줄리. 솔직하고 용감한 줄리는 자신의 마음을 적극적으로 표현하지만 브라이스는 그런
-                            줄리가 마냥 부담스럽다. 줄리의 러브빔을 요리조리 피해 다니기를 6년! 브라이스는 줄리에게 받은 달걀을 쓰레기통에 버리다 들키고, 화가 난 줄리는 그날부터 브라이스를
-                            피하기 시작한다. 하지만 성가신 그녀가 사라지자 브라이스는 오히려 전 같지 않게 줄리가 신경 쓰이기 시작하는데…</li><br>
+                    	<br>
+                        <li class="title_info">[[${board.title }]]</li>
+                        <br>
+                        <li th:if="${board.genre == 1}" class="font">장르 : <span class="color">영화</span></li>
+                        <li th:if="${board.genre == 2}" class="font">장르 : <span class="color">드라마</span></li>
+                        <li th:if="${board.genre == 3}" class="font">장르 : <span class="color">애니메이션</span></li>
+                        <li th:if="${board.genre == 4}" class="font">장르 : <span class="color">예능</span></li>
+                        <li class="font">감독 : <span class="color">[[${board.pd}]]</span></li>
+                        <li class="font">출연 : <span class="color">[[${board.casting }]]</span></li><br>
+                        <li class="content_info1">작품 정보</li>
+                        <li class="content_info2">[[${board.content }]]</li>
                     </ul>
+                </div>
                 </article>
 
                 <article>
                     <div class="write">
                         <p class="tab">리뷰를 작성해 주세요 </p>
-                        <textarea class="txt" autofocus name="review_content"></textarea>
+                        <textarea class="txt" name="review_content"></textarea>
                         <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="star_no">
                         <option value="">== 별점 ==</option>
               			<option value="1" class="starrate">☆☆☆☆★</option>
@@ -446,8 +415,8 @@ $(function(){
                             <p>내가 작성한 리뷰</p>
                             <p class="starrate">평점 : ☆☆☆☆★</p>
                             <span class="like">       
-                                <button onclick="w_like()"><img src="img/like.png" id="write_like"></button>                         
-                                <button onclick="w_dislike()"><img src="img/dislike.png" id="write_dislike"></button>
+                                <button onclick="w_like()"><img src="/img/like.png" id="write_like"></button>                         
+                                <button onclick="w_dislike()"><img src="/img/dislike.png" id="write_dislike"></button>
                             </span>
                         </div>
                         <input type="text" readonly class="read">
@@ -457,8 +426,8 @@ $(function(){
                             <p>베스트 리뷰</p>
                             <p class="starrate">평점 : ★★★★★</p>
                             <span class="like">
-                                <button onclick="b_like()"><img src="img/like.png" id="best_like"></button>                       
-                                <button onclick="b_dislike()"><img src="img/dislike.png" id="best_dislike"></button>
+                                <button onclick="b_like()"><img src="/img/like.png" id="best_like"></button>                       
+                                <button onclick="b_dislike()"><img src="/img/dislike.png" id="best_dislike"></button>
                             </span>
                         </div>
                          <p class="read"></p>
@@ -468,8 +437,8 @@ $(function(){
                             <p>최신 리뷰</p>
                             <p class="starrate">평점 : ☆☆★★★</p>
                             <span class="like">                             
-                                <button onclick="n_like()"><img src="img/like.png" id="new_like"></button>                        
-                                <button onclick="n_dislike()"><img src="img/dislike.png" id="new_dislike"></button>
+                                <button onclick="n_like()"><img src="/img/like.png" id="new_like"></button>                        
+                                <button onclick="n_dislike()"><img src="/img/dislike.png" id="new_dislike"></button>
                             </span>
                         </div>
                         <p class="read" ><br> "아름다운 영화의 메세지 만큼 조용하지만 아늑한 동네의 전경과 해 질 녘 풍경."<br>철학이 담긴 대사가 관객을 즐겁게 하는 영화 <br><br> -어떤 사람은 평범한 사람을 만나고, 어떤 사람은 광택 나는 사람을 만나고, 어떤 사람은 빛나는 사람을 만나지.<br>하지만 모든 사람은 일생에 단 한번 무지개 같이 변하는 사람을 만난단다.</p>

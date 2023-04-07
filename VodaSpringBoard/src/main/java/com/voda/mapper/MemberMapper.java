@@ -29,5 +29,10 @@ public interface MemberMapper {
 	ManagerDTO loginAdmin(HashMap<String, Object> map); //관리자 로그인
 
 	int deleteMember(String id);
+
+	MemberDTO idCheck(String id);
+
+
+	
 }
 

@@ -6,10 +6,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +27,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,7 +48,9 @@ import com.voda.service.ReviewService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
 
+
 @Controller
+
 public class MainController {
 	private MemberService memberService;
 	private BoardService boardService;
@@ -61,45 +72,69 @@ public class MainController {
 		return "index"; 
 	} 
 	
-	@RequestMapping("/before_login_main")
+	@RequestMapping("/before_login_main")//사용자 페이지 메인 - 로그인안한 버전
 	public ModelAndView before_login_main() {
 		ModelAndView view = new ModelAndView();
 	    view.setViewName("before_login_main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
 	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
 
 	    return view;
 	}
 	
-	
 
-	@RequestMapping("/main")//메인 베스트 컨텐츠 -test중
+	@RequestMapping("/main")//사용자 페이지 메인 - 로그인한 버전
 	public ModelAndView MainContentList() {
 	    ModelAndView view = new ModelAndView();
 	    view.setViewName("main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
 	    view.addObject("list", list);
-
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
 	    return view;
 	}
 
-	
+	@RequestMapping("/new_expire")
+	public ModelAndView new_expire(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
 	
 	
 	@RequestMapping("/my_page")
-	public String my_page() {
+	public String my_page(HttpSession session) {
 		return "my_page"; 
 	}
 	
 	@RequestMapping("/search")
-	public String search() {
-		return "search";  
+	public ModelAndView SearchContentList() {
+	    ModelAndView view = new ModelAndView();
+	    view.setViewName("search");
+	    
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    view.addObject("list", list);
+
+	    return view; 
 	}
 	
 	@RequestMapping("/edit")
-	public String edit() {
+	public String edit(HttpSession session) {
 		return "profile_edit";  
 	}
 	
@@ -109,10 +144,64 @@ public class MainController {
 		return "content_page";
 	}
 	
-	@RequestMapping("/new_expire")
-	public String new_expire(HttpSession session) {
-		return "new_expire";
+
+//	@RequestMapping("/member/secession/view/{id}")
+//	public String secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+//		String msg = "";
+//		if(dto.getId().equals(id)) {
+//	    	msg = "이미 탈퇴신청하셨습니다."; 
+//	        return "profile_edit";
+//	    } else {
+//	        return "member_secession";
+//	    }
+//	}
+	
+	@RequestMapping("/member/secession/view/{id}")
+	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
+	    ModelAndView mv = new ModelAndView();
+	    String msg = "";
+	    SecessionDTO secessionDTO = secessionService.selectSecessionId(id);
+	    if (secessionDTO != null) {
+	        mv.addObject("msg", "이미 탈퇴신청하셨습니다.");
+	        mv.setViewName("profile_edit");
+	    } else {
+	        mv.setViewName("member_secession");
+	    }
+	    return mv;
 	}
+
+
+//	    @RequestMapping("/secession/view/{id}")
+//	    public ResponseEntity<String> secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+//	        if (dto.getId().equals(id)) {
+//	            return ResponseEntity.badRequest().body("이미 탈퇴신청하셨습니다.");
+//	        } else {
+//	            return ResponseEntity.ok("member_secession");
+//	        }
+//	    }
+	
+
+//	@RequestMapping("/member/secession/view/{id}")
+//	public ModelAndView secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+//	    ModelAndView mv = new ModelAndView();
+//	    String msg = "";
+//	    if(dto.getId().equals(id)) {
+//	    	mv.addObject("msg", "이미 탈퇴신청하셨습니다.");
+//	        mv.setViewName("profile_edit");
+//	    } else {
+//	        mv.setViewName("member_secession");
+//	    }
+//	    return mv;
+//	}
+	
+
+	@RequestMapping("/member/secession")
+	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
+		int sno = secessionService.goSecession(dto, null);	
+		return "redirect:/main";
+	}
+
+	
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")
@@ -235,6 +324,42 @@ public class MainController {
 		return "register";
 	}
 	
+	//register 
+	@RequestMapping("/register")
+	public String register(MemberDTO dto) {
+		System.out.println(dto);
+		int result = memberService.insertMember(dto);
+		return "redirect:/index";
+	}
+	
+//	@ResponseBody
+//	@RequestMapping("/idCheck")
+//	public int postIdCheck(HttpServletRequest req) throws Exception {
+//	 
+//	 String id = req.getParameter("id");
+//	 MemberDTO idCheck =  memberService.idCheck(id);
+//	 
+//	 int result = 0;
+//	 
+//	 if(idCheck != null) {
+//	  result = 1;
+//	 } 
+//	 
+//	 return result;
+//	}
+	
+
+	  @PostMapping("/idCheck")
+	  @ResponseBody
+	  public String idCheck(@RequestParam String id) {
+	    MemberDTO isDuplicated = memberService.idCheck(id);
+	    if (isDuplicated != null) {
+	      return "duplicated";
+	    } else {
+	      return "available";
+	    }
+	  }
+	
 	@RequestMapping("/admin/content/register/view")
 	public String adminContentRegisterView() {
 		return "admin_content_register";
@@ -343,7 +468,7 @@ public class MainController {
 		}
 	}
 	
-	
+
 	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
@@ -568,7 +693,31 @@ public class MainController {
 	
 	return view;
 }
+	@RequestMapping("/content/detail/{bno}")
+	public ModelAndView updateView(@PathVariable int bno, ModelAndView mv, HttpSession session) {
+		BoardDTO dto = boardService.selectBoard(bno,session);
+		mv.addObject("board", dto);
+		mv.setViewName("content_page");
+		return mv;
+	}
 
+
+	@RequestMapping("/board/heart/{bno}") //상세페이지에 들어가서 찜을 누를때만. 아니면 main처럼 bno를 따로 메서드로 주고 해도 될듯(보류) 
+	public ResponseEntity<String> boardCotentHeart(@PathVariable(name ="bno") int bno,HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
+		
+		int result = boardService.insertBoardHeart(bno, dto.getId());
+		if(result == 0)
+			map.put("msg", "해당 컨텐츠에 찜을 해제하셨습니다."); //필요한 메세지인지? 다시 생각해볼것. 누르면 하트색이 바뀌기 때문에 필요없을지도
+		else
+			map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
+		
+		map.put("fHeart", boardService.selectBoardHeart(bno)); //blike였음, 근데 우린 이미지 변경임
+		
+		return new ResponseEntity(map, HttpStatus.OK);
+	}
+	
 
 		 
 //		@RequestMapping("/member/delete/view")
@@ -589,5 +738,6 @@ public class MainController {
 		//}
 		
 	
+
 	
 }
