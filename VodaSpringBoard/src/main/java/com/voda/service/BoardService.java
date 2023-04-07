@@ -157,27 +157,11 @@ public class BoardService {
 		return mapper.selectMainImageFile();
 	}
 
-<<<<<<< HEAD
+
 	public BoardDTO selectBoard(int bno, HttpSession session) {
 		return mapper.selectBoard(bno);
 	}
 
-	public List<ReviewDTO> selectSearchReview(String kind, String search) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("kind", kind);
-		map.put("search", search);
-		return mapper.selectSearchReview(map);
-	}
-
-
-=======
-
-
-	
-
->>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
-
-	
 
 
 	

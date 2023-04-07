@@ -349,10 +349,7 @@ public class MainController {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
-	
->>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
+
 	@RequestMapping("/filedown") //borad_view 첨부파일 목록 출력 
 	public void fileDown(int bno, int fno, HttpServletResponse response) { //되돌려줄것없이 write로 뿌릴것만 있으므로 void
 		FileDTO dto = boardService.selectFile(bno, fno);	//fileUpload와 중간은 비슷함, bno와 fno를 둘다 보냄줌
@@ -553,11 +550,6 @@ public class MainController {
 			this.reviewService = reviewService;
 		}
 		
-		@RequestMapping("/review/register")
-		public String memberReviewRegister(ReviewDTO dto) {
-		reviewService.insertReview(dto);
-		return "redirect:/member/review";
-		}
 	}
 	
 
@@ -577,20 +569,36 @@ public class MainController {
 	
 	return view;
 }
+//	@RequestMapping("/content/detail/{bno}")
+//	public ModelAndView updateView(@PathVariable int bno, ModelAndView mv, HttpSession session) {
+//		BoardDTO dto = boardService.selectBoard(bno,session);
+//		mv.addObject("board", dto);
+//		mv.setViewName("content_page");
+//		return mv;
+//	}
+	
 	@RequestMapping("/content/detail/{bno}")
-	public ModelAndView updateView(@PathVariable int bno, ModelAndView mv, HttpSession session) {
-		BoardDTO dto = boardService.selectBoard(bno,session);
-		mv.addObject("board", dto);
+	public ModelAndView updateView(@PathVariable int bno, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		BoardDTO board = boardService.selectBoard(bno, session);
+		List<ReviewDTO> rList = reviewService.selectReview(bno);
+		
+		//리뷰 목록 조회
+		
+		mv.addObject("board", board);
+		mv.addObject("rList", rList);
 		mv.setViewName("content_page");
+		
+		System.out.println(rList);
 		return mv;
 	}
 
-<<<<<<< HEAD
 	
+
 	@RequestMapping("/review/search") // 검색 부분
 	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){
-		List<ReviewDTO> list = boardService.selectSearchReview(kind,search);
-		
+		List<ReviewDTO> list = reviewService.selectSearchReview(kind,search);
+			
 		return new ResponseEntity(list,HttpStatus.OK);
 	}
 	
@@ -600,7 +608,7 @@ public class MainController {
 		view.setViewName("admin_review_detail");
 		
 		//게시글 조회
-		ReviewDTO review = reviewService.selectReview(rno);
+		ReviewDTO review = reviewService.selectAllReview(rno);
 		
 		view.addObject("review", review);
 		
@@ -613,8 +621,19 @@ public class MainController {
 		reviewService.deleteReview(rno);
 		return "redirect:/admin/review/list";
 	}
-=======
->>>>>>> a753a76fa310f69b758681a2a764e2d213cd809f
+	
+	@RequestMapping("/review/write")
+	public String insertReview(ReviewDTO review, HttpSession session) {
+		//댓글 작성자 정보 추가
+		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
+		review.setId(dto.getId());
+		
+		reviewService.insertReview(review);
+		
+		return "redirect:/content/detail/{bno}"+review.getBno();
+	}
+	
+
 
 		 
 //		@RequestMapping("/member/delete/view")

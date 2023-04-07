@@ -18,8 +18,8 @@ public class ReviewService {
 		this.mapper = mapper;
 	}
 
-	public int insertReview(ReviewDTO dto) {
-		return mapper.insertReview(dto);
+	public int insertReview(ReviewDTO review) {
+		return mapper.insertReview(review);
 	}
 
 	public List<ReviewDTO> selectReviewList(int pageNo, int i) {
@@ -34,19 +34,27 @@ public class ReviewService {
 		return mapper.selectReviewCount();
 	}
 
-	public int reviewDetail(ReviewDTO dto) {
-		return mapper.reviewDetail(dto);
-	}
 
-	public ReviewDTO selectReview(int rno) {
-		return mapper.selectReview(rno);
+
+	public ReviewDTO selectAllReview(int rno) {
+		return mapper.selectAllReview(rno);
 	}
 
 	public void deleteReview(int rno) {
 		mapper.deleteReview(rno);
 		
 	}
+	
+	public List<ReviewDTO> selectSearchReview(String kind, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		return mapper.selectSearchReview(map);
+	}
 
+	public List<ReviewDTO> selectReview(int bno) {
+		return mapper.selectReview(bno);
+	}
 
 
 }

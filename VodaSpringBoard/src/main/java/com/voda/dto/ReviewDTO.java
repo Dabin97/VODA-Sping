@@ -13,6 +13,8 @@ public class ReviewDTO {
 	private String id;
 	private String starNo;
 	private String title;
+	private int rlike;
+	private int rhate;
 	
 	
 
@@ -22,7 +24,8 @@ public class ReviewDTO {
 
 
 
-	public ReviewDTO(int rno, String rDate, String reviewContent, int bno, String id, String starNo, String title) {
+	public ReviewDTO(int rno, String rDate, String reviewContent, int bno, String id, String starNo, String title,
+			int rlike, int rhate) {
 		super();
 		this.rno = rno;
 		this.rDate = rDate;
@@ -31,6 +34,8 @@ public class ReviewDTO {
 		this.id = id;
 		this.starNo = starNo;
 		this.title = title;
+		this.rlike = rlike;
+		this.rhate = rhate;
 	}
 
 
@@ -119,12 +124,37 @@ public class ReviewDTO {
 
 
 
-	@Override
-	public String toString() {
-		return "ReviewDTO [rno=" + rno + ", rDate=" + rDate + ", reviewContent=" + reviewContent + ", bno=" + bno
-				+ ", id=" + id + ", starNo=" + starNo + ", title=" + title + "]";
+	public int getRlike() {
+		return rlike;
 	}
 
 
 
-}
+	public void setRlike(int rlike) {
+		this.rlike = rlike;
+	}
+
+
+
+	public int getRhate() {
+		return rhate;
+	}
+
+
+
+	public void setRhate(int rhate) {
+		this.rhate = rhate;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "ReviewDTO [rno=" + rno + ", rDate=" + rDate + ", reviewContent=" + reviewContent + ", bno=" + bno
+				+ ", id=" + id + ", starNo=" + starNo + ", title=" + title + ", rlike=" + rlike + ", rhate=" + rhate
+				+ "]";
+	}
+
+
+
+	}
