@@ -14,7 +14,7 @@
         * {
         margin: 0;
         padding: 0;
-        background-color: black;
+        background-color: black; 
         color: white;
       }
       .flex_container{
@@ -236,9 +236,23 @@ footer a{
       	height : 256px;
       }
       
+      .hide {
+      	dispaly : none !important;
+      }
     </style>
-    <script>
+<script>
+
     $(function(){
+    	
+        $('.heart').on({ //하트 이미지 변경
+            'click': function() {
+                var src = ($(this).attr('src') === '/img/heart_full.png')
+                    ? '/img/heart.png'
+                    : '/img/heart_full.png';
+                $(this).attr('src', src);
+                }
+            });
+        
         $('.new_end_search').bxSlider({
             pager : false,
             slideWidth : 400,
@@ -251,14 +265,23 @@ footer a{
           });
     });
     
-    alert($(this).val());
-    
-		$('#selectBox1').change(function(){
-			var tag = "";
-			if($(this).val() == "2"){
-				 alert("저는 "+$(this).val()+"입니다.");
-			};
-		});
+    $(function(){
+    	$('#selectBox1').change(function(){
+    		const thumbnail = document.querySelector(".thumbnail");
+			if($(this).val() == "1"){
+				alert('전체');
+			} else if ($(this).val() == "2"){
+				thumbnail.classList.add("hide");
+			} else if ($(this).val() == "3"){
+				alert('드라마');
+			} else if ($(this).val() == "4"){
+				alert('예능');
+			} else if ($(this).val() == "5"){
+				alert('애니메이션');
+			}
+    });
+});
+
     </script>
 </head>
 <body>
@@ -290,8 +313,8 @@ footer a{
 </select>
                 </h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}" class="selectopt">
-                    	<div class="all">
+                    <th:block th:each="board: ${list}">
+                    <div>
                         <img src="img/heart.png" class="heart">
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
