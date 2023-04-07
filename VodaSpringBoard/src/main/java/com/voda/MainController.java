@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +46,7 @@ import com.voda.service.MemberService;
 import com.voda.service.ReviewService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -82,7 +84,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/my_page")
-	public String my_page() {
+	public String my_page(HttpSession session) {
 		return "my_page"; 
 	}
 	
@@ -92,7 +94,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/edit")
-	public String edit() {
+	public String edit(HttpSession session) {
 		return "profile_edit";  
 	}
 	
@@ -107,18 +109,35 @@ public class MainController {
 		return "new_expire";
 	}
 	
+//	@RequestMapping("/member/secession/view")
+//	public String secessionView(HttpSession session, SecessionDTO dto) {
+//		String id = (String) session.getAttribute("id");
+//	    if (dto.equals(id)) {
+//	        return "redirect:/profile_edit";
+//	    } else {
+//	        return "member_secession";
+//	    }
+//	}
+	
 	@RequestMapping("/member/secession/view/{id}")
-    public String secessionView(@RequestParam("id") String id, SecessionDTO dto, HttpSession session) {     
-        if(dto.getId() ==id) return "redirect:/profile_edit";
-        else return "member_secession";
-    }
+	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
+	    ModelAndView mv = new ModelAndView();
+	    String msg = "";
+	    SecessionDTO secessionDTO = secessionService.selectSecessionId(id);
+	    if (secessionDTO != null) {
+	        mv.addObject("msg", "이미 탈퇴신청하셨습니다.");
+	        mv.setViewName("profile_edit");
+	    } else {
+	        mv.setViewName("member_secession");
+	    }
+	    return mv;
+	}
 	
-	
-	
+
 	@RequestMapping("/member/secession")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
-		return "member_secession";
+		return "redirect:/main";
 	}
 	
 	

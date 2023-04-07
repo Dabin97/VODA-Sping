@@ -3,6 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
 <title>Profile Edit</title>
  <style>
         *{
@@ -152,7 +153,14 @@
         .ott_choice{
             color: white;
         }
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+        }
+       
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //닉네임 기능
         //1. 닉네임은 20글자까지만 입력이 가능하게끔 처림
@@ -239,12 +247,35 @@
             }
 
         }
+ 
+//         $(function(){
+//         $('.sec').click(function(){
+//         $.ajax({
+//             url: '/member/secession/view/${session.member.id}',
+//             type: 'post',
+//             dataType: 'json',
+//             success: function(r){
+//                 console.log(r);
+//                 alert(r.msg);
+//                 history.back();
+//             }
+//         });
+//     });
+
+// });
+        // $(".sec").click(function(){
+        //    var message = '${message}';
+        // if (message) {
+        //     alert(message);
+        //     location.href = '/edit';
+        // }  
+        // });
         
     </script>
 </head>
 <body>
     <header>
-        <img src="img/VODA_logo.png">
+        <img src="/img/VODA_logo.png">
       </header>  
    <section>
     <div class="container">
@@ -279,9 +310,7 @@
                             
             </ul>
         </form>
-        <a href="@{/member/secession/view/{id}(id=${session.member.id})}">탈퇴하기</a>
-  
-        
+        <a th:href="@{/member/secession/view/{id}(id=${session.member.id})}" class="sec">탈퇴하기</a>
     </div>
    </section>
 </body>

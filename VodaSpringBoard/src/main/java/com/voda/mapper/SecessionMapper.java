@@ -19,4 +19,6 @@ public interface SecessionMapper {
 
 	int goSecession(SecessionDTO dto);
 
+	SecessionDTO selectSecessionId(String id);
+
 }
