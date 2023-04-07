@@ -117,7 +117,7 @@ public class MainController {
 	
 	
 	@RequestMapping("/my_page")
-	public String my_page() {
+	public String my_page(HttpSession session) {
 		return "my_page"; 
 	}
 	
@@ -133,7 +133,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/edit")
-	public String edit() {
+	public String edit(HttpSession session) {
 		return "profile_edit";  
 	}
 	
@@ -144,19 +144,20 @@ public class MainController {
 	}
 	
 
-	
 	@RequestMapping("/member/secession/view/{id}")
-    public String secessionView(@RequestParam("id") String id, SecessionDTO dto, HttpSession session) {     
-        if(dto.getId() ==id) return "redirect:/profile_edit";
-        else return "member_secession";
-    }
-	
-	
+	public String secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
+	    if(dto.getId().equals(id)) {
+	        return "profile_edit";
+	    } else {
+	        return "member_secession";
+	    }
+	}
+
 	
 	@RequestMapping("/member/secession")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
-		return "member_secession";
+		return "redirect:/main";
 	}
 	
 	

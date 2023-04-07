@@ -244,7 +244,7 @@
 </head>
 <body>
     <header>
-        <img src="img/VODA_logo.png">
+        <img src="/img/VODA_logo.png">
       </header>  
    <section>
     <div class="container">
@@ -262,26 +262,13 @@
                 <li class="border_bottom">
                     <input type="password" id="pass_chk" placeholder="비밀번호 재입력">
                 </li>
-                <!-- <li class="pass_result"></li>   
-                  <li><label for="interest" id="interest">관심분야(OTT)</label><br>
-                    <p class="ott_choice">
-                        넷플릭스<input type="checkbox" name="ott" value="netflix">
-                        왓챠<input type="checkbox" name="ott" value="watcha">
-                        디즈니 플러스<input type="checkbox" name="ott" value="disneyplus">
-                        티빙<input type="checkbox" name="ott" value="tving">
-                        라프텔<input type="checkbox" name="ott" value="laftel">
-                        웨이브<input type="checkbox" name="ott" value="wavve">
-                    </p>     
-                </li> -->
-                 
-                   <button type="submit" class="btn_edit" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">수정</button>
-                   <button class="btn_cancle" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">취소</button>
+                <button type="submit" class="btn_edit" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">수정</button>
+                <button class="btn_cancle" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;">취소</button>
                             
             </ul>
         </form>
-        <a href="@{/member/secession/view/{id}(id=${session.member.id})}">탈퇴하기</a>
-  
-        
+         <!-- <a href="/member/secession/view/{id}">탈퇴하기</a> -->
+         <a th:href="@{/member/secession/view/{id}(id=${session.member.id})}">탈퇴하기</a>
     </div>
    </section>
 </body>
