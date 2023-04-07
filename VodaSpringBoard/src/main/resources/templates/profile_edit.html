@@ -249,7 +249,7 @@
    <section>
     <div class="container">
              <h2>수정할 정보를 입력하세요.</h2>
-        <form action="profile_edit" id="frm">
+        <form action="/profile_edit" id="frm">
             <ul>
                 <li><label for="nick">닉네임</label></li>
                 <li class="border_bottom">
@@ -279,8 +279,8 @@
                             
             </ul>
         </form>
-        <a href="/member/secession/view">탈퇴하기</a>
-            
+        <a href="@{/member/secession/view/{id}(id=${session.member.id})}">탈퇴하기</a>
+  
         
     </div>
    </section>
