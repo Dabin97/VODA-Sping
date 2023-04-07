@@ -14,7 +14,7 @@
         * {
         margin: 0;
         padding: 0;
-        background-color: black;
+        background-color: black; 
         color: white;
       }
       .flex_container{
@@ -236,9 +236,23 @@ footer a{
       	height : 256px;
       }
       
+      .hide {
+      	display : none;
+      }
     </style>
-    <script>
+<script>
+
     $(function(){
+    	
+        $('.heart').on({ //하트 이미지 변경
+            'click': function() {
+                var src = ($(this).attr('src') === '/img/heart_full.png')
+                    ? '/img/heart.png'
+                    : '/img/heart_full.png';
+                $(this).attr('src', src);
+                }
+            });
+        
         $('.new_end_search').bxSlider({
             pager : false,
             slideWidth : 400,
@@ -250,15 +264,33 @@ footer a{
             touchEnabled : false
           });
     });
-    
-    alert($(this).val());
-    
-		$('#selectBox1').change(function(){
-			var tag = "";
-			if($(this).val() == "2"){
-				 alert("저는 "+$(this).val()+"입니다.");
-			};
-		});
+      
+
+$(function(){
+  // 첫 번째 select 요소에서 값이 변경될 때마다 이벤트가 발생하도록 설정합니다.
+  $('#selectBox1').change(function(){
+    const tBoxes = document.querySelectorAll(".tBox");
+    if($(this).val() == "2") { // 영화가 선택된 경우
+      tBoxes.forEach(function(tBox) {
+        const genreInput = tBox.querySelector('input[name="genre"]');
+        const genre = genreInput ? genreInput.value : null;
+        if (genre !== "1") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
+          tBox.classList.add("hide");
+        } else {
+          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
+        }
+      });
+    } else { // 영화 이외의 항목이 선택된 경우, 모든 요소를 보이도록 처리합니다.
+      tBoxes.forEach(function(tBox) {
+        tBox.classList.remove("hide");
+      });
+    }
+  });
+});
+
+
+
+
     </script>
 </head>
 <body>
@@ -280,18 +312,18 @@ footer a{
         <div class="main_container">
             <article> <!--신작만료 박스 시작-->
                 <h2>
-                   <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
-<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
-    <option value="1">전체</option>
-    <option value="2">영화</option>
-    <option value="3">드라마</option>
-    <option value="4">예능</option>
-    <option value="5">애니</option>
-</select>
+                  <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
+                  <select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
+                      <option value="1">전체</option>
+                      <option value="2">영화</option>
+                      <option value="3">드라마</option>
+                      <option value="4">예능</option>
+                      <option value="5">애니</option>
+                  </select>
                 </h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}" class="selectopt">
-                    	<div class="all">
+                    <th:block th:each="board: ${list}">
+                    <div>
                         <img src="img/heart.png" class="heart">
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
@@ -302,17 +334,18 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">NETFILIX<img src="img/Union-right.png" alt="" id="netflix">
                    <select name="selectBox" form="myForm" class="selectBox" id="selectBox" onchange="selectBoxChange(this.value);">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                      <option value="all">전체</option>
+                      <option value="movie">영화</option>
+                      <option value="drama">드라마</option>
+                      <option value="entertainment">예능</option>
+                      <option value="animation">애니</option>
+                  </select>
                 </h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                        <div th:if="${board.ottNo == 1}">
+                    <th:block th:each="board: ${list}" class="board_list">
+                        <div th:if="${board.ottNo == 1}" class="tBox">
                         <img src="img/heart.png" class="heart">
+                        <input type="hidden" name="genre" th:value="${board.genre}"> <!-- genre -->
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
@@ -322,12 +355,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">WATCHA<img src="img/Union-right.png" alt="" id="watcha">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                      <option value="all">전체</option>
+                      <option value="movie">영화</option>
+                      <option value="drama">드라마</option>
+                      <option value="entertainment">예능</option>
+                      <option value="animation">애니</option>
+                  </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -342,12 +375,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">WAVVE<img src="img/Union-right.png" alt="" id="wavve">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                      <option value="all">전체</option>
+                      <option value="movie">영화</option>
+                      <option value="drama">드라마</option>
+                      <option value="entertainment">예능</option>
+                      <option value="animation">애니</option>
+                  </select>
                 </h2>   
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -362,12 +395,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">TVING<img src="img/Union-right.png" alt="" id="tving">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                    <option value="all">전체</option>
+                    <option value="movie">영화</option>
+                    <option value="drama">드라마</option>
+                    <option value="entertainment">예능</option>
+                    <option value="animation">애니</option>
+                </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -384,12 +417,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">LAFTEL<img src="img/Union-right.png" alt="" id="laftel">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                      <option value="all">전체</option>
+                      <option value="movie">영화</option>
+                      <option value="drama">드라마</option>
+                      <option value="entertainment">예능</option>
+                      <option value="animation">애니</option>
+                  </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -404,12 +437,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">DISNEY+<img src="img/Union-right.png" alt="" id="disney">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                    <option value="all">전체</option>
+                    <option value="movie">영화</option>
+                    <option value="drama">드라마</option>
+                    <option value="entertainment">예능</option>
+                    <option value="animation">애니</option>
+                </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">

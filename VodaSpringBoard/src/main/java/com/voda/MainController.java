@@ -598,6 +598,22 @@ public class MainController {
 	}
 
 
+	@RequestMapping("/board/heart/{bno}") //상세페이지에 들어가서 찜을 누를때만. 아니면 main처럼 bno를 따로 메서드로 주고 해도 될듯(보류) 
+	public ResponseEntity<String> boardCotentHeart(@PathVariable(name ="bno") int bno,HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
+		
+		int result = boardService.insertBoardHeart(bno, dto.getId());
+		if(result == 0)
+			map.put("msg", "해당 컨텐츠에 찜을 해제하셨습니다."); //필요한 메세지인지? 다시 생각해볼것. 누르면 하트색이 바뀌기 때문에 필요없을지도
+		else
+			map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
+		
+		map.put("fHeart", boardService.selectBoardHeart(bno)); //blike였음, 근데 우린 이미지 변경임
+		
+		return new ResponseEntity(map, HttpStatus.OK);
+	}
+	
 
 		 
 //		@RequestMapping("/member/delete/view")
@@ -618,5 +634,6 @@ public class MainController {
 		//}
 		
 	
+
 	
 }

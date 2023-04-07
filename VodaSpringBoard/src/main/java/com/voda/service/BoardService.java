@@ -191,6 +191,23 @@ public class BoardService {
 	    return elist;
 	}
 
+	public int insertBoardHeart(int bno, String id) {
+		int r = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno);
+		map.put("id",id);
+		try {
+		r = mapper.insertBoardHeart(map);
+		}catch(Exception e){
+		mapper.deleteBoardHeart(map);
+		}
+		
+		return r;
+	}
+
+	public int selectBoardHeart(int bno) {
+		return mapper.selectBoardHeart(bno);
+	}
 
 
 

@@ -35,6 +35,9 @@ public interface BoardMapper {
 	FileDTO selectMainImageFile();
 	List<BoardDTO> selectNewContentList();
 	List<BoardDTO> selectExpireContentList();
+	int insertBoardHeart(HashMap<String, Object> map);
+	int deleteBoardHeart(HashMap<String, Object> map);
+	int selectBoardHeart(int bno);
 
 	
 

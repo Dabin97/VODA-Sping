@@ -513,7 +513,7 @@
                     <th:block th:each="board: ${nlist}">
                       <div>
                         <img src="/img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>
@@ -526,7 +526,7 @@
                     <th:block th:each="board: ${elist}">
                       <div>
                         <img src="/img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>

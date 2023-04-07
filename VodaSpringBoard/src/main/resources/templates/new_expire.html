@@ -91,7 +91,7 @@
         height: 200px;
         margin: 20px 30px 50px 20px;
         box-shadow: 5px 5px 5px #000;
-        background-color: rgb(184, 184, 184);
+        background-color: rgba(184, 184, 184,0);
     }
     .content_box{
         background-color: rgb(184, 184, 184);
@@ -99,6 +99,9 @@
         display: flex;
         flex-direction: row;
     } 
+    .content_box a{
+        background-color: rgb(184, 184, 184);
+    }
     .explanation{
         width: 950px;
         background-color: rgb(184, 184, 184);
@@ -169,7 +172,7 @@ footer a{
     	<th:block th:include="/fragments/user_header.html"></th:block>
         <div class="header">
             <br>
-            <h1 style="font-weight: bold;">신작 만료작을 한눈에!</h1>
+            <h1 style="font-weight: bold; padding-top: 20px;">신작 만료작을 한눈에!</h1>
         </div>
         <nav class="not">
             <a href="#new">new</a>
@@ -182,16 +185,14 @@ footer a{
                 
                 <div class="content_box" th:each="board: ${nlist}">
                     <div class="poster">
-                            <div>
-                                <!-- <img th:src="@{/image/{bno}(bno=${board.bno})}"> -->
-                                <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a> <!--컨텐츠 디테일 페이지 잇는거 아직 수정중-->
-                                <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
-                                <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
-                                <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
-                                <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
-                                <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
-                                <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
-                            </div>
+                        <!-- <img th:src="@{/image/{bno}(bno=${board.bno})}"> -->
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a>
+                        <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
+                        <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
+                        <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
+                        <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
+                        <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
+                        <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
                     </div>
                     <div class="explanation">
                         <p>[[${board.title}]]</p>
@@ -205,15 +206,13 @@ footer a{
 
                 <div class="content_box" th:each="board: ${elist}">
                     <div class="poster">
-                            <div>
-                                <img th:src="@{/image/{bno}(bno=${board.bno})}">
-                                <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
-                                <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
-                                <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
-                                <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
-                                <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
-                                <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
-                            </div>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a>
+                        <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
+                        <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
+                        <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
+                        <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
+                        <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
+                        <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
                     </div>
                     <div class="explanation">
                         <p>[[${board.title}]]</p>
