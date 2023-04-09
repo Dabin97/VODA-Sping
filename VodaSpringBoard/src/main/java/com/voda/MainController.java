@@ -89,7 +89,7 @@ public class MainController {
 	
 
 	@RequestMapping("/main")//사용자 페이지 메인 - 로그인한 버전
-	public ModelAndView MainContentList() {
+	public ModelAndView MainContentList(HttpSession session) {
 	    ModelAndView view = new ModelAndView();
 	    view.setViewName("main");
 
@@ -291,16 +291,19 @@ public class MainController {
 			return new ResponseEntity(map,HttpStatus.OK);
 		}
 		
-
-		@RequestMapping("/login/member") // /login과 같은 메소드인지 확인할것
-		public String memberLogin(String id, String passwd, HttpSession session) {
-			MemberDTO dto = memberService.login(id, passwd);
-			session.setAttribute("dto", dto);
-			
-			return "redirect:/main";
-		}
 		
-
+//
+//		@RequestMapping("/login/member") 아래에 로그인하는 메서드가 이미 있음
+//		public String memberLogin(String id, String passwd, HttpSession session) {
+//		    MemberDTO dto = memberService.login(id, passwd);
+//		    if (dto == null) {
+//		        System.out.println("로그인 실패");
+//		    } else {
+//		        session.setAttribute("dto", dto);
+//		    }
+//		    return "redirect:/main";
+//		}
+//		
 		
 		
 	@RequestMapping("/admin/content/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
@@ -645,12 +648,13 @@ public class MainController {
 		return "redirect:/content_page";
 	}
 	
+
 	@PostMapping("/member_login") //login/member와 같은 기능?
 	public String login(String id, String passwd, HttpSession session) {
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("member", dto);
 		if(dto == null) {
-				return "redirect:/index";
+			return "redirect:/index";
 		}
 		return "redirect:/main";
 	}
@@ -702,24 +706,37 @@ public class MainController {
 		return mv;
 	}
 
-
-	@RequestMapping("/board/heart/{bno}") //상세페이지에 들어가서 찜을 누를때만. 아니면 main처럼 bno를 따로 메서드로 주고 해도 될듯(보류) 
-	public ResponseEntity<String> boardCotentHeart(@PathVariable(name ="bno") int bno,HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		
-		int result = boardService.insertBoardHeart(bno, dto.getId());
-		if(result == 0)
-			map.put("msg", "해당 컨텐츠에 찜을 해제하셨습니다."); //필요한 메세지인지? 다시 생각해볼것. 누르면 하트색이 바뀌기 때문에 필요없을지도
-		else
-			map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
-		
-		map.put("fHeart", boardService.selectBoardHeart(bno)); //blike였음, 근데 우린 이미지 변경임
-		
-		return new ResponseEntity(map, HttpStatus.OK);
-	}
 	
+	@RequestMapping("/board/heart") 
+	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    int result = -1;
+	    MemberDTO dto = (MemberDTO) session.getAttribute("member");
 
+	    if(dto == null) {
+	        map.put("msg", "로그인 후 이용해주세요.");
+	        return new ResponseEntity(map, HttpStatus.OK);
+	    }
+
+	    try {
+	        boardService.insertBoardHeart(bno, dto.getId());
+	        result = boardService.selectBoardHeart(bno);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    if (result == 0) {
+	        map.put("msg", "해당 컨텐츠에 찜을 해제하셨습니다.");
+	    } else {
+	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
+	    }
+
+	    map.put("fHeart", result);
+	    return new ResponseEntity(map, HttpStatus.OK);
+	}
+
+
+	
 		 
 //		@RequestMapping("/member/delete/view")
 //			public String memberDeleteView() {

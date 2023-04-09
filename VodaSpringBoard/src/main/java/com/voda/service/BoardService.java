@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.BoardDTO;
@@ -191,23 +192,87 @@ public class BoardService {
 	    return elist;
 	}
 
+//	public int insertBoardHeart(int bno, String id) {
+//		int r = 0;
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("bno",bno);
+//		map.put("id",id);
+//		
+//		try {
+//		r = mapper.insertBoardHeart(map);
+//		}catch(Exception e){
+//		mapper.deleteBoardHeart(map);
+//		}
+//		return r;
+//	}
+	
+	
+//	public int insertBoardHeart(int bno, String id) {
+//		int r = 0;
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		map.put("bno", bno);
+//		map.put("id", id);
+//
+//		try {
+//		    // 해당 데이터가 존재하는 경우
+//		    if (mapper.selectBoardHeart(bno) > 0) {
+//		        r = mapper.deleteBoardHeart(map);
+//		    }
+//		    // 해당 데이터가 존재하지 않는 경우
+//		    else {
+//		        r = mapper.insertBoardHeart(map);
+//		    }
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
+//
+//		return r;
+//	}
+
+	
+	
 	public int insertBoardHeart(int bno, String id) {
-		int r = 0;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("bno",bno);
-		map.put("id",id);
-		try {
-		r = mapper.insertBoardHeart(map);
-		}catch(Exception e){
-		mapper.deleteBoardHeart(map);
-		}
-		
-		return r;
+	    int r = 0;
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    map.put("bno", bno);
+	    map.put("id", id);
+
+	    try {
+	        // 해당 데이터가 존재하는 경우
+	        if (mapper.selectBoardHeart(bno) > 0) {
+	            r = mapper.deleteBoardHeart(map);
+	        }
+	        // 해당 데이터가 존재하지 않는 경우
+	        else {
+	            r = mapper.insertBoardHeart(map);
+	            // insert 쿼리가 실행되는지 로그 출력
+	            System.out.println("insertBoardHeart - insert query result : " + r);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return r;
 	}
+
+	
+//	public void insertBoardHeart(int bno, String id) {
+//	    HashMap<String, Object> map = new HashMap<String, Object>();
+//	    map.put("bno", bno);
+//	    map.put("id", id);
+//
+//	    try {
+//	        mapper.insertBoardHeart(map);
+//	    } catch (Exception e) {
+//	        mapper.deleteBoardHeart(map);
+//	    }
+//	}
 
 	public int selectBoardHeart(int bno) {
 		return mapper.selectBoardHeart(bno);
 	}
+
+
 
 
 
