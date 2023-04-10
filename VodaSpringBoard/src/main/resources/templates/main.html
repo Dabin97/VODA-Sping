@@ -79,18 +79,7 @@
         height: 100px;
         position: absolute;
       }
-      .zoom{
-        height: 40px;
-        width: 300px;
-        border: 1px solid rgb(91, 91, 91);
-        box-sizing: border-box;
-        outline: none;
-        background-image: url(img/zoom.png);
-        background-repeat: no-repeat;
-        background-size: 30px;
-        background-position: 5px center;
-        padding-left: 43px;
-    }
+
     article{
         margin: 20px 0px 50px 0px;
         padding: 10px;
@@ -206,10 +195,18 @@
         background-color: rgba(255, 255, 255,0);
     }
     .ex_title{
-        font-size: 24px;
+        font-size: 36px;
         font-weight: bold;
         padding-bottom: 20px;
+        text-decoration : none;
+           	color : #dff5d0;
     }
+    
+    
+    a {
+            text-decoration : none;
+    }
+
     .explanation img{ /*좋아요싫어요 이미지*/
         width: 20px;
         height: 20px;
@@ -527,8 +524,8 @@
             </div><!--container_box-->
             </article>
 
-            <article> <!--신작만료 박스 시작-->
                 <form action="/board/heart" method="post">
+            	<article> <!--신작만료 박스 시작-->
                     <h2>
                        <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
                     </h2>
@@ -553,8 +550,8 @@
                             </a>
                           </div>
                       </div>
-                </form>
                 </article>
+                </form>
             <a href="#top" class="top"></a>
             <div class="space"></div>
         </section>
