@@ -114,15 +114,16 @@
         float: right;
         top: 0;
     }
-    .bookmark{
+    .bookmark {
         background-color: gray;
-    }
-    .bookmark ul{
-        list-style: none;
+        }
+        .bookmark ul {
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
+        list-style: none;
         background-color: gray;
-    }
+        }
+
     .bookmark li{
         background-color: gray;
         position: relative;
@@ -183,48 +184,17 @@ footer a{
         background-position: 5px center;
         padding-left: 43px;
     }
-    .hide {
-        display: none !important;
-        }
-
-    .rel_search {
-        position: absolute;
-        right: 0;
-        z-index: 6;
-        margin-top: 90px;
-        float: right;
-        border: 1px solid gray;
-        color: white;
-        width: 300px;
-        height: 150px;
-        overflow: auto;
-        box-sizing: border-box;
-        }
     
-    .search_input{
-        color: white;
-    }
-
-    .pop_rel_keywords {
-        list-style: none;
-        margin-right: 50px;
-        }
-
-    .pop_rel_keywords > li {
-        line-height : 250%
-        }
-
-    .rel_search::-webkit-scrollbar {
-     display: none;
-   }
-   
    .logout {
    	color : grey;
+   }
+   .bookmark a{
+    background-color: gray;
    }
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+    <script type="text/javascript" th:inline="javascript">
         $(function(){
             $('.select').click(function(){
                 var content_box = $(this).nextAll(".content_box");
@@ -243,18 +213,37 @@ footer a{
                 }
             });
 
-            $('.heart').on({ //하트 이미지 변경
-            'click': function() {
-                var src = ($(this).attr('src') === 'img/heart_full.png')
-                    ? 'img/heart.png'
-                    : 'img/heart_full.png';
-                $(this).attr('src', src);
-                $(this).parent().remove(); //찜한걸 풀면 해당 포스터가 없어지도록
-            }
+
+
+        $(".heart").click(function() { 
+            var bno = $(this).siblings('a').find('.poster').data("bno");
+            console.log(bno);
+            var heartImg = $(this); // 클릭한 하트 이미지
+
+            $.ajax({
+                url: "/board/heart",
+                data: {bno: bno},
+                method: "post",
+                dataType: 'json',
+                success: function(r) {
+                    console.log(r);
+                    if (r.fHeart == 0) { // 찜을 해제한 경우
+                        heartImg.attr("src", "/img/heart.png");
+                        location.reload();
+                    } else {             // 찜을 추가한 경우
+                        heartImg.attr("src", "/img/heart_full.png");
+                    }
+                    alert(r.msg);
+                },
+                error: function(xhr, status, error) {
+                    alert("Ajax 요청에 실패했습니다.");
+                }
+            });
         });
             function confirmLogout() {
             	alert("로그아웃 되었습니다.");
             }
+
            
         });
     </script>
@@ -267,14 +256,14 @@ footer a{
         <section>
             <article>
                 <div class="profile">
-                    <img src="img/profile.png">
+                    <img src="/img/profile.png">
                     <div>
                         <p class="nickname">[[${session.member.id}]]</p>
                         <p><a href="/logout" class="logout" onclick="confirmLogout();">▶로그아웃</a></p>
                     </div>
                     <p class="setting">
                         <a href="/edit" class=edit>
-                            <img src="img/setting.png" alt="">
+                            <img src="/img/setting.png" alt="">
                             정보수정
                         </a>
                     </p>
@@ -283,13 +272,13 @@ footer a{
             <article class="sub_container">
                         <h1 class="select">
                             내가 쓴 리뷰
-                            <img src="img/down-arrow.png" class="down_arrow">
+                            <img src="/img/down-arrow.png" class="down_arrow">
                         </h1>
                 <div class="content_box">
-                    <img src="img/더 랍스터.png" alt="" class="poster">
+                    <img src="/img/더 랍스터.png" alt="" class="poster">
                     <div class="explanation">
-                        <p class="up_down"><img src="img/dislike_full.png" class="dislike">14</p>
-                        <p class="up_down"><img src="img/like_full.png">25</p>
+                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike">14</p>
+                        <p class="up_down"><img src="/img/like_full.png">25</p>
                         <p class="ex_title">더 랍스터(The Lobster)</p>
                         <p>
                             진정한 '(타인을 위하는) 감정'이라는것이 있는 것인지, 냉소적인 감독의 시선들이 곳곳에서 눈에 띄어서 오히려 나중에는 사랑을 떠나 인간본성에 대해서 생각을 하게 되었던 영화
@@ -299,10 +288,10 @@ footer a{
                     </div>    
                 </div> 
                 <div class="content_box">
-                    <img src="img/poster3.jpg" alt="" class="poster">
+                    <img src="/img/poster3.jpg" alt="" class="poster">
                     <div class="explanation">
-                        <p class="up_down"><img src="img/dislike_full.png" class="dislike">5</p>
-                        <p class="up_down"><img src="img/like_full.png">28</p>
+                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike">5</p>
+                        <p class="up_down"><img src="/img/like_full.png">28</p>
                         <p class="ex_title">라라랜드(la la land)</p>
                         <p>
                             음악과 연출이 정말 잘 어울렸다. 그중 가장 인상 깊었던 장면은 미아가 세바스찬과의 영화 약속에 못 가고 
@@ -315,29 +304,15 @@ footer a{
             <article class="sub_container">
                     <h1 class="select_1">
                         찜 목록
-                        <img src="img/down-arrow.png" class="down_arrow">
+                        <img src="/img/down-arrow.png" class="down_arrow">
                     </h1>
                     <div class="bookmark">
                         <ul>
-                            <li>
-                                <img src="img/poster1.jpg" class="poster">
-                                <img src="img/heart_full.png" class="heart">
-                            </li>
-                            <li>
-                                <img src="img/poster2.jpg" class="poster">
-                                <img src="img/heart_full.png" class="heart">
-                            </li>
-                            <li>
-                                <img src="img/poster3.jpg" class="poster">
-                                <img src="img/heart_full.png" class="heart">
-                            </li>
-                            <li>
-                                <img src="img/poster4.jpg" class="poster">
-                                <img src="img/heart_full.png" class="heart">
-                            </li>
-                            <li>
-                                <img src="img/poster5.jpg" class="poster">
-                                <img src="img/heart_full.png" class="heart">
+                            <li  th:each="board: ${hlist}">
+                                <img src="/img/heart_full.png" class="heart">
+                                <a th:href="@{/content/detail/{bno}(bno=${board.bno})}">
+                                    <img th:src="@{/image/{bno}(bno=${board.bno})}" class="poster" th:attr="data-bno=${board.bno}">
+                                </a>
                             </li>
                         </ul>
                     </div>

@@ -191,9 +191,13 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/my_page")
-	public String my_page(HttpSession session) {
-		return "my_page"; 
+	@RequestMapping("/my_page/{id}")
+	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("my_page");
+		List<BoardDTO> hlist = boardService.selectHeartList(id);
+		view.addObject("hlist", hlist);
+		return view;
 	}
 	
 	@RequestMapping("/search")
@@ -697,7 +701,7 @@ public class MainController {
 	return view;
 }
 
-
+	
 	@RequestMapping("/board/heart") 
 	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
@@ -725,6 +729,7 @@ public class MainController {
 	    map.put("fHeart", result);
 	    return new ResponseEntity(map, HttpStatus.OK);
 	}
+
 
 	@RequestMapping("/content/detail/{bno}")
 	public ModelAndView updateView(@PathVariable int bno, HttpSession session) {

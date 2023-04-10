@@ -353,35 +353,31 @@
 
 <script type="text/javascript" th:inline="javascript">
 $(function(){
-        // $('.heart').on({ //하트 이미지 변경
-        // 'click': function() {
-        //     var src = ($(this).attr('src') === '/img/heart_full.png')
-        //         ? '/img/heart.png'
-        //         : '/img/heart_full.png';
-        //     $(this).attr('src', src);
-        //     }
-        // });
+    $(".heart").click(function() { 
+            var bno = $(this).siblings('.thumbnail').data("bno");
+            console.log(bno);
+            var heartImg = $(this); // 클릭한 하트 이미지
 
-        $('.heart').click(function(){
-			$.ajax({
-				url: '/board/heart/[[${board.bno }]]',
-				type: 'post',
-				dataType: 'json',
-				success:function(r){
-					console.log(r);
-					alert(r.msg);
-                        if(r == 1){ //?
-                        // $('#like_count').text(r.blike); 카운트 대신 이미지 변경 위의 js사용
-                        var src = ($(this).attr('src') === '/img/heart_full.png')
-                            ? '/img/heart.png'
-                            : '/img/heart_full.png';
-                        $(this).attr('src', src);
-                        }
-				}
-			});
-		});
+            $.ajax({
+                url: "/board/heart",
+                data: {bno: bno},
+                method: "post",
+                dataType: 'json',
+                success: function(r) {
+                    console.log(r);
+                    if (r.fHeart == 0) { // 찜을 해제한 경우
+                        heartImg.attr("src", "/img/heart.png");
+                    } else {             // 찜을 추가한 경우
+                        heartImg.attr("src", "/img/heart_full.png");
+                    }
+                    alert(r.msg);
+                },
+                error: function(xhr, status, error) {
+                    alert("Ajax 요청에 실패했습니다.");
+                }
+            });
+        });
 
-        
 });
 
     </script>
@@ -395,7 +391,7 @@ $(function(){
             <article class="info">
                 <div class="poster">
                     <img src="/img/heart.png" class="heart">
-                    <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                    <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                     <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe>
                 </div>
                 <div class="info_div">
