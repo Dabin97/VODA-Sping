@@ -512,7 +512,7 @@
                    <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
                 </h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${nlist}">
                       <div>
                         <img src="/img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
@@ -525,7 +525,7 @@
                    <img src="/img/Union-left.png" alt="">EXPIRE CONTENTS<img src="/img/Union-right.png" alt="">
                 </h2>
                 <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${elist}">
                       <div>
                         <img src="/img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">

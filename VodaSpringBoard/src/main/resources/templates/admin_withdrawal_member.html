@@ -230,17 +230,63 @@
 		padding:10px 0px;
 	}
         </style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/js/jquery-3.6.3.js"></script>
         <script type="text/javascript">
+ $(function(){
+            $(".del").click(delete_confirm); // 삭제 버튼 클릭 시 delete_confirm 함수 호출
 
             function delete_confirm(){
-                if(confirm("해당 회원을 탈퇴시키겠습니까?")){
-                    $
-                    alert("회원을 탈퇴시켰습니다");
-                }else{
-                    
-                }
+               let id = $(this).parent().siblings().eq(1).text();
+               console.log(id);
+            //   let obj = $(this).parent().parent();
+           let param = "id="+id;
+
+            if(confirm("회원을 삭제하시겠습니까?")){
+                //실제로 회원이 삭제될 것
+                $.ajax({
+                    url:'/member/delete/'+id,
+                    type:'post',
+                    dataType:'json',
+                    success:function(r){
+                        console.log(r);
+                        if(r.count=='1'){
+                        location.reload();
+                        $(obj).remove();
+                        }
+                        alert("회원이 삭제되었습니다");
+                    }
+                }); 
             }
+            }
+        });
+
+        $(document).ready(function() {
+			$("#chb_all").click(function() {
+				if($("#chb_all").is(":checked")) $("input[name=chk]").prop("checked", true);
+				else $("input[name=chk]").prop("checked", false);
+			});
+			
+			$("input[name=chk]").click(function() {
+				var total = $("input[name=chk]").length;
+				var checked = $("input[name=chk]:checked").length;
+				
+				if(total != checked) $("#chb_all").prop("checked", false);
+				else $("#chb_all").prop("checked", true); 
+			});
+		});
+
+        function activateBtn(){
+            if(btn_delete.disabled==true){
+                 btn_delete.disabled=false;
+            btn_delete_cancle.disabled=false;
+            }
+            else{
+                btn_delete.disabled=true;
+            btn_delete_cancle.disabled=true;
+            }
+        }
+
             </script>
     </head> 
 
@@ -263,7 +309,7 @@
                         <div class="search_table">
                             <table>
                                 <thead>
-                                    <th class="chb"><input type="checkbox"></th>
+                                    <th class="chb"><input type="checkbox" name="chk" id="chb_all" onclick="activateBtn()"></th>
                                     <th>No</th>
                                     <th>ID</th>
                                     <th>Request-date</th>
@@ -272,7 +318,7 @@
                                 <tbody>
                                     <th:block th:each="secession : ${list}">
                                     <tr>
-                                        <td class="chb"><input type="checkbox"></td>
+                                        <td class="chb"><input type="checkbox" name="chk" id="chb" onclick="activateBtn()"></td>
                                         <td>[[${secession.sno}]]</td>
                                         <td>[[${secession.id}]]</td>
                                         <td>[[${secession.sdate}]]</td>
@@ -311,8 +357,8 @@
                                     </tfoot>
                             </table>
                             <div class="btn_container">
-                            <button class="bottombtn">탈퇴 취소</button>
-                            <button onclick="delete_confirm()" class="bottombtn">탈퇴 등록</button>
+                            <button class="bottombtn" disabled id="btn_delete_cancle">탈퇴 취소</button>
+                            <button onclick="delete_confirm()" class="bottombtn" id="btn_delete" disabled>탈퇴 등록</button>
                             </div>
                             
                         </div>

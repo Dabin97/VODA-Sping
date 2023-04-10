@@ -4,12 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>New Expire</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
     <style>
         * {
         margin: 0;
@@ -213,10 +211,13 @@ footer a{
       	float : right;
       	margin-top : 30px;
       	margin-right : 100px;
-		width : 100px;
+		width : 110px;
 		height : 30px;
       	font-size : 16px;
+		border-radius : 10px;
+
       }
+  
       
       option {
       	font-size : 16px;
@@ -247,10 +248,14 @@ footer a{
       .new_end_search {
       	height : 270px;
       }
+      
+            .new_end_search2 {
+      	height : 270px;
+      }
 
     </style>
 <script>
-
+	var slider = [];
     $(function(){
     	
         $('.heart').on({ //하트 이미지 변경
@@ -262,81 +267,63 @@ footer a{
                 }
             });
         
-        $('.new_end_search').bxSlider({
-            pager : false,
-            slideWidth : 180,
-            useCSS : true,
-            slideMargin: 20,
-            minSlides:5,
-            maxSlides:5,
-            moveSlides:1,
-            touchEnabled : false
-          });
+        $('.new_end_search').each(function(){
+        	slider.push($(this).bxSlider({
+                pager : false,
+                slideWidth : 180,
+                useCSS : true,
+                slideMargin: 20,
+                minSlides:5,
+                maxSlides:5,
+                moveSlides:1,
+                touchEnabled : false
+              }));
+        });
+        
+        $('.new_end_search2').each(function(){
+        	slider.push($(this).bxSlider({
+                pager : false,
+                slideWidth : 180,
+                useCSS : true,
+                slideMargin: 20,
+                minSlides:5,
+                maxSlides:5,
+                moveSlides:1,
+                touchEnabled : false
+              }));
+        });
+        
+
+    	  $('#selectBox1').change(function(){
+	          $('.tBox').each(function(idx, item){
+	        	  if($('#selectBox1').val() == "0") {
+		          $(item).appendTo('.new_end_search');
+	        	} else if($(item).children('input[name="genre"]').val() != $('#selectBox1').val()){
+	              $(item).appendTo('.hide_new_end_search');
+	            } else{
+	              $(item).appendTo('.new_end_search');
+	            }
+	          });
+            slider[0].reloadSlider();
+	          
+    	  });
+    	  
+    	  $('#selectBox2').change(function(){
+	          $('.tBox2').each(function(idx, item){
+	        	  if($('#selectBox2').val() == "0") {
+		          $(item).appendTo('.new_end_search2');
+	        	} else if($(item).children('input[name="genre2"]').val() != $('#selectBox2').val()){
+	              $(item).appendTo('.hide_new_end_search2');
+	            } else{
+	              $(item).appendTo('.new_end_search2');
+	            }
+	          });
+            slider[1].reloadSlider();
+	          
+    	  });
     });
     
-    $(function(){
-    	  // 첫 번째 select 요소에서 값이 변경될 때마다 이벤트가 발생하도록 설정합니다.
-    	  $('#selectBox1').change(function(){
-    		slider1 = $(".new_end_search").bxSlider();
-    	    const tBoxes = document.querySelectorAll(".tBox");
-    	    if($(this).val() == "2") { // 영화가 선택된 경우
-    	      tBoxes.forEach(function(tBox) {
-    	        const genreInput = tBox.querySelector('input[name="genre"]');
-    	        const genre = genreInput ? genreInput.value : null;
-    	        if (genre !== "1") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
-    	          tBox.classList.add("hide");
-    	        } else {
-    	          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
-    	        }
-    	      });
-    	    } else if($(this).val() == "3") {
-      	      tBoxes.forEach(function(tBox) {
-      	        const genreInput = tBox.querySelector('input[name="genre"]');
-      	        const genre = genreInput ? genreInput.value : null;
-      	        if (genre !== "2") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
-      	          tBox.classList.add("hide");
-      	        } else {
-      	          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
-      	        }
-      	      });
-
-    	    } else if($(this).val() == "4") {
-        	      tBoxes.forEach(function(tBox) {
-            	        const genreInput = tBox.querySelector('input[name="genre"]');
-            	        const genre = genreInput ? genreInput.value : null;
-            	        if (genre !== "4") {
-            	          tBox.classList.add("hide");
-            	        } else {
-            	          tBox.classList.remove("hide"); 
-            	        }
-            	      });
-
-    	    } else if($(this).val() == "5") {
-      	      tBoxes.forEach(function(tBox) {
-      	        const genreInput = tBox.querySelector('input[name="genre"]');
-      	        const genre = genreInput ? genreInput.value : null;
-      	        if (genre !== "3") { 
-      	          tBox.classList.add("hide");
-      	        } else {
-      	          tBox.classList.remove("hide"); 
-      	        }
-      	      });
-      	        slider1.reloadSlider();
-
-    	    } else if($(this).val() == "1") {
-        	      tBoxes.forEach(function(tBox) {
-            	        const genreInput = tBox.querySelector('input[name="genre"]');
-            	        const genre = genreInput ? genreInput.value : null;
-            	        if (genre == "10") { 
-            	          tBox.classList.add("hide");
-            	        } else {
-            	          tBox.classList.remove("hide"); 
-            	        }
-            	      });
-    	    }
-    	    slider1.reloadShow();
-    	  });
-    	});
+   
 
     </script>
 </head>
@@ -347,6 +334,7 @@ footer a{
             <br>
             <h1 style="font-weight: bold;">클릭해서 이동하세요!</h1>
             <ul>
+                <a href="#all"><li><img src="img/all.png" alt=""></li></a>
                 <a href="#netflix"><li><img src="img/netflix.png" alt=""></li></a>
                 <a href="#watcha"><li><img src="img/왓챠.png" alt=""></li></a>
                 <a href="#wavve"><li><img src="img/wavve.png" alt=""></li></a>
@@ -359,14 +347,14 @@ footer a{
         <div class="main_container">
             <article> <!--신작만료 박스 시작-->
                 <h2>
-                   <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="">
-<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
-    <option value="1">전체</option>
-    <option value="2">영화</option>
-    <option value="3">드라마</option>
-    <option value="4">예능</option>
-    <option value="5">애니메이션</option>
-</select>
+                   <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="" id="all">
+					<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
+					    <option value="0">전체</option>
+					    <option value="1">영화</option>
+					    <option value="2">드라마</option>
+					    <option value="3">애니메이션</option>
+					    <option value="4">예능</option>
+					</select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -377,25 +365,41 @@ footer a{
                       </div>
                     </th:block>
                   </div>
+                  <style>
+                    .hide_new_end_search {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search"></div>
                   <br>
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">NETFILIX<img src="img/Union-right.png" alt="" id="netflix">
-                   <select name="selectBox" form="myForm" class="selectBox" id="selectBox" onchange="selectBoxChange(this.value);">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
+                   <select name="selectBox2" form="myForm" class="selectBox" id="selectBox2">
+					    <option value="0">전체</option>
+					    <option value="1">영화</option>
+					    <option value="2">드라마</option>
+					    <option value="3">애니메이션</option>
+					    <option value="4">예능</option>
 </select>
                 </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                        <div th:if="${board.ottNo == 1}">
+                  <div class="new_end_search2"> 
+                    <th:block th:each="board: ${list}" th:if="${board.ottNo == 1}">
+                        <div class="tBox2">
                         <img src="img/heart.png" class="heart">
+                        <input type="hidden" name="genre2" th:value="${board.genre}">
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
-                      </div>
+                      	</div>
                     </th:block>
+                  </div>
+                   <style>
+                    .hide_new_end_search2 {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search2">
+                  	<th:block th:each="board: ${list}" th:if="${board.ottNo == 1}">
+                  	</th:block>
                   </div>
                   <br>
                   <br>
