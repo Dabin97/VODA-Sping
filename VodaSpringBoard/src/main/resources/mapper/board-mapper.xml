@@ -99,6 +99,10 @@
 		select * from expire_board_content_view
 	</select>
 	
+	<select id="selectHeartList" resultMap="board">
+		select * from heart_table where id = #{id}
+	</select>
+	
 	<select id="selectFileList" resultType="file" parameterType="int">
 		select * from board_file where bno = #{bno} order by fno
 	</select>

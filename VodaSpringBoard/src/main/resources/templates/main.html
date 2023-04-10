@@ -27,7 +27,7 @@
           flex-direction: column;
           position: relative;
       }
-      
+     
       .bx-wrapper{
         margin:0 100px;
         border: none;
@@ -346,7 +346,7 @@
         });
 
 
-        $(".heart").click(function() {  //찜기능은 제대로 기능하지만 페이지 이동시 이미지가 풀리는것 고치기
+        $(".heart").click(function() {  
             var bno = $(this).siblings('a').find('.thumbnail').data("bno");
             console.log(bno);
             var heartImg = $(this); // 클릭한 하트 이미지
@@ -370,6 +370,8 @@
                 }
             });
         });
+
+
 
       });
     </script> 
