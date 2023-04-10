@@ -531,12 +531,12 @@
                    <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
                 </h2>
                   <div class="new_end_search"> 
-                    <div th:each="board: ${nlist}">
+                    <th:block th:each="board: ${nlist}">
+                      <div>
                         <img src="/img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}">
-                            <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
-                        </a>
-                    </div>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                      </div>
+                    </th:block>
                   </div>
             </article>
             <article>
@@ -544,11 +544,10 @@
                    <img src="/img/Union-left.png" alt="">EXPIRE CONTENTS<img src="/img/Union-right.png" alt="">
                 </h2>
                 <div class="new_end_search"> 
-                    <div th:each="board: ${elist}">
+                    <th:block th:each="board: ${elist}">
+                      <div>
                         <img src="/img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}">
-                            <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
-                        </a>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                   </div>
             </form>
@@ -560,4 +559,3 @@
 		<th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
-</html> 

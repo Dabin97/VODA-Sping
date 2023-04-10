@@ -55,7 +55,7 @@ public class MainController {
 	private MemberService memberService;
 	private BoardService boardService;
 	private ReviewService reviewService;
-	private SecessionService secessionService;
+	private SecessionService secessionService; 
 	
 
 	public MainController(MemberService memberService, BoardService boardService, ReviewService reviewService, SecessionService secessionService) {
@@ -116,6 +116,89 @@ public class MainController {
 	    return view;
 	}
 	
+	@RequestMapping("/new_expire_netflix")
+	public ModelAndView new_expire_netflix(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire_netflix");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
+	@RequestMapping("/new_expire_watcha")
+	public ModelAndView new_expire_watcha(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire_watcha");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
+	@RequestMapping("/new_expire_wavve")
+	public ModelAndView new_expire_wavve(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire_wavve");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
+	@RequestMapping("/new_expire_tving")
+	public ModelAndView new_expire_tving(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire_tving");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
+	@RequestMapping("/new_expire_laftel")
+	public ModelAndView new_expire_laftel(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire_laftel");
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
+	@RequestMapping("/new_expire_disney")
+	public ModelAndView new_expire_disney(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("new_expire_disney");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
 	
 	@RequestMapping("/my_page")
 	public String my_page(HttpSession session) {
@@ -143,20 +226,7 @@ public class MainController {
 	public String contentview(HttpSession session) {
 		return "content_page";
 	}
-	
 
-
-//	@RequestMapping("/member/secession/view/{id}")
-//	public String secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
-//		String msg = "";
-//		if(dto.getId().equals(id)) {
-//	    	msg = "이미 탈퇴신청하셨습니다."; 
-//	        return "profile_edit";
-//	    } else {
-//	        return "member_secession";
-//	    }
-//	}
-	
 	@RequestMapping("/member/secession/view/{id}")
 	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
 	    ModelAndView mv = new ModelAndView();
@@ -171,38 +241,21 @@ public class MainController {
 	    return mv;
 	}
 
-
-//	    @RequestMapping("/secession/view/{id}")
-//	    public ResponseEntity<String> secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
-//	        if (dto.getId().equals(id)) {
-//	            return ResponseEntity.badRequest().body("이미 탈퇴신청하셨습니다.");
-//	        } else {
-//	            return ResponseEntity.ok("member_secession");
-//	        }
-//	    }
-	
-
-//	@RequestMapping("/member/secession/view/{id}")
-//	public ModelAndView secessionView(@PathVariable String id, SecessionDTO dto, HttpSession session) {
-//	    ModelAndView mv = new ModelAndView();
-//	    String msg = "";
-//	    if(dto.getId().equals(id)) {
-//	    	mv.addObject("msg", "이미 탈퇴신청하셨습니다.");
-//	        mv.setViewName("profile_edit");
-//	    } else {
-//	        mv.setViewName("member_secession");
-//	    }
-//	    return mv;
-//	}
-	
-
-
 	@RequestMapping("/member/secession")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
 		return "redirect:/main";
 	}
 
+	
+	
+//	@RequestMapping("/member/secession")
+//	public String goSeccesion(MemberDTO dto) {
+//		System.out.println(dto);
+//		int result = memberService.goSecession(dto);
+//		return "redirect:/my_page";
+//	}
+	
 	
 		////////////////////관리자 페이지////////////////////////////////
 	@RequestMapping("/admin/index")
@@ -642,7 +695,7 @@ public class MainController {
 		return view;
 	}
 	
-	@RequestMapping("/member/review/register")
+	@RequestMapping("/review/register")
 	public String registerReview(ReviewDTO dto) {
 		reviewService.insertReview(dto);
 		return "redirect:/content_page";
@@ -665,22 +718,7 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	
-	@RequestMapping("/review")
-	public class ReviewController {
-		private ReviewService reviewService;
-		
-		public ReviewController(ReviewService reviewService) {
-			this.reviewService = reviewService;
-		}
-		
-		@RequestMapping("/review/register")
-		public String memberReviewRegister(ReviewDTO dto) {
-		reviewService.insertReview(dto);
-		return "redirect:/member/review";
-		}
-	}
-	
+
 
 	@RequestMapping("/admin/review/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
 	public ModelAndView adminReviewList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
@@ -698,15 +736,8 @@ public class MainController {
 	
 	return view;
 }
-	@RequestMapping("/content/detail/{bno}")
-	public ModelAndView updateView(@PathVariable int bno, ModelAndView mv, HttpSession session) {
-		BoardDTO dto = boardService.selectBoard(bno,session);
-		mv.addObject("board", dto);
-		mv.setViewName("content_page");
-		return mv;
-	}
 
-	
+
 	@RequestMapping("/board/heart") 
 	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
@@ -735,8 +766,62 @@ public class MainController {
 	    return new ResponseEntity(map, HttpStatus.OK);
 	}
 
+	@RequestMapping("/content/detail/{bno}")
+	public ModelAndView updateView(@PathVariable int bno, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		BoardDTO board = boardService.selectBoard(bno, session);
+		List<ReviewDTO> rList = reviewService.selectReview(bno);
+		
+		//리뷰 목록 조회
+		
+		mv.addObject("board", board);
+		mv.addObject("rList", rList);
+		mv.setViewName("content_page");
+		
+		return mv;
+	}
 
 	
+
+	@RequestMapping("/review/search") // 검색 부분
+	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){
+		List<ReviewDTO> list = reviewService.selectSearchReview(kind,search);
+			
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
+	
+	@RequestMapping("/admin/review/detail/{rno}")
+	public ModelAndView adminReviewDetail(@PathVariable("rno") int rno, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("admin_review_detail");
+		
+		//게시글 조회
+		ReviewDTO review = reviewService.selectAllReview(rno);
+		
+		view.addObject("review", review);
+		
+		return view;
+		}
+	
+	@RequestMapping("/admin/review/delete/{rno}") //게시글 첨부파일 댓글삭제 모두 
+	public String deleteReview(@PathVariable(name ="rno")int rno) {
+
+		reviewService.deleteReview(rno);
+		return "redirect:/admin/review/list";
+	}
+	
+	@RequestMapping("/review/write")
+	public String insertReview(ReviewDTO review, HttpSession session) {
+		//댓글 작성자 정보 추가
+		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
+		review.setId(dto.getId());
+		
+		reviewService.insertReview(review);
+		
+		return "redirect:/content/detail/{bno}"+review.getBno();
+	}
+
+
 		 
 //		@RequestMapping("/member/delete/view")
 //			public String memberDeleteView() {

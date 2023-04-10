@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 @Mapper
 public interface BoardMapper {
 
@@ -38,7 +39,5 @@ public interface BoardMapper {
 	int insertBoardHeart(HashMap<String, Object> map);
 	int deleteBoardHeart(HashMap<String, Object> map);
 	int selectBoardHeart(int bno);
-
-	
 
 }
