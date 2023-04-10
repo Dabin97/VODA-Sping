@@ -18,4 +18,13 @@ public interface ReviewMapper {
 	int selectReviewCount();
 
 
+	ReviewDTO selectAllReview(int rno);
+
+	void deleteReview(int rno);
+	
+	List<ReviewDTO> selectSearchReview(HashMap<String, Object> map);
+
+	List<ReviewDTO> selectReview(int bno);
+
+
 }

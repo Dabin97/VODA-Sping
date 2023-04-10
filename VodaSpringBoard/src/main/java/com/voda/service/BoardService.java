@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 import com.voda.mapper.BoardMapper;
 
 @Service
@@ -155,8 +158,10 @@ public class BoardService {
 	}
 
 
+	public BoardDTO selectBoard(int bno, HttpSession session) {
+		return mapper.selectBoard(bno);
+	}
 
-	
 
 
 	

@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 @Mapper
 public interface BoardMapper {
 
@@ -34,6 +35,7 @@ public interface BoardMapper {
 	List<BoardDTO> selectExpireList(HashMap<String, Object> map);
 	List<BoardDTO> selectMainContentList();
 	FileDTO selectMainImageFile();
+
 
 	
 

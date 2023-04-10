@@ -31,6 +31,7 @@
         margin:0 100px;
         border: none;
         box-shadow: none;
+        
       }
       .bx-prev{
         left: -40px !important;
@@ -38,6 +39,7 @@
       .bx-next{
         right: -40px !important;
       }
+      
 
     footer{
     width: 1200px;
@@ -171,20 +173,31 @@
         width: 30px;
         height: 30px;
     }
+    
+    h2 img {
+        width: 30px;
+        height: 30px;
+    }
     .content_box{
-        background-color: rgb(34, 34, 34);
-        width: 600px;
+        background-color: rgb(34, 34, 34) !important;
+        width: 990px;
         margin-bottom: 30px;
         display: flex;
         flex-direction: row;
+        margin-left : 100px;
     }
 
-    .best_poster{
-        width: 300px;
-        margin: 15px 50px 15px 15px;
+	.best_poster{
+	        margin: 15px 70px 15px 30px;
+	                position: relative;
+	}
+    .best_poster1{
+        width: 240px;
+        height : 330px; 
     }
      
     .explanation{
+    	width : 900px;
         background-color: rgb(34, 34, 34);
         padding-top: 15px;
     }
@@ -210,10 +223,12 @@
         border: 1px solid rgb(73, 73, 73);
         border-radius: 10px;
         padding: 15px;
-        width: 280px;
+        width: 550px;
         height: 50px;
         margin-bottom: 20px;
         margin-right: 20px;
+        margin-top : 20px;
+
     }
     .dislike{
         margin-top: 7px;
@@ -275,6 +290,9 @@
     .click, .click img{
         background-color: rgb(34, 34, 34);;
     }
+        .best {
+    	color : grey;
+    }
  
     </style>
     <script>
@@ -282,6 +300,12 @@
         $('.slider').bxSlider({
             infiniteLoop : true,
             useCSS : true,
+    		auto: true,
+    		speed: 500,
+    		pause: 4000,
+    		mode:'fade',
+    		autoControls: true,
+    		pager:true,
         });
  
 
@@ -422,29 +446,31 @@
 
             <article>
             <h1>
-                <img src="img/Union-left.png" alt="">BEST REVIEW<img src="img/Union-right.png" alt="">
+                <img src="/img/Union-left.png" alt="">BEST CONTENTS<img src="/img/Union-right.png" alt="">
             </h1>
-            <!-- <form action="/content_page" method="post"> -->
             <div class="content_box"> <!-- best_table을 따로 만들고 좋아요or찜 카운트를 사용해서 rank 1위로 뽑아야함 -->
-                <img src="img/더 랍스터.png" alt="" class="best_poster"> 
+            	<div class="best_poster">
+            	<img src="img/heart.png" class="heart">
+                <a th:href="@{/content/detail/{bno}(bno=4)}"><img th:src="@{/image/{bno}(bno=4)}" alt="" class="best_poster1"></a>
+                </div>
                 <div class="explanation">
-                    <p>BEST 01</p>
-                    <a href="/content_page" class="content"><p class="ex_title">더 랍스터(The Lobster)</p></a>
+                    <p class="best">이달의 BEST CONTENTS</p>
+                    <a th:href="@{/content/detail/{bno}(bno=4)}" class="content"><p class="ex_title">더 글로리(The Glory)</p></a>
                     <div class="best_review">
                         <p class="up_down">
-                            <img src="img/dislike_full.png" class="dislike">
-                            <span>88</span>
+                            <img src="/img/dislike_full.png" class="dislike">
+                            <span>31</span>
                         </p>
                         <p class="up_down">
-                            <img src="img/like_full.png" class="like">
-                            <span>808</span>
+                            <img src="/img/like_full.png" class="like">
+                            <span>945</span>
                         </p>
                         <p class="star">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
                             <span style="padding-left: 10px;">5.0</span>
                         </p>
                         <p class="review_content">
@@ -455,49 +481,51 @@
                     </div>
                     <div class="best_review">
                         <p class="up_down">
-                            <img src="img/dislike_full.png" class="dislike">
-                            <span>88</span>
+                            <img src="/img/dislike_full.png" class="dislike">
+                            <span>84</span>
                         </p>
                         <p class="up_down">
-                            <img src="img/like_full.png" class="like">
-                            <span>808</span>
+                            <img src="/img/like_full.png" class="like">
+                            <span>718</span>
                         </p>
                         <p class="star">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
-                            <img src="img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
                             <span style="padding-left: 10px;">5.0</span>
                         </p>
                         <p class="review_content">
-                            진정한 '(타인을 위하는) 감정'이라는것이 있는 것인지, 냉소적인 감독의 시선들이 곳곳에서 눈에 띄어서 오히려 나중에는 사랑을 떠나 인간본성에 대해서 생각을 하게 되었던 영화
-                            의외로 보고 나왔던 직후, 생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다
+                            생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다
                             사랑에 관한 영화인 것처럼 포스터는 말하고 있지만 그것만은 아니라는 생각이 드네요
                         </p>
                     </div>
                 </div>
             </div><!--container_box-->
-           <!-- </form> -->
             </article>
 
             <article> <!--신작만료 박스 시작-->
-                <h2>NEW</h2>
+                <h2>
+                   <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
+                </h2>
                   <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${nlist}">
                       <div>
-                        <img src="img/heart.png" class="heart">
+                        <img src="/img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
                       </div>
                     </th:block>
                   </div>
             </article>
             <article>
-                <h2>EXPIRE</h2>
+                <h2>
+                   <img src="/img/Union-left.png" alt="">EXPIRE CONTENTS<img src="/img/Union-right.png" alt="">
+                </h2>
                 <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
+                    <th:block th:each="board: ${elist}">
                       <div>
-                        <img src="img/heart.png" class="heart">
+                        <img src="/img/heart.png" class="heart">
                         <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
                       </div>
                     </th:block>
@@ -510,4 +538,3 @@
 		<th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
-</html> 
