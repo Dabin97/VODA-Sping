@@ -1,6 +1,5 @@
 package com.voda.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,8 +49,8 @@ public class BoardService {
 		return fno;
 	}
 
-	public FileDTO selectImageFile(int fno) {
-		return mapper.selectImageFile(fno);
+	public FileDTO selectImageFile(int bno) {
+		return mapper.selectImageFile(bno);
 	}
 
 	public FileDTO selectFile(int bno, int fno) {
@@ -153,9 +152,64 @@ public class BoardService {
 	}
 
 
-	public FileDTO selectMainImageFile() {
-		return mapper.selectMainImageFile();
+
+	
+	public List<BoardDTO> selectNewContentList() { 
+		List<BoardDTO> nlist = mapper.selectNewContentList();
+
+	    for (BoardDTO board : nlist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return nlist;
 	}
+
+	public BoardDTO selectBoard(int bno, HttpSession session) {
+		return mapper.selectBoard(bno);
+	}
+
+
+
+	public List<BoardDTO> selectExpireContentList() {
+		List<BoardDTO> elist = mapper.selectExpireContentList();
+
+	    for (BoardDTO board : elist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return elist;
+	}
+
+	public int insertBoardHeart(int bno, String id) {
+		int r = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno);
+		map.put("id",id);
+		try {
+		r = mapper.insertBoardHeart(map);
+		}catch(Exception e){
+		mapper.deleteBoardHeart(map);
+		}
+		
+		return r;
+	}
+
+	public int selectBoardHeart(int bno) {
+		return mapper.selectBoardHeart(bno);
+	}
+
 
 
 	public BoardDTO selectBoard(int bno, HttpSession session) {

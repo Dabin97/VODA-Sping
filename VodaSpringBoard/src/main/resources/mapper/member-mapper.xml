@@ -49,6 +49,8 @@
 	<delete id="deleteMember" parameterType="String">
 		delete from member_table where id = #{id}
 	</delete>
-	
-
+	<select id="idCheck" resultType="member">
+	select id from member_table where id=#{id} 
+	</select>
+  
 </mapper>
