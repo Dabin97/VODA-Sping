@@ -350,12 +350,12 @@
                                     <td class="subject">OTT</td>    
                                     <td colspan="4"> <!--springThymeleaf의 html을 보면 register는 th가 없고 수정에는 th:value가 있다. value를 숫자로 넣었는데 제대로 ott_no에 들어가는지 확인해야한다.-->
                                         <select name="ottNo">
-                                            <option value="1" name="chk_info">넷플릭스 </option>
-                                            <option value="2" name="chk_info">디즈니+</option>
-                                            <option value="3" name="chk_info">라프텔</option>
-                                            <option value="4" name="chk_info">왓챠</option>
-                                            <option value="5" name="chk_info">웨이브</option>
-                                            <option value="6" name="chk_info">티빙</option>
+                                            <option value="1" name="chk_info" th:selected="${board.ottNo} == 1">넷플릭스 </option>
+                                            <option value="2" name="chk_info" th:selected="${board.ottNo} == 2">디즈니+</option>
+                                            <option value="3" name="chk_info" th:selected="${board.ottNo} == 3">라프텔</option>
+                                            <option value="4" name="chk_info" th:selected="${board.ottNo} == 4">왓챠</option>
+                                            <option value="5" name="chk_info" th:selected="${board.ottNo} == 5">웨이브</option>
+                                            <option value="6" name="chk_info" th:selected="${board.ottNo} == 6">티빙</option>
                                         </select>
                                     </td>
                                 </tr>

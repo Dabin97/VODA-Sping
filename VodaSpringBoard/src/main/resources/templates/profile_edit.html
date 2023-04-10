@@ -3,6 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
 <title>Profile Edit</title>
  <style>
         *{
@@ -152,10 +153,17 @@
         .ott_choice{
             color: white;
         }
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+        }
+       
     </style>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <script type="text/javascript" th:inline="javascript">
+
         //닉네임 기능
         //1. 닉네임은 20글자까지만 입력이 가능하게끔 처림
         //2. 입력한 글자개수를 0/20 형식으로 sub_txt에 넣음
@@ -242,97 +250,7 @@
         }
 
 
-    //     $('#btn_s').click(function(){
-    //     $.ajax({
-    //         url:'/member/secession/view/[[${session.member.id}]]',
-    //         type : 'get',
-    //         dataType : 'json',
-    //         success:function(data){
-    //             console.log(data);
-    //             alert(data.msg);
-    //         }
-    //     });
-    // });
 
-//     $('#btn_s').click(function(){
-//     $.ajax({
-//         url: '/member/secession/view/[[${session.member.id}]]',
-//         type: 'get',
-//         // dataType: 'json',
-//         success: function(r){
-//             alert('이미 탈퇴신청하셨습니다.');
-//             history.back();
-//         }
-//     });
-// });
-
-
-// $(function(){
-//     $('#btn_s').click(function(){
-//         $.ajax({
-//             url: '/member/secession/view/${session.member.id}',
-//             type: 'post',
-//             dataType: 'json',
-//             success: function(r){
-//                 console.log(r);
-//                 alert(r.msg);
-//                 history.back();
-//             }
-//         });
-//     });
-
-// });
-
-// $(function(){
-//     $('#btn_s').click(function(){
-//         $.ajax({
-//             url: $(this).attr('href'),
-//             type: 'get',
-//             dataType: 'json',
-//             success: function(r){
-//                 console.log(r);
-//                 alert(r.msg);
-//                 history.back();
-//             }
-//         });
-//         return false;
-//     });
-// });
-
-
-// $('#btn_s').click(function(){
-//     $.ajax({
-//         url: '/member/secession/view/[[${session.member.id}]]',
-//         type: 'get',
-//         dataType: 'json',
-//         success: function(r){
-//             if (r.msg) {
-//                 alert(r.msg);
-//                 location.href = r.url;
-//             } else {
-//                 location.href = r.url;
-//             }
-//         }
-//     });
-// });
-
-
-
-    //     $('#btn_s').click(function(){
-    //     $.ajax({
-    //         url:'/member/secession/view/[[${session.member.id}]]',
-    //         type : 'post',
-    //         dataType : 'html',
-    //         success:function(data){
-    //             console.log(data);
-    //             var msg = $(data).find("#msg").val();
-    //             alert(msg);
-    //         }
-    //     });
-    // });
-
-
-   
     </script>
 </head>
 <body>
@@ -360,11 +278,11 @@
                             
             </ul>
         </form>
-         <!-- <a href="/member/secession/view/{id}">탈퇴하기</a> -->
-         <a th:href="@{/member/secession/view/{id}(id=${session.member.id})}" id="btn_s">탈퇴하기</a>
-         <!-- <a th:href="@{/member/secession/view/{id}(id=${session.member.id})}" id="btn_s" th:if="${session.member != null}">탈퇴하기</a> -->
 
-         <!-- <button id="btn_s">탈퇴하기</button> -->
+        <!-- <a th:href="@{/member/secession/view/{id}(id=${session.member.id})}" class="sec">탈퇴하기</a> -->
+       <a th:href="@{/member/secession/view/{id}(id=${session.member.id})}" id="btn_s">탈퇴하기</a>
+
+
     </div>
    </section>
 </body>

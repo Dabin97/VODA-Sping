@@ -12,6 +12,17 @@
 	</select>
 <select id="selectMemberList" resultType="secession" parameterType="hashMap">
         SELECT * FROM MEMBER_SECESSION_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
+    </select> 
+	<select id="selectSecessionSno" resultType="int">
+			 select secession_sno_seq.nextval from dual
+	</select>
+	<insert id="goSecession" parameterType="secession">
+      insert into secession_table
+       (sno,sdate,reason,id) 
+      values(#{sno}, sysdate, #{reason}, #{id})
+	</insert>
+	<select id="selectSecessionId" resultType="secession">
+        select * from secession_table where id = #{id}
     </select>
-    
+
 </mapper>

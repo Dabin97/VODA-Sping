@@ -22,12 +22,12 @@
           position: relative;
       }
     
-    header img{
+    .header img{
         height: 150px;
         display: block;
         margin: auto;
       }
-    header input{
+    .header input{
         position: absolute;
         margin-top: 50px;
         right: 0;
@@ -36,7 +36,7 @@
         list-style: none;
         color: white;
     }
-    header li > img{
+    .header li > img{
         width: 60px;
         height: 60px;
         float: left;
@@ -49,7 +49,7 @@
     nav a{
         background-color: gray;
         border: none;
-        color: aqua;
+        color: rgb(194, 231, 142);
         text-decoration: none;
         font-size: 32px;
         font-weight: bold;
@@ -71,7 +71,7 @@
     }
     .poster{
         position: relative;
-        background-color: rgb(184, 184, 184);
+        background-color: rgb(184, 184, 184) ;
     }
     .ott{
         width: 40px !important;
@@ -91,6 +91,7 @@
         height: 200px;
         margin: 20px 30px 50px 20px;
         box-shadow: 5px 5px 5px #000;
+        background-color: rgba(184, 184, 184,0);
     }
     .content_box{
         background-color: rgb(184, 184, 184);
@@ -98,6 +99,9 @@
         display: flex;
         flex-direction: row;
     } 
+    .content_box a{
+        background-color: rgb(184, 184, 184);
+    }
     .explanation{
         width: 950px;
         background-color: rgb(184, 184, 184);
@@ -165,19 +169,11 @@ footer a{
 </head>
 <body>
     <div class="flex_container">
-        <header>
-              <input type="text" placeholder="검색" class="zoom">
-            <img src="img/logo_white.png" alt="">  
-            <h1 style="font-weight: bold;">신작 만료작을 한눈에!</h1>
-            <ul>
-                <li><img src="img/netflix.png" alt=""></li>
-                <li><img src="img/왓챠.png" alt=""></li>
-                <li><img src="img/wavve.png" alt=""></li>
-                <li><img src="img/Fotoram.png" alt=""></li>
-                <li><img src="img/laftel_logo-removebg-preview.png" alt=""></li>
-                <li><img src="img/disney_remove.png" alt=""></li>
-            </ul>
-        </header>
+    	<th:block th:include="/fragments/user_header.html"></th:block>
+        <div class="header">
+            <br>
+            <h1 style="font-weight: bold; padding-top: 20px;">신작 만료작을 한눈에!</h1>
+        </div>
         <nav class="not">
             <a href="#new">new</a>
             <a href="#expire">expire</a>
@@ -186,65 +182,47 @@ footer a{
         <section>
             <article>
                 <h1 id="new">> 공개 예정작</h1>
-                <div class="content_box">
+                
+                <div class="content_box" th:each="board: ${nlist}">
                     <div class="poster">
-                        <img src="img/미니언즈2.jpg" alt="">
-                        <img src="img/netflix.png" class="ott">
+                        <!-- <img th:src="@{/image/{bno}(bno=${board.bno})}"> -->
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a>
+                        <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
+                        <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
+                        <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
+                        <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
+                        <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
+                        <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
                     </div>
                     <div class="explanation">
-                        <p>미니언즈2(Minions: The Rise of Gru)</p>
-                        <p>감독 : 카일 빌다</p>
-                        <p>출연진 : 카일 빌다, 브래든 에이블슨, 조너선 델 발</p>
-                        <p>
-                            오랜만에 미니언! <br>
-                            세계 최고의 슈퍼 악당을 꿈꾸는 미니보스 ‘그루’와 그를 따라다니는 미니언들. 
-                            어느 날 그루는 최고의 악당 조직 ‘빌런6’의 마법 스톤을 훔치는데 성공하지만 
-                            뉴페이스 미니언 ‘오토’의 실수로 스톤을 잃어버리고 빌런6에게 납치까지 당한다. 
-                            미니보스를 구하기 위해 잃어버린 스톤을 되찾아야 하는 ‘오토’, 
-                            그리고 쿵푸를 마스터해야 하는 ‘케빈’, ‘스튜어트’, ‘밥’! 
-                            올여름 극장가를 점령할 MCU(미니언즈 시네마틱 유니버스)가 돌아온다!
-                        </p>
+                        <p>[[${board.title}]]</p>
+                        <p>[[${board.pd}]]</p>
+                        <p>[[${board.casting}]]</p>
+                        <p>[[${board.content}]] </p>
                    </div> 
                 </div>
-                <div class="content_box">
+
+                <h1 id="expire">> 만료 예정작</h1>
+
+                <div class="content_box" th:each="board: ${elist}">
                     <div class="poster">
-                        <img src="img/토르.jpg" alt="">
-                        <img src="img/disney_remove.png" class="ott">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a>
+                        <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
+                        <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
+                        <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
+                        <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
+                        <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
+                        <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
                     </div>
                     <div class="explanation">
-                        <p>토르 : 천둥의 신(Thor : God Of Thunder)</p>
-                        <p>감독 : 케네스 브레너</p>
-                        <p>출연진 : 크리스 햄스워스, 나탈리 포트만, 톰 히들스턴</p>
-                        <p>
-                            신의 세계 ‘아스가르드’의 후계자로 강력한 파워를 지닌 천둥의 신 ‘토르’. <br>
-                            평소 거침없는 성격의 소유자인 토르는 신들간의 전쟁을 일으킨 죄로 신의 자격을 
-                            박탈당한 채 지구로 추방당한다. 힘의 원천인 해머 ‘묠니르’도 잃어버린 채 
-                            하루 아침에 평범한 인간이 되어버린 토르는 혼란스러움을 뒤로 한 채 
-                            지구에서 처음 마주친 과학자 ‘제인’ 일행과 함께 하며 인간 세계에 적응해 나가기 시작한다. 하지만 그 사이 아스가르드는 후계자 자리를 노리는 ‘로키’의 야욕으로 인해 혼란에 빠진다. 후계자로 지목된 자신의 형 토르를 제거하려는 로키는 마침내 지구에까지 무차별적인 공격을 시작한다. 자신의 존재 때문에 지... 거대한 위험이 닥치고 있음을 알게 된 토르. 그런 그의 앞에 보다 강력한 파괴력의 상대가 등장하는데… 두 개의 세계, 한 명의 영웅 모두의 운명을 건 최후의 격돌이 시작된다!
-                        </p>
+                        <p>[[${board.title}]]</p>
+                        <p>[[${board.pd}]]</p>
+                        <p>[[${board.casting}]]</p>
+                        <p>[[${board.content}]] </p>
                    </div> 
                 </div>
             </article>
-            <article>
-               <h1 id="expire">> 만료 예정작</h1>
-                <div class="content_box">
-                    <div class="poster">
-                        <img src="img/데드어게인.png" alt="">
-                        <img src="img/왓챠.png" class="ott">
-                    </div>
-                    <div class="explanation">
-                        <p>데드 어게인(Dead Again)</p>
-                        <p>감독 : 데이브 실버맨</p>
-                        <p>출연진 : 김동준, 주다연, 김성윤, 하승리</p>
-                        <p>
-                            깨우지 말아야 할 것을 깨웠다! 피할 수 없는 저주가 시작된다! <br>
-                            골동품 가게에서 발견한 낡은 일기장을 열어본 후 일어나기 시작한 알 수 없는 
-                            환각과 괴상한 사건들. 일기장에 적혀있던 죽은 연인을 살려내는 흑마술과 저주가 
-                            깨어나기 시작한다.
-                        </p>
-                    </div>    
-                </div> 
-            </article>
+            
             <a href="#top" class="top"></a>
             <div class="space"></div>
         </section>

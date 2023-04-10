@@ -102,10 +102,30 @@
                 color: white;
             }
             .register{
-                left: 820px;
-                bottom: 630px;
-                position: absolute;
-                color: white
+                display: inline-block;
+                width: 270px;
+                height: 35px;
+                background-color: rgb(194, 231, 142);
+                border: 0px;
+                border-radius: 10px;
+                font-size: 24px;
+                color: rgb(70, 81, 0);
+                text-decoration : none;
+                margin-top : 10px;
+                
+            }
+            
+             .register:hover{
+                background-color: rgb(70, 81, 0);
+                color: rgb(194, 231, 142);
+            }
+            
+            .innertext {
+            	font-size : 16px;
+            }
+            
+            .input::placeholder {
+            	font-size : 16px;
             }
         </style>
     </head>
@@ -122,16 +142,16 @@
                     
                     <section>
                             <div class="sign_in_container">
-                                <form action="/login" method="post">
+                                <form action="/member_login" method="post">
                                     <a href="/before_login_main" class="before_login_main"><img src="img/VODA_logo.png" alt="logo" class="main_logo"></a>
                                     <table>
                                         <tr>
                                             <td class="text">아이디</td>
-                                            <td><input type="text" name="id" placeholder="아이디를 입력하세요"></td>
+                                            <td><input type="text" name="id" placeholder="아이디를 입력하세요" class="innertext"></td>
                                         </tr>
                                         <tr>
                                             <td class="text">비밀번호</td>
-                                            <td><input type="password" name="passwd" placeholder="비밀번호를 입력하세요"></td>
+                                            <td><input type="password" name="passwd" placeholder="비밀번호를 입력하세요" class="innertext"></td>
                                         </tr>
                                     </table>
                                
