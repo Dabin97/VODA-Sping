@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  
 
     <style>
         * {
@@ -250,23 +251,67 @@ footer a{
       	height : 270px;
       }
       
-            .new_end_search2 {
+      .new_end_search2 {
+      	height : 270px;
+      }
+      
+      .new_end_search3 {
+      	height : 270px;
+      }
+      
+      .new_end_search4 {
+      	height : 270px;
+      }
+      
+      .new_end_search5 {
+      	height : 270px;
+      }
+      
+      .new_end_search6 {
       	height : 270px;
       }
 
+      .new_end_search7 {
+      	height : 270px;
+      }
     </style>
-<script>
-	var slider = [];
-    $(function(){
-    	
-        $('.heart').on({ //하트 이미지 변경
-            'click': function() {
-                var src = ($(this).attr('src') === '/img/heart_full.png')
-                    ? '/img/heart.png'
-                    : '/img/heart_full.png';
-                $(this).attr('src', src);
+ <script type="text/javascript" th:inline="javascript">
+
+
+    function heart(){ 
+            var bno = $(this).siblings('a').find('.thumbnail').data("bno");
+            console.log(bno);
+            var heartImg = $(this); // 클릭한 하트 이미지
+
+            $.ajax({
+                url: "/board/heart",
+                data: {bno: bno},
+                method: "post",
+                dataType: 'json',
+                success: function(r) {
+                    console.log(r);
+                    if (r.fHeart == 0) { // 찜을 해제한 경우
+                        heartImg.attr("src", "/img/heart.png");
+                    } else {             // 찜을 추가한 경우
+                        heartImg.attr("src", "/img/heart_full.png");
+                    }
+                    alert(r.msg);
+                },
+                error: function(xhr, status, error) {
+                    alert("Ajax 요청에 실패했습니다.");
                 }
             });
+    }
+
+
+	var slider = [];
+    $(function(){
+        
+        $('.hide_new_end_search').append($('.tBox'));
+        
+        $('.tBox').each(function(idx, item){
+        	 $(item).clone().appendTo('.new_end_search');
+        });
         
         $('.new_end_search').each(function(){
         	slider.push($(this).bxSlider({
@@ -280,48 +325,295 @@ footer a{
                 touchEnabled : false
               }));
         });
-        
-        $('.new_end_search2').each(function(){
-        	slider.push($(this).bxSlider({
-                pager : false,
-                slideWidth : 180,
-                useCSS : true,
-                slideMargin: 20,
-                minSlides:5,
-                maxSlides:5,
-                moveSlides:1,
-                touchEnabled : false
-              }));
-        });
-        
-
+              
+			
     	  $('#selectBox1').change(function(){
+	        	  slider[0].destroySlider();
+	        	  $('.new_end_search').empty();
 	          $('.tBox').each(function(idx, item){
+	        	  console.log($(item).children('input[name="genre"]').val(), $('#selectBox1').val());
 	        	  if($('#selectBox1').val() == "0") {
-		          $(item).appendTo('.new_end_search');
-	        	} else if($(item).children('input[name="genre"]').val() != $('#selectBox1').val()){
-	              $(item).appendTo('.hide_new_end_search');
-	            } else{
-	              $(item).appendTo('.new_end_search');
+	        		  $(item).clone().appendTo('.new_end_search');
+	        	} else if($(item).children('input[name="genre"]').val() == $('#selectBox1').val()){
+	        		  $(item).clone().appendTo('.new_end_search');
 	            }
 	          });
-            slider[0].reloadSlider();
-	          
+	          slider[0] = $('.new_end_search').bxSlider({
+	                pager : false,
+	                slideWidth : 180,
+	                useCSS : true,
+	                slideMargin: 20,
+	                minSlides:5,
+	                maxSlides:5,
+	                moveSlides:1,
+	                touchEnabled : false
+	              });            
+              $(document).on("click", ".heart", heart);  //찜이 반복되는 문제발생!!!
     	  });
     	  
-    	  $('#selectBox2').change(function(){
-	          $('.tBox2').each(function(idx, item){
-	        	  if($('#selectBox2').val() == "0") {
-		          $(item).appendTo('.new_end_search2');
-	        	} else if($(item).children('input[name="genre2"]').val() != $('#selectBox2').val()){
-	              $(item).appendTo('.hide_new_end_search2');
-	            } else{
-	              $(item).appendTo('.new_end_search2');
-	            }
-	          });
-            slider[1].reloadSlider();
-	          
-    	  });
+          $('.hide_new_end_search2').append($('.tBox2'));
+          
+          $('.tBox2').each(function(idx, item){
+          	 $(item).clone().appendTo('.new_end_search2');
+          });
+          
+          $('.new_end_search2').each(function(){
+          	slider.push($(this).bxSlider({
+                  pager : false,
+                  slideWidth : 180,
+                  useCSS : true,
+                  slideMargin: 20,
+                  minSlides:5,
+                  maxSlides:5,
+                  moveSlides:1,
+                  touchEnabled : false
+                }));
+          });
+                
+  			
+      	  $('#selectBox2').change(function(){
+  	        	  slider[1].destroySlider();
+  	        	  $('.new_end_search2').empty();
+  	          $('.tBox2').each(function(idx, item){
+  	        	  console.log($(item).children('input[name="genre2"]').val(), $('#selectBox2').val());
+  	        	  if($('#selectBox2').val() == "0") {
+  	        		  $(item).clone().appendTo('.new_end_search2');
+  	        	} else if($(item).children('input[name="genre2"]').val() == $('#selectBox2').val()){
+  	        		  $(item).clone().appendTo('.new_end_search2');
+  	            }
+  	          });
+  	          slider[1] = $('.new_end_search2').bxSlider({
+  	                pager : false,
+  	                slideWidth : 180,
+  	                useCSS : true,
+  	                slideMargin: 20,
+  	                minSlides:5,
+  	                maxSlides:5,
+  	                moveSlides:1,
+  	                touchEnabled : false
+  	              });            
+  	          
+      	  });
+      	  
+          $('.hide_new_end_search3').append($('.tBox3'));
+          
+          $('.tBox3').each(function(idx, item){
+          	 $(item).clone().appendTo('.new_end_search3');
+          });
+          
+          $('.new_end_search3').each(function(){
+          	slider.push($(this).bxSlider({
+                  pager : false,
+                  slideWidth : 180,
+                  useCSS : true,
+                  slideMargin: 20,
+                  minSlides:5,
+                  maxSlides:5,
+                  moveSlides:1,
+                  touchEnabled : false
+                }));
+          });
+                
+  			
+      	  $('#selectBox3').change(function(){
+  	        	  slider[2].destroySlider();
+  	        	  $('.new_end_search3').empty();
+  	          $('.tBox3').each(function(idx, item){
+  	        	  console.log($(item).children('input[name="genre3"]').val(), $('#selectBox3').val());
+  	        	  if($('#selectBox3').val() == "0") {
+  	        		  $(item).clone().appendTo('.new_end_search3');
+  	        	} else if($(item).children('input[name="genre3"]').val() == $('#selectBox3').val()){
+  	        		  $(item).clone().appendTo('.new_end_search3');
+  	            }
+  	          });
+  	          slider[2] = $('.new_end_search3').bxSlider({
+  	                pager : false,
+  	                slideWidth : 180,
+  	                useCSS : true,
+  	                slideMargin: 20,
+  	                minSlides:5,
+  	                maxSlides:5,
+  	                moveSlides:1,
+  	                touchEnabled : false
+  	              });            
+  	          
+      	  });
+      	  
+          $('.hide_new_end_search4').append($('.tBox4'));
+          
+          $('.tBox4').each(function(idx, item){
+          	 $(item).clone().appendTo('.new_end_search4');
+          });
+          
+          $('.new_end_search4').each(function(){
+          	slider.push($(this).bxSlider({
+                  pager : false,
+                  slideWidth : 180,
+                  useCSS : true,
+                  slideMargin: 20,
+                  minSlides:5,
+                  maxSlides:5,
+                  moveSlides:1,
+                  touchEnabled : false
+                }));
+          });
+                
+  			
+      	  $('#selectBox4').change(function(){
+  	        	  slider[3].destroySlider();
+  	        	  $('.new_end_search4').empty();
+  	          $('.tBox4').each(function(idx, item){
+  	        	  console.log($(item).children('input[name="genre4"]').val(), $('#selectBox4').val());
+  	        	  if($('#selectBox4').val() == "0") {
+  	        		  $(item).clone().appendTo('.new_end_search4');
+  	        	} else if($(item).children('input[name="genre4"]').val() == $('#selectBox4').val()){
+  	        		  $(item).clone().appendTo('.new_end_search4');
+  	            }
+  	          });
+  	          slider[3] = $('.new_end_search4').bxSlider({
+  	                pager : false,
+  	                slideWidth : 180,
+  	                useCSS : true,
+  	                slideMargin: 20,
+  	                minSlides:5,
+  	                maxSlides:5,
+  	                moveSlides:1,
+  	                touchEnabled : false
+  	              });            
+  	          
+      	  });
+
+          $('.hide_new_end_search5').append($('.tBox5'));
+          
+          $('.tBox5').each(function(idx, item){
+          	 $(item).clone().appendTo('.new_end_search5');
+          });
+          
+          $('.new_end_search5').each(function(){
+          	slider.push($(this).bxSlider({
+                  pager : false,
+                  slideWidth : 180,
+                  useCSS : true,
+                  slideMargin: 20,
+                  minSlides:5,
+                  maxSlides:5,
+                  moveSlides:1,
+                  touchEnabled : false
+                }));
+          });
+                
+  			
+      	  $('#selectBox5').change(function(){
+  	        	  slider[4].destroySlider();
+  	        	  $('.new_end_search5').empty();
+  	          $('.tBox5').each(function(idx, item){
+  	        	  console.log($(item).children('input[name="genre5"]').val(), $('#selectBox5').val());
+  	        	  if($('#selectBox5').val() == "0") {
+  	        		  $(item).clone().appendTo('.new_end_search5');
+  	        	} else if($(item).children('input[name="genre5"]').val() == $('#selectBox5').val()){
+  	        		  $(item).clone().appendTo('.new_end_search5');
+  	            }
+  	          });
+  	          slider[4] = $('.new_end_search5').bxSlider({
+  	                pager : false,
+  	                slideWidth : 180,
+  	                useCSS : true,
+  	                slideMargin: 20,
+  	                minSlides:5,
+  	                maxSlides:5,
+  	                moveSlides:1,
+  	                touchEnabled : false
+  	              });            
+  	          
+      	  });
+      	  
+          $('.hide_new_end_search6').append($('.tBox6'));
+          
+          $('.tBox6').each(function(idx, item){
+          	 $(item).clone().appendTo('.new_end_search6');
+          });
+          
+          $('.new_end_search6').each(function(){
+          	slider.push($(this).bxSlider({
+                  pager : false,
+                  slideWidth : 180,
+                  useCSS : true,
+                  slideMargin: 20,
+                  minSlides:5,
+                  maxSlides:5,
+                  moveSlides:1,
+                  touchEnabled : false
+                }));
+          });
+                
+  			
+      	  $('#selectBox6').change(function(){
+  	        	  slider[5].destroySlider();
+  	        	  $('.new_end_search6').empty();
+  	          $('.tBox6').each(function(idx, item){
+  	        	  console.log($(item).children('input[name="genre6"]').val(), $('#selectBox6').val());
+  	        	  if($('#selectBox6').val() == "0") {
+  	        		  $(item).clone().appendTo('.new_end_search6');
+  	        	} else if($(item).children('input[name="genre6"]').val() == $('#selectBox6').val()){
+  	        		  $(item).clone().appendTo('.new_end_search6');
+  	            }
+  	          });
+  	          slider[5] = $('.new_end_search6').bxSlider({
+  	                pager : false,
+  	                slideWidth : 180,
+  	                useCSS : true,
+  	                slideMargin: 20,
+  	                minSlides:5,
+  	                maxSlides:5,
+  	                moveSlides:1,
+  	                touchEnabled : false
+  	              });            
+  	          
+      	  });
+      	  
+          $('.hide_new_end_search7').append($('.tBox7'));
+          
+          $('.tBox7').each(function(idx, item){
+          	 $(item).clone().appendTo('.new_end_search7');
+          });
+          
+          $('.new_end_search7').each(function(){
+          	slider.push($(this).bxSlider({
+                  pager : false,
+                  slideWidth : 180,
+                  useCSS : true,
+                  slideMargin: 20,
+                  minSlides:5,
+                  maxSlides:5,
+                  moveSlides:1,
+                  touchEnabled : false
+                }));
+          });
+                
+  			
+      	  $('#selectBox7').change(function(){
+  	        	  slider[6].destroySlider();
+  	        	  $('.new_end_search7').empty();
+  	          $('.tBox7').each(function(idx, item){
+  	        	  console.log($(item).children('input[name="genre7"]').val(), $('#selectBox7').val());
+  	        	  if($('#selectBox7').val() == "0") {
+  	        		  $(item).clone().appendTo('.new_end_search7');
+  	        	} else if($(item).children('input[name="genre7"]').val() == $('#selectBox7').val()){
+  	        		  $(item).clone().appendTo('.new_end_search7');
+  	            }
+  	          });
+  	          slider[6] = $('.new_end_search7').bxSlider({
+  	                pager : false,
+  	                slideWidth : 180,
+  	                useCSS : true,
+  	                slideMargin: 20,
+  	                minSlides:5,
+  	                maxSlides:5,
+  	                moveSlides:1,
+  	                touchEnabled : false
+  	              });            
+  	          
+      	  });
     });
    
     </script>
@@ -344,23 +636,23 @@ footer a{
         </div>
 
         <div class="main_container">
-            <article> <!--신작만료 박스 시작-->
+            <article> <!-- SERCH 목록 시작-->
                 <h2>
                    <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="" id="all">
-					<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
-					    <option value="0">전체</option>
-					    <option value="1">영화</option>
-					    <option value="2">드라마</option>
-					    <option value="3">애니메이션</option>
-					    <option value="4">예능</option>
-					</select>
+                <select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
+                    <option value="0">전체</option>
+                    <option value="1">영화</option>
+                    <option value="2">드라마</option>
+                    <option value="3">애니메이션</option>
+                    <option value="4">예능</option>
+                </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
                       <div class="tBox">
-                        <img src="img/heart.png" class="heart">
                         <input type="hidden" name="genre" th:value="${board.genre}">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                        <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
@@ -385,9 +677,9 @@ footer a{
                   <div class="new_end_search2"> 
                     <th:block th:each="board: ${list}" th:if="${board.ottNo == 1}">
                         <div class="tBox2">
-                        <img src="img/heart.png" class="heart">
-                        <input type="hidden" name="genre2" th:value="${board.genre}">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                          <input type="hidden" name="genre2" th:value="${board.genre}">
+                          <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       	</div>
                     </th:block>
                   </div>
@@ -404,104 +696,154 @@ footer a{
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">WATCHA<img src="img/Union-right.png" alt="" id="watcha">
-                   <select name="selectBox" form="myForm" class="selectBox">
-                      <option value="all">전체</option>
-                      <option value="movie">영화</option>
-                      <option value="drama">드라마</option>
-                      <option value="entertainment">예능</option>
-                      <option value="animation">애니</option>
+                   <select name="selectBox3" form="myForm" class="selectBox" id="selectBox3">
+                      <option value="0">전체</option>
+                      <option value="1">영화</option>
+                      <option value="2">드라마</option>
+                      <option value="3">애니메이션</option>
+                      <option value="4">예능</option>
                   </select>
                 </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                       <div th:if="${board.ottNo == 4}">
-                        <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                  <div class="new_end_search3"> 
+                    <th:block th:each="board: ${list}" th:if="${board.ottNo == 4}">
+                         <div class="tBox3">
+                           <input type="hidden" name="genre3" th:value="${board.genre}">
+                           <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
-                                                      <br>
+                  <style>
+                    .hide_new_end_search3 {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search3">
+                  	<th:block th:each="board: ${list}" th:if="${board.ottNo == 4}">
+                  	</th:block>
+                  </div>
+                  <br>
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">WAVVE<img src="img/Union-right.png" alt="" id="wavve">
-                   <select name="selectBox" form="myForm" class="selectBox" id="selectBox">
-                      <option value="all">전체</option>
-                      <option value="movie">영화</option>
-                      <option value="drama">드라마</option>
-                      <option value="entertainment">예능</option>
-                      <option value="animation">애니</option>
+                   <select name="selectBox4" form="myForm" class="selectBox" id="selectBox4">
+                      <option value="0">전체</option>
+                      <option value="1">영화</option>
+                      <option value="2">드라마</option>
+                      <option value="3">애니메이션</option>
+                      <option value="4">예능</option>
                   </select>
                 </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                       <div th:if="${board.ottNo == 5}">
-                        <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}" ><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                  <div class="new_end_search4"> 
+                    <th:block th:each="board: ${list}" th:if="${board.ottNo == 5}">
+                         <div class="tBox4">
+                           <input type="hidden" name="genre4" th:value="${board.genre}">
+                           <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
-                                                                        <br>
+                  <style>
+                    .hide_new_end_search4 {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search4">
+                  	<th:block th:each="board: ${list}" th:if="${board.ottNo == 5}">
+                  	</th:block>
+                  </div>
+                  <br>
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">TVING<img src="img/Union-right.png" alt="" id="tving">
-                   <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                   <select name="selectBox5" form="myForm" class="selectBox" id="selectBox5">
+                      <option value="0">전체</option>
+                      <option value="1">영화</option>
+                      <option value="2">드라마</option>
+                      <option value="3">애니메이션</option>
+                      <option value="4">예능</option>
+                  </select>
                 </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                       <div th:if="${board.ottNo == 6}">
-                    <div class="ssibal">                
-                        <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}" class="thumbnail"><img th:src="@{/image/{bno}(bno=${board.bno})}" ></a>
-                      </div>
+                  <div class="new_end_search5"> 
+                    <th:block th:each="board: ${list}" th:if="${board.ottNo == 6}">
+                         <div class="tBox5">
+                           <input type="hidden" name="genre5" th:value="${board.genre}">
+                           <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
-                                                                                          <br>
+                  <style>
+                    .hide_new_end_search5 {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search5">
+                  	<th:block th:each="board: ${list}" th:if="${board.ottNo == 6}">
+                  	</th:block>
+                  </div>
+                  <br>
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">LAFTEL<img src="img/Union-right.png" alt="" id="laftel">
-                   <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                   <select name="selectBox6" form="myForm" class="selectBox" id="selectBox6">
+                      <option value="0">전체</option>
+                      <option value="1">영화</option>
+                      <option value="2">드라마</option>
+                      <option value="3">애니메이션</option>
+                      <option value="4">예능</option>
+                  </select>
                 </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                       <div th:if="${board.ottNo == 3}">
-                        <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="	"></a>
+                  <div class="new_end_search6"> 
+                    <th:block th:each="board: ${list}" th:if="${board.ottNo == 3}">
+                         <div class="tBox6">
+                           <input type="hidden" name="genre6" th:value="${board.genre}">
+                           <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
-                                                                                                            <br>
+                  <style>
+                    .hide_new_end_search6 {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search6">
+                  	<th:block th:each="board: ${list}" th:if="${board.ottNo == 3}">
+                  	</th:block>
+                  </div>
+                  <br>
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">DISNEY+<img src="img/Union-right.png" alt="" id="disney">
-                   <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                   <select name="selectBox7" form="myForm" class="selectBox" id="selectBox7">
+                      <option value="0">전체</option>
+                      <option value="1">영화</option>
+                      <option value="2">드라마</option>
+                      <option value="3">애니메이션</option>
+                      <option value="4">예능</option>
+                  </select>
                 </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${list}">
-                      	<div th:if="${board.ottNo == 2}">
-                        <img src="img/heart.png" class="heart">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                  <div class="new_end_search7"> 
+                    <th:block th:each="board: ${list}" th:if="${board.ottNo == 2}">
+                         <div class="tBox7">
+                           <input type="hidden" name="genre7" th:value="${board.genre}">
+                           <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
+                  <style>
+                    .hide_new_end_search7 {
+                      display: none;
+                    }
+                  </style>
+                  <div class="hide_new_end_search7">
+                  	<th:block th:each="board: ${list}" th:if="${board.ottNo == 2}">
+                  	</th:block>
+                  </div>
+                  <br>
+                  <br>
             </article>
                         <a href="#top" class="top"></a>
         </div>

@@ -27,13 +27,13 @@
 	
         <footer>
         	<th:block th:if="${session.member == null}">
-            <a href="/before_login_main" class="before_login_main"><img src="/img/home.png"></a>
+            <a href="/" class="before_login_main"><img src="/img/home.png"></a>
             <a href="/new_expire" class="new_expire"><img src="/img/video.png"></a>
             <a href="/search" class="search"><img src="/img/explore.png"></a>
             <a href="/index" class="my_page"><img src="/img/profile.png"></a>
             </th:block>
             <th:block th:if="${session.member != null}">
-            <a href="/main" class="main"><img src="/img/home.png"></a>
+            <a href="/" class="main"><img src="/img/home.png"></a>
             <a href="/new_expire" class="new_expire"><img src="/img/video.png"></a>
             <a href="/search" class="search"><img src="/img/explore.png"></a>
             <a th:href="@{/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a>
