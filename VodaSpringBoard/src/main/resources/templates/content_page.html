@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Content Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+    
+<style>
+     * {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: white;
+      }
+      .flex_container{
+          width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+      }
+        header{
+        padding-top: 20px;
+      }
+      header img{
+        width: 100px;
+        padding-left: 100px;
+        margin-top: 10px;
+      }
+    header input{
+        position: absolute;
+        margin-top: 10px;
+        right: 0;
+        background-color: rgb(34, 34, 34);
+        border: none;
+    }
+    header a{
+        padding-left: 20px;
+        text-decoration: none;
+    }
+    .login{
+        padding-left: 290px;
+    }
+
+        .poster {
+            text-align: center;
+        }
+
+        .pic {
+            width: 300px;
+        }
+
+        .heart{
+            position: relative;
+            left : 300px;
+            bottom :385px;
+
+            width: 30px;
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+
+        .tab {
+            background-color: rgb(91, 91, 91);
+            width: 100%;
+        }
+
+        .tab p {
+            background-color: rgb(91, 91, 91);
+            display: inline-block;
+        }
+
+        .link {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .write {
+            box-sizing: border-box;
+            height: 220px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+        }
+
+        .submit {
+            color: white;
+            background-color: rgb(91, 91, 91);
+            width: 50px;
+            height: 20px;
+            border: 1px solid white;
+            margin-left: 20px;
+        }
+
+        .best {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+
+        }
+
+        .new {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+
+
+        }
+
+        .my {
+            box-sizing: border-box;
+            height: 200px;
+            background-color: rgb(91, 91, 91);
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+
+        }
+
+        .txt {
+            resize: none;
+            border: none;
+            background-color: rgb(198, 198, 198);
+            width: 1000px;
+            height: 140px;
+            margin-top: 10px;
+        }
+
+        .like {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .read {
+            resize: none;
+            border: none;
+            background-color: rgb(198, 198, 198);
+            width: 1100px;
+            height: 140px;
+            margin-top: 10px;
+        }
+
+        footer img{
+          width: 40px;
+          background-color: rgba(0, 0, 0, 0);
+          height: 40px;
+          margin: 20px 80px;
+      }
+      footer a{
+          margin-right: 30px;
+          padding: 10px;
+          margin-top: 30px;
+          text-decoration: none;
+          color: rgb(168, 168, 168);
+      }
+        span img{
+
+            background-color: rgb(91, 91, 91);
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        span a {
+            background-color: rgb(91, 91, 91);
+        }
+
+        span p {
+            background-color: rgb(91, 91, 91);
+            margin-right: 10px;
+        }
+
+        footer a {
+            margin-right: 30px;
+            padding: 10px;
+            margin-top: 30px;
+            text-decoration: none;
+            color: rgb(168, 168, 168);
+        }
+
+        .more {
+            height: 100px;
+        }
+
+        .top {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background-image: url(img/up-arrow.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            bottom: 20px;
+            right: 200px;
+            border-radius: 100px;
+        }
+
+        .space {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+        }
+
+        .zoom {
+            height: 40px;
+            width: 300px;
+            border: 1px solid rgb(91, 91, 91);
+            box-sizing: border-box;
+            outline: none;
+            background-image: url(img/zoom.png);
+            background-repeat: no-repeat;
+            background-size: 30px;
+            background-position: 5px center;
+            padding-left: 43px;
+        }
+
+        article {
+            margin: 50px 0;
+            padding: 10px;
+        }
+
+        ul {
+            list-style: none;
+            color: white;
+        }
+
+        .hide {
+        display: none !important;
+        }
+
+    .rel_search {
+        position: absolute;
+        right: 110px;
+        z-index: 6;
+        margin-top: 50px;
+        float: right;
+        border: 1px solid gray;
+        color: white;
+        width: 300px;
+        height: 150px;
+        overflow: auto;
+        box-sizing: border-box;
+        }
+    
+    .search_input{
+        color: white;
+        position: absolute;
+        right: 110px;
+        /* bottom: 150px; */
+    }
+
+    .pop_rel_keywords {
+        list-style: none;
+        margin-right: 50px;
+        }
+
+    .pop_rel_keywords > li {
+        line-height : 250%
+        }
+
+    .rel_search::-webkit-scrollbar {
+     display: none;
+   }
+   
+   span{
+     display: inline-block;
+     right: 0;
+     background-color: rgba(0, 0, 0, 0);
+   }
+   
+   .result{
+     margin: 0px 5px;
+   }
+   
+   button{
+     background-color: rgb(91, 91, 91);
+     border: none;
+   }
+   
+   .star {
+     background-color: rgb(91, 91, 91);
+     display: inline-block;
+     float: right;
+     margin-right: 140px;
+   }
+        
+   .starrate {
+     font-size: 12px;
+     margin-left: 30px;
+     color: goldenrod;
+   }
+
+    .starratebox {
+      font-size: 16px;
+      color: goldenrod;    	
+   }
+   
+   .read {
+   	color : black !important ;
+   	font-size : 16px !important ;
+   }
+    	
+   .thumbnail {
+   	width : 300px;
+   	height : 420px;
+   }
+   
+   .content_info1 {
+    font-size : 20px;
+    color : #eff7e9;
+    font-weight : bold;
+   }
+   .content_info2 {
+   	font-size : 16px;
+   	color : #e0dcdc;
+   }
+   
+   .info_div {
+    margin : 0 auto;
+   	width : 800px;
+   } 
+   
+   .title_info{
+
+   	font-size : 40px;
+   	color : #dff5d0;
+   	font-weight : bold;
+   }
+   
+   .color {
+   color : #e0dcdc;
+      	font-size : 16px;
+   }
+   
+   .font {
+      	font-weight : bold;
+    color : #eff7e9;
+      	   	font-size : 18px;
+   }
+   
+   
+</style>
+
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+        // $('.heart').on({ //하트 이미지 변경
+        // 'click': function() {
+        //     var src = ($(this).attr('src') === '/img/heart_full.png')
+        //         ? '/img/heart.png'
+        //         : '/img/heart_full.png';
+        //     $(this).attr('src', src);
+        //     }
+        // });
+
+        $('.heart').click(function(){
+			$.ajax({
+				url: '/board/heart/[[${board.bno }]]',
+				type: 'post',
+				dataType: 'json',
+				success:function(r){
+					console.log(r);
+					alert(r.msg);
+                        if(r == 1){ //?
+                        // $('#like_count').text(r.blike); 카운트 대신 이미지 변경 위의 js사용
+                        var src = ($(this).attr('src') === '/img/heart_full.png')
+                            ? '/img/heart.png'
+                            : '/img/heart_full.png';
+                        $(this).attr('src', src);
+                        }
+				}
+			});
+		});
+
+        
+});
+
+    </script>
+</head>
+
+<body>
+    <div class="flex_container">
+    	<th:block th:include="/fragments/user_header.html"></th:block>
+        <div class="main_container">
+            <section>
+            <article class="info">
+                <div class="poster">
+                    <img src="/img/heart.png" class="heart">
+                    <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                    <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe>
+                </div>
+                <div class="info_div">
+                    <ul>
+                    	<br>
+                        <li class="title_info">[[${board.title }]]</li>
+                        <br>
+                        <li th:if="${board.genre == 1}" class="font">장르 : <span class="color">영화</span></li>
+                        <li th:if="${board.genre == 2}" class="font">장르 : <span class="color">드라마</span></li>
+                        <li th:if="${board.genre == 3}" class="font">장르 : <span class="color">애니메이션</span></li>
+                        <li th:if="${board.genre == 4}" class="font">장르 : <span class="color">예능</span></li>
+                        <li class="font">감독 : <span class="color">[[${board.pd}]]</span></li>
+                        <li class="font">출연 : <span class="color">[[${board.casting }]]</span></li><br>
+                        <li class="content_info1">작품 정보</li>
+                        <li class="content_info2">[[${board.content }]]</li>
+                    </ul>
+                </div>
+                </article>
+
+                <article>
+                    <div class="write">
+                        <p class="tab">리뷰를 작성해 주세요 </p>
+                        <textarea class="txt" name="review_content"></textarea>
+                        <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="star_no">
+                        <option value="">== 별점 ==</option>
+              			<option value="1" class="starrate">☆☆☆☆★</option>
+              			<option value="2" class="starrate">☆☆☆★★</option>
+              			<option value="3" class="starrate">☆☆★★★</option>
+              			<option value="4" class="starrate">☆★★★★</option>
+              			<option value="5" class="starrate">★★★★★</option>
+            			</select>
+                        </p>
+                        <button class="submit">작성</button>
+					</div>
+                    
+
+
+                <article>
+                    <div class="my">
+                        <div class="tab">
+                            <p>내가 작성한 리뷰</p>
+                            <p class="starrate">평점 : ☆☆☆☆★</p>
+                            <span class="like">       
+                                <button onclick="w_like()"><img src="/img/like.png" id="write_like"></button>                         
+                                <button onclick="w_dislike()"><img src="/img/dislike.png" id="write_dislike"></button>
+                            </span>
+                        </div>
+                        <input type="text" readonly class="read">
+                    </div>
+                    <p>베스트 리뷰</p>
+                    <div class="best">
+                            <div class="tab" th:each="review : ${rList}">
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <span>작성자: [[${review.id}]]  </span>
+                                <span>작성일: [[${review.rDate}]]</span>
+                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="like">
+                                  <button onclick="b_like()"><img src="/img/like.png" id="best_like"></button>                       
+                                  <button onclick="b_dislike()"><img src="/img/dislike.png" id="best_dislike"></button>
+                                </span>
+                                <p class="read">[[${review.reviewContent}]]</p>
+                            </div>
+                    </div>
+                    <p>최신 리뷰</p>
+                    <div class="new">
+                            <div class="tab" th:each="review : ${rList}">
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <span>작성자: [[${review.id}]]</span>
+                                <span>작성일: [[${review.rDate}]]</span>
+                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="like">
+                                    <button><img src="/img/like.png" class="btn_like"></button>
+                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                </span>
+                                <p class="read">[[${review.reviewContent}]]</p>
+                            </div>
+                    </div>
+                    <div class="more">
+                    </div>
+                </article>
+                <a href="#top" class="top"></a>
+                <div class="space"></div>
+            </section>
+        </div>
+        <th:block th:include="/fragments/footer.html"></th:block>
+    </div>
+</body>
+
+</html>

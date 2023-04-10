@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voda.mapper.MemberMapper">
+	<resultMap type="member" id="member"> 
+		<!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
+		<id column="id" property="id"/>
+		<result column="passwd" property="passwd"/>
+		<result column="name" property="name"/>
+		<result column="nick" property="nick"/>
+		<result column="email" property="email"/>
+	</resultMap>
+
+	<select id="login" parameterType="HashMap" resultType="member">
+		select * from member_table where id = #{id} and passwd = #{passwd} 
+	</select>
+	
+	<select id="loginAdmin" parameterType="hashMap" resultType="manager">
+        select * from manager_table where mid = #{mid} and mpasswd = #{mpasswd}
+    </select>   
+    
+	<select id="selectMember" parameterType="String" resultType="member">
+		select * from member_table where id like #{id}
+	</select>
+	
+	<update id="editMember" parameterType="member">
+		update member_table set name=#{name}, passwd=#{passwd},
+		nick=#{nick}, email=#{email}   
+		where id like #{id}
+	</update>
+
+	<insert id="insertMember" parameterType="member">
+			insert into member_table values(#{id},#{passwd},#{name},#{nick},#{email})
+	</insert>
+	
+	<select id="selectAllMember" resultType="member">
+			select * from member_table 
+		</select>	
+		
+	<select id="selectMemberCount" resultType="int">
+			select count(*) from member_table
+		</select>
+		
+	<select id="selectMemberList" resultType="member" parameterType="hashMap">
+	        SELECT * FROM MEMBER_TABLE_VIEW WHERE ceil(rw / #{contentCount}) = #{pageNo}
+    </select> 
+    
+	<delete id="deleteMember" parameterType="String">
+		delete from member_table where id = #{id}
+	</delete>
+	<select id="idCheck" resultType="member">
+	select id from member_table where id=#{id} 
+	</select>
+  
+</mapper>
