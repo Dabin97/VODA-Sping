@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Content Page</title>
+    <meta charset="UTF-8">
+    <title>Content Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
     
 <style>
      * {
@@ -44,16 +45,20 @@
     .login{
         padding-left: 290px;
     }
+
         .poster {
             text-align: center;
         }
-        .pic{
+
+        .pic {
             width: 300px;
         }
+
         .heart{
             position: relative;
             left : 300px;
             bottom :385px;
+
             width: 30px;
             background-color: rgba(255, 255, 255, 0);
         }
@@ -63,6 +68,7 @@
             background-color: rgb(91, 91, 91);
             width: 100%;
         }
+
         .tab p {
             background-color: rgb(91, 91, 91);
             display: inline-block;
@@ -72,6 +78,7 @@
             display: flex;
             flex-direction: row-reverse;
         }
+
         .write {
             box-sizing: border-box;
             height: 220px;
@@ -80,6 +87,7 @@
             margin-bottom: 30px;
             padding: 10px 20px;
         }
+
         .submit {
             color: white;
             background-color: rgb(91, 91, 91);
@@ -87,7 +95,8 @@
             height: 20px;
             border: 1px solid white;
             margin-left: 20px;
-        }   
+        }
+
         .best {
             box-sizing: border-box;
             height: 200px;
@@ -105,7 +114,7 @@
             color: white;
             margin-bottom: 30px;
             padding: 10px 20px;
- 
+
 
         }
 
@@ -127,10 +136,12 @@
             height: 140px;
             margin-top: 10px;
         }
-        .like{
+
+        .like {
             display: inline-block;
             margin-left: 20px;
         }
+
         .read {
             resize: none;
             border: none;
@@ -139,29 +150,33 @@
             height: 140px;
             margin-top: 10px;
         }
+
         footer img{
-    width: 40px;
-    background-color: rgba(0, 0, 0, 0);
-    height: 40px;
-    margin: 20px 80px;
-}
-footer a{
-    margin-right: 30px;
-    padding: 10px;
-    margin-top: 30px;
-    text-decoration: none;
-    color: rgb(168, 168, 168);
-}
+          width: 40px;
+          background-color: rgba(0, 0, 0, 0);
+          height: 40px;
+          margin: 20px 80px;
+      }
+      footer a{
+          margin-right: 30px;
+          padding: 10px;
+          margin-top: 30px;
+          text-decoration: none;
+          color: rgb(168, 168, 168);
+      }
         span img{
+
             background-color: rgb(91, 91, 91);
             width: 20px;
             height: 20px;
             margin-right: 10px;
         }
-        span a{
+
+        span a {
             background-color: rgb(91, 91, 91);
         }
-        span p{
+
+        span p {
             background-color: rgb(91, 91, 91);
             margin-right: 10px;
         }
@@ -208,14 +223,17 @@ footer a{
             background-position: 5px center;
             padding-left: 43px;
         }
+
         article {
             margin: 50px 0;
             padding: 10px;
         }
+
         ul {
             list-style: none;
             color: white;
-        } 
+        }
+
         .hide {
         display: none !important;
         }
@@ -365,6 +383,7 @@ $(function(){
 
         
 });
+
     </script>
 </head>
 
@@ -413,6 +432,8 @@ $(function(){
 					</div>
                     
 
+
+                <article>
                     <div class="my">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>
@@ -424,27 +445,33 @@ $(function(){
                         </div>
                         <input type="text" readonly class="read">
                     </div>
+                    <p>베스트 리뷰</p>
                     <div class="best">
-                        <div class="tab">
-                            <p>베스트 리뷰</p>
-                            <p class="starrate">평점 : ★★★★★</p>
-                            <span class="like">
-                                <button onclick="b_like()"><img src="/img/like.png" id="best_like"></button>                       
-                                <button onclick="b_dislike()"><img src="/img/dislike.png" id="best_dislike"></button>
-                            </span>
-                        </div>
-                         <p class="read"></p>
+                            <div class="tab" th:each="review : ${rList}">
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <span>작성자: [[${review.id}]]  </span>
+                                <span>작성일: [[${review.rDate}]]</span>
+                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="like">
+                                  <button onclick="b_like()"><img src="/img/like.png" id="best_like"></button>                       
+                                  <button onclick="b_dislike()"><img src="/img/dislike.png" id="best_dislike"></button>
+                                </span>
+                                <p class="read">[[${review.reviewContent}]]</p>
+                            </div>
                     </div>
+                    <p>최신 리뷰</p>
                     <div class="new">
-                        <div class="tab">
-                            <p>최신 리뷰</p>
-                            <p class="starrate">평점 : ☆☆★★★</p>
-                            <span class="like">                             
-                                <button onclick="n_like()"><img src="/img/like.png" id="new_like"></button>                        
-                                <button onclick="n_dislike()"><img src="/img/dislike.png" id="new_dislike"></button>
-                            </span>
-                        </div>
-                        <p class="read" ><br> "아름다운 영화의 메세지 만큼 조용하지만 아늑한 동네의 전경과 해 질 녘 풍경."<br>철학이 담긴 대사가 관객을 즐겁게 하는 영화 <br><br> -어떤 사람은 평범한 사람을 만나고, 어떤 사람은 광택 나는 사람을 만나고, 어떤 사람은 빛나는 사람을 만나지.<br>하지만 모든 사람은 일생에 단 한번 무지개 같이 변하는 사람을 만난단다.</p>
+                            <div class="tab" th:each="review : ${rList}">
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <span>작성자: [[${review.id}]]</span>
+                                <span>작성일: [[${review.rDate}]]</span>
+                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="like">
+                                    <button><img src="/img/like.png" class="btn_like"></button>
+                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                </span>
+                                <p class="read">[[${review.reviewContent}]]</p>
+                            </div>
                     </div>
                     <div class="more">
                     </div>
@@ -453,7 +480,8 @@ $(function(){
                 <div class="space"></div>
             </section>
         </div>
-		<th:block th:include="/fragments/footer.html"></th:block>
+        <th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
+
 </html>
