@@ -245,7 +245,7 @@ footer a{
      	width : 180px ;
      	height : 270px ; 
       }
-      
+     
       .new_end_search {
       	height : 270px;
       }
@@ -267,8 +267,8 @@ footer a{
                 $(this).attr('src', src);
                 }
             });
-        
-        $('.new_end_search').each(function(){
+ 
+ $('.new_end_search').each(function(){
         	slider.push($(this).bxSlider({
                 pager : false,
                 slideWidth : 180,
@@ -293,7 +293,57 @@ footer a{
                 touchEnabled : false
               }));
         });
-        
+
+    
+    $(function(){
+    	  // 첫 번째 select 요소에서 값이 변경될 때마다 이벤트가 발생하도록 설정합니다.
+    	  $('#selectBox1').change(function(){
+    		slider1 = $(".new_end_search").bxSlider();
+    	    const tBoxes = document.querySelectorAll(".tBox");
+    	    if($(this).val() == "2") { // 영화가 선택된 경우
+    	      tBoxes.forEach(function(tBox) {
+    	        const genreInput = tBox.querySelector('input[name="genre"]');
+    	        const genre = genreInput ? genreInput.value : null;
+    	        if (genre !== "1") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
+    	          tBox.classList.add("hide");
+    	        } else {
+    	          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
+    	        }
+    	      });
+    	    } else if($(this).val() == "3") {
+      	      tBoxes.forEach(function(tBox) {
+      	        const genreInput = tBox.querySelector('input[name="genre"]');
+      	        const genre = genreInput ? genreInput.value : null;
+      	        if (genre !== "2") { // genre 속성의 값이 1이 아닌 경우, 요소를 숨깁니다.
+      	          tBox.classList.add("hide");
+      	        } else {
+      	          tBox.classList.remove("hide"); // genre 속성의 값이 1인 경우, 요소를 보입니다.
+      	        }
+      	      });
+
+    	    } else if($(this).val() == "4") {
+        	      tBoxes.forEach(function(tBox) {
+            	        const genreInput = tBox.querySelector('input[name="genre"]');
+            	        const genre = genreInput ? genreInput.value : null;
+            	        if (genre !== "4") {
+            	          tBox.classList.add("hide");
+            	        } else {
+            	          tBox.classList.remove("hide"); 
+            	        }
+            	      });
+
+    	    } else if($(this).val() == "5") {
+      	      tBoxes.forEach(function(tBox) {
+      	        const genreInput = tBox.querySelector('input[name="genre"]');
+      	        const genre = genreInput ? genreInput.value : null;
+      	        if (genre !== "3") { 
+      	          tBox.classList.add("hide");
+      	        } else {
+      	          tBox.classList.remove("hide"); 
+      	        }
+      	      });
+      	        slider1.reloadSlider();
+
 
     	  $('#selectBox1').change(function(){
 	          $('.tBox').each(function(idx, item){
@@ -308,7 +358,7 @@ footer a{
             slider[0].reloadSlider();
 	          
     	  });
-    	  
+
     	  $('#selectBox2').change(function(){
 	          $('.tBox2').each(function(idx, item){
 	        	  if($('#selectBox2').val() == "0") {
@@ -324,6 +374,7 @@ footer a{
     	  });
     });
    
+
     </script>
 </head>
 <body>
@@ -347,13 +398,13 @@ footer a{
             <article> <!--신작만료 박스 시작-->
                 <h2>
                    <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="" id="all">
-					<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
-					    <option value="0">전체</option>
-					    <option value="1">영화</option>
-					    <option value="2">드라마</option>
-					    <option value="3">애니메이션</option>
-					    <option value="4">예능</option>
-					</select>
+                    <select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
+                        <option value="0">전체</option>
+                        <option value="1">영화</option>
+                        <option value="2">드라마</option>
+                        <option value="3">애니메이션</option>
+                        <option value="4">예능</option>
+                    </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -424,6 +475,7 @@ footer a{
                   <br>
                 <h2>
                    <img src="img/Union-left.png" alt="">WAVVE<img src="img/Union-right.png" alt="" id="wavve">
+
                    <select name="selectBox" form="myForm" class="selectBox" id="selectBox">
                       <option value="all">전체</option>
                       <option value="movie">영화</option>
@@ -431,6 +483,7 @@ footer a{
                       <option value="entertainment">예능</option>
                       <option value="animation">애니</option>
                   </select>
+
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -445,12 +498,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">TVING<img src="img/Union-right.png" alt="" id="tving">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                    <option value="all">전체</option>
+                    <option value="movie">영화</option>
+                    <option value="drama">드라마</option>
+                    <option value="entertainment">예능</option>
+                    <option value="animation">애니</option>
+                </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -467,12 +520,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">LAFTEL<img src="img/Union-right.png" alt="" id="laftel">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                      <option value="all">전체</option>
+                      <option value="movie">영화</option>
+                      <option value="drama">드라마</option>
+                      <option value="entertainment">예능</option>
+                      <option value="animation">애니</option>
+                  </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
@@ -487,12 +540,12 @@ footer a{
                 <h2>
                    <img src="img/Union-left.png" alt="">DISNEY+<img src="img/Union-right.png" alt="" id="disney">
                    <select name="selectBox" form="myForm" class="selectBox">
-    <option value="all">전체</option>
-    <option value="movie">영화</option>
-    <option value="drama">드라마</option>
-    <option value="entertainment">예능</option>
-    <option value="animation">애니</option>
-</select>
+                    <option value="all">전체</option>
+                    <option value="movie">영화</option>
+                    <option value="drama">드라마</option>
+                    <option value="entertainment">예능</option>
+                    <option value="animation">애니</option>
+                </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">

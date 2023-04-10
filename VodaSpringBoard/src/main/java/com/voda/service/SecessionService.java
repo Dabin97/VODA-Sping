@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.SecessionDTO;
-import com.voda.mapper.MemberMapper;
 import com.voda.mapper.SecessionMapper;
 
 @Service
@@ -36,6 +35,10 @@ public class SecessionService {
         dto.setSno(sno);
         mapper.goSecession(dto);
         return sno; 
+	}
+
+	public SecessionDTO selectSecessionId(String id) {
+		return mapper.selectSecessionId(id);
 	}
 
 	

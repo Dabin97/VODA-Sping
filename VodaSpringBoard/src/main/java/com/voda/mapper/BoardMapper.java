@@ -40,7 +40,4 @@ public interface BoardMapper {
 	int deleteBoardHeart(HashMap<String, Object> map);
 	int selectBoardHeart(int bno);
 
-
-	
-
 }

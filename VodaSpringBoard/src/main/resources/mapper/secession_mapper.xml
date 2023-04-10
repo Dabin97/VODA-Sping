@@ -21,4 +21,9 @@
        (sno,sdate,reason,id) 
       values(#{sno}, sysdate, #{reason}, #{id})
 	</insert>
+  
+	<select id="selectSecessionId" resultType="secession">
+        select * from secession_table where id = #{id}
+    </select>
+
 </mapper>
