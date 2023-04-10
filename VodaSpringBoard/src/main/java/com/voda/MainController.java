@@ -60,7 +60,7 @@ public class MainController {
 	 
 	@RequestMapping("/index") 
 	public String index() {
-		return "index"; 
+		return "index";  
 	} 
 	
 	@RequestMapping("/before_login_main")//사용자 페이지 메인 - 로그인안한 버전
@@ -79,7 +79,7 @@ public class MainController {
 	}
 	
 
-	@RequestMapping("/main")//사용자 페이지 메인 - 로그인한 버전
+	@RequestMapping("/")//사용자 페이지 메인 - 로그인한 버전
 	public ModelAndView MainContentList(HttpSession session) {
 	    ModelAndView view = new ModelAndView();
 	    view.setViewName("main");
@@ -669,7 +669,7 @@ public class MainController {
 		if(dto == null) {
 			return "redirect:/index";
 		}
-		return "redirect:/main";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/logout")

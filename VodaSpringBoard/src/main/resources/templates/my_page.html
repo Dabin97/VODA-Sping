@@ -252,6 +252,9 @@ footer a{
                 $(this).parent().remove(); //찜한걸 풀면 해당 포스터가 없어지도록
             }
         });
+            function confirmLogout() {
+            	alert("로그아웃 되었습니다.");
+            }
            
         });
     </script>
@@ -267,7 +270,7 @@ footer a{
                     <img src="img/profile.png">
                     <div>
                         <p class="nickname">[[${session.member.id}]]</p>
-                        <p><a href="/logout" class="logout">▶로그아웃</a></p>
+                        <p><a href="/logout" class="logout" onclick="confirmLogout();">▶로그아웃</a></p>
                     </div>
                     <p class="setting">
                         <a href="/edit" class=edit>
