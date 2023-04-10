@@ -18,8 +18,8 @@ public class ReviewService {
 		this.mapper = mapper;
 	}
 
-	public int insertReview(ReviewDTO review) {
-		return mapper.insertReview(review);
+	public int insertReview(ReviewDTO dto) {
+		return mapper.insertReview(dto);
 	}
 
 	public List<ReviewDTO> selectReviewList(int pageNo, int i) {

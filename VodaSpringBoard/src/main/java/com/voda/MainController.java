@@ -541,17 +541,7 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	
-	@RequestMapping("/review")
-	public class ReviewController {
-		private ReviewService reviewService;
-		
-		public ReviewController(ReviewService reviewService) {
-			this.reviewService = reviewService;
-		}
-		
-	}
-	
+
 
 	@RequestMapping("/admin/review/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
 	public ModelAndView adminReviewList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
@@ -589,7 +579,6 @@ public class MainController {
 		mv.addObject("rList", rList);
 		mv.setViewName("content_page");
 		
-		System.out.println(rList);
 		return mv;
 	}
 
@@ -632,7 +621,7 @@ public class MainController {
 		
 		return "redirect:/content/detail/{bno}"+review.getBno();
 	}
-	
+		
 
 
 		 
