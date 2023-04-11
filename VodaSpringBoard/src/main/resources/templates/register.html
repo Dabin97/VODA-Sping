@@ -140,7 +140,7 @@
         function idCheck(){
             let id = document.querySelector('#id');
             let id_result =document.querySelector('.id_result');
-            console.log(id);
+            //console.log(id);
 
             if(id.value.length<8 || id.value.length>20){
                 id_result.innerHTML = '아이디는 글자수 8~20글자 사이로 사용하세요.';
@@ -248,15 +248,17 @@
 
         function duplicate(){
             var username = $('#id').val();
-            console.log(username);
+           // console.log(username);
             $.ajax({
                 type: 'POST',
                 url: '/idCheck',
                 data: {id: username},
+                dataType:'json',
                 success: function(response) {
+                    
                 if (response === 'duplicated') {
                     $('.msg').text('이 아이디는 이미 존재합니다.');
-
+                     
                   
                 } else {
                     $('.msg').text('사용할 수 있는 아이디입니다.');
@@ -305,14 +307,39 @@
                 e.preventDefault();
                 return;
             }
-            }
+            }   
 
-             $('.idCheck').click(function() {
+        // $('.idCheck').click(function() {
+        //     var username = $('#id').val();
+        //     var data = { id: username };
+        //     // 데이터를 JSON 문자열로 변환
+        //     var json = JSON.stringify(data);
+        //     // AJAX를 사용하여 JSON 데이터 전송
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/idCheck',
+        //         dataType: 'json',
+        //         data: data,
+        //         success: function(response) {
+        //         if (response === 'duplicated') {
+        //             $('.msg').text('이 아이디는 이미 존재합니다.');
+        //         } else {
+        //             $('.msg').text('사용할 수 있는 아이디입니다.');
+        //         }
+        //         },
+        //         error: function() {
+        //         alert('요청 처리 중 오류가 발생했습니다.');
+        //         }
+        //     });
+        //     });
+
+        $('.idCheck').click(function() {
              var username = $('#id').val();
-            console.log(username);
+           //console.log(username);
             $.ajax({
                 type: 'POST',
                 url: '/idCheck',
+                dataType:'text',
                 data: {id: username},
                 success: function(response) {
                 if (response === 'duplicated') {
@@ -327,7 +354,6 @@
                 }
             });
         });
-
     }
 
 

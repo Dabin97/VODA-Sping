@@ -365,17 +365,28 @@ public class MainController {
 	
 	
 
-	  @PostMapping("/idCheck")
+//	  @PostMapping("/idCheck")
+//	  @ResponseBody
+//	  public String idCheck(@RequestParam String id) {
+//	    MemberDTO isDuplicated = memberService.idCheck(id);
+//	    if (isDuplicated != null) {
+//	      return "duplicated";
+//	    } else {
+//	      return "available";
+//	    }
+//	  }
+	
+	 @PostMapping("/idCheck")
 	  @ResponseBody
-	  public String idCheck(@RequestParam String id) {
+	  public ResponseEntity<String> idCheck(@RequestParam String id) {
 	    MemberDTO isDuplicated = memberService.idCheck(id);
 	    if (isDuplicated != null) {
-	      return "duplicated";
+	      return new ResponseEntity("duplicated",HttpStatus.OK);
 	    } else {
-	      return "available";
+	      return new ResponseEntity("available",HttpStatus.OK);
 	    }
 	  }
-	
+	 
 	@RequestMapping("/admin/content/register/view")
 	public String adminContentRegisterView() {
 		return "admin_content_register";
