@@ -47,7 +47,9 @@
     </select> 
     
 	<delete id="deleteMember" parameterType="String">
-		delete from member_table where id = #{id}
+		delete from member_table where id in (
+			<foreach collection="id" item="i" separator=",">#{i}</foreach>
+		)
 	</delete>
 	<select id="idCheck" resultType="member">
 	select id from member_table where id=#{id} 

@@ -71,7 +71,7 @@ public MemberService(MemberMapper mapper) {
 	}
 
 
-	public int deleteMember(List<String> id) {
+	public int deleteMember(String[] id) {
 		return mapper.deleteMember(id);
 	}
 

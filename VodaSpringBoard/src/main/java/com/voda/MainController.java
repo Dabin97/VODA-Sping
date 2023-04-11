@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -315,8 +316,9 @@ public class MainController {
 		}
 		
 
-		@RequestMapping("/member/delete/{id}")
-		public ResponseEntity<String> deleteMember(@RequestParam List<String> id) {
+		@RequestMapping("/member/delete") //
+		public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
+			System.out.println(Arrays.toString(id));
 			int result1=secessionService.deleteSecession(id);
 			int result = memberService.deleteMember(id);
 			HashMap<String, String> map = new HashMap<String, String>();
