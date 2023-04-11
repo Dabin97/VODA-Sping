@@ -212,12 +212,22 @@ public class MainController {
 		return "profile_edit";  
 	}
 	
-	
-	@RequestMapping("/content_page")
-	public String contentview(HttpSession session) {
-		return "content_page";
-	}
 
+
+	@RequestMapping("/content_page")
+	public ModelAndView content_page(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("content_page");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
 	@RequestMapping("/member/secession/view/{id}")
 	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
 	    ModelAndView mv = new ModelAndView();
@@ -731,9 +741,10 @@ public class MainController {
 		ModelAndView mv = new ModelAndView();
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
+		List<BoardDTO> list = boardService.selectMainContentList();
 		
 		//리뷰 목록 조회
-		
+		mv.addObject("list", list);
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
 		mv.setViewName("content_page");
@@ -741,6 +752,7 @@ public class MainController {
 		return mv;
 	}
 
+	
 	
 
 	@RequestMapping("/review/search") // 검색 부분
@@ -779,6 +791,18 @@ public class MainController {
 		reviewService.insertReview(review);
 		
 		return "redirect:/content/detail/{bno}"+review.getBno();
+	}
+	
+	@RequestMapping("/zoom_search")
+	public ModelAndView zoom_search(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("zoom_search");
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    return view;
 	}
 
 
