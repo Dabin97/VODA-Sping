@@ -223,6 +223,7 @@ public class BoardService {
 	            r = mapper.insertBoardHeart(map);
 	            // insert 쿼리가 실행되는지 로그 출력
 	            System.out.println("insertBoardHeart - insert query result : " + r);
+	            
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -234,6 +235,8 @@ public class BoardService {
 	public int selectBoardHeart(int bno) {
 		return mapper.selectBoardHeart(bno);
 	}
+
+
 
 
 

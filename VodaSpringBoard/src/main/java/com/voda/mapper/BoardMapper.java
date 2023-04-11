@@ -41,4 +41,5 @@ public interface BoardMapper {
 	int selectBoardHeart(int bno);
 	List<BoardDTO> selectHeartList(String id);
 
+
 }

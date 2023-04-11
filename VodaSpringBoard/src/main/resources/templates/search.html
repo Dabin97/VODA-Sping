@@ -348,7 +348,7 @@ footer a{
 	                moveSlides:1,
 	                touchEnabled : false
 	              });            
-              $(document).on("click", ".heart", heart);  //찜이 반복되는 문제발생!!!
+              $('.heart').click(heart);  //찜이 반복되는 문제발생!!!
     	  });
     	  
           $('.hide_new_end_search2').append($('.tBox2'));

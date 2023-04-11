@@ -217,10 +217,10 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/content_page")
-	public String contentview(HttpSession session) {
-		return "content_page";
-	}
+//	@RequestMapping("/content_page")
+//	public String contentview(HttpSession session) {
+//		return "content_page";
+//	}
 
 	@RequestMapping("/member/secession/view/{id}")
 	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
@@ -712,41 +712,53 @@ public class MainController {
 	        map.put("msg", "로그인 후 이용해주세요.");
 	        return new ResponseEntity(map, HttpStatus.OK);
 	    }
-
 	    try {
 	        boardService.insertBoardHeart(bno, dto.getId());
 	        result = boardService.selectBoardHeart(bno);
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-
+	    
 	    if (result == 0) {
+	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 해제하셨습니다.");
 	    } else {
+	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
 	    }
-
+	    
 	    map.put("fHeart", result);
 	    return new ResponseEntity(map, HttpStatus.OK);
 	}
 
+//	@RequestMapping("/heart/{id}")
+//	public ModelAndView heartCheck(@PathVariable String id, HttpSession session) {
+//		ModelAndView view = new ModelAndView();
+//		view.setViewName("content_page");
+//		List<BoardDTO> hlist = boardService.selectHeartByBno(id);
+//		view.addObject("hlist", hlist);
+//		return view;
+//	}
 
 	@RequestMapping("/content/detail/{bno}")
 	public ModelAndView updateView(@PathVariable int bno, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
+		int result = boardService.selectBoardHeart(bno);
 		
 		//리뷰 목록 조회
 		
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
+		mv.addObject("result", result);
 		mv.setViewName("content_page");
 		
 		return mv;
 	}
 
-	
+
 
 	@RequestMapping("/review/search") // 검색 부분
 	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){
