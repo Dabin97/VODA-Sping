@@ -32,6 +32,8 @@ public interface MemberMapper {
 
 	MemberDTO idCheck(String id);
 
+	int editProfile(MemberDTO dto);
+
 
 	
 }

@@ -82,5 +82,11 @@ public MemberService(MemberMapper mapper) {
 	}
 
 
+	public int editProfile(MemberDTO dto) {
+		
+		return mapper.editProfile(dto);
+	}
+
+
   
 }

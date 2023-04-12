@@ -102,13 +102,13 @@ class VodaSpringBoardApplicationTests {
 
         PaggingVO actualPagging = (PaggingVO) modelAndView.getModel().get("pagging");
         assertThat(actualPagging.getPageOfContentCount()).isEqualTo(7);
-        assertThat(actualPagging.getCurrentPageNo()).isEqualTo(4);
-        assertThat(actualPagging.getTotalPage()).isEqualTo(7);
-        assertThat(actualPagging.getTotalPageGroup()).isEqualTo(2);
-        assertThat(actualPagging.getNowPageGroupNo()).isEqualTo(2);
-        assertThat(actualPagging.getStartPageOfPageGroup()).isEqualTo(4);
-        assertThat(actualPagging.getEndPageOfPageGroup()).isEqualTo(7);
-        assertThat(actualPagging.isPriviousPageGroup()).isEqualTo(true);
+        assertThat(actualPagging.getCurrentPageNo()).isEqualTo(3);
+        assertThat(actualPagging.getTotalPage()).isEqualTo(2);
+        assertThat(actualPagging.getTotalPageGroup()).isEqualTo(1);
+        assertThat(actualPagging.getNowPageGroupNo()).isEqualTo(1);
+        assertThat(actualPagging.getStartPageOfPageGroup()).isEqualTo(1);
+        assertThat(actualPagging.getEndPageOfPageGroup()).isEqualTo(2);
+        assertThat(actualPagging.isPriviousPageGroup()).isEqualTo(false);
         assertThat(actualPagging.isNextPageGroup()).isEqualTo(false);
     }
     

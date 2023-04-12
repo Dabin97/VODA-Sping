@@ -295,10 +295,16 @@ public class MainController {
 		}
 	
 		
-		@RequestMapping("/member/edit")
+		@RequestMapping("/member/edit") //관리자가 회원 정보 수정
 		public String memberEdit(MemberDTO dto) {
 			int result = memberService.editMember(dto);   
 			return "redirect:/admin/member/list";
+		}
+		
+		@RequestMapping("/profile/member/edit")  //회원이 본인 정보 수정
+		public String profileEdit(MemberDTO dto) {
+			int result = memberService.editProfile(dto);   
+			return "redirect:/my_page";
 		}
 		
 		@RequestMapping("/admin/secession")
