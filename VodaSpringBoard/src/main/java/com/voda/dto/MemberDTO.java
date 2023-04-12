@@ -17,13 +17,23 @@ public class MemberDTO {
 
 
 	public MemberDTO(String id, String passwd, String name, String nick, String email) {
-		super();
+		
 		this.id = id;
 		this.passwd = passwd;
 		this.name = name;
 		this.nick = nick;
 		this.email = email;
 	}
+	
+	
+
+
+//	public MemberDTO(String id, String passwd, String nick) {
+//		super();
+//		this.id = id;
+//		this.passwd = passwd;
+//		this.nick = nick;
+//	}
 
 
 	public String getId() {

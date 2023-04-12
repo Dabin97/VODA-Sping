@@ -3,6 +3,8 @@ package com.voda.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.voda.dto.ManagerDTO;
@@ -34,7 +36,5 @@ public interface MemberMapper {
 
 	int editProfile(MemberDTO dto);
 
-
-	
 }
 

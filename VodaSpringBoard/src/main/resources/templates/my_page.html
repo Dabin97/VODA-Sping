@@ -224,7 +224,8 @@ footer a{
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+    <script src="/js/jquery-3.6.3.js"></script>
+    <script type="text/javascript">
         $(function(){
             $('.select').click(function(){
                 var content_box = $(this).nextAll(".content_box");
@@ -270,7 +271,7 @@ footer a{
                         <p><a href="/logout" class="logout">▶로그아웃</a></p>
                     </div>
                     <p class="setting">
-                        <a href="/edit" class=edit>
+                        <a href="/edit/view" class="edit">
                             <img src="img/setting.png" alt="">
                             정보수정
                         </a>
