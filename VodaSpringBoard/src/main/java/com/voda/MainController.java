@@ -3,7 +3,9 @@ package com.voda;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -60,7 +62,7 @@ public class MainController {
 	 
 	@RequestMapping("/index") 
 	public String index() {
-		return "index"; 
+		return "index";  
 	} 
 	
 	@RequestMapping("/before_login_main")//사용자 페이지 메인 - 로그인안한 버전
@@ -79,7 +81,7 @@ public class MainController {
 	}
 	
 
-	@RequestMapping("/main")//사용자 페이지 메인 - 로그인한 버전
+	@RequestMapping("/")//사용자 페이지 메인 - 로그인한 버전
 	public ModelAndView MainContentList(HttpSession session) {
 	    ModelAndView view = new ModelAndView();
 	    view.setViewName("main");
@@ -191,9 +193,13 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/my_page")
-	public String my_page(HttpSession session) {
-		return "my_page"; 
+	@RequestMapping("/my_page/{id}")
+	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("my_page");
+		List<BoardDTO> hlist = boardService.selectHeartList(id);
+		view.addObject("hlist", hlist);
+		return view;
 	}
 	
 	@RequestMapping("/search")
@@ -213,10 +219,10 @@ public class MainController {
 	}
 	
 	
-	@RequestMapping("/content_page")
-	public String contentview(HttpSession session) {
-		return "content_page";
-	}
+//	@RequestMapping("/content_page")
+//	public String contentview(HttpSession session) {
+//		return "content_page";
+//	}
 
 	@RequestMapping("/member/secession/view/{id}")
 	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
@@ -669,7 +675,7 @@ public class MainController {
 		if(dto == null) {
 			return "redirect:/index";
 		}
-		return "redirect:/main";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/logout")
@@ -697,9 +703,9 @@ public class MainController {
 	return view;
 }
 
-
+	
 	@RequestMapping("/board/heart") 
-	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
+	public ResponseEntity<HashMap<String, Object>> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int result = -1;
 	    MemberDTO dto = (MemberDTO) session.getAttribute("member");
@@ -708,40 +714,60 @@ public class MainController {
 	        map.put("msg", "로그인 후 이용해주세요.");
 	        return new ResponseEntity(map, HttpStatus.OK);
 	    }
-
 	    try {
 	        boardService.insertBoardHeart(bno, dto.getId());
 	        result = boardService.selectBoardHeart(bno);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+//	        throw new Exception("Something went wrong"); 예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
 
+	    } catch (Exception e) {
+            e.printStackTrace();
+            PrintStream ps = null;
+            FileOutputStream fos=null;
+            File file = new File("C:\\temp\\exception.txt"); // 로그 파일 경로 및 파일명 설정 - 그냥 txt로하면 안만들어지니까 temp 임시 폴더 생성
+            try {
+                fos = new FileOutputStream(file,true); 
+                ps=new PrintStream(fos); 
+                System.setErr(ps);
+                System.err.println("Exception: " + e.getMessage()); // 예외 메시지 파일에 기록
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                if(ps != null) ps.close();
+                if(fos != null) try { fos.close(); } catch (IOException ex) { }
+            }
+        }
+	    
 	    if (result == 0) {
+	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 해제하셨습니다.");
 	    } else {
+	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
 	    }
-
+	    
 	    map.put("fHeart", result);
-	    return new ResponseEntity(map, HttpStatus.OK);
+	    return new ResponseEntity<>(map, HttpStatus.OK);
 	}
+
 
 	@RequestMapping("/content/detail/{bno}")
 	public ModelAndView updateView(@PathVariable int bno, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
+		int result = boardService.selectBoardHeart(bno);
 		
 		//리뷰 목록 조회
 		
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
+		mv.addObject("result", result);
 		mv.setViewName("content_page");
 		
 		return mv;
 	}
 
-	
+
 
 	@RequestMapping("/review/search") // 검색 부분
 	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){
