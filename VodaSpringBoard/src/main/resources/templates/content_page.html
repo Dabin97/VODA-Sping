@@ -396,8 +396,8 @@
             <section>
                 <article class="info">
                         <div class="poster">
-                            <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
-                            <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
+                            <img th:if="${result == 1}" src="/img/heart_full.png" class="heart">
+                            <img th:if="${result == 0}" src="/img/heart.png" class="heart">
                             <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"

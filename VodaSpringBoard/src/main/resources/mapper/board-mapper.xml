@@ -228,7 +228,11 @@
 	</select> 
 	
 	<select id="selectBoardHeart" parameterType="int" resultType="int">
-		select count(*) from heart_table where bno = #{bno} 
+		select count(*) from heart_table where bno = #{bno}
+	</select>
+	
+	<select id="selectBoardHeartCHK" parameterType="hashMap" resultType="int">
+		select count(*) from heart_table where bno = #{bno} and id = #{id}
 	</select>
 	
 	<insert id="insertBoardHeart" parameterType="hashMap" > 

@@ -55,14 +55,6 @@ class VodaSpringBoardApplicationTests {
     @InjectMocks
     private MainController mainController;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        session = new MockHttpSession();
-        MemberDTO dto = new MemberDTO();
-        dto.setId("admin");
-        session.setAttribute("member", dto);
-    }
     
 	@Autowired
     private BoardMapper mapper;
@@ -75,6 +67,14 @@ class VodaSpringBoardApplicationTests {
 
     private HttpSession session;
  
+    @BeforeEach
+    void setUp() {
+    	MockitoAnnotations.initMocks(this);
+    	session = new MockHttpSession();
+    	MemberDTO dto = new MemberDTO();
+    	dto.setId("admin");
+    	session.setAttribute("member", dto);
+    }
 
     @DisplayName("탈퇴대기회원조회 테스트")
     @Test

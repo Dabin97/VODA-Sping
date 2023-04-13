@@ -74,8 +74,8 @@ public class MainController {
 //		return "index";  
 //	} 
 	
-	private static String CLIENT_ID = "6iiwn3bqUvCkpmCc6rJH";
-	private static String CLIENT_SECRET = "OpTuzWfJH6";
+	private static String CLIENT_ID = "R2BEU5rA5MMgr8c4zuVA";
+	private static String CLIENT_SECRET = "zG21Gj18X1";
 	
 	@RequestMapping("/index")
 	public ModelAndView index(HttpSession session, ModelAndView view) throws UnsupportedEncodingException {
@@ -103,12 +103,22 @@ public class MainController {
 				+ "&code=" + code + "&state=" + state;
 		
 		String res = requestNaverServer(apiURL, null);
+		JSONObject json = new JSONObject(res);
+		String access_token = json.getString("access_token");
 		
-		if(res != null && !res.equals("")) {
-			JSONObject json = new JSONObject(res);
-			session.setAttribute("user", res);
-			session.setAttribute("accessToken", json.getString("access_token"));
+		// access_token을 이용하여 사용자 프로필 정보를 가져옴
+		String profile_apiURL = "https://openapi.naver.com/v1/nid/me";
+		String header = "Bearer " + access_token;
+		String profile_res = requestNaverServer(profile_apiURL, header);
+		
+		if(profile_res != null && !profile_res.equals("")) {
+			JSONObject profile_json = new JSONObject(profile_res);
+			
+			// 사용자 정보를 세션에 저장
+			session.setAttribute("user", profile_json.getJSONObject("response").toString());
+			session.setAttribute("accessToken", access_token);
 			session.setAttribute("refreshToken", json.getString("refresh_token"));
+			System.out.println("profile_res = " + profile_res); 	
 		}else {
 			view.addObject("res", "로그인 실패");
 		}
@@ -122,37 +132,40 @@ public class MainController {
 		return view;
 	}
 	
-	@RequestMapping("/naver/getProfile")
+//	@RequestMapping("/naver/getProfile")
+//	public ModelAndView getProfilenaver(ModelAndView view, HttpSession session) throws JSONException {
+//		String accessToken = (String) session.getAttribute("accessToken");
+//		String apiURL = "https://openapi.naver.com/v1/nid/me";
+//		String header = "Bearer " + accessToken;
+//		String result = requestNaverServer(apiURL, header);
+//		
+//		JSONObject profile_json = new JSONObject(result);
+//	    String nickname = profile_json.getJSONObject("response").getString("nickname");
+//	    session.setAttribute("user", profile_json.getJSONObject("response").toString());
+//
+//	    view.addObject("nickname", nickname);   
+//	    System.out.println(nickname);
+//	    view.setViewName("main");
+//	    return view;
+//	}
+	
+	@RequestMapping("/naver/getProfile") //네아로는 하는중
 	public ModelAndView getProfilenaver(ModelAndView view, HttpSession session) throws JSONException {
-		String accessToken = (String) session.getAttribute("accessToken");
-		String apiURL = "https://openapi.naver.com/v1/nid/me";
-		String header = "Bearer " + accessToken;
-		String result = requestNaverServer(apiURL, header);
-		
-		JSONObject json = new JSONObject(result);
-		view.addObject("userInfo", json);		
-		view.setViewName("main");
-		return view;
+	    String accessToken = (String) session.getAttribute("accessToken");
+	    String apiURL = "https://openapi.naver.com/v1/nid/me";
+	    String header = "Bearer " + accessToken;
+	    String result = requestNaverServer(apiURL, header);
+	    JSONObject profile_json = new JSONObject(result);
+	    String nickname = profile_json.getJSONObject("response").getString("nickname");
+	    session.setAttribute("member", profile_json.getJSONObject("response").toString());
+	    view.addObject("nickname", nickname);   
+	    System.out.println(nickname);
+	    view.setViewName("main");
+	    return view;
 	}
-	@RequestMapping("/naver/refreshToken")
-	public ModelAndView refreshToken(HttpSession session, ModelAndView view) throws JSONException {
-		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=refresh_token&"
-				+ "client_id="+CLIENT_ID
-				+ "&client_secret="+CLIENT_SECRET
-				+ "&refresh_token="+session.getAttribute("refreshToken");
-		String result = requestNaverServer(apiURL, null);
-		if(result != null && !result.equals("")) {
-			JSONObject json = new JSONObject(result);
-			session.setAttribute("user", result);
-			session.setAttribute("accessToken", json.getString("access_token"));
-			session.setAttribute("refreshToken", json.getString("refresh_token"));
-		}else {
-			view.addObject("res", "로그인 실패");
-		}
-		view.setViewName("main");		
-		
-		return view;
-	}
+
+
+
 	
 	public String requestNaverServer(String apiURL, String header) {
 		StringBuilder res = new StringBuilder();
@@ -827,7 +840,7 @@ public class MainController {
 	}
 	
 
-	@PostMapping("/member_login") //login/member와 같은 기능?
+	@PostMapping("/member_login")
 	public String login(String id, String passwd, HttpSession session) {
 		MemberDTO dto = memberService.login(id, passwd);
 		session.setAttribute("member", dto);
@@ -868,6 +881,9 @@ public class MainController {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int result = -1;
 	    MemberDTO dto = (MemberDTO) session.getAttribute("member");
+	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", dto.getId());
+		paramMap.put("bno", bno);
 
 	    if(dto == null) {
 	        map.put("msg", "로그인 후 이용해주세요.");
@@ -875,8 +891,8 @@ public class MainController {
 	    }
 	    try {
 	        boardService.insertBoardHeart(bno, dto.getId());
-	        result = boardService.selectBoardHeart(bno);
-//	        throw new Exception("Something went wrong"); 예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
+	        result = boardService.selectBoardHeartCHK(paramMap);
+	       // throw new Exception("Something went wrong"); //예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
 
 	    } catch (Exception e) {
             e.printStackTrace();
@@ -903,7 +919,7 @@ public class MainController {
 	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
 	    }
-	    
+	   
 	    map.put("fHeart", result);
 	    return new ResponseEntity(map, HttpStatus.OK);
 	}
@@ -915,8 +931,15 @@ public class MainController {
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
 		List<BoardDTO> list = boardService.selectMainContentList();
-		int result = boardService.selectBoardHeart(bno);
-
+		
+		MemberDTO dto = (MemberDTO) session.getAttribute("member");
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", dto.getId());
+		paramMap.put("bno", bno);
+		
+		int result = boardService.selectBoardHeartCHK(paramMap);
+		System.out.println(result);
+	
 		
 		//리뷰 목록 조회
 		mv.addObject("list", list);

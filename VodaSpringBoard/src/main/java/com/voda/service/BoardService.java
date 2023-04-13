@@ -207,31 +207,27 @@ public class BoardService {
 	    return hlist;
 	}
 	
+
+
 	public int insertBoardHeart(int bno, String id) {
-	    int r = 0;
-	    HashMap<String, Object> map = new HashMap<String, Object>();
-	    map.put("bno", bno);
-	    map.put("id", id);
+	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	    paramMap.put("bno", bno);
+	    paramMap.put("id", id);
 
-	    try {
-	        // 해당 데이터가 존재하는 경우
-	        if (mapper.selectBoardHeart(bno) > 0) {
-	            r = mapper.deleteBoardHeart(map);
-	        }
-	        // 해당 데이터가 존재하지 않는 경우
-	        else {
-	            r = mapper.insertBoardHeart(map);
-	            // insert 쿼리가 실행되는지 로그 출력
-	            System.out.println("insertBoardHeart - insert query result : " + r);
-	            
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
+	    // 해당 사용자가 이미 찜한 게시글인지 확인
+	    int count = mapper.selectBoardHeartCHK(paramMap);
+
+	    // 이미 찜한 사용자가 다시 찜을 누르면 찜을 해제
+	    if (count > 0) {
+	        return mapper.deleteBoardHeart(bno, id);
+	    } else {
+	        // 찜 추가
+	        return mapper.insertBoardHeart(bno, id);
 	    }
-
-	    return r;
 	}
 
+
+	
 	public int selectBoardHeart(int bno) {
 		return mapper.selectBoardHeart(bno);
 	}
@@ -242,6 +238,14 @@ public class BoardService {
 		map.put("search", search);
 		return mapper.selectMemberSearchContent(map);
 	}
+
+
+	public int selectBoardHeartCHK(HashMap<String, Object> paramMap) {
+		return mapper.selectBoardHeartCHK(paramMap);
+	}
+
+	
+
 	
 
 
