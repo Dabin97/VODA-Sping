@@ -40,6 +40,8 @@
         right: 80px;
         /* bottom: 150px; */
     }
+    
+
    
        .nick{
         color: #a7f2dc;
@@ -52,29 +54,53 @@
         padding-left: 330px;
     }
     
-
+      .zoom{
+        height: 40px;
+        width: 300px;
+        border: 1px solid rgb(91, 91, 91);
+        box-sizing: border-box;
+        outline: none;
+        background-image: url(img/zoom.png);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: 5px center;
+        padding-left: 43px;
+    }
     
     </style>
+    <script type="text/javascript">
     
+    function confirmLogout() {
+    	alert("로그아웃 되었습니다.");
+    }
+    
+    $(function(){
+    	var text1 = $('.search_input');
+    	text1.focus(function(){
+    	  $(".zoom").append('<p>검색</p>')
+    	});
+    }); 
+    
+    </script>
     
 	
         <header>
-             <th:block th:if="${session.member == null}">
-            <a href="/main"><img src="/img/VODA_logo.png" alt=""></a>
-            <a href="/main">BEST</a>
+            <th:block th:if="${session.member == null}">
+            <a href="/"><img src="/img/VODA_logo.png" alt=""></a>
+            <a href="/">BEST</a>
             <a href="/new_expire">NEW/EXPIRE</a>
             <a href="/search">ALL</a>
-            <a href="/index" class="index">▶로그인</a>
+            <a href="/index" class="index">▶로그인</a>           
             <input type="text" placeholder="search" class= "search_input zoom" >
             </th:block>
             
         	<th:block th:if="${session.member != null}">
-            <a href="/main"><img src="/img/VODA_logo.png" alt=""></a>
-            <a href="/main">BEST</a>
+            <a href="/"><img src="/img/VODA_logo.png" alt=""></a>
+            <a href="/">BEST</a>
             <a href="/new_expire">NEW/EXPIRE</a>
             <a href="/search">ALL</a>
-            <a href="/my_page" class="nick">[[${session.member.name}]]</a>님 로그인
-            <a href="/logout" class="login">▶로그아웃</a>
+            <a href="/my_page" class="nick">[[${session.member.nick}]]</a>님 로그인
+            <a href="/logout" class="login" onclick="confirmLogout();">▶로그아웃</a>
             <input type="text" placeholder="search" class= "search_input zoom" >
             </th:block>
         </header>

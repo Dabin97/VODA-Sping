@@ -9,6 +9,7 @@ public class MemberDTO {
 	private String name;
 	private String nick;
 	private String email;
+	private int heart;
 
 	
 	public MemberDTO() {
@@ -35,7 +36,16 @@ public class MemberDTO {
 //		this.nick = nick;
 //	}
 
+	
+	
+	public int getHeart() {
+		return heart;
+	}
 
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
+	
 	public String getId() {
 		return id;
 	}

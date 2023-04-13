@@ -39,5 +39,7 @@ public interface BoardMapper {
 	int insertBoardHeart(HashMap<String, Object> map);
 	int deleteBoardHeart(HashMap<String, Object> map);
 	int selectBoardHeart(int bno);
+	List<BoardDTO> selectHeartList(String id);
+
 
 }

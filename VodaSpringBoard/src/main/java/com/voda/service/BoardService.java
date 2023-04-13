@@ -191,6 +191,22 @@ public class BoardService {
 	}
 
 
+	public List<BoardDTO> selectHeartList(String id) {
+		List<BoardDTO> hlist = mapper.selectHeartList(id);
+
+	    for (BoardDTO board : hlist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return hlist;
+	}
+	
 	public int insertBoardHeart(int bno, String id) {
 	    int r = 0;
 	    HashMap<String, Object> map = new HashMap<String, Object>();
@@ -207,6 +223,7 @@ public class BoardService {
 	            r = mapper.insertBoardHeart(map);
 	            // insert 쿼리가 실행되는지 로그 출력
 	            System.out.println("insertBoardHeart - insert query result : " + r);
+	            
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -218,6 +235,10 @@ public class BoardService {
 	public int selectBoardHeart(int bno) {
 		return mapper.selectBoardHeart(bno);
 	}
+
+
+
+
 
 
 

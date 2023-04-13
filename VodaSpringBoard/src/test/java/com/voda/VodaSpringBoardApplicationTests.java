@@ -139,7 +139,7 @@ class VodaSpringBoardApplicationTests {
 //
 //    @DisplayName("찜 기능 테스트")
 //    @Test
-//    @Order(1)
+//    @Order(2)
 //    void boardContentHeartTest() {
 //        System.out.println("찜 기능 테스트");
 //        int bno = 1;
@@ -157,7 +157,7 @@ class VodaSpringBoardApplicationTests {
 //
 //    @DisplayName("찜 삭제 테스트")
 //    @Test
-//    @Order(2)
+//    @Order(3)
 //    void boardContentHeartDeleteTest() {
 //        System.out.println("찜 삭제 테스트");
 //        int bno = 1;
@@ -174,4 +174,3 @@ class VodaSpringBoardApplicationTests {
 //    }
 //	
 }
-
