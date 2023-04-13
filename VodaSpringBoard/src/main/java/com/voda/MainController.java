@@ -219,22 +219,13 @@ public class MainController {
 
 	    return view; 
 	}
-	
+
 	
 //	@RequestMapping("/content_page")
 //	public String contentview(HttpSession session) {
 //		return "content_page";
 //	}
 
-
-	    List<BoardDTO> list = boardService.selectMainContentList();
-	    List<BoardDTO> nlist = boardService.selectNewContentList();
-	    List<BoardDTO> elist = boardService.selectExpireContentList();
-	    view.addObject("list", list);
-	    view.addObject("nlist", nlist);
-	    view.addObject("elist", elist);
-	    return view;
-	}
 	
 	@RequestMapping("/member/secession/view/{id}")
 	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {

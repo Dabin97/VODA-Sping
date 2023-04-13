@@ -255,7 +255,8 @@
                                 tag += '<tr>';
                                 tag += '<td class="chb">'+r[i].rno+'</td>';
                                 tag += '<td>'+r[i].id+'</td>';
-                                tag += '<td>'+r[i].title+'</td>';
+                                // tag += '<td>'+r[i].title+'</td>';
+                                tag += '<td><a href="/admin/review/detail/' + r[i].bno + '?bno=' + r[i].bno + '">' + r[i].title + '</a></td>'; //a링크 걸려있는 거
                                 tag += '<td>'+r[i].rDate+'</td>';
                                 tag += `<td>
                                         <button id="btn_delete"><a th:href="@{/admin/review/detail/${r[i].rno}(rno=\${review.rno })}">상세</a></button>
