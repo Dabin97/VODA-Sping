@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -207,10 +210,6 @@ public class MainController {
 	    return view; 
 	}
 	
-	@RequestMapping("/edit")
-	public String edit(HttpSession session) {
-		return "profile_edit";  
-	}
 	
 	
 	@RequestMapping("/content_page")
@@ -232,20 +231,13 @@ public class MainController {
 	    return mv;
 	}
 
+	
+	
 	@RequestMapping("/member/secession")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
 		return "redirect:/main";
 	}
-
-	
-	
-//	@RequestMapping("/member/secession")
-//	public String goSeccesion(MemberDTO dto) {
-//		System.out.println(dto);
-//		int result = memberService.goSecession(dto);
-//		return "redirect:/my_page";
-//	}
 	
 	
 		////////////////////관리자 페이지////////////////////////////////
@@ -291,6 +283,7 @@ public class MainController {
 			return view;
 		}
 		
+		
 		@RequestMapping("/member/edit/view/{id}")
 		public ModelAndView memberEditView(@PathVariable String id,ModelAndView view) {
 			MemberDTO dto = memberService.selectMember(id);
@@ -299,12 +292,36 @@ public class MainController {
 			return view;
 		}
 	
+//		@RequestMapping("/edit/view/{id}") 
+//		public ModelAndView edit(@PathVariable String id, ModelAndView view, HttpSession sesison) {
+//			MemberDTO dto = memberService.selectMember(id);
+//			view.addObject("dto", dto);
+//			view.setViewName("profile_edit");
+//			return view;
+//		}
 		
-		@RequestMapping("/member/edit")
+		@RequestMapping("/edit/view")
+	    public String edit(HttpSession session) {
+	        return "profile_edit";
+	    }
+		@RequestMapping("/profile/member/edit")  //회원이 본인 정보 수정
+		public String profileEdit(MemberDTO dto , HttpSession session, HttpServletRequest request) {
+			 MemberDTO member = (MemberDTO) session.getAttribute("member");
+			 String id = member.getId();
+			 dto.setId(id);
+			 int result = memberService.editProfile(dto); 
+			 System.out.println(dto);
+			return "redirect:/my_page";
+		}
+		
+		@RequestMapping("/member/edit") //관리자가 회원 정보 수정
 		public String memberEdit(MemberDTO dto) {
+			System.out.println(dto);
 			int result = memberService.editMember(dto);   
 			return "redirect:/admin/member/list";
 		}
+		
+		
 		
 		@RequestMapping("/admin/secession")
 		public ModelAndView secessionList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
@@ -321,8 +338,10 @@ public class MainController {
 		}
 		
 
-		@RequestMapping("/member/delete/{id}")
-		public ResponseEntity<String> deleteMember(@PathVariable String id) {
+		@RequestMapping("/member/delete") //
+		public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
+			System.out.println(Arrays.toString(id));
+			int result1=secessionService.deleteSecession(id);
 			int result = memberService.deleteMember(id);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("count", String.valueOf(result));
@@ -368,17 +387,28 @@ public class MainController {
 	
 	
 
-	  @PostMapping("/idCheck")
+//	  @PostMapping("/idCheck")
+//	  @ResponseBody
+//	  public String idCheck(@RequestParam String id) {
+//	    MemberDTO isDuplicated = memberService.idCheck(id);
+//	    if (isDuplicated != null) {
+//	      return "duplicated";
+//	    } else {
+//	      return "available";
+//	    }
+//	  }
+	
+	 @PostMapping("/idCheck")
 	  @ResponseBody
-	  public String idCheck(@RequestParam String id) {
+	  public ResponseEntity<String> idCheck(@RequestParam String id) {
 	    MemberDTO isDuplicated = memberService.idCheck(id);
 	    if (isDuplicated != null) {
-	      return "duplicated";
+	      return new ResponseEntity("duplicated",HttpStatus.OK);
 	    } else {
-	      return "available";
+	      return new ResponseEntity("available",HttpStatus.OK);
 	    }
 	  }
-	
+	 
 	@RequestMapping("/admin/content/register/view")
 	public String adminContentRegisterView() {
 		return "admin_content_register";

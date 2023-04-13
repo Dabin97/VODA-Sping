@@ -127,10 +127,19 @@
             .input::placeholder {
             	font-size : 16px;
             }
+
+            #naver_id_login{
+                margin-top: 20px;
+                margin-left: 40px;
+            }
+
         </style>
     </head>
-
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script> -->
     <body>
+       
         <header>
 
         </header>
@@ -159,7 +168,20 @@
                                     <br>
                                     <button>로그인</button>
                                     <a href="/register/view" class="register">회원가입</a> 
+
                                 </div>
+                                 <!-- 네이버 로그인 버튼 노출 영역
+                                <div id="naver_id_login"></div>
+                                //네이버 로그인 버튼 노출 영역 
+                                <script type="text/javascript">
+                                    var naver_id_login = new naver_id_login("d_K2aUUD31ZJcYD5Wff1", "http://localhost:9999/main");
+                                    var state = naver_id_login.getUniqState();
+                                    naver_id_login.setButton("green", 3, 40);
+                                    naver_id_login.setDomain("http://localhost:9999");
+                                    naver_id_login.setState(state);
+                                    naver_id_login.setPopup();
+                                    naver_id_login.init_naver_id_login();
+                                </script> -->
                             </form>
                             </div>
                         </div>
