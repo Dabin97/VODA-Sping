@@ -42,10 +42,12 @@
     
    
        .nick{
+       	display : inline-block;
+       	width:218px;
         color: #a7f2dc;
         font-size: 16px;
         font-weight: bold;
-    	margin-left : 190px;
+        text-align : right;
     	
     }
     
@@ -221,7 +223,10 @@
     			}
     		 }
     	});
+    	
+    	
     });
+    
     </script>
         <header>
             <th:block th:if="${session.member == null}">
@@ -255,7 +260,7 @@
             <a href="/">BEST</a>
             <a href="/new_expire">NEW/EXPIRE</a>
             <a href="/search">ALL</a>
-            <a href="/my_page" class="nick">[[${session.member.nick}]]</a>님 로그인
+            <a href="/my_page" class="nick">[[${session.member.nick}]]</a>님 반가워요!
             <a href="/logout" class="login" onclick="confirmLogout();">▶로그아웃</a>
             <div class="searchdiv">
             <input type="text" placeholder="Search" class= "search_input " id="search" >

@@ -3,10 +3,13 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>New Expire</title>
+<title>Zoom_Search</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
         * {
         margin: 0;
@@ -80,7 +83,7 @@
         left: 20px;
         top: 20px;
     }
-    article > h2{
+     h2{
     	font-size: 32px;
         margin-bottom: 20px;
         margin-left: 100px;
@@ -232,87 +235,311 @@ text-decoration : none ;
       			border-radius : 10px;
       }
       
-      .hide {
-      	display : none;
-      }
-      
-    </style>
-<script>
+     .search_input2{
+        color: white;
+        height: 30px;
+        width: 350px;
+        border: 1px solid rgb(91, 91, 91);
+        box-sizing: border-box;
+        outline: none;
+        padding-left: 3px; 
+        font-size : 16px;
 
-$('.hide_zoom').append($('.content_box'));
-
-$('.content_box').each(function(idx, item){
-	 $(item).clone().appendTo('.tbox');
-});
-      
+    }
+    
+    .search_box {
+     padding-left : 130px;
+     padding-bottom : 10px;
+    }
+    
+          .select_box {
+        width : 80px;
+        height : 30px;
+        font-size : 16px;
+        border-radius : 10px;
+          }
+          
+          .btn{
+          width : 40px;
+                  height : 30px;
+          }
+        .ui-autocomplete {
+        	width : 347px !important;
+            max-height: 200px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+           
+        } 
+        .ui-menu-item-wrapper:hover {
+         	color : #dff5d0 !important;
+         	border : 1px solid black !important;
+         	background-color : black !important;
+         	font-weight : bold !important;          
+	}
 	
-  $('#search').keyup(function(){
-    	  $('.tbox').empty();
-      $('.content_box').each(function(idx, item){
-    	  if($('#search').val() == "123") {
-    		  $(item).clone().appendTo('.tbox');
-    	} else if($(item).children('input[name="genre"]').val() == $('#selectBox1').val()){
-    		  $(item).clone().appendTo('.new_end_search');
-        }
-      });        
-      
-  });
-  
+	.ui-state-active{
+	        color : #dff5d0 !important;
+         	border : 1px solid black !important;
+         	background-color : black !important;
+         	font-weight : bold !important;     
+	}
+	
+	.hide {
+		display : none;
+	}
+	
 
-</script>
+    </style>
+    
+    <script th:inline="javascript">
+    
+    $( function() {
+
+    	 $('#select_box').change(function(){
+
+    	var i, name, title, titlearr, availableTags, pd, pdstr, pdarr, casting, castingstr, castingarr;
+    	title = document.getElementsByClassName("title_info2");
+    	pd = document.getElementsByClassName("pd2");
+    	casting = document.getElementsByClassName("casting2");
+    	titlearr =[];
+        for(i=0; i<title.length; i++){
+        	pdstr += pd[i].innerHTML + (", ");
+        	pdarr = pdstr.split(", ");
+        	castingstr += casting[i].innerHTML + (", ");
+        	castingarr = castingstr.split(", ");
+        	titlearr.push(title[i].innerHTML);
+		}
+    	pdarr[0] = "김유진";
+    	castingarr[0] = "신예은";
+    	
+    	availableTags = [
+    		...titlearr,
+    		...pdarr,
+    		...castingarr
+    	];
+    	
+    	const set = new Set(availableTags);
+    	const set1 = new Set(pdarr);
+    	const set2 = new Set(castingarr);
+    	const uniqueArr = [...set];
+    	const uniqueArr1 = [...set1];
+    	const uniqueArr2 = [...set2];
+
+    	if($('#select_box').val() == "all") {
+        $( "#search2" ).autocomplete({
+          source: uniqueArr,
+
+          focus: function(event, ui) {
+
+              return false;
+
+          }
+        });
+        } else if($('#select_box').val() == "title")  {
+        	$( "#search2" ).autocomplete({
+                source: titlearr,
+
+                focus: function(event, ui) {
+
+                    return false;
+
+                }
+              });
+        } else if($('#select_box').val() == "pd") {
+        	$( "#search2" ).autocomplete({
+                source: uniqueArr1,
+
+                focus: function(event, ui) {
+
+                    return false;
+
+                }
+              });    	
+        } else if($('#select_box').val() == "casting") {
+        	$( "#search2" ).autocomplete({
+                source: uniqueArr2,
+
+                focus: function(event, ui) {
+
+                    return false;
+
+                }
+              });    	
+        }
+    	});
+      } );
+
+    $(function(){
+        $('.btn').click(function(){
+            let param = '';
+            $('.search_input2,.select_box').each(function(i, obj){
+                console.log($(obj).attr('name'),$(obj).val());
+                param += $(obj).attr('name')+"="+$(obj).val() + "&"
+            });
+            console.log(param);
+
+            $.ajax({
+                url : '/memberContent/search',
+                data : param,
+                type : 'post',
+                dataType : 'json',
+                success:function(r){
+                    console.log(r);
+
+                    let tag = '';
+  					var rgenre;
+  					var rott;
+                    for(i=0;i<r.length;i++){
+                    	tag += '<div class="content_box">'
+                    	tag += '<div class="poster">';
+                        tag += `<a href="/content/detail/${r[i].bno}">`;
+                        tag += `<img src="/image/${r[i].bno}">`;
+                        tag += '</a>';
+                        rott= $(r[i].ottNo);
+                        if(rott[0] == "1") {
+                         tag += `<img src="/img/netflix.png" class="ott">`
+                        } else if (rott[0] == "2") {
+                         tag += `<img src="/img/disney_remove.png" class="ott">`
+                        } else if (rott[0] == "3") {
+                         tag += `<img src="/img/laftel_logo-removebg-preview.png" class="ott">`
+                        } else if (rott[0] == "4") {
+                         tag += `<img src="/img/왓챠.png" class="ott">`
+                        } else if (rott[0] == "5") {
+                         tag += `<img src="/img/wavve.png" class="ott">`
+                        } else {
+                         tag += `<img src="/img/Fotoram.png" class="ott">`
+                        }
+                        tag += '</div>';
+                        tag += '<div class="info_div">';
+                        tag += '<ul>';
+                        tag += '<br>';
+                        tag += `<a href="/content/detail/${r[i].bno}"><li class="title_info">${r[i].title}</li></a>`;
+                        tag += '<br>';
+                        rgenre = $(r[i].genre);
+                        if(rgenre[0] == "1") {
+                         tag += '<li class="font">'+'장르' +' : '+ '<span class="color genre" id="rgenre">'+'영화'+'</span>'+'</li>';
+                        } else if (rgenre[0] == "2") {
+                         tag += '<li class="font">'+'장르' +' : '+ '<span class="color genre" id="rgenre">'+'드라마'+'</span>'+'</li>';	
+                        } else if (rgenre[0] == "3") {
+                         tag += '<li class="font">'+'장르' +' : '+ '<span class="color genre" id="rgenre">'+'애니메이션'+'</span>'+'</li>';	
+                        } else {
+                         tag += '<li class="font">'+'장르' +' : '+ '<span class="color genre" id="rgenre">'+'예능'+'</span>'+'</li>';		
+                        }
+                        tag += '<li class="font">'+'감독' +' : '+ '<span class="color pd">'+`${r[i].pd}`+'</span>'+'</li>';
+                        tag += '<li class="font">'+'출연' +' : '+ '<span class="color casting">'+`${r[i].casting}`+'</span>'+'</li>';
+                        tag += '<br>';
+                        tag += '<li class="content_info1">작품 정보</li>';
+                        tag += '<li class="content_info2">'+`${r[i].content}`+'</li>';
+                        tag += '</ul>';
+                        tag += '</div>';
+                        tag += '</div>';         
+                        
+
+                    }
+                    $('article').html(tag);
+
+                }
+            });
+			
+        });
+    	
+    });
+    
+    $(function(){
+		
+        $(".search_input2").keyup(function(key) {
+            if (key.keyCode == 13) {
+            	$(".btn").click();
+            	$(".search_input2").blur();
+            }
+        });
+    });
+      </script>
+    
+    
 </head>
 <body>
     <div class="flex_container">
     	<th:block th:include="/fragments/user_header.html"></th:block>
         <div class="header">
-            <h1 style="font-weight: bold; padding-top: 20px;">키워드를 이용해서 검색하세요!</h1>      
-			<input type="text" class="textbox" name="search" placeholder="검색어 입력">
-            </div>
+            <h1 style="font-weight: bold; padding-top: 20px;">키워드를 이용해 검색하세요!</h1>
+
+
         </div>
         <div class="main_container">
         <section>
-            <article> 
-                <h2 id="new"><img src="img/Union-left.png" alt="">검색<img src="img/Union-right.png" alt=""></h2>
-                <div class="tbox">
-                <th:block th:each="board: ${list}">
-                <div class="content_box">
+            	
+                <h2 id="new"><img src="img/Union-left.png" alt="">SEARCH CONTENTS!<img src="img/Union-right.png" alt=""></h2>
+                <div class="search_box">
+                   <select name="select_box" form="myForm" class="select_box" id="select_box" placeholder="선택">
+                      <option value=" ">전체</option>
+                      <option value="title">제목</option>
+                      <option value="pd">감독</option>
+                      <option value="casting">출연진</option>
+                  </select>
+                  <input type="text" placeholder="왼쪽의 옵션을 선택하고 키워드로 검색하세요!" class= "search_input2" id="search2" name="search">
+                  <button class="btn">검색</button>
+                </div>
+            <article>
+                <div class="content_box" th:each="board: ${list}">
                     <div class="poster">
                         <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a>
-                        <img th:if="${board.ottNo} == 1" src="img/netflix.png" class="ott">
-                        <img th:if="${board.ottNo} == 2" src="img/disney_remove.png" class="ott">
-                        <img th:if="${board.ottNo} == 3" src="img/laftel_logo-removebg-preview.png" class="ott">
-                        <img th:if="${board.ottNo} == 4" src="img/왓챠.png" class="ott">
-                        <img th:if="${board.ottNo} == 5" src="img/wavve.png" class="ott">
-                        <img th:if="${board.ottNo} == 6" src="img/Fotoram.png" class="ott">
+                        <img th:if="${board.ottNo} == 1" src="/img/netflix.png" class="ott">
+                        <img th:if="${board.ottNo} == 2" src="/img/disney_remove.png" class="ott">
+                        <img th:if="${board.ottNo} == 3" src="/img/laftel_logo-removebg-preview.png" class="ott">
+                        <img th:if="${board.ottNo} == 4" src="/img/왓챠.png" class="ott">
+                        <img th:if="${board.ottNo} == 5" src="/img/wavve.png" class="ott">
+                        <img th:if="${board.ottNo} == 6" src="/img/Fotoram.png" class="ott">
                     </div>
                 <div class="info_div">
                     <ul>
                     	<br>
-                        <li class="title_info"><a th:href="@{/content/detail/{bno}(bno=${board.bno})}">[[${board.title }]]</a></li>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><li class="title_info">[[${board.title }]]</li></a>
                         <br>
                         <li th:if="${board.genre == 1}" class="font">장르 : <span class="color">영화</span></li>
                         <li th:if="${board.genre == 2}" class="font">장르 : <span class="color">드라마</span></li>
                         <li th:if="${board.genre == 3}" class="font">장르 : <span class="color">애니메이션</span></li>
                         <li th:if="${board.genre == 4}" class="font">장르 : <span class="color">예능</span></li>
-                        <li class="font">감독 : <span class="color">[[${board.pd}]]</span></li>
-                        <li class="font">출연 : <span class="color">[[${board.casting }]]</span></li><br>
+                        <li class="font">감독 : <span class="color pd">[[${board.pd}]]</span></li>
+                        <li class="font">출연 : <span class="color casting">[[${board.casting }]]</span></li>
+                        <br>
                         <li class="content_info1">작품 정보</li>
                         <li class="content_info2">[[${board.content }]]</li>
                     </ul>
                 </div>
                 </div>
-                </th:block>
+                </article>
+             	<div class="content_box hide" th:each="board: ${list}">
+                    <div class="poster hide">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}"></a>
+                        <img th:if="${board.ottNo} == 1" src="/img/netflix.png" class="ott">
+                        <img th:if="${board.ottNo} == 2" src="/img/disney_remove.png" class="ott">
+                        <img th:if="${board.ottNo} == 3" src="/img/laftel_logo-removebg-preview.png" class="ott">
+                        <img th:if="${board.ottNo} == 4" src="/img/왓챠.png" class="ott">
+                        <img th:if="${board.ottNo} == 5" src="/img/wavve.png" class="ott">
+                        <img th:if="${board.ottNo} == 6" src="/img/Fotoram.png" class="ott">
+                    </div>
+                <div class="info_div hide">
+                    <ul>
+                    	<br>
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><li class="hide title_info2">[[${board.title }]]</li></a>
+                        <br>
+                        <li th:if="${board.genre == 1}" class="font hide">장르 : <span class="color">영화</span></li>
+                        <li th:if="${board.genre == 2}" class="font hide">장르 : <span class="color">드라마</span></li>
+                        <li th:if="${board.genre == 3}" class="font hide">장르 : <span class="color">애니메이션</span></li>
+                        <li th:if="${board.genre == 4}" class="font hide">장르 : <span class="color">예능</span></li>
+                        <li class="font">감독 : <span class="color hide pd2">[[${board.pd}]]</span></li>
+                        <li class="font">출연 : <span class="color hide casting2">[[${board.casting }]]</span></li>
+                        <br>
+                        <li class="content_info1 hide">작품 정보</li>
+                        <li class="content_info2 hide">[[${board.content }]]</li>
+                    </ul>
                 </div>
-                  <style>
-                    .hide_new_end_search {
-                      display: none;
-                    }
-                  </style>
-                  <div class="hide_zoom"></div>
-				<br>
-				<br>
-               
-            </article>
+                </div>
+            
+
             
             <a href="#top" class="top"></a>
             <div class="space"></div>

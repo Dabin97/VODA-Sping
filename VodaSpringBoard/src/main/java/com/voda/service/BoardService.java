@@ -219,6 +219,14 @@ public class BoardService {
 		return mapper.selectBoardHeart(bno);
 	}
 
+	public List<BoardDTO> selectMemberSearchContent(String select_box, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("select_box", select_box);
+		map.put("search", search);
+		return mapper.selectMemberSearchContent(map);
+	}
+	
+
 
 	
 
