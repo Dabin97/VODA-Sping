@@ -3,13 +3,14 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>New Expire</title>
+<title>Search</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  
 
     <style>
         * {
@@ -274,19 +275,37 @@ footer a{
       	height : 270px;
       }
     </style>
-<script>
-	var slider = [];
-    $(function(){
-    	
-        $('.heart').on({ //하트 이미지 변경
-            'click': function() {
-                var src = ($(this).attr('src') === '/img/heart_full.png')
-                    ? '/img/heart.png'
-                    : '/img/heart_full.png';
-                $(this).attr('src', src);
+ <script type="text/javascript" th:inline="javascript">
+
+
+    function heart(){ 
+            var bno = $(this).siblings('a').find('.thumbnail').data("bno");
+            console.log(bno);
+            var heartImg = $(this); // 클릭한 하트 이미지
+
+            $.ajax({
+                url: "/board/heart",
+                data: {bno: bno},
+                method: "post",
+                dataType: 'json',
+                success: function(r) {
+                    console.log(r);
+                    if (r.fHeart == 0) { // 찜을 해제한 경우
+                        heartImg.attr("src", "/img/heart.png");
+                    } else {             // 찜을 추가한 경우
+                        heartImg.attr("src", "/img/heart_full.png");
+                    }
+                    alert(r.msg);
+                },
+                error: function(xhr, status, error) {
+                    alert("Ajax 요청에 실패했습니다.");
                 }
             });
-        
+    }
+
+
+	var slider = [];
+    $(function(){
         
         $('.hide_new_end_search').append($('.tBox'));
         
@@ -329,7 +348,7 @@ footer a{
 	                moveSlides:1,
 	                touchEnabled : false
 	              });            
-	          
+              $('.heart').click(heart);  //찜이 반복되는 문제발생!!!
     	  });
     	  
           $('.hide_new_end_search2').append($('.tBox2'));
@@ -617,22 +636,23 @@ footer a{
         </div>
 
         <div class="main_container">
-            <article> <!--신작만료 박스 시작-->
+            <article> <!-- SERCH 목록 시작-->
                 <h2>
                    <img src="img/Union-left.png" alt="">ALL CONTENTS<img src="img/Union-right.png" alt="" id="all">
-					<select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
-					    <option value="0">전체</option>
-					    <option value="1">영화</option>
-					    <option value="2">드라마</option>
-					    <option value="3">애니메이션</option>
-					    <option value="4">예능</option>
-					</select>
+                <select name="selectBox1" form="myForm" class="selectBox" id="selectBox1">
+                    <option value="0">전체</option>
+                    <option value="1">영화</option>
+                    <option value="2">드라마</option>
+                    <option value="3">애니메이션</option>
+                    <option value="4">예능</option>
+                </select>
                 </h2>
                   <div class="new_end_search"> 
                     <th:block th:each="board: ${list}">
                       <div class="tBox">
                         <input type="hidden" name="genre" th:value="${board.genre}">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+                        <img src="/img/heart.png" class="heart">
+                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
                       </div>
                     </th:block>
                   </div>
