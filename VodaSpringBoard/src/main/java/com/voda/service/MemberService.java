@@ -3,6 +3,8 @@ package com.voda.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.ManagerDTO;
@@ -71,7 +73,7 @@ public MemberService(MemberMapper mapper) {
 	}
 
 
-	public int deleteMember(String id) {
+	public int deleteMember(String[] id) {
 		return mapper.deleteMember(id);
 	}
 
@@ -80,6 +82,13 @@ public MemberService(MemberMapper mapper) {
 		// TODO Auto-generated method stub
 		return mapper.idCheck(id);
 	}
+
+
+	public int editProfile(MemberDTO dto) {
+		
+		return mapper.editProfile(dto);
+	}
+
 
   
 }
