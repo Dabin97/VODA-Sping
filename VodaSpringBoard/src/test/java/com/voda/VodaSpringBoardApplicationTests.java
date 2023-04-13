@@ -136,24 +136,24 @@ class VodaSpringBoardApplicationTests {
 
 
     
-//
-//    @DisplayName("찜 기능 테스트")
-//    @Test
-//    @Order(2)
-//    void boardContentHeartTest() {
-//        System.out.println("찜 기능 테스트");
-//        int bno = 1;
-//
-//        ResponseEntity<String> response = null;
-//        try {
-//            response = mainController.boardContentHeart(bno, session);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
-//        assertEquals("해당 컨텐츠에 찜을 하셨습니다.", response.getBody());
-//    }
+
+    @DisplayName("찜 기능 테스트")
+    @Test
+    @Order(2)
+    void boardContentHeartTest() {
+        System.out.println("찜 기능 테스트");
+        int bno = 1;
+
+        ResponseEntity<String> response = null;
+        try {
+            response = mainController.boardContentHeart(bno, session);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("해당 컨텐츠에 찜을 하셨습니다.", response.getBody());
+    }
 //
 //    @DisplayName("찜 삭제 테스트")
 //    @Test

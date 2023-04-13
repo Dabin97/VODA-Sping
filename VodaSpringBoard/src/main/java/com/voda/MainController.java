@@ -1,41 +1,43 @@
 package com.voda;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
-import java.net.http.HttpRequest;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.ManagerDTO;
@@ -67,10 +69,125 @@ public class MainController {
 	} 
 	
 	 
-	@RequestMapping("/index") 
-	public String index() {
-		return "index";  
+//	@RequestMapping("/index") 
+//	public String index() {
+//		return "index";  
+//	} 
+	
+	private static String CLIENT_ID = "6iiwn3bqUvCkpmCc6rJH";
+	private static String CLIENT_SECRET = "OpTuzWfJH6";
+	
+	@RequestMapping("/index")
+	public ModelAndView index(HttpSession session, ModelAndView view) throws UnsupportedEncodingException {
+		String clientId = CLIENT_ID;
+		String redirectURI = URLEncoder.encode("http://localhost:9999/naver/callback", "UTF-8");
+		SecureRandom random = new SecureRandom();
+		String state = new BigInteger(130, random).toString();
+		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code" + "&client_id=" + clientId
+				+ "&redirect_uri=" + redirectURI + "&state=" + state;
+		view.addObject("apiURL", apiURL);
+		session.setAttribute("state", state);
+		view.setViewName("index");
+		return view;
 	} 
+	
+	@RequestMapping("/naver/callback")
+	public ModelAndView naverCallback(HttpSession session, ModelAndView view, String code, String state)
+			throws UnsupportedEncodingException, JSONException {
+
+		String redirectURI = URLEncoder.encode("http://localhost:9999/naver/callback", "UTF-8");
+
+		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code" + "&client_id=" + CLIENT_ID
+				+ "&client_secret=" + CLIENT_SECRET 
+				+ "&redirect_uri=" + redirectURI 
+				+ "&code=" + code + "&state=" + state;
+		
+		String res = requestNaverServer(apiURL, null);
+		
+		if(res != null && !res.equals("")) {
+			JSONObject json = new JSONObject(res);
+			session.setAttribute("user", res);
+			session.setAttribute("accessToken", json.getString("access_token"));
+			session.setAttribute("refreshToken", json.getString("refresh_token"));
+		}else {
+			view.addObject("res", "로그인 실패");
+		}
+		view.setViewName("main");		
+		List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+		return view;
+	}
+	
+	@RequestMapping("/naver/getProfile")
+	public ModelAndView getProfilenaver(ModelAndView view, HttpSession session) throws JSONException {
+		String accessToken = (String) session.getAttribute("accessToken");
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+		String header = "Bearer " + accessToken;
+		String result = requestNaverServer(apiURL, header);
+		
+		JSONObject json = new JSONObject(result);
+		view.addObject("userInfo", json);		
+		view.setViewName("main");
+		return view;
+	}
+	@RequestMapping("/naver/refreshToken")
+	public ModelAndView refreshToken(HttpSession session, ModelAndView view) throws JSONException {
+		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=refresh_token&"
+				+ "client_id="+CLIENT_ID
+				+ "&client_secret="+CLIENT_SECRET
+				+ "&refresh_token="+session.getAttribute("refreshToken");
+		String result = requestNaverServer(apiURL, null);
+		if(result != null && !result.equals("")) {
+			JSONObject json = new JSONObject(result);
+			session.setAttribute("user", result);
+			session.setAttribute("accessToken", json.getString("access_token"));
+			session.setAttribute("refreshToken", json.getString("refresh_token"));
+		}else {
+			view.addObject("res", "로그인 실패");
+		}
+		view.setViewName("main");		
+		
+		return view;
+	}
+	
+	public String requestNaverServer(String apiURL, String header) {
+		StringBuilder res = new StringBuilder();
+		try {
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			if(header != null && !header.equals("")) {
+				con.setRequestProperty("Authorization", header);
+			}
+				
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			while ((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+			if (responseCode == 200) {
+				System.out.println(res.toString());
+			}
+		} catch (Exception e) {
+			// Exception 로깅
+		}
+		return res.toString();
+	}
+	
+	
+	
+	
 	
 	@RequestMapping("/before_login_main")//사용자 페이지 메인 - 로그인안한 버전
 	public ModelAndView before_login_main() {
@@ -747,7 +864,7 @@ public class MainController {
 
 	
 	@RequestMapping("/board/heart") 
-	public ResponseEntity<HashMap<String, Object>> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
+	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int result = -1;
 	    MemberDTO dto = (MemberDTO) session.getAttribute("member");
@@ -788,7 +905,7 @@ public class MainController {
 	    }
 	    
 	    map.put("fHeart", result);
-	    return new ResponseEntity<>(map, HttpStatus.OK);
+	    return new ResponseEntity(map, HttpStatus.OK);
 	}
 
 
