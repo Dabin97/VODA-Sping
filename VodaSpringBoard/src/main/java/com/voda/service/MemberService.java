@@ -74,6 +74,8 @@ public MemberService(MemberMapper mapper) {
 
 
 	public int deleteMember(String[] id) {
+		//System.out.println(id);
+		System.out.println("deleteMember 호출");
 		return mapper.deleteMember(id);
 	}
 

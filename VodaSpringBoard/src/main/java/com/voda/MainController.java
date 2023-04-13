@@ -3,13 +3,16 @@ package com.voda;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,6 +44,8 @@ import com.voda.service.MemberService;
 import com.voda.service.ReviewService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
+
+import ch.qos.logback.classic.Logger;
 
 
 @Controller
@@ -323,13 +328,13 @@ public class MainController {
 		
 		
 		
-		@RequestMapping("/admin/secession")
+		@RequestMapping("/admin/secession") //탈퇴대기회원리스트조회 
 		public ModelAndView secessionList(@RequestParam(name = "pageNo", defaultValue = "1") int pageNo) {
 			ModelAndView view = new ModelAndView();
 			view.setViewName("admin_withdrawal_member");
 			// 게시판 글목록
 			List<SecessionDTO> list = secessionService.selectMemberList(pageNo, 7);
-			// 페이징 정보
+		    // 페이징 정보
 			int count = secessionService.selectMemberCount();
 			PaggingVO pagging = new PaggingVO(count, pageNo, 7);
 			view.addObject("list", list);
@@ -337,24 +342,41 @@ public class MainController {
 			return view;
 		}
 		
-
-		@RequestMapping("/member/delete") //
-		public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
-			System.out.println(Arrays.toString(id));
-			int result1=secessionService.deleteSecession(id);
-			int result = memberService.deleteMember(id);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("count", String.valueOf(result));
-			if(result != 0) {
-				map.put("message", "데이터 삭제 성공");
-			}else {
-				map.put("message", "데이터 삭제 실패");
-				System.out.println(result);
-			}
-			return new ResponseEntity(map,HttpStatus.OK);
-		}
-	
 		
+
+		@RequestMapping("/member/delete") 
+		public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
+		    System.out.println(Arrays.toString(id));
+		    System.out.println(id);
+		    int result1 = secessionService.deleteSecession(id);
+		    int result = memberService.deleteMember(id);
+		    HashMap<String, String> map = new HashMap<String, String>();
+		    map.put("count", String.valueOf(result));
+		    try {	        
+		        if (result != 0) {
+		            map.put("message", "데이터 삭제 성공");
+		        } else {
+		            map.put("message", "데이터 삭제 실패");
+		            System.out.println(result);
+		        }
+		        //throw new Exception("Something went wrong"); 예외 강제 발생 코드
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        // 예외를 파일에 기록하는 코드
+		        try {
+		            PrintWriter writer = new PrintWriter(new FileWriter("C:\\exception.txt"));
+		            writer.println(new Date() + ": " + e.getMessage());
+		            e.printStackTrace(writer);
+		            writer.close();
+		        } catch (IOException ex) {
+		            ex.printStackTrace(); 
+		        }
+		    }
+		    return new ResponseEntity(map, HttpStatus.OK);
+		}
+
+
+
 	@RequestMapping("/admin/content/list") //컨텐츠 등록 게시판 리스트 - Main의 역할
 	public ModelAndView adminContentList(@RequestParam(name = "pageNo", defaultValue = "1")int pageNo) {
 		ModelAndView view = new ModelAndView();
@@ -490,6 +512,7 @@ public class MainController {
 		
 		String path = dto.getPath();
 		File file = new File(path);
+		//System.out.println(path);
 		String fileName = dto.getFileName();
 		
 		try {

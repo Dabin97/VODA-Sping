@@ -43,7 +43,7 @@ public class SecessionService {
 	}
 
 	public int deleteSecession(String[] id) {
-		// TODO Auto-generated method stub
+        System.out.println("deleteSecession 호출");
 		return mapper.deleteSecession(id);
 	}
 
