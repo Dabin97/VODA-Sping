@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,15 +24,18 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.ManagerDTO;
@@ -217,12 +221,21 @@ public class MainController {
 	}
 	
 	
-	
 //	@RequestMapping("/content_page")
 //	public String contentview(HttpSession session) {
 //		return "content_page";
 //	}
 
+
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    view.addObject("nlist", nlist);
+	    view.addObject("elist", elist);
+	    return view;
+	}
+	
 	@RequestMapping("/member/secession/view/{id}")
 	public ModelAndView secessionView(@PathVariable String id, HttpSession session) {
 	    ModelAndView mv = new ModelAndView();
@@ -653,6 +666,14 @@ public class MainController {
 		
 		return new ResponseEntity(list,HttpStatus.OK);
 	}
+	
+	@RequestMapping("/memberContent/search") // 검색 부분
+	public ResponseEntity<String> selectMemberSearchContentList(String select_box, String search){
+		List<BoardDTO> list = boardService.selectMemberSearchContent(select_box,search);
+		
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
+
 
 	
 	@RequestMapping("/admin/content/new") //신작 컨텐츠 리스트
@@ -785,10 +806,12 @@ public class MainController {
 		ModelAndView mv = new ModelAndView();
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
+		List<BoardDTO> list = boardService.selectMainContentList();
 		int result = boardService.selectBoardHeart(bno);
+
 		
 		//리뷰 목록 조회
-		
+		mv.addObject("list", list);
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
 		mv.addObject("result", result);
@@ -796,7 +819,6 @@ public class MainController {
 		
 		return mv;
 	}
-
 
 
 	@RequestMapping("/review/search") // 검색 부분
@@ -836,7 +858,19 @@ public class MainController {
 		
 		return "redirect:/content/detail/{bno}"+review.getBno();
 	}
+	
+	@RequestMapping("/zoom_search")
+	public ModelAndView zoom_search(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("zoom_search");
 
+	    List<BoardDTO> list = boardService.selectMainContentList();
+	    List<BoardDTO> nlist = boardService.selectNewContentList();
+	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    view.addObject("list", list);
+	    return view;
+	}
+	
 
 		 
 //		@RequestMapping("/member/delete/view")
