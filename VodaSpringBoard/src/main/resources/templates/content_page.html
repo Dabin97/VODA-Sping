@@ -193,23 +193,7 @@
             height: 100px;
         }
 
-        .top {
-            position: fixed;
-            width: 50px;
-            height: 50px;
-            background-image: url(img/up-arrow.png);
-            background-size: 100%;
-            background-repeat: no-repeat;
-            bottom: 20px;
-            right: 200px;
-            border-radius: 100px;
-        }
 
-        .space {
-            width: 100%;
-            height: 100px;
-            position: absolute;
-        }
 
         .zoom {
             height: 40px;
@@ -311,8 +295,9 @@
    }
     	
    .thumbnail {
-   	width : 300px;
+   	width : 310px;
    	height : 420px;
+
    }
    
    .content_info1 {
@@ -346,6 +331,15 @@
       	font-weight : bold;
     color : #eff7e9;
       	   	font-size : 18px;
+   }
+   
+   .info {
+	margin-right : 30px;
+	
+   }
+   
+   .poster {
+   padding-right : 0px !important;
    }
    
    
@@ -396,7 +390,7 @@ $(function(){
                 <div class="poster">
                     <img src="/img/heart.png" class="heart">
                     <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
-                    <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe>
+                    <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" allowfullscreen></iframe>
                 </div>
                 <div class="info_div">
                     <ul>
@@ -476,8 +470,7 @@ $(function(){
                     <div class="more">
                     </div>
                 </article>
-                <a href="#top" class="top"></a>
-                <div class="space"></div>
+
             </section>
         </div>
         <th:block th:include="/fragments/footer.html"></th:block>

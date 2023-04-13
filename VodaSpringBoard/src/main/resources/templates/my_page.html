@@ -269,7 +269,7 @@ footer a{
                 <div class="profile">
                     <img src="img/profile.png">
                     <div>
-                        <p class="nickname">[[${session.member.id}]]</p>
+                        <p class="nickname">[[${session.member.nick}]]</p>
                         <p><a href="/logout" class="logout" onclick="confirmLogout();">▶로그아웃</a></p>
                     </div>
                     <p class="setting">
@@ -343,8 +343,6 @@ footer a{
                     </div>
                     
             </article>
-            <a href="#top" class="top"></a>
-            <div class="space"></div>
         </section>
         </div>
 		<th:block th:include="/fragments/footer.html"></th:block>
