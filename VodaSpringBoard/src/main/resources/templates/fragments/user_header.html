@@ -237,23 +237,23 @@
             <th:block th:if="${session.member == null}">
             <a href="/" class="logo"><img src="/img/VODA_logo.png" alt="" ></a>
             <a href="/">BEST</a>
-            <a href="/new_expire">NEW/EXPIRE</a>
-            <a href="/search">ALL</a>
+            <a href="/board/new_expire">NEW/EXPIRE</a>
+            <a href="/board/search">ALL</a>
             <a href="/index" class="index">▶로그인</a>
             <div class="searchdiv">    
             <input type="text" placeholder="Quick Search" class= "search_input " id="search">
-            <a href="/zoom_search" class="zoombtn"><input type="image" src="/img/zoom.png" alt="제출버튼" class="zoomimg hide"></a>
+            <a href="/board/zoom_search" class="zoombtn"><input type="image" src="/img/zoom.png" alt="제출버튼" class="zoomimg hide"></a>
             </div>
                 <div class = "rel_search hide">
                 <div th:each="board: ${list}">
                 		<div class="content1" id="content1">
                       	<div class="info1" id="info1">
-                      	<a th:href="@{/content/detail/{bno}(bno=${board.bno})}" class="title_info1" id="title1">[[${board.title }]]</a>
+                      	<a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}" class="title_info1" id="title1">[[${board.title }]]</a>
                         <p class="font1">감독 : <span class="color1">[[${board.pd}]]</span></p>
                         <p class="font1">출연 : <span class="color1">[[${board.casting }]]</span></p>
                       	</div>
                         <div class="tBox100">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail1"></a>
+                        <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail1"></a>
                       	</div>
                       	</div>
                  </div>
@@ -263,24 +263,24 @@
         	<th:block th:if="${session.member != null}">
             <a href="/" class="logo"><img src="/img/VODA_logo.png" alt="" ></a>
             <a href="/">BEST</a>
-            <a href="/new_expire">NEW/EXPIRE</a>
-            <a href="/search">ALL</a>
-            <a href="/my_page" class="nick">[[${session.member.nick}]]</a>님 반가워요!
-            <a href="/logout" class="login" onclick="confirmLogout();">▶로그아웃</a>
+            <a href="/board/new_expire">NEW/EXPIRE</a>
+            <a href="/board/search">ALL</a>
+            <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="nick">[[${session.member.nick}]]</a>님 반가워요!
+            <a href="/member/logout" class="login" onclick="confirmLogout();">▶로그아웃</a>
             <div class="searchdiv">
             <input type="text" placeholder="Search" class= "search_input " id="search" >
-            <a href="/zoom_search" class="zoombtn"><input type="image" src="/img/zoom.png" alt="제출버튼" class="zoomimg hide"></a>
+            <a href="/board/zoom_search" class="zoombtn"><input type="image" src="/img/zoom.png" alt="제출버튼" class="zoomimg hide"></a>
             </div>
                 <div class = "rel_search hide">
                 <th:block th:each="board: ${list}">
                 		<div class="content1">
                       	<div class="info1">
-                      	<a th:href="@{/content/detail/{bno}(bno=${board.bno})}" class="title_info1">[[${board.title }]]</a>
+                      	<a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}" class="title_info1">[[${board.title }]]</a>
                         <p class="font1">감독 : <span class="color1">[[${board.pd}]]</span></p>
                         <p class="font1">출연 : <span class="color1">[[${board.casting }]]</span></p>
                       	</div>
                         <div class="tBox100">
-                        <a th:href="@{/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail1"></a>
+                        <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail1"></a>
                       	</div>
                       	</div>
                  </th:block>

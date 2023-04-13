@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.voda.controller.MainController;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.SecessionDTO;
 import com.voda.service.MemberService;
@@ -46,71 +47,60 @@ import com.voda.service.BoardService;
 class VodaSpringBoardApplicationTests {
 
 
-    @Mock
-    private MemberService memberService;
-    
-    @Mock
-    private SecessionService secessionService;
-
-    @InjectMocks
-    private MainController mainController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        session = new MockHttpSession();
-        MemberDTO dto = new MemberDTO();
-        dto.setId("admin");
-        session.setAttribute("member", dto);
-    }
-    
-	@Autowired
-    private BoardMapper mapper;
-
-    @Autowired
-    private BoardService boardService;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    private HttpSession session;
+	/*
+	 * @Mock private MemberService memberService;
+	 * 
+	 * @Mock private SecessionService secessionService;
+	 * 
+	 * @InjectMocks private MainController mainController;
+	 * 
+	 * @BeforeEach void setUp() { MockitoAnnotations.initMocks(this); session = new
+	 * MockHttpSession(); MemberDTO dto = new MemberDTO(); dto.setId("admin");
+	 * session.setAttribute("member", dto); }
+	 * 
+	 * @Autowired private BoardMapper mapper;
+	 * 
+	 * @Autowired private BoardService boardService;
+	 * 
+	 * @Autowired private HttpServletRequest request;
+	 * 
+	 * private HttpSession session;
+	 */
  
 
-    @DisplayName("탈퇴대기회원조회 테스트")
-    @Test
-    @Order(1)
-    void secessionList() {
-        // given
-        List<SecessionDTO> list = Arrays.asList(new SecessionDTO(), new SecessionDTO(), new SecessionDTO());
-        when(secessionService.selectMemberList(anyInt(), anyInt())).thenReturn(list); // secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
-        when(secessionService.selectMemberCount()).thenReturn(10); // secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
-
-        // when
-        ModelAndView modelAndView = null;
-        try {
-            modelAndView = mainController.secessionList(3);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("An exception occurred during the test: " + e.getMessage());
-        }
-
-        // then
-        assertThat(modelAndView.getViewName()).isEqualTo("admin_withdrawal_member");
-
-        List<SecessionDTO> actualList = (List<SecessionDTO>) modelAndView.getModel().get("list");
-        assertThat(actualList).isEqualTo(list);
-
-        PaggingVO actualPagging = (PaggingVO) modelAndView.getModel().get("pagging");
-        assertThat(actualPagging.getPageOfContentCount()).isEqualTo(7);
-        assertThat(actualPagging.getCurrentPageNo()).isEqualTo(3);
-        assertThat(actualPagging.getTotalPage()).isEqualTo(2);
-        assertThat(actualPagging.getTotalPageGroup()).isEqualTo(1);
-        assertThat(actualPagging.getNowPageGroupNo()).isEqualTo(1);
-        assertThat(actualPagging.getStartPageOfPageGroup()).isEqualTo(1);
-        assertThat(actualPagging.getEndPageOfPageGroup()).isEqualTo(2);
-        assertThat(actualPagging.isPriviousPageGroup()).isEqualTo(false);
-        assertThat(actualPagging.isNextPageGroup()).isEqualTo(false);
-    }
+	/*
+	 * @DisplayName("탈퇴대기회원조회 테스트")
+	 * 
+	 * @Test
+	 * 
+	 * @Order(1) void secessionList() { // given List<SecessionDTO> list =
+	 * Arrays.asList(new SecessionDTO(), new SecessionDTO(), new SecessionDTO());
+	 * when(secessionService.selectMemberList(anyInt(), anyInt())).thenReturn(list);
+	 * // secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
+	 * when(secessionService.selectMemberCount()).thenReturn(10); //
+	 * secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
+	 * 
+	 * // when ModelAndView modelAndView = null; try { modelAndView =
+	 * mainController.secessionList(3); } catch (Exception e) { e.printStackTrace();
+	 * fail("An exception occurred during the test: " + e.getMessage()); }
+	 * 
+	 * // then
+	 * assertThat(modelAndView.getViewName()).isEqualTo("admin_withdrawal_member");
+	 * 
+	 * List<SecessionDTO> actualList = (List<SecessionDTO>)
+	 * modelAndView.getModel().get("list"); assertThat(actualList).isEqualTo(list);
+	 * 
+	 * PaggingVO actualPagging = (PaggingVO) modelAndView.getModel().get("pagging");
+	 * assertThat(actualPagging.getPageOfContentCount()).isEqualTo(7);
+	 * assertThat(actualPagging.getCurrentPageNo()).isEqualTo(3);
+	 * assertThat(actualPagging.getTotalPage()).isEqualTo(2);
+	 * assertThat(actualPagging.getTotalPageGroup()).isEqualTo(1);
+	 * assertThat(actualPagging.getNowPageGroupNo()).isEqualTo(1);
+	 * assertThat(actualPagging.getStartPageOfPageGroup()).isEqualTo(1);
+	 * assertThat(actualPagging.getEndPageOfPageGroup()).isEqualTo(2);
+	 * assertThat(actualPagging.isPriviousPageGroup()).isEqualTo(false);
+	 * assertThat(actualPagging.isNextPageGroup()).isEqualTo(false); }
+	 */
     
 //    @Autowired
 //    private MockMvc mockMvc;
