@@ -131,22 +131,7 @@ footer a{
     text-decoration: none;
     color: rgb(168, 168, 168);
 }
-    .top{
-        position: fixed;
-        width: 50px;
-        height: 50px;
-        background-size: 100%;
-        background-image: url(img/up-arrow.png);
-        background-repeat: no-repeat;
-        bottom: 20px;
-        right: 200px;
-        border-radius: 100px;
-      }
-      .space{
-        width: 100%;
-        height: 100px;
-        position: absolute;
-      }
+
       .zoom{
         height: 40px;
         width: 300px;
@@ -289,16 +274,21 @@ text-decoration : none ;
 	.hide {
 		display : none;
 	}
-	
+	select option[value=""][disabled] {
+	display: none; 
+}
+select:invalid{
+	color: grey;
+}
 
     </style>
     
     <script th:inline="javascript">
-    
+
     $( function() {
 
     	 $('#select_box').change(function(){
-
+    		 $('.btn').removeAttr('disabled');
     	var i, name, title, titlearr, availableTags, pd, pdstr, pdarr, casting, castingstr, castingarr;
     	title = document.getElementsByClassName("title_info2");
     	pd = document.getElementsByClassName("pd2");
@@ -448,7 +438,6 @@ text-decoration : none ;
     });
     
     $(function(){
-		
         $(".search_input2").keyup(function(key) {
             if (key.keyCode == 13) {
             	$(".btn").click();
@@ -473,14 +462,15 @@ text-decoration : none ;
             	
                 <h2 id="new"><img src="img/Union-left.png" alt="">SEARCH CONTENTS!<img src="img/Union-right.png" alt=""></h2>
                 <div class="search_box">
-                   <select name="select_box" form="myForm" class="select_box" id="select_box" placeholder="선택">
-                      <option value=" ">전체</option>
+                   <select name="select_box" form="myForm" class="select_box" id="select_box" required>
+                   	  <option value="" disabled selected>선택</option>
+                      <option value="all">전체</option>
                       <option value="title">제목</option>
                       <option value="pd">감독</option>
                       <option value="casting">출연진</option>
                   </select>
                   <input type="text" placeholder="왼쪽의 옵션을 선택하고 키워드로 검색하세요!" class= "search_input2" id="search2" name="search">
-                  <button class="btn">검색</button>
+                  <button class="btn" disabled>검색</button>
                 </div>
             <article>
                 <div class="content_box" th:each="board: ${list}">
@@ -541,8 +531,6 @@ text-decoration : none ;
             
 
             
-            <a href="#top" class="top"></a>
-            <div class="space"></div>
         </section>
         </div>
 		<th:block th:include="/fragments/footer.html"></th:block>

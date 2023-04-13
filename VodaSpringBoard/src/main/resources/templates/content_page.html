@@ -203,23 +203,7 @@
             height: 100px;
         }
 
-        .top{
-        position: fixed;
-        width: 50px;
-        height: 50px;
-        background-image: url(img/up-arrow.png);
-        background-size: 100%;
-        background-repeat: no-repeat;
-        bottom: 20px;
-        right: 200px;
-        border-radius: 100px;
-      }
-      .space{
-        width: 100%;
-        height: 100px;
-        position: absolute;
-      }
-        /* .zoom {
+        .zoom {
             height: 40px;
             width: 300px;
             border: 1px solid rgb(91, 91, 91);
@@ -249,78 +233,128 @@
             background-color: rgba(0, 0, 0, 0);
         }
 
-        .result {
-            margin: 0px 5px;
+    .rel_search {
+        position: absolute;
+        right: 110px;
+        z-index: 6;
+        margin-top: 50px;
+        float: right;
+        border: 1px solid gray;
+        color: white;
+        width: 300px;
+        height: 150px;
+        overflow: auto;
+        box-sizing: border-box;
+        }
+    
+    .search_input{
+        color: white;
+        position: absolute;
+        right: 110px;
+        /* bottom: 150px; */
+    }
+
+    .pop_rel_keywords {
+        list-style: none;
+        margin-right: 50px;
         }
 
-        button {
-            background-color: rgb(91, 91, 91);
-            border: none;
+    .pop_rel_keywords > li {
+        line-height : 250%
         }
 
-        .star {
-            background-color: rgb(91, 91, 91);
-            display: inline-block;
-            float: right;
-            margin-right: 140px;
-        }
+    .rel_search::-webkit-scrollbar {
+     display: none;
+   }
+   
+   span{
+     display: inline-block;
+     right: 0;
+     background-color: rgba(0, 0, 0, 0);
+   }
+   
+   .result{
+     margin: 0px 5px;
+   }
+   
+   button{
+     background-color: rgb(91, 91, 91);
+     border: none;
+   }
+   
+   .star {
+     background-color: rgb(91, 91, 91);
+     display: inline-block;
+     float: right;
+     margin-right: 140px;
+   }
+        
+   .starrate {
+     font-size: 12px;
+     margin-left: 30px;
+     color: goldenrod;
+   }
 
-        .starrate {
-            font-size: 12px;
-            margin-left: 30px;
-            color: goldenrod;
-        }
+    .starratebox {
+      font-size: 16px;
+      color: goldenrod;    	
+   }
+   
+   .read {
+   	color : black !important ;
+   	font-size : 16px !important ;
+   }
+    	
+   .thumbnail {
+   	width : 310px;
+   	height : 420px;
 
-        .starratebox {
-            font-size: 16px;
-            color: goldenrod;
-        }
+   }
+   
+   .content_info1 {
+    font-size : 20px;
+    color : #eff7e9;
+    font-weight : bold;
+   }
+   .content_info2 {
+   	font-size : 16px;
+   	color : #e0dcdc;
+   }
+   
+   .info_div {
+    margin : 0 auto;
+   	width : 800px;
+   } 
+   
+   .title_info{
 
-        .read {
-            color: black !important;
-            font-size: 16px !important;
-        }
-
-        .thumbnail {
-            width: 300px;
-            height: 420px;
-        }
-
-        .content_info1 {
-            font-size: 20px;
-            color: #eff7e9;
-            font-weight: bold;
-        }
-
-        .content_info2 {
-            font-size: 16px;
-            color: #e0dcdc;
-        }
-
-        .info_div {
-            margin: 0 auto;
-            width: 800px;
-        }
-
-        .title_info {
-
-            font-size: 40px;
-            color: #dff5d0;
-            font-weight: bold;
-        }
-
-        .color {
-            color: #e0dcdc;
-            font-size: 16px;
-        }
-
-        .font {
-            font-weight: bold;
-            color: #eff7e9;
-            font-size: 18px;
-        }
-       
-    </style>
+   	font-size : 40px;
+   	color : #dff5d0;
+   	font-weight : bold;
+   }
+   
+   .color {
+   color : #e0dcdc;
+      	font-size : 16px;
+   }
+   
+   .font {
+      	font-weight : bold;
+    color : #eff7e9;
+      	   	font-size : 18px;
+   }
+   
+   .info {
+	margin-right : 30px;
+	
+   }
+   
+   .poster {
+   padding-right : 0px !important;
+   }
+   
+   
+</style>
 
 <script type="text/javascript" th:inline="javascript">
   $(function(){
@@ -394,12 +428,13 @@
         <th:block th:include="/fragments/user_header.html"></th:block>
         <div class="main_container">
             <section>
+
                 <article class="info">
                         <div class="poster">
                             <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
                             <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
                             <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
-                            <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player"
+                            <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
                             allowfullscreen></iframe>
@@ -485,8 +520,7 @@
                     <div class="more">
                     </div>
                 </article>
-                <a href="#top" class="top"></a>
-                <div class="space"></div>
+
             </section>
         </div>
         <th:block th:include="/fragments/footer.html"></th:block>
