@@ -310,14 +310,6 @@
             $('.best_poster').prop('src',$(this).attr('src'));
         });
 
-        $('.heart').on({ //하트 이미지 변경
-        'click': function() {
-            var src = ($(this).attr('src') === 'img/heart_full.png')
-                ? 'img/heart.png'
-                : 'img/heart_full.png';
-            $(this).attr('src', src);
-            }
-        });
 
         $('.like').on({ //like 이미지 변경
         'click': function() {
@@ -336,6 +328,7 @@
             $(this).attr('src', src);
             }
         });
+
       });
     </script> 
 </head>
@@ -436,7 +429,7 @@
             <!-- <form action="/content_page" method="post"> -->
             <div class="content_box"> <!-- best_table을 따로 만들고 좋아요or찜 카운트를 사용해서 rank 1위로 뽑아야함 -->
             	<div class="best_poster">
-            	<img src="img/heart.png" class="heart">
+
                 <a th:href="@{/content/detail/{bno}(bno=4)}"><img th:src="@{/image/{bno}(bno=4)}" alt="" class="best_poster1"></a>
                 </div>
                 <div class="explanation">
@@ -492,28 +485,29 @@
            <!-- </form> -->
             </article>
 
-            <article> <!--신작만료 박스 시작-->
-                <h2>
-                   <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
-                </h2>
-                  <div class="new_end_search"> 
-                    <th:block th:each="board: ${nlist}">
-                      <div>
-                        <img src="/img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+             <article> <!--신작만료 박스 시작-->
+                <form action="/board/heart" method="post">
+                    <h2>
+                       <img src="/img/Union-left.png" alt="">NEW CONTENTS<img src="/img/Union-right.png" alt="">
+                    </h2>
+                      <div class="new_end_search"> 
+                        <div th:each="board: ${nlist}">
+                            <a th:href="@{/content/detail/{bno}(bno=${board.bno})}">
+                                <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
+                            </a>
+                        </div>
                       </div>
-                    </th:block>
-                  </div>
-            </article>
-            <article>
-                <h2>
-                   <img src="/img/Union-left.png" alt="">EXPIRE CONTENTS<img src="/img/Union-right.png" alt="">
-                </h2>
-                <div class="new_end_search"> 
-                    <th:block th:each="board: ${elist}">
-                      <div>
-                        <img src="/img/heart.png" class="heart">
-                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                </article>
+                <article>
+                    <h2>
+                       <img src="/img/Union-left.png" alt="">EXPIRE CONTENTS<img src="/img/Union-right.png" alt="">
+                    </h2>
+                    <div class="new_end_search"> 
+                        <div th:each="board: ${elist}">
+                            <a th:href="@{/content/detail/{bno}(bno=${board.bno})}">
+                                <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
+                            </a>
+                          </div>
                       </div>
                     </th:block>
                   </div>

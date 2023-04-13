@@ -255,7 +255,7 @@
                                 tag += '<tr>';
                                 tag += '<td class="chb">'+r[i].bno+'</td>';
                                 tag += '<td>'+r[i].ottName+'</td>';
-                                tag += `<td><a th:href="@{/admin/content/detail/${r[i].bno}(bno=\${board.bno })}">${r[i].title}</a></td>`;
+                                tag += '<td><a href="/admin/content/detail/' + r[i].bno + '?bno=' + r[i].bno + '">' + r[i].title + '</a></td>';
                                 tag += '<td>'+r[i].newDate+'</td>';
                                 tag += '<td>'+r[i].expireDate+'</td>';
                                 tag += `<td><button id="btn_update"><a href="/admin/content/write">편집</a></button>

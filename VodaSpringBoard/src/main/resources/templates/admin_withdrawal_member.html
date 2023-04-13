@@ -231,37 +231,60 @@
 	}
         </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="/js/jquery-3.6.3.js"></script>
+        <!-- <script src="/js/jquery-3.6.3.js"></script> -->
         <script type="text/javascript">
- $(function(){
-            $(".del").click(delete_confirm); // 삭제 버튼 클릭 시 delete_confirm 함수 호출
 
-            function delete_confirm(){
-               let id = $(this).parent().siblings().eq(1).text();
-               console.log(id);
-            //   let obj = $(this).parent().parent();
-           let param = "id="+id;
+        function delete_confirm(){
+            var id = [];
+            $("input[name=chk]:checked").each(function() {
+                id.push($(this).closest("tr").find("td:nth-child(3)").text());
+            });
+
+            let param = '';
+
+            for(i = 0;i<id.length;i++){
+                param += 'id=' + id[i] + '&';
+            }
+            console.log(param);
 
             if(confirm("회원을 삭제하시겠습니까?")){
                 //실제로 회원이 삭제될 것
                 $.ajax({
-                    url:'/member/delete/'+id,
+                    url:'/member/delete',
                     type:'post',
+                    data: param,
                     dataType:'json',
                     success:function(r){
-                        console.log(r);
-                        if(r.count=='1'){
+                    console.log(r);
+                    if(r.count>='1'){
                         location.reload();
-                        $(obj).remove();
-                        }
-                        alert("회원이 삭제되었습니다");
                     }
-                }); 
+                    alert("회원이 삭제되었습니다");
+                    }
+                });
             }
-            }
-        });
+        }
+
+// var allCheck=document.querySelector("#chb_all");
+// var list=document.querySelectorAll("#chb");
+
+// var del=document.querySelector("btn_delete");
+
+// del.onclick=()=>{
+//     for(var i=0; i<list.length; i++){
+//         if(list[i].checked){
+//             list[i].parentElement.parentElement.remove();
+//         }
+
+
+//     }
+//}
+
+       
 
         $(document).ready(function() {
+            $("#btn_delete").click(delete_confirm);
+
 			$("#chb_all").click(function() {
 				if($("#chb_all").is(":checked")) $("input[name=chk]").prop("checked", true);
 				else $("input[name=chk]").prop("checked", false);
@@ -279,11 +302,11 @@
         function activateBtn(){
             if(btn_delete.disabled==true){
                  btn_delete.disabled=false;
-            btn_delete_cancle.disabled=false;
+           
             }
             else{
                 btn_delete.disabled=true;
-            btn_delete_cancle.disabled=true;
+            
             }
         }
 
@@ -309,7 +332,7 @@
                         <div class="search_table">
                             <table>
                                 <thead>
-                                    <th class="chb"><input type="checkbox" name="chk" id="chb_all" onclick="activateBtn()"></th>
+                                    <th class="chb"><input type="checkbox" id="chb_all" onclick="activateBtn()"></th>
                                     <th>No</th>
                                     <th>ID</th>
                                     <th>Request-date</th>
@@ -329,36 +352,18 @@
                                     <tfoot>
                                         <tr>
                                          <td colspan="7">
-                                             <!-- 이전 페이지 그룹으로 이동 -->
                                              <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
-                                             
-                                             <!-- 
-                                                 페이징 결과 출력
-                                                     PaggingVO에 있는 getStartPageOfPageGroup
-                                                                     getEndPageOfPageGroup
-                                                     이용해서 Thymeleaf를 이용해서 게시판 페이지 번호를 출력	
-                                              -->
                                              <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
-                 
-                                             <!-- 현재 페이지 번호는 링크를 제거하고 글자를 빨간색으로 변경 -->
                                              <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
-                                             
-                                             <!-- 현재 페이지 번호가 아닌 페이지 번호는 링크를 생성 -->						
                                              <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/secession(pageNo=${i})}" th:text="${i}"></a>
-                                             
                                              </th:block>
-                                                  
-                                              <!-- 다음 페이지 그룹으로 이동 
-                                                      >>를 클릭시 다음 그룹의 첫번째 페이지로 이동
-                                              -->	
-                                                 <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
+                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
                                          </td>
                                      </tr>
                                     </tfoot>
                             </table>
                             <div class="btn_container">
-                            <button class="bottombtn" disabled id="btn_delete_cancle">탈퇴 취소</button>
-                            <button onclick="delete_confirm()" class="bottombtn" id="btn_delete" disabled>탈퇴 등록</button>
+                            <button class="bottombtn" id="btn_delete" disabled>탈퇴 등록</button>
                             </div>
                             
                         </div>

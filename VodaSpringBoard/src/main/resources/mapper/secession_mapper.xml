@@ -25,5 +25,10 @@
 	<select id="selectSecessionId" resultType="secession">
         select * from secession_table where id = #{id}
     </select>
+    <delete id="deleteSecession" parameterType="String">
+		delete from secession_table where id in(
+			<foreach collection="id" item="i" separator=",">#{i}</foreach>
+		)
+	</delete>
 
 </mapper>

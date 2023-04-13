@@ -21,4 +21,6 @@ public interface SecessionMapper {
 
 	SecessionDTO selectSecessionId(String id);
 
+	int deleteSecession(String[] id);
+
 }
