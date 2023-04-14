@@ -794,7 +794,19 @@ public class MainController {
 		return mv;
 	}
 
+	@RequestMapping("/member/search") // 관리자 페이지 회원 검색 부분
+	public ResponseEntity<String> selectSearchMemberList(String kind, String search){
+		List<MemberDTO> list = memberService.selectSearchMember(kind,search);
+			
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
 	
+	@RequestMapping("/secession/search") // 관리자 페이지 탈퇴대기회원 검색 부분
+	public ResponseEntity<String> selectSearchSecessionList(String kind, String search){
+		List<SecessionDTO> list = secessionService.selectSearchMember(kind,search);
+			
+		return new ResponseEntity(list,HttpStatus.OK);
+	}
 
 	@RequestMapping("/review/search") // 검색 부분
 	public ResponseEntity<String> selectSearchReviewtList(String kind, String search){

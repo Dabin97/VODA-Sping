@@ -30,5 +30,8 @@
 			<foreach collection="id" item="i" separator=",">#{i}</foreach>
 		)
 	</delete>
+	<select id="selectSearchSecession" parameterType="hashmap" resultType="secession">
+	SELECT * FROM secession_table WHERE ${kind} LIKE '%' || #{search} || '%'
+	</select> 
 
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 import com.voda.mapper.MemberMapper;
 
 @Service
@@ -91,6 +92,13 @@ public MemberService(MemberMapper mapper) {
 		return mapper.editProfile(dto);
 	}
 
+
+	public List<MemberDTO> selectSearchMember(String kind, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		return mapper.selectSearchMember(map);
+	}
 
   
 }

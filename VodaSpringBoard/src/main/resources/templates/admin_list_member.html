@@ -250,8 +250,46 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/js/jquery-3.6.3.js"></script>
-        <script type="text/javascript">
-       
+        <script th:inline="javascript">
+         $(function(){  
+                $('.btn_search').click(function(){
+                    let param = '';
+                    $('.member_search input,.member_search select').each(function(i, obj){
+                        console.log($(obj).attr('name'),$(obj).val());
+                        param += $(obj).attr('name')+"="+$(obj).val() + "&"
+                    });
+                    console.log(param);
+                    //ajax로 search로 param을 전달하고
+                    //검색 결과를 받아서 tbody에 출력
+                    $.ajax({
+                        url : '/member/search',
+                        data : param,
+                        type : 'post',
+                        dataType : 'json',
+                        success:function(r){
+                            console.log(r);
+                            //결과값 저장할 태그를 조립
+                            let tag = '';
+                            for(i=0;i<r.length;i++){
+                                tag += '<tr>';
+                                tag += `<td class="chb"><input type="checkbox"></td>`;
+                                tag += '<td class="id">'+r[i].id+'</td>';
+                                tag += '<td>'+r[i].name+'</td>';
+                                tag += '<td>'+r[i].email+'</td>';
+                                tag += `<td>
+                                        <a th:href="@{/member/edit/view/${r[i].id}(id=\${member.id})}"><button>관리</button></a>  
+                                        </td>`;
+                                tag += '</tr>';
+                                
+                            }
+                            $('tbody').html(tag);
+                        }
+                    });
+                });
+                $(".btn_reset").click(function(){
+                    location.href="/admin/member/list";
+		        });
+            });
 
         
         </script>
@@ -264,13 +302,15 @@
                         <p class="title">회원 리스트</p>
                         <hr>
                         <div class="member_search">         
-                            <b>검색</b>
+                            <b class="b">검색</b> 
                             <br>
-                            <select name="search">
-                                <option value="1">이름</option>
-                                <option value="2">아이디</option>
+                            <select name="kind">
+                                <option value="name">이름</option>
+                                <option value="id">아이디</option> 
                             </select>
-                            <input type="text" class="textbox">
+                            <input type="text" class="textbox" name="search" placeholder="검색어 입력">
+                            <button type="button" class="btn_search">검색</button>
+                            <button type="button" class="btn_reset">검색 초기화</button>
                         </div>
                         <div class="search_table">
                             <table>
