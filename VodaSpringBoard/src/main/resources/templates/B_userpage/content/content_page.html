@@ -26,29 +26,6 @@
             position: relative;
         }
 
-        header {
-            padding-top: 20px;
-        }
-
-        header img {
-            width: 100px;
-            padding-left: 100px;
-            margin-top: 10px;
-        }
-
-        header input {
-            position: absolute;
-            margin-top: 10px;
-            right: 0;
-            background-color: rgb(34, 34, 34);
-            border: none;
-        }
-
-        header a {
-            padding-left: 20px;
-            text-decoration: none;
-        }
-
         .login {
             padding-left: 290px;
         }
@@ -353,6 +330,10 @@
    padding-right : 0px !important;
    }
    
+   .main_container {
+   	margin-top : 30px;
+   }
+   
    
 </style>
 
@@ -426,8 +407,7 @@
 <body>
     <div class="flex_container">
         <th:block th:include="/fragments/user_header.html"></th:block>
-        <br>
-        <br>
+
         <div class="main_container">
             <section>
 

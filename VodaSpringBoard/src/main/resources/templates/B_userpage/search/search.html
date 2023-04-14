@@ -129,6 +129,10 @@
     margin: 0 auto;
     text-align: center;
 }
+      .space{
+        width: 100%;
+        height: 100px;
+      }
 footer img{
     width: 40px;
     background-color: rgba(0, 0, 0, 0);
@@ -236,6 +240,16 @@ footer a{
 
       .new_end_search7 {
       	height : 270px;
+      }
+      
+      .watchas {
+      	width : 200px;
+      	height : 70px;
+      }
+      
+      .netflixs {
+               	width : 180px;
+      	height : 50px;
       }
     </style>
  <script type="text/javascript" th:inline="javascript">
@@ -628,7 +642,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/Union-left.png" alt="">NETFILIX<img src="/img/Union-right.png" alt="" id="netflix">
+                   <img src="/img/netflix-logo.png" alt="" class="netflixs">
                    <select name="selectBox2" form="myForm" class="selectBox" id="selectBox2">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -657,7 +671,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/Union-left.png" alt="">WATCHA<img src="/img/Union-right.png" alt="" id="watcha">
+                   <img src="/img/watchas.jpg" alt="" class="watchas">
                    <select name="selectBox3" form="myForm" class="selectBox" id="selectBox3">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -803,6 +817,8 @@ footer a{
                   <br>
             </article>
                         
+        </div>
+        <div class="space">
         </div>
 		<th:block th:include="/fragments/footer.html"></th:block>
     </div>

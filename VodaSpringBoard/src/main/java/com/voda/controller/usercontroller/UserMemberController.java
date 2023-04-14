@@ -49,11 +49,11 @@ public class UserMemberController {
 	@PostMapping("/profile/edit")  //회원이 본인 정보 수정
 	public String profileEdit(MemberDTO dto , HttpSession session, HttpServletRequest request) {
 		 MemberDTO member = (MemberDTO) session.getAttribute("member");
-		 String id = session.getId();
+		 String id = member.getId();
 		 dto.setId(id);
 		 int result = memberService.editProfile(dto); 
 		 System.out.println(dto);
-		return "redirect:/B_userpage/user/my_page{id}";
+		return "/B_userpage/user/index";
 	}
 
 	@GetMapping("/register/view")
@@ -65,7 +65,7 @@ public class UserMemberController {
 	public String register(MemberDTO dto) {
 		System.out.println(dto);
 		int result = memberService.insertMember(dto);
-		return "redirect:/B_userpage/user/index";
+		return "redirect:/index";
 	}
 	
 	 @PostMapping("/idCheck")

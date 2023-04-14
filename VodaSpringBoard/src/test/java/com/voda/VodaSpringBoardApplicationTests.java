@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.voda.controller.MainController;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.SecessionDTO;
 import com.voda.service.MemberService;

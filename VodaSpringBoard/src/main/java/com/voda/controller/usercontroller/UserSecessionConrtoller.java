@@ -37,6 +37,6 @@ public class UserSecessionConrtoller {
 	@GetMapping("")
 	public String secessionMember(SecessionDTO dto, HttpSession session) {	 
 		int sno = secessionService.goSecession(dto, null);	
-		return "redirect:/B_userpage/main/main";
+		return "redirect:/";
 	}
 }
