@@ -36,12 +36,12 @@ public interface BoardMapper {
 	FileDTO selectMainImageFile();
 	List<BoardDTO> selectNewContentList();
 	List<BoardDTO> selectExpireContentList();
-	List<BoardDTO> selectMemberSearchContent(HashMap<String, Object> map);
-	List<BoardDTO> selectHeartList(String id);
-	int selectBoardHeart(int bno);
-	int selectBoardHeartCHK(HashMap<String, Object> paramMap);
 	int insertBoardHeart(int bno, String id);
 	int deleteBoardHeart(int bno, String id);
+	int selectBoardHeart(int bno);
+	List<BoardDTO> selectHeartList(String id);
+	int selectBoardHeartCHK(HashMap<String, Object> paramMap);
+	List<BoardDTO> selectMemberSearchContent(HashMap<String, Object> map);
 
 
 }

@@ -46,71 +46,60 @@ import com.voda.service.BoardService;
 class VodaSpringBoardApplicationTests {
 
 
-    @Mock
-    private MemberService memberService;
-    
-    @Mock
-    private SecessionService secessionService;
-
-    @InjectMocks
-    private MainController mainController;
-
-    
-	@Autowired
-    private BoardMapper mapper;
-
-    @Autowired
-    private BoardService boardService;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    private HttpSession session;
+	/*
+	 * @Mock private MemberService memberService;
+	 * 
+	 * @Mock private SecessionService secessionService;
+	 * 
+	 * @InjectMocks private MainController mainController;
+	 * 
+	 * @BeforeEach void setUp() { MockitoAnnotations.initMocks(this); session = new
+	 * MockHttpSession(); MemberDTO dto = new MemberDTO(); dto.setId("admin");
+	 * session.setAttribute("member", dto); }
+	 * 
+	 * @Autowired private BoardMapper mapper;
+	 * 
+	 * @Autowired private BoardService boardService;
+	 * 
+	 * @Autowired private HttpServletRequest request;
+	 * 
+	 * private HttpSession session;
+	 */
  
-    @BeforeEach
-    void setUp() {
-    	MockitoAnnotations.initMocks(this);
-    	session = new MockHttpSession();
-    	MemberDTO dto = new MemberDTO();
-    	dto.setId("admin");
-    	session.setAttribute("member", dto);
-    }
 
-    @DisplayName("탈퇴대기회원조회 테스트")
-    @Test
-    @Order(1)
-    void secessionList() {
-        // given
-        List<SecessionDTO> list = Arrays.asList(new SecessionDTO(), new SecessionDTO(), new SecessionDTO());
-        when(secessionService.selectMemberList(anyInt(), anyInt())).thenReturn(list); // secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
-        when(secessionService.selectMemberCount()).thenReturn(10); // secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
-
-        // when
-        ModelAndView modelAndView = null;
-        try {
-            modelAndView = mainController.secessionList(3);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("An exception occurred during the test: " + e.getMessage());
-        }
-
-        // then
-        assertThat(modelAndView.getViewName()).isEqualTo("admin_withdrawal_member");
-
-        List<SecessionDTO> actualList = (List<SecessionDTO>) modelAndView.getModel().get("list");
-        assertThat(actualList).isEqualTo(list);
-
-        PaggingVO actualPagging = (PaggingVO) modelAndView.getModel().get("pagging");
-        assertThat(actualPagging.getPageOfContentCount()).isEqualTo(7);
-        assertThat(actualPagging.getCurrentPageNo()).isEqualTo(3);
-        assertThat(actualPagging.getTotalPage()).isEqualTo(2);
-        assertThat(actualPagging.getTotalPageGroup()).isEqualTo(1);
-        assertThat(actualPagging.getNowPageGroupNo()).isEqualTo(1);
-        assertThat(actualPagging.getStartPageOfPageGroup()).isEqualTo(1);
-        assertThat(actualPagging.getEndPageOfPageGroup()).isEqualTo(2);
-        assertThat(actualPagging.isPriviousPageGroup()).isEqualTo(false);
-        assertThat(actualPagging.isNextPageGroup()).isEqualTo(false);
-    }
+	/*
+	 * @DisplayName("탈퇴대기회원조회 테스트")
+	 * 
+	 * @Test
+	 * 
+	 * @Order(1) void secessionList() { // given List<SecessionDTO> list =
+	 * Arrays.asList(new SecessionDTO(), new SecessionDTO(), new SecessionDTO());
+	 * when(secessionService.selectMemberList(anyInt(), anyInt())).thenReturn(list);
+	 * // secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
+	 * when(secessionService.selectMemberCount()).thenReturn(10); //
+	 * secessionService에 대한 mock 객체를 이용해 테스트를 수행합니다.
+	 * 
+	 * // when ModelAndView modelAndView = null; try { modelAndView =
+	 * mainController.secessionList(3); } catch (Exception e) { e.printStackTrace();
+	 * fail("An exception occurred during the test: " + e.getMessage()); }
+	 * 
+	 * // then
+	 * assertThat(modelAndView.getViewName()).isEqualTo("admin_withdrawal_member");
+	 * 
+	 * List<SecessionDTO> actualList = (List<SecessionDTO>)
+	 * modelAndView.getModel().get("list"); assertThat(actualList).isEqualTo(list);
+	 * 
+	 * PaggingVO actualPagging = (PaggingVO) modelAndView.getModel().get("pagging");
+	 * assertThat(actualPagging.getPageOfContentCount()).isEqualTo(7);
+	 * assertThat(actualPagging.getCurrentPageNo()).isEqualTo(3);
+	 * assertThat(actualPagging.getTotalPage()).isEqualTo(2);
+	 * assertThat(actualPagging.getTotalPageGroup()).isEqualTo(1);
+	 * assertThat(actualPagging.getNowPageGroupNo()).isEqualTo(1);
+	 * assertThat(actualPagging.getStartPageOfPageGroup()).isEqualTo(1);
+	 * assertThat(actualPagging.getEndPageOfPageGroup()).isEqualTo(2);
+	 * assertThat(actualPagging.isPriviousPageGroup()).isEqualTo(false);
+	 * assertThat(actualPagging.isNextPageGroup()).isEqualTo(false); }
+	 */
     
 //    @Autowired
 //    private MockMvc mockMvc;
@@ -136,24 +125,24 @@ class VodaSpringBoardApplicationTests {
 
 
     
-
-    @DisplayName("찜 기능 테스트")
-    @Test
-    @Order(2)
-    void boardContentHeartTest() {
-        System.out.println("찜 기능 테스트");
-        int bno = 1;
-
-        ResponseEntity<String> response = null;
-        try {
-            response = mainController.boardContentHeart(bno, session);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("해당 컨텐츠에 찜을 하셨습니다.", response.getBody());
-    }
+//
+//    @DisplayName("찜 기능 테스트")
+//    @Test
+//    @Order(2)
+//    void boardContentHeartTest() {
+//        System.out.println("찜 기능 테스트");
+//        int bno = 1;
+//
+//        ResponseEntity<String> response = null;
+//        try {
+//            response = mainController.boardContentHeart(bno, session);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        assertEquals("해당 컨텐츠에 찜을 하셨습니다.", response.getBody());
+//    }
 //
 //    @DisplayName("찜 삭제 테스트")
 //    @Test

@@ -178,9 +178,7 @@
 		delete from board_table where bno = #{bno}
 	</delete>
 	
-	
-	
-	<select id="selectSearchContent" parameterType="hashmap" resultMap="board">
+		<select id="selectSearchContent" parameterType="hashmap" resultMap="board">
 	  SELECT b.bno, 
 	         b.title, 
 	         b.pd, 
@@ -210,8 +208,6 @@
 	  )
 	</select>
 	
-	
-	
 	<select id="selectMemberSearchContent" parameterType="hashmap" resultMap="board">
 	SELECT b.bno, 
        b.title, 
@@ -221,10 +217,25 @@
        b.genre, 
        b.poster_video,
        b.ott_no, 
-       ot.ott_name 
-		FROM BOARD_TABLE_VIEW b, ott_table ot
+       ot.ott_name
+        FROM BOARD_TABLE_VIEW b, ott_table ot
 		WHERE ot.ott_no = b.ott_no
-		AND ${select_box} LIKE '%' || #{search} || '%'
+        AND(
+        <choose>
+        <when test="select_box == 'all'">
+        b.title LIKE '%' || #{search} || '%' OR b.pd LIKE '%' || #{search} || '%' OR b.casting LIKE '%' || #{search} || '%'
+        </when>
+        <when test="select_box == 'title'">
+		b.title LIKE '%' || #{search} || '%'
+		</when>
+        <when test="select_box == 'pd'">
+		b.pd LIKE '%' || #{search} || '%'
+		</when>
+        <when test="select_box == 'casting'">
+		b.casting LIKE '%' || #{search} || '%'
+		</when>		
+		</choose>
+		)
 	</select> 
 	
 	<select id="selectBoardHeart" parameterType="int" resultType="int">

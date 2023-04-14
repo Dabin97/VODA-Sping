@@ -6,20 +6,33 @@
     bottom: 0;
     margin: 0 auto;
     text-align: center;
+    margin-left : 10px;
     }
     footer img{
         width: 40px;
         background-color: rgba(0, 0, 0, 0);
         height: 40px;
-        margin: 20px 80px;
+        margin: 20px 50px;
     }
     footer a{
-        margin-right: 30px;
+    	text-align : center;
         padding: 10px;
         margin-top: 30px;
         text-decoration: none;
         color: rgb(168, 168, 168);
     }
+    
+      .top{
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background-image: url(/img/up-arrow.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        bottom: 20px;
+        right: 50px;
+        border-radius: 100px; 
+      }
     
     </style>
     
@@ -27,16 +40,20 @@
 	
         <footer>
         	<th:block th:if="${session.member == null}">
-            <a href="/" class="before_login_main"><img src="/img/home.png"></a>
-            <a href="/new_expire" class="new_expire"><img src="/img/video.png"></a>
-            <a href="/search" class="search"><img src="/img/explore.png"></a>
+            <a href="/" class="main"><img src="/img/home.png"></a>
+            <a href="/board/new_expire" class="new_expire"><img src="/img/video.png"></a>
+            <a href="/board/search" class="search"><img src="/img/explore.png"></a>
+            <a href="/board/zoom_search" class="zoomsearch"><img src="/img/magnifier.png"></a>        
             <a href="/index" class="my_page"><img src="/img/profile.png"></a>
+            <a href="#top" class="top"></a>
             </th:block>
             <th:block th:if="${session.member != null}">
             <a href="/" class="main"><img src="/img/home.png"></a>
-            <a href="/new_expire" class="new_expire"><img src="/img/video.png"></a>
-            <a href="/search" class="search"><img src="/img/explore.png"></a>
-            <a th:href="@{/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a>
+            <a href="/board/new_expire" class="new_expire"><img src="/img/video.png"></a>
+            <a href="/board/search" class="search"><img src="/img/explore.png"></a>
+            <a href="/board/zoom_search" class="zoomsearch"><img src="/img/magnifier.png"></a>   
+            <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a>
+            <a href="#top" class="top"></a>
             </th:block>
         </footer>
 

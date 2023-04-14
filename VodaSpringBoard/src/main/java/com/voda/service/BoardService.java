@@ -207,8 +207,6 @@ public class BoardService {
 	    return hlist;
 	}
 	
-
-
 	public int insertBoardHeart(int bno, String id) {
 	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
 	    paramMap.put("bno", bno);
@@ -226,10 +224,12 @@ public class BoardService {
 	    }
 	}
 
-
-	
 	public int selectBoardHeart(int bno) {
 		return mapper.selectBoardHeart(bno);
+	}
+	
+	public int selectBoardHeartCHK(HashMap<String, Object> paramMap) {
+		return mapper.selectBoardHeartCHK(paramMap);
 	}
 
 	public List<BoardDTO> selectMemberSearchContent(String select_box, String search) {
@@ -238,13 +238,6 @@ public class BoardService {
 		map.put("search", search);
 		return mapper.selectMemberSearchContent(map);
 	}
-
-
-	public int selectBoardHeartCHK(HashMap<String, Object> paramMap) {
-		return mapper.selectBoardHeartCHK(paramMap);
-	}
-
-	
 
 	
 
