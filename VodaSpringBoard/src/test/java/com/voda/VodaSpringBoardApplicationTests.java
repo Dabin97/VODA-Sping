@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.voda.controller.usercontroller.*;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.SecessionDTO;
 import com.voda.service.MemberService;
@@ -162,4 +163,23 @@ class VodaSpringBoardApplicationTests {
 //        assertEquals("해당 컨텐츠에 찜을 해제하셨습니다.", response.getBody());
 //    }
 //	
+	@Mock private UserBaordController controller;
+	
+	@DisplayName("search 테스트")
+	@Test
+	@Order(1)
+	void boardContentSearchTest() {
+		System.out.println("컨텐츠 서치 테스트");
+		String select_box = "title";
+		String search = "스";
+		
+       ResponseEntity<String> response = null;
+        try {
+          response = controller.selectMemberSearchContentList(select_box, search) ;
+          System.out.println(response);
+	} catch(Exception e){
+      e.printStackTrace();
+	}
+        System.out.println(response);
+	}
 }

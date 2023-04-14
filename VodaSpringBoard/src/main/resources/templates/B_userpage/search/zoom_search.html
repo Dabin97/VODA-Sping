@@ -210,13 +210,14 @@ text-decoration : none ;
         color: white;
         height: 30px;
         width: 350px;
-        border: 1px solid rgb(91, 91, 91);
-        box-sizing: border-box;
+        border: 1px solid #dff5d0;
         outline: none;
         padding-left: 3px; 
-        font-size : 16px;
+        font-size : 14px;
+        margin-bottom :2px;
 
     }
+    
     
     .search_box {
      padding-left : 130px;
@@ -232,8 +233,35 @@ text-decoration : none ;
           
           .btn{
           width : 40px;
-                  height : 30px;
+          height : 30px; 
+          box-sizing : content-box;
+          margin-left : 5px;
+          border : 1px solid #dff5d0;
+          color : grey;
+          
           }
+          
+          .btn2{
+          display : inline-block;
+          width : 40px;
+          height : 30px;
+          background-color : #dff5d0;
+          font-weight : bold;
+          color : black;
+        
+          }
+
+          .btn2:active{
+          display : inline-block;
+          width : 40px;
+          height : 30px;
+          background-color : white;
+          font-weight : bold;
+          color : #a7f2dc;
+        
+          }
+          
+          
         .ui-autocomplete {
         	width : 347px !important;
             max-height: 200px;
@@ -281,6 +309,7 @@ select:invalid{
 
     	 $('#select_box').change(function(){
     		 $('.btn').removeAttr('disabled');
+    		 $('.btn').addClass('btn2');
     	var i, name, title, titlearr, availableTags, pd, pdstr, pdarr, casting, castingstr, castingarr;
     	title = document.getElementsByClassName("title_info2");
     	pd = document.getElementsByClassName("pd2");
@@ -369,7 +398,6 @@ select:invalid{
                 dataType : 'json',
                 success:function(r){
                     console.log(r);
-
                     let tag = '';
   					var rgenre;
   					var rott;
@@ -423,6 +451,17 @@ select:invalid{
                     $('article').html(tag);
 
                 }
+            	, error : function(jqXHR, textStatus, errorThrown){
+            	// 실패시 처리
+                console.log(jqXHR.status); // 상태값 출력 (404,500)
+                console.log(textStatus); // 상태에 대한 텍스트 출력 (error)
+
+                if(jqXHR.status == 404){
+                    alert("페이지가 존재하지 않습니다");
+                }else if(jqXHR.status == 500){
+                    alert("서버에러");
+                }
+            }
             });
 			
         });

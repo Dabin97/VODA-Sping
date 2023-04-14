@@ -143,8 +143,10 @@ public class UserBaordController {
 	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/B_userpage/user/my_page");
+	    List<BoardDTO> list = boardService.selectMainContentList();
 		List<BoardDTO> hlist = boardService.selectHeartList(id);
 		view.addObject("hlist", hlist);
+		view.addObject("list", list);
 		return view;
 	}
 	
