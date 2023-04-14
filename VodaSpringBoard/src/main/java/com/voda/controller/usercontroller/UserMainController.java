@@ -83,7 +83,7 @@ public class UserMainController {
 		}else {
 			view.addObject("res", "로그인 실패");
 		}
-		view.setViewName("main");		
+		view.setViewName("/B_userpage/main/main");		
 		List<BoardDTO> list = boardService.selectMainContentList();
 	    List<BoardDTO> nlist = boardService.selectNewContentList();
 	    List<BoardDTO> elist = boardService.selectExpireContentList();
@@ -105,7 +105,7 @@ public class UserMainController {
 	    session.setAttribute("member", profile_json.getJSONObject("response").toString());
 	    view.addObject("nickname", nickname);   
 	    System.out.println(nickname);
-	    view.setViewName("main");
+	    view.setViewName("/B_userpage/main/main");
 	    return view;
 	}
 	

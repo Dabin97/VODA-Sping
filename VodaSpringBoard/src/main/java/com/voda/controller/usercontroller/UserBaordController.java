@@ -205,26 +205,33 @@ public class UserBaordController {
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
 		List<BoardDTO> list = boardService.selectMainContentList();
+//		int result = boardService.selectBoardHeart(bno);
+		
 		
 		MemberDTO dto = (MemberDTO) session.getAttribute("member");
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("id", dto.getId());
-		paramMap.put("bno", bno);
-		
-		int result = boardService.selectBoardHeartCHK(paramMap);
-		System.out.println(result);
-	
+		if(dto != null ) {
+			paramMap.put("id", dto.getId());
+			paramMap.put("bno", bno);
+			
+			int result = boardService.selectBoardHeartCHK(paramMap);
+			System.out.println(result);
+			
+			mv.addObject("result", result);
+		}
 		
 		//리뷰 목록 조회
 		mv.addObject("list", list);
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
-		mv.addObject("result", result);
-		mv.setViewName("content_page");
+		mv.setViewName("/B_userpage/content/content_page");
 		
 		return mv;
 	}
 	
+	
+	
+
 	@GetMapping("/zoom_search")
 	public ModelAndView zoom_search(HttpSession session) {
 		ModelAndView view = new ModelAndView();
