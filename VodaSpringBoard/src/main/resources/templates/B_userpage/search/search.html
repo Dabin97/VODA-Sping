@@ -248,12 +248,17 @@ footer a{
       }
       
       .netflixs {
-               	width : 180px;
-      	height : 50px;
+        width : 120px;
+      	height : 25px;
+      }
+
+      .netflixs1 {
+      
+        width : 120px;
+      	height : 30px;
       }
     </style>
  <script type="text/javascript" th:inline="javascript">
-
 	var slider = [];
     $(function(){
         
@@ -601,6 +606,7 @@ footer a{
                       <div class="tBox">
                         <input type="hidden" name="genre" th:value="${board.genre}">
                         <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
+
                       </div>
                     </th:block>
                   </div>
@@ -613,7 +619,8 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/netflix-logo.png" alt="" class="netflixs">
+                   <img src="/img/netflxlog.png" alt="" class="netflixs" id="netflix">
+
                    <select name="selectBox2" form="myForm" class="selectBox" id="selectBox2">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -642,7 +649,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/watchas.jpg" alt="" class="watchas">
+                   <img src="/img/watchalog.jpg" alt="" class="netflixs" id="watcha">
                    <select name="selectBox3" form="myForm" class="selectBox" id="selectBox3">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -671,7 +678,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/Union-left.png" alt="">WAVVE<img src="/img/Union-right.png" alt="" id="wavve">
+                   <img src="/img/wavvelog.jpg" alt="" class="netflixs" id="wavve">
                    <select name="selectBox4" form="myForm" class="selectBox" id="selectBox4">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -700,7 +707,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/Union-left.png" alt="">TVING<img src="/img/Union-right.png" alt="" id="tving">
+                   <img src="/img/tvinglog.png" alt="" class="netflixs" id="tving">
                    <select name="selectBox5" form="myForm" class="selectBox" id="selectBox5">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -729,7 +736,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/Union-left.png" alt="">LAFTEL<img src="/img/Union-right.png" alt="" id="laftel">
+                   <img src="/img/laftellog.png" alt="" class="netflixs1" id="laftel">
                    <select name="selectBox6" form="myForm" class="selectBox" id="selectBox6">
                       <option value="0">전체</option>
                       <option value="1">영화</option>
@@ -758,7 +765,7 @@ footer a{
                   <br>
                   <br>
                 <h2>
-                   <img src="/img/Union-left.png" alt="">DISNEY+<img src="/img/Union-right.png" alt="" id="disney">
+                   <img src="/img/disneylog.png" alt="" class="netflixs1" id="disney">
                    <select name="selectBox7" form="myForm" class="selectBox" id="selectBox7">
                       <option value="0">전체</option>
                       <option value="1">영화</option>

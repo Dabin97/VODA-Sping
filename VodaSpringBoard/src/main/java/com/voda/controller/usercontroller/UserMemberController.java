@@ -58,8 +58,9 @@ public class UserMemberController {
 
 	@GetMapping("/register/view")
 	public String registerView() {
-		return "/B_userpage/user/register";
+		return "/B_userpage/user/register"; 
 	}
+ 
 
 	@PostMapping("/register")
 	public String register(MemberDTO dto) {

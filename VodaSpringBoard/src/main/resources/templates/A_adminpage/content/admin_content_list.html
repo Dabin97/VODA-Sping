@@ -236,6 +236,7 @@
                 $('.btn_search').click(function(){
                     let param = '';
                     $('.admin_search input,.admin_search select').each(function(i, obj){
+
                         console.log($(obj).attr('name'),$(obj).val());
                         param += $(obj).attr('name')+"="+$(obj).val() + "&"
                     });
@@ -282,6 +283,7 @@
                         <p class="title">컨텐츠 리스트</p>
                         <hr>
                         <div class="admin_search">         
+
                             <b class="b">검색</b> 
                             <br>
                             <select name="kind">

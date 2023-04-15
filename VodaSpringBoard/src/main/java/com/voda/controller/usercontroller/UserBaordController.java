@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -145,11 +146,13 @@ public class UserBaordController {
 //	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
 //		ModelAndView view = new ModelAndView();
 //		view.setViewName("/B_userpage/user/my_page");
+//	    List<BoardDTO> list = boardService.selectMainContentList();
 //		List<BoardDTO> hlist = boardService.selectHeartList(id);
 //		view.addObject("hlist", hlist);
+//		view.addObject("list", list);
 //		return view;
-//	}
-	
+//}
+
 	@GetMapping("/my_page/{id}")
 	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
 	    ModelAndView view = new ModelAndView();
@@ -179,6 +182,7 @@ public class UserBaordController {
 
 	    return view;
 	}
+
 
 	
 	@GetMapping("/search")
@@ -252,6 +256,7 @@ public class UserBaordController {
 			
 			mv.addObject("result", result);
 		}
+
 		
 		//리뷰 목록 조회
 		mv.addObject("list", list);
@@ -261,8 +266,6 @@ public class UserBaordController {
 		
 		return mv;
 	}
-	
-	
 	
 
 	@GetMapping("/zoom_search")
@@ -294,7 +297,6 @@ public class UserBaordController {
 	        boardService.insertBoardHeart(bno, dto.getId());
 	        result = boardService.selectBoardHeartCHK(paramMap);
 	       // throw new Exception("Something went wrong"); //예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
-
 	    } catch (Exception e) {
             e.printStackTrace();
             PrintStream ps = null;
@@ -319,8 +321,7 @@ public class UserBaordController {
 	    } else {
 	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
-	    }
-	   
+	    }   
 	    map.put("fHeart", result);
 	    return new ResponseEntity(map, HttpStatus.OK);
 	}

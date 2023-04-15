@@ -1,5 +1,6 @@
 package com.voda.controller.usercontroller;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -9,13 +10,12 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -175,6 +175,7 @@ public class UserMainController {
 		return res.toString();
 	}
 	
+
 	@RequestMapping("/")
 	public ModelAndView MainContentList(HttpSession session) {
 	    ModelAndView view = new ModelAndView();
