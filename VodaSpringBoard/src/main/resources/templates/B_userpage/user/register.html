@@ -18,6 +18,10 @@
             text-align: center;
             margin-top: 40px;
         }
+        h2 {
+        	color : white;
+        }
+
         .container{
             width: 700px;
             padding: 40px;
@@ -64,6 +68,7 @@
         }
        
         .btn_next{
+        	  font-size : 18px;
             width: 100%;
             height: 50px;
             border-radius: 10px;
@@ -92,13 +97,6 @@
             width:100px;
            
         }
-        header img{
-            width: 300px;
-            height: 80px;
-            padding-top: 20px;
-            display: block;
-            margin:auto;
-        }
         input[name=ott]{
             width: 30px;
             height: 30px;
@@ -118,6 +116,7 @@
             color: white;
         }
         .idCheck{
+        	margin-left : 30px;
             height: 30px;
             width: 70px;
             font-weight: bold;
@@ -127,6 +126,13 @@
         .msg{
             color: rgb(194, 231, 142);
         }
+
+        .main_logo {
+                width: 250px;
+                display: flex;
+                margin: 50px auto;
+                margin-bottom: 20px;
+            }
     </style>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
      <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
@@ -367,7 +373,7 @@
 <body>
     
       <header>
-        <img src="/img/voda_logo.png" alt="logo">
+        <a href="/" class="before_login_main"><img src="/img/VODA_logo.png" alt="logo" class="main_logo"></a>
       </header>  
    <section>
     <div class="container">
@@ -381,7 +387,6 @@
                 <li><label for="id">아이디</label></li>
                 <li class="border_bottom">
                     <input type="text" id="id" name="id" placeholder="아이디를 입력하세요"><button class="idCheck" type="button">중복확인</button>
-                    <span class="sub_txt"></span>
                 </li>
                 <span class="msg"></span>
                 <li class="id_result"></li>
@@ -417,7 +422,7 @@
                     </p>     
                 </li> -->
                <li>
-                <button class="btn_next" style="margin-top: 30px; color: #a7f2dc; font-weight: bold;" id="submit">회원 가입 신청</button>
+                <button class="btn_next" style="color: #a7f2dc; font-weight: bold;" id="submit">회원 가입 신청</button>
                </li>
                      
             </ul>

@@ -1,3 +1,4 @@
+
 // package com.voda;
 //
 //import org.junit.jupiter.api.BeforeEach;
@@ -82,12 +83,6 @@
 //	        System.out.println(response);
 //	    }
 //	 
- 
-
-	
-    
-
-
 
 
     
@@ -128,4 +123,24 @@
 //        assertEquals("해당 컨텐츠에 찜을 해제하셨습니다.", response.getBody());
 //    }
 //	
-//}
+	@Mock private UserBaordController controller;
+	
+	@DisplayName("search 테스트")
+	@Test
+	@Order(1)
+	void boardContentSearchTest() {
+		System.out.println("컨텐츠 서치 테스트");
+		String select_box = "title";
+		String search = "스";
+		
+       ResponseEntity<String> response = null;
+        try {
+          response = controller.selectMemberSearchContentList(select_box, search) ;
+          System.out.println(response);
+	} catch(Exception e){
+      e.printStackTrace();
+	}
+        System.out.println(response);
+	}
+}
+
