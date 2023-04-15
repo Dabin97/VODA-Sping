@@ -36,11 +36,11 @@ import com.voda.service.ReviewService;
 
 @Controller
 @RequestMapping("/board")
-public class UserBaordController {
+public class UserBoardController {
 	private BoardService boardService;
 	private ReviewService reviewService;
 	
-	public UserBaordController(BoardService boardService, ReviewService reviewService) {
+	public UserBoardController(BoardService boardService, ReviewService reviewService) {
 		this.boardService = boardService;
 		this.reviewService = reviewService;
 	}
