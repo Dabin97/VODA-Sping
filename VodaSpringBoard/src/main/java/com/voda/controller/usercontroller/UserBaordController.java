@@ -14,6 +14,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -139,16 +142,48 @@ public class UserBaordController {
 	    return view;
 	}
 	
+//	@GetMapping("/my_page/{id}")
+//	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
+//		ModelAndView view = new ModelAndView();
+//		view.setViewName("/B_userpage/user/my_page");
+//	    List<BoardDTO> list = boardService.selectMainContentList();
+//		List<BoardDTO> hlist = boardService.selectHeartList(id);
+//		view.addObject("hlist", hlist);
+//		view.addObject("list", list);
+//		return view;
+//}
+
 	@GetMapping("/my_page/{id}")
 	public ModelAndView my_page(@PathVariable String id, HttpSession session) {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("/B_userpage/user/my_page");
-	    List<BoardDTO> list = boardService.selectMainContentList();
-		List<BoardDTO> hlist = boardService.selectHeartList(id);
-		view.addObject("hlist", hlist);
-		view.addObject("list", list);
-		return view;
+	    ModelAndView view = new ModelAndView();
+	    view.setViewName("/B_userpage/user/my_page");
+
+	    // 세션에 저장된 member 또는 user 정보를 검사하여 id 값을 설정
+	    String memberId = null;
+	    if (session.getAttribute("member") != null) {
+	        memberId = ((MemberDTO) session.getAttribute("member")).getId();
+	    } else if (session.getAttribute("user") != null) {
+	        try {
+	            JSONObject userJson = new JSONObject((String) session.getAttribute("user"));
+	            memberId = userJson.getString("nickname");
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    if (memberId == null) {
+	        // id 값이 없으면 로그인 페이지로 이동
+	        view.setViewName("redirect:/login");
+	        return view;
+	    }
+
+	    // 마이페이지에 필요한 정보를 DB에서 조회하여 Model에 추가
+	    List<BoardDTO> hlist = boardService.selectHeartList(memberId);
+	    view.addObject("hlist", hlist);
+
+	    return view;
 	}
+
+
 	
 	@GetMapping("/search")
 	public ModelAndView SearchContentList() {
@@ -207,19 +242,32 @@ public class UserBaordController {
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
 		List<BoardDTO> list = boardService.selectMainContentList();
-		int result = boardService.selectBoardHeart(bno);
+//		int result = boardService.selectBoardHeart(bno);
+		
+		
+		MemberDTO dto = (MemberDTO) session.getAttribute("member");
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		if(dto != null ) {
+			paramMap.put("id", dto.getId());
+			paramMap.put("bno", bno);
+			
+			int result = boardService.selectBoardHeartCHK(paramMap);
+			System.out.println(result);
+			
+			mv.addObject("result", result);
+		}
 
 		
 		//리뷰 목록 조회
 		mv.addObject("list", list);
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
-		mv.addObject("result", result);
 		mv.setViewName("/B_userpage/content/content_page");
 		
 		return mv;
 	}
 	
+
 	@GetMapping("/zoom_search")
 	public ModelAndView zoom_search(HttpSession session) {
 		ModelAndView view = new ModelAndView();
@@ -233,10 +281,13 @@ public class UserBaordController {
 	}
 	
 	@PostMapping("/heart") 
-	public ResponseEntity<HashMap<String, Object>> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
+	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int result = -1;
 	    MemberDTO dto = (MemberDTO) session.getAttribute("member");
+	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", dto.getId());
+		paramMap.put("bno", bno);
 
 	    if(dto == null) {
 	        map.put("msg", "로그인 후 이용해주세요.");
@@ -244,9 +295,8 @@ public class UserBaordController {
 	    }
 	    try {
 	        boardService.insertBoardHeart(bno, dto.getId());
-	        result = boardService.selectBoardHeart(bno);
-//	        throw new Exception("Something went wrong"); 예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
-
+	        result = boardService.selectBoardHeartCHK(paramMap);
+	       // throw new Exception("Something went wrong"); //예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
 	    } catch (Exception e) {
             e.printStackTrace();
             PrintStream ps = null;
@@ -271,9 +321,8 @@ public class UserBaordController {
 	    } else {
 	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
-	    }
-	    
+	    }   
 	    map.put("fHeart", result);
-	    return new ResponseEntity<>(map, HttpStatus.OK);
+	    return new ResponseEntity(map, HttpStatus.OK);
 	}
 }

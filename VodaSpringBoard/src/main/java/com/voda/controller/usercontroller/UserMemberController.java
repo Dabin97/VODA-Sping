@@ -61,6 +61,7 @@ public class UserMemberController {
 		return "/B_userpage/user/register"; 
 	}
  
+
 	@PostMapping("/register")
 	public String register(MemberDTO dto) {
 		System.out.println(dto);
