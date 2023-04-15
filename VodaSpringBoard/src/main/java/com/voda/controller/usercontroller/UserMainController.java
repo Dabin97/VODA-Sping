@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.voda.dto.BoardDTO;
+import com.voda.dto.MemberDTO;
 import com.voda.service.BoardService;
 
 @Controller
@@ -74,12 +76,25 @@ public class UserMainController {
 		
 		if(profile_res != null && !profile_res.equals("")) {
 			JSONObject profile_json = new JSONObject(profile_res);
+			JSONObject profile_response = profile_json.getJSONObject("response");
+			session.setAttribute("user", profile_response.toString());
+			session.setAttribute("accessToken", access_token);
+			session.setAttribute("refreshToken", json.getString("refresh_token"));
+			System.out.println("profile_res = " + profile_res); 
+			
+			
+			// 사용자 정보를 userInfo로 추가하여 view에 담아서 보내기
+//			String name = profile_response.getString("name");
+			String nickname = profile_response.getString("nickname");
+			String userInfo = nickname;
+			view.addObject("userInfo", userInfo);
 			
 			// 사용자 정보를 세션에 저장
 			session.setAttribute("user", profile_json.getJSONObject("response").toString());
-			session.setAttribute("accessToken", access_token);
-			session.setAttribute("refreshToken", json.getString("refresh_token"));
-			System.out.println("profile_res = " + profile_res); 	
+			
+			//간편로그인으로 받은 정보를 sns_member 테이블에 등록하는 메서드가 필요함
+			
+	
 		}else {
 			view.addObject("res", "로그인 실패");
 		}
@@ -94,19 +109,39 @@ public class UserMainController {
 	}
 	
 	
-	@RequestMapping("/naver/getProfile") //네아로는 하는중
+//	@RequestMapping("/naver/getProfile") //네아로는 하는중
+//	public ModelAndView getProfilenaver(ModelAndView view, HttpSession session) throws JSONException {
+//	    String accessToken = (String) session.getAttribute("accessToken");
+//	    String apiURL = "https://openapi.naver.com/v1/nid/me";
+//	    String header = "Bearer " + accessToken;
+//	    String result = requestNaverServer(apiURL, header);
+//	    JSONObject profile_json = new JSONObject(result);
+//	    String nickname = profile_json.getJSONObject("response").getString("nickname");
+//	    session.setAttribute("member", profile_json.getJSONObject("response").toString());
+//	    view.addObject("nickname", nickname);   
+//	    System.out.println(nickname);
+//	    view.setViewName("/B_userpage/main/main");
+//	    return view;
+//	}
+	
+	@RequestMapping("/naver/getProfile")
 	public ModelAndView getProfilenaver(ModelAndView view, HttpSession session) throws JSONException {
-	    String accessToken = (String) session.getAttribute("accessToken");
-	    String apiURL = "https://openapi.naver.com/v1/nid/me";
-	    String header = "Bearer " + accessToken;
-	    String result = requestNaverServer(apiURL, header);
-	    JSONObject profile_json = new JSONObject(result);
-	    String nickname = profile_json.getJSONObject("response").getString("nickname");
-	    session.setAttribute("member", profile_json.getJSONObject("response").toString());
-	    view.addObject("nickname", nickname);   
-	    System.out.println(nickname);
-	    view.setViewName("/B_userpage/main/main");
-	    return view;
+		String accessToken = (String) session.getAttribute("accessToken");
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+		String header = "Bearer " + accessToken;
+		String result = requestNaverServer(apiURL, header);
+		
+		JSONObject json = new JSONObject(result);
+		view.addObject("userInfo", json);		
+		view.setViewName("/B_userpage/main/main");
+		return view;
+	}
+	
+	
+	@RequestMapping("/naver/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	public String requestNaverServer(String apiURL, String header) {

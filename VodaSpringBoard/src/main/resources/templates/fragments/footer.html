@@ -52,7 +52,10 @@
             <a href="/board/new_expire" class="new_expire"><img src="/img/video.png"></a>
             <a href="/board/search" class="search"><img src="/img/explore.png"></a>
             <a href="/board/zoom_search" class="zoomsearch"><img src="/img/magnifier.png"></a>   
-            <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a>
+            <!-- <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a> -->
+            <!-- <a th:href="@{/board/my_page/{id}(id=${session.member != null ? session.member.id : (session.user != null ? session.user.nickname : '')})}" class="my_page"><img src="/img/profile.png"></a> -->
+            <a th:href="@{/board/my_page/{id}(id=${session.member != null ? session.member.id : (session.user != null ? session.user.nickname : '')})}" class="my_page"><img src="/img/profile.png"></a>
+
             <a href="#top" class="top"></a>
             </th:block>
         </footer>
