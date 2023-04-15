@@ -36,5 +36,7 @@ public interface MemberMapper {
 
 	int editProfile(MemberDTO dto);
 
+	List<MemberDTO> selectSearchMember(HashMap<String, Object> map);
+
 }
 

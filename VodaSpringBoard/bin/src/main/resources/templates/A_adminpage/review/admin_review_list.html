@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>admin_review_list</title>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                border-collapse: collapse;
+            }
+
+            header{
+                width: 1200px;
+                height: 10px;
+                margin:0 auto;
+            }
+
+            .main_container{
+                width: 1200px;
+                height: 730px;
+                margin:0 auto;
+                display: flex;
+            }
+
+            .nav_container {
+                width: 250px;
+                height: 730px;
+                background-color: #e9e9e9;
+            }
+
+            .main_logo {
+                width: 250px;
+                display: flex;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            h2{
+                text-align: left;
+                margin-left: 18px;
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+
+            ul {
+                margin-left: 40px;
+                color: rgb(70, 81, 0);
+            }
+            .section_container {
+                width: 950px;
+            }
+
+            .login_info_bar {
+                width: 950px;
+                height: 50px;
+                text-align: right;
+            }
+
+            .member_search {
+                width: 950px;
+                height: 50px;
+                font-size: 32px;
+                padding-left: 50px;
+                margin-top:30px;
+                color: rgb(70, 81, 0);
+                margin-left :100px;
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight: bold;
+                margin-left: 50px;
+                margin-bottom: 20px;
+                color: rgb(70, 81, 0);
+            }
+
+            hr {
+                margin-left: 30px;
+            }
+
+            select {
+                width: 80px;
+                height: 35px;
+
+            }
+
+            .textbox{
+                width: 300px;
+                height: 32px;
+            }
+            .search_table {
+                width: 650px;
+                margin-left: 150px;
+                margin-top:50px;
+            }
+
+          
+            thead {
+                text-align: center;
+                font-size: 16px;
+                height: 50px;
+                border-bottom: 1px solid black;
+                background-color: #e9e9e9;
+            }
+            tbody {
+                text-align: center;
+                height: 30px;
+            }
+            .chb {
+                width: 50px;
+                padding-left: 5px;
+            }
+            td {
+                width: 200px;
+            }
+
+            tr {
+                border-bottom: 1px solid #e9e9e9;
+                height: 30px;
+            }
+            b {
+                margin-left: 100px;
+            }
+            .bottombtn {
+                width: 80px;
+                height: 30px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-bottom: 30px;
+            }
+
+            .slider {
+                margin-left: 10px;
+                margin-top: 100px;
+                width: 50px;
+                height: 50px;
+                background-color: #e2e2e2;
+                border-radius: 10px;
+                border: none;
+                font-size: 16px;
+                
+            }
+
+            .slider:hover {
+                background-color: rgb(194, 231, 142);
+                color: rgb(70, 81, 0);
+            }
+
+            .slider_container {
+                width: 650px;
+                text-align: center;
+            }
+
+            .btn_container{
+                width: 650px;
+                text-align: right;
+            }
+
+            .user_icon {
+                display: inline-block;
+            }
+            
+            .user_info {
+                display: inline-block;   
+            }
+
+            .main_nav {
+                font-size: 24px;
+                text-decoration: none;
+                color: black;
+                position : relative;
+                display : inline-block;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            .sub_nav {
+                text-decoration: none;
+                color: dimgray;
+            }
+
+            .sub_nav:hover{
+                color: rgb(194, 231, 142);
+            }
+
+            .select {
+                color: rgb(194, 231, 142);
+                text-decoration: none;
+            }
+
+            button{
+                border:none;
+                border-radius: 5px;
+            }
+
+            button:hover{
+                background-color: rgb(194, 231, 142);
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+            .b {
+                margin-left: 0px;
+            }
+            section tfoot{
+                font-size: 0px;
+            }
+            section tfoot a:link,section tfoot a:visited{
+                display: inline-block;
+                padding:0px 10px;
+                text-decoration: none;
+                color:black;
+                font-size: 16px !important;
+            }
+            
+            .current_page{
+                display: inline-block;
+                padding:0px 10px;
+                font-size: 16px !important;
+                color:red;
+                font-weight: bold;
+            }
+            tfoot > tr > td{
+                position: relative;
+            }
+        </style>
+        <script src="/js/jquery-3.6.3.js"></script>
+
+        <script th:inline="javascript">
+            $(function(){  
+                $('.btn_search').click(function(){
+                    let param = '';
+                    $('.member_search input,.member_search select').each(function(i, obj){
+                        console.log($(obj).attr('name'),$(obj).val());
+                        param += $(obj).attr('name')+"="+$(obj).val() + "&"
+                    });
+                    console.log(param);
+                    //ajax로 search로 param을 전달하고
+                    //검색 결과를 받아서 tbody에 출력
+                    $.ajax({
+                        url : '/admin/review/search',
+                        data : param,
+                        type : 'post',
+                        dataType : 'json',
+                        success:function(r){
+                            console.log(r);
+                            //결과값 저장할 태그를 조립
+                            let tag = '';
+                            for(i=0;i<r.length;i++){
+                                tag += '<tr>';
+                                tag += '<td class="chb">'+r[i].rno+'</td>';
+                                tag += '<td>'+r[i].id+'</td>';
+                                // tag += '<td>'+r[i].title+'</td>';
+                                tag += '<td><a href="/admin/review/detail/' + r[i].bno + '?bno=' + r[i].bno + '">' + r[i].title + '</a></td>'; //a링크 걸려있는 거
+                                tag += '<td>'+r[i].rDate+'</td>';
+                                tag += `<td>
+                                        <button id="btn_delete"><a th:href="@{/admin/review/detail/${r[i].rno}(rno=\${review.rno })}">상세</a></button>
+                                        <button id="btn_delete"><a th:href="@{/admin/review/delete/${r[i].rno}(rno=\${review.rno })}">삭제</a></button>
+                                        </td>`;
+                                tag += '</tr>';
+                            }
+                            $('tbody').html(tag);
+                        }
+                    });
+                });
+                $(".btn_reset").click(function(){
+                    location.href="/admin/review/list";
+		        });
+            });
+
+        </script>
+            
+    </head>
+
+    <body>
+        <th:block th:include="/fragments/header.html"></th:block>
+
+                        <p class="title">리뷰 리스트</p>
+                        <hr>
+                        <div class="member_search">         
+                            <b class="b">검색</b> 
+                            <br>
+                            <select name="kind">
+                                <option value="title">제목</option>
+                                <option value="rno">번호</option> 
+                                <option value="id">아이디</option> 
+                            </select>
+                            <input type="text" class="textbox" name="search" placeholder="검색어 입력">
+                            <button type="button" class="btn_search">검색</button>
+                            <button type="button" class="btn_reset">검색 초기화</button>
+                        </div>
+                        <div class="search_table">
+                            <table>
+                                <thead>
+                                    <th class="chb">Number</th>
+                                    <th>ID</th>
+                                    <th>title</th>
+                                    <th>Date</th>
+                                    <th>Edit</th>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="review : ${list}"> 
+                                        <td class="chb">[[${review.rno}]]</td>
+                                        <input type="hidden" name="bno" th:value="${review.bno}">
+                                        <td>[[${review.id}]]</td>
+                                        <td>[[${review.title}]]</td>
+                                        <td>[[${review.rDate}]]</td>
+                                        <td>
+                                            <button id="btn_delete"><a th:href="@{/admin/review/detail/{rno}(rno=${review.rno })}">상세</a></button>
+                                            <button id="btn_delete"><a th:href="@{/admin/review/delete/{rno}(rno=${review.rno })}">삭제</a></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot> 
+                                    <tr>
+                                        <td colspan="7">
+                                            <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/review/list(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
+                                    
+                                            <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
+                
+                                            <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
+                                           				
+                                            <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/review/list(pageNo=${i})}" th:text="${i}"></a>
+                                            
+                                            </th:block>
+                                    
+                                            <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/review/list(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+        </div>
+        
+            <footer>
+
+            </footer>
+    </body>
+
+</html>
