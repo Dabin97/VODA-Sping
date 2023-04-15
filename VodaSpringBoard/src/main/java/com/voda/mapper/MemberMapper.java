@@ -3,6 +3,8 @@ package com.voda.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.voda.dto.ManagerDTO;
@@ -28,11 +30,13 @@ public interface MemberMapper {
 
 	ManagerDTO loginAdmin(HashMap<String, Object> map); //관리자 로그인
 
-	int deleteMember(String id);
+	int deleteMember(String[] id);
 
 	MemberDTO idCheck(String id);
 
+	int editProfile(MemberDTO dto);
 
-	
+	List<MemberDTO> selectSearchMember(HashMap<String, Object> map);
+
 }
 

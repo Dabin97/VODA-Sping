@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 import com.voda.mapper.BoardMapper;
 
 @Service
@@ -70,9 +72,6 @@ public class BoardService {
 		return mapper.insertFile(fileDTO);
 	}
 
-	public BoardDTO selectBoard(int bno) {
-		return mapper.selectBoard(bno);
-	}
 
 	public List<FileDTO> selectFileList(int bno) {
 		return mapper.selectFileList(bno);
@@ -191,28 +190,60 @@ public class BoardService {
 	    return elist;
 	}
 
+
+	public List<BoardDTO> selectHeartList(String id) {
+		List<BoardDTO> hlist = mapper.selectHeartList(id);
+
+	    for (BoardDTO board : hlist) {
+	        List<FileDTO> fileList = mapper.selectFileList(board.getBno());
+
+	        for (FileDTO file : fileList) {
+	            if (file.getType().startsWith("image")) {
+	                board.setPath(file.getPath()); 
+	                break;
+	            }
+	        }
+	    }
+	    return hlist;
+	}
+	
 	public int insertBoardHeart(int bno, String id) {
-		int r = 0;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("bno",bno);
-		map.put("id",id);
-		try {
-		r = mapper.insertBoardHeart(map);
-		}catch(Exception e){
-		mapper.deleteBoardHeart(map);
-		}
-		
-		return r;
+	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	    paramMap.put("bno", bno);
+	    paramMap.put("id", id);
+
+	    // 해당 사용자가 이미 찜한 게시글인지 확인
+	    int count = mapper.selectBoardHeartCHK(paramMap);
+
+	    // 이미 찜한 사용자가 다시 찜을 누르면 찜을 해제
+	    if (count > 0) {
+	        return mapper.deleteBoardHeart(bno, id);
+	    } else {
+	        // 찜 추가
+	        return mapper.insertBoardHeart(bno, id);
+	    }
 	}
 
 	public int selectBoardHeart(int bno) {
 		return mapper.selectBoardHeart(bno);
 	}
+	
+	public int selectBoardHeartCHK(HashMap<String, Object> paramMap) {
+		return mapper.selectBoardHeartCHK(paramMap);
+	}
 
-
-
+	public List<BoardDTO> selectMemberSearchContent(String select_box, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("select_box", select_box);
+		map.put("search", search);
+		return mapper.selectMemberSearchContent(map);
+	}
 
 	
+
+
+
+
 
 
 	

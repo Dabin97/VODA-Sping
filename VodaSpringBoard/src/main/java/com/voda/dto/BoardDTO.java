@@ -16,7 +16,17 @@ public class BoardDTO {
 	private int ottNo;
 	private String ottName;
 	private String path;
+	private int heart;
 	
+
+	public int getHeart() {
+		return heart;
+	}
+
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
+
 	public String getPath() {
 		return path;
 	}

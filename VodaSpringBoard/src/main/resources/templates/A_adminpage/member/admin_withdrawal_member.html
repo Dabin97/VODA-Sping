@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>admin_main</title>
+
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                border-collapse: collapse;
+            }
+
+            header{
+                width: 1200px;
+                height: 10px;
+                margin:0 auto;
+            }
+
+
+
+            .main_container{
+                width: 1200px;
+                height: 730px;
+                margin:0 auto;
+                display: flex;
+            }
+
+            .nav_container {
+                width: 250px;
+                height: 730px;
+                background-color: #e9e9e9;
+            }
+
+            .main_logo {
+                width: 250px;
+                display: flex;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            h2{
+                text-align: left;
+                margin-left: 18px;
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+
+            ul {
+                margin-left: 40px;
+                color: rgb(70, 81, 0);
+            }
+            .section_container {
+                width: 950px;
+            }
+
+            .login_info_bar {
+                width: 950px;
+                height: 50px;
+                text-align: right;
+            }
+
+            .member_search {
+                width: 950px;
+                height: 50px;
+                font-size: 32px;
+                padding-left: 50px;
+                margin-top:30px;
+                color: rgb(70, 81, 0);
+            }
+
+            .title {
+                font-size: 36px;
+                font-weight: bold;
+                margin-left: 50px;
+                margin-bottom: 20px;
+                color: rgb(70, 81, 0);
+            }
+
+            hr {
+                margin-left: 30px;
+            }
+
+            select {
+                width: 80px;
+                height: 35px;
+                margin-left: 100px;
+            }
+
+            .textbox{
+                width: 300px;
+                height: 32px;
+            }
+            .search_table {
+                width: 650px;
+                margin-left: 150px;
+                margin-top:50px;
+            }
+
+            thead {
+                text-align: center;
+                font-size: 16px;
+                height: 50px;
+                border-bottom: 1px solid black;
+                background-color: #e9e9e9;
+            }
+            tbody {
+                text-align: center;
+                height: 30px;
+            }
+            .chb {
+                width: 50px;
+            }
+            td {
+                width: 200px;
+            }
+
+            tr {
+                border-bottom: 1px solid #e9e9e9;
+                height: 30px;
+            }
+            b {
+                margin-left: 100px;
+            }
+            .bottombtn {
+                width: 80px;
+                height: 30px;
+                margin-top: 10px;
+                margin-right: 10px;
+                margin-bottom: 30px;
+            }
+
+            .slider {
+                margin-left: 10px;
+                margin-top: 100px;
+                width: 50px;
+                height: 50px;
+                background-color: #e2e2e2;
+                border-radius: 10px;
+                border: none;
+                font-size: 16px;
+                
+            }
+
+            .slider:hover {
+                background-color: rgb(194, 231, 142);
+                color: rgb(70, 81, 0);
+            }
+
+            .slider_container {
+                width: 650px;
+                text-align: center;
+            }
+
+            .btn_container{
+                width: 650px;
+                text-align: right;
+            }
+
+            .user_icon {
+                display: inline-block;
+            }
+            
+            .user_info {
+                display: inline-block;   
+            }
+
+            .main_nav {
+                font-size: 24px;
+                text-decoration: none;
+                color: black;
+                position : relative;
+                display : inline-block;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            .sub_nav {
+                text-decoration: none;
+                color: dimgray;
+            }
+
+            .sub_nav:hover{
+                color: rgb(194, 231, 142);
+            }
+
+            .select {
+                color: rgb(194, 231, 142);
+                text-decoration: none;
+            }
+
+            button{
+                border:none;
+                border-radius: 5px;
+            }
+
+            button:hover{
+                background-color: rgb(194, 231, 142);
+                font-weight: bold;
+                color: rgb(70, 81, 0);
+            }
+            section tfoot{
+            font-size: 0px;
+        }
+        section tfoot a:link,section tfoot a:visited{
+            display: inline-block;
+            padding:0px 10px;
+            text-decoration: none;
+            color:black;
+            font-size: 16px !important;
+        }
+        
+        .current_page{
+            display: inline-block;
+            padding:0px 10px;
+            font-size: 16px !important;
+            color:red;
+            font-weight: bold;
+        }
+        tfoot > tr > td{
+            position: relative;
+        }
+        section table td,section table th{
+		border:2px solid #e2e2e2;
+		text-align: center;
+		padding:10px 0px;
+	}
+        </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- <script src="/js/jquery-3.6.3.js"></script> -->
+        <script th:inline="javascript">
+
+       $(function(){  
+                $('.btn_search').click(function(){
+                    let param = '';
+                    $('.member_search input,.member_search select').each(function(i, obj){
+                        console.log($(obj).attr('name'),$(obj).val());
+                        param += $(obj).attr('name')+"="+$(obj).val() + "&"
+                    });
+                    console.log(param);
+                    //ajax로 search로 param을 전달하고
+                    //검색 결과를 받아서 tbody에 출력
+                    $.ajax({
+                        url : '/admin/secession/search',
+                        data : param,
+                        type : 'post',
+                        dataType : 'json',
+                        success:function(r){
+                            console.log(r);
+                            //결과값 저장할 태그를 조립
+                            let tag = '';
+                            for(i=0;i<r.length;i++){
+                                tag += '<tr>';
+                                tag += `<td class="chb"><input type="checkbox" name="chk" id="chb" onclick="activateBtn()"></td>`;
+                                tag += '<td>'+r[i].sno+'</td>';
+                                tag += '<td>'+r[i].id+'</td>';
+                                tag += '<td>'+r[i].sdate+'</td>';
+                                tag += '<td>'+r[i].reason+'</td>';
+                                tag += '</tr>';
+                                
+                            }
+                            $('tbody').html(tag);
+                        }
+                    });
+                });
+                $(".btn_reset").click(function(){
+                    location.href="/admin/secession";
+		        });
+            });
+
+
+        function delete_confirm(){
+            var id = [];
+            $("input[name=chk]:checked").each(function() {
+                id.push($(this).closest("tr").find("td:nth-child(3)").text());
+            });
+
+            let param = '';
+
+            for(i = 0;i<id.length;i++){
+                param += 'id=' + id[i] + '&';
+            }
+            console.log(param);
+
+            if(confirm("회원을 삭제하시겠습니까?")){
+                //실제로 회원이 삭제될 것
+                $.ajax({
+                    url:'/admin/member/delete',
+                    type:'post',
+                    data: param,
+                    dataType:'json',
+                    success:function(r){
+                    console.log(r);
+                    if(r.count>='1'){
+                        location.reload();
+                    }
+                    alert("회원이 삭제되었습니다");
+                    }
+                });
+            }
+        }
+
+// var allCheck=document.querySelector("#chb_all");
+// var list=document.querySelectorAll("#chb");
+
+// var del=document.querySelector("btn_delete");
+
+// del.onclick=()=>{
+//     for(var i=0; i<list.length; i++){
+//         if(list[i].checked){
+//             list[i].parentElement.parentElement.remove();
+//         }
+
+
+//     }
+//}
+
+       
+
+        $(document).ready(function() {
+            $("#btn_delete").click(delete_confirm);
+
+			$("#chb_all").click(function() {
+				if($("#chb_all").is(":checked")) $("input[name=chk]").prop("checked", true);
+				else $("input[name=chk]").prop("checked", false);
+			});
+			
+			$("input[name=chk]").click(function() {
+				var total = $("input[name=chk]").length;
+				var checked = $("input[name=chk]:checked").length;
+				
+				if(total != checked) $("#chb_all").prop("checked", false);
+				else $("#chb_all").prop("checked", true); 
+			});
+		});
+
+        function activateBtn(){
+            if(btn_delete.disabled==true){
+                 btn_delete.disabled=false;
+           
+            }
+            else{
+                btn_delete.disabled=true;
+            
+            }
+        }
+
+            </script>
+    </head> 
+
+    <body>
+        <th:block th:include="/fragments/header.html"></th:block>
+
+                        <p class="title">탈퇴 대기 리스트</p>
+                        <hr>
+                        <div class="member_search">         
+                            <b class="b">검색</b> 
+                            <br>
+                            <select name="kind">
+                                <option value="name">이름</option>
+                                <option value="sno">번호</option> 
+                            </select>
+                            <input type="text" class="textbox" name="search" placeholder="검색어 입력">
+                            <button type="button" class="btn_search">검색</button>
+                            <button type="button" class="btn_reset">검색 초기화</button>
+                        </div>
+                        <div class="search_table">
+                            <table>
+                                <thead>
+                                    <th class="chb"><input type="checkbox" id="chb_all" onclick="activateBtn()"></th>
+                                    <th>No</th>
+                                    <th>ID</th>
+                                    <th>Request-date</th>
+                                    <th>Reason</th>
+                                </thead>
+                                <tbody>
+                                    <th:block th:each="secession : ${list}">
+                                    <tr>
+                                        <td class="chb"><input type="checkbox" name="chk" id="chb" onclick="activateBtn()"></td>
+                                        <td>[[${secession.sno}]]</td>
+                                        <td>[[${secession.id}]]</td>
+                                        <td>[[${secession.sdate}]]</td>
+                                        <td>[[${secession.reason}]]</td>
+                                    </tr>
+                                    </th:block>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                         <td colspan="7">
+                                             <!-- 이전 페이지 그룹으로 이동 -->
+                                             <a th:if="${pagging.priviousPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.startPageOfPageGroup - 1})}">◀</a>							
+                                             
+                                             <!-- 
+                                                 페이징 결과 출력
+                                                     PaggingVO에 있는 getStartPageOfPageGroup
+                                                                     getEndPageOfPageGroup
+                                                     이용해서 Thymeleaf를 이용해서 게시판 페이지 번호를 출력	
+                                              -->
+                                             <th:block th:each = "i : ${#numbers.sequence(pagging.startPageOfPageGroup,pagging.endPageOfPageGroup)}">
+                 
+                                             <!-- 현재 페이지 번호는 링크를 제거하고 글자를 빨간색으로 변경 -->
+                                             <a th:if="${i == pagging.currentPageNo }" class="current_page" th:text="${i}"></a>
+                                             
+                                             <!-- 현재 페이지 번호가 아닌 페이지 번호는 링크를 생성 -->						
+                                             <a th:if="${i != pagging.currentPageNo }" th:href="@{/admin/secession(pageNo=${i})}" th:text="${i}"></a>
+                                             
+                                             </th:block>
+                                                  
+                                              <!-- 다음 페이지 그룹으로 이동 
+                                                      >>를 클릭시 다음 그룹의 첫번째 페이지로 이동
+                                              -->	
+                                                 <a th:if="${pagging.nextPageGroup }" th:href="@{/admin/secession(pageNo=${pagging.endPageOfPageGroup + 1})}">▶</a>
+                                         </td>
+                                     </tr>
+                                    </tfoot>
+                            </table>
+                            <div class="btn_container">
+                            <button class="bottombtn" id="btn_delete" disabled>탈퇴 등록</button>
+                            </div>
+                            
+                        </div>
+                    </section>
+                </div>
+        </div>
+
+    </body>
+
+</html>

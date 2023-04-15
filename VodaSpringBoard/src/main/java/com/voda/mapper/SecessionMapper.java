@@ -1,5 +1,6 @@
 package com.voda.mapper;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,5 +20,9 @@ public interface SecessionMapper {
 	int goSecession(SecessionDTO dto);
 
 	SecessionDTO selectSecessionId(String id);
+
+	int deleteSecession(String[] id);
+
+	List<SecessionDTO> selectSearchSecession(HashMap<String, Object> map);
 
 }
