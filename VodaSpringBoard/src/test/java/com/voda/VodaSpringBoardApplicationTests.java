@@ -74,7 +74,7 @@ class VodaSpringBoardApplicationTests {
 		 
 	    @BeforeEach void setUp() {
 	    	MockitoAnnotations.initMocks(this); session = new MockHttpSession(); 
-//	    	session = request.getSession();찜
+	    	//session = request.getSession();//찜
 	    	MemberDTO dto = new MemberDTO();
 	    	dto.setId("admin");
 	    	session.setAttribute("member", dto); 
@@ -101,7 +101,7 @@ class VodaSpringBoardApplicationTests {
 
     
 
-    @DisplayName("찜 기능 테스트")
+    @DisplayName("찜 기능 테스트") //session = request.getSession(); 이걸 써야 작동
     @Test
     @Order(2)
     void boardContentHeartTest() {
