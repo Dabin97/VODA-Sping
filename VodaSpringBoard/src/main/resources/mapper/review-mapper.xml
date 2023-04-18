@@ -46,7 +46,7 @@
 	</delete>
 	<insert id="insertReview" parameterType="review">
 		insert into review_table(rno, rdate, bno, id, review_content, star_no)
-		values(review_rno_seq.nextval, #{rDate}, #{bno}, #{id}, #{reviewContent}, #{starNo})
+		values(review_rno_seq.nextval, sysdate, #{bno}, #{id}, #{reviewContent}, #{starNo})
 	</insert>
 	<select id="selectSearchReview" resultType="review" parameterType="hashmap">
 	     select 

@@ -40,7 +40,7 @@
 
         .heart {
             position: relative;
-            left: 300px;
+            left: 310px;
             bottom: 385px;
             width: 30px;
             background-color: rgba(255, 255, 255, 0);
@@ -51,12 +51,14 @@
 
 
         .tab {
-            background-color: rgb(91, 91, 91);
-            width: 100%;
+            resize: none;
+            border: none;
+            width: 850px;
+            height: 140px;
+            margin-top: 10px;
         }
 
         .tab p {
-            background-color: rgb(91, 91, 91);
             display: inline-block;
         }
 
@@ -66,14 +68,18 @@
         }
 
         .write {
+        
+        	margin-left : 115px;
+    	    border-top : 1px solid #474747;
+    	    border-bottom : 1px solid #474747;
+       		width : 975px;
             box-sizing: border-box;
             height: 220px;
-            background-color: rgb(91, 91, 91);
             color: white;
             margin-bottom: 30px;
             padding: 10px 20px;
         }
-
+		
         .submit {
             color: white;
             background-color: rgb(91, 91, 91);
@@ -84,8 +90,10 @@
         }
 
         .best {
+        	margin-left : 115px;
+       		width : 975px;
             box-sizing: border-box;
-            height: 200px;
+            height: 220px;
             background-color: rgb(91, 91, 91);
             color: white;
             margin-bottom: 30px;
@@ -94,8 +102,10 @@
         }
 
         .new {
+        	margin-left : 115px;
+       		width : 975px;
             box-sizing: border-box;
-            height: 200px;
+            height: 220px;
             background-color: rgb(91, 91, 91);
             color: white;
             margin-bottom: 30px;
@@ -105,9 +115,12 @@
         }
 
         .my {
+        	margin-left : 115px;
+    	    border-top : 1px solid #474747;
+    	    border-bottom : 1px solid #474747;
+       		width : 975px;
             box-sizing: border-box;
-            height: 200px;
-            background-color: rgb(91, 91, 91);
+            height: 220px;
             color: white;
             margin-bottom: 30px;
             padding: 10px 20px;
@@ -117,8 +130,7 @@
         .txt {
             resize: none;
             border: none;
-            background-color: rgb(198, 198, 198);
-            width: 1000px;
+            width: 850px;
             height: 140px;
             margin-top: 10px;
         }
@@ -128,29 +140,16 @@
             margin-left: 20px;
         }
 
-        .read {
+        .bestreview {
+        	color : white;
             resize: none;
             border: none;
-            background-color: rgb(198, 198, 198);
-            width: 1100px;
+            width: 850px;
             height: 140px;
             margin-top: 10px;
+            
         }
 
-        footer img {
-            width: 40px;
-            background-color: rgba(0, 0, 0, 0);
-            height: 40px;
-            margin: 20px 80px;
-        }
-
-        footer a {
-            margin-right: 30px;
-            padding: 10px;
-            margin-top: 30px;
-            text-decoration: none;
-            color: rgb(168, 168, 168);
-        }
 
         span img {
             background-color: rgb(91, 91, 91);
@@ -166,14 +165,6 @@
         span p {
             background-color: rgb(91, 91, 91);
             margin-right: 10px;
-        }
-
-        footer a {
-            margin-right: 30px;
-            padding: 10px;
-            margin-top: 30px;
-            text-decoration: none;
-            color: rgb(168, 168, 168);
         }
 
         .more {
@@ -277,10 +268,6 @@
       color: goldenrod;    	
    }
    
-   .read {
-   	color : black !important ;
-   	font-size : 16px !important ;
-   }
     	
    .thumbnail {
    	width : 310px;
@@ -334,11 +321,19 @@
    	margin-top : 30px;
    }
    
-   
+       .notes {
+            width: 30px;
+        height: 30px;
+        } 
+        
+
 </style>
+
 
 <script type="text/javascript" th:inline="javascript">
   $(function(){
+	  
+	  
     $(".heart").click(function() { 
             var bno = $(this).siblings('.thumbnail').data("bno");
             console.log(bno);
@@ -459,14 +454,17 @@
                         </ul>
                     </div>
                 </article>
-
+					<br>
+					<br>
                     <article>
-                        <form action="/member/review/write" method="post">
+                    <th:block th:if="${session.member != null}">
+						<form action="/member/review/write/${board.bno}" method="post" id="frm">
                             <input type="hidden" name="bno" th:value="${board.bno }">   
                             <div class="write">
-                                <p class="tab">리뷰를 작성해 주세요 </p>
-                                <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
-                                <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo">
+                            <h2 class="writereview">
+                                <img src="/img/notes.png" class="notes"> 리뷰를 작성해주세요
+                            </h2>
+                                                            <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo">
                                         <option value="">== 별점 ==</option>
                                         <option value="1" class="starrate">☆☆☆☆★</option>
                                         <option value="2" class="starrate">☆☆☆★★</option>
@@ -475,20 +473,34 @@
                                         <option value="5" class="starrate">★★★★★</option>
                                     </select>
                                 </p> 
+                                <input type="hidden" name="rdate" value="2022-44-44">
+                                <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
                                 <button class="submit">작성</button>
                             </div>
                         </form>
+            		</th:block>
             
+        			<th:block th:if="${session.member == null}">
+                            <div class="write">
+                            <h2 class="writereview">
+                                <img src="/img/notes.png" class="notes"> 로그인을 하신 후 리뷰를 작성해주세요!
+                            </h2>
+                            </div>
+                     </th:block>
                     </article>
 
                 <article>
-                    <div class="my">
-                        <div class="tab">
-                            <p>내가 작성한 리뷰</p>
-                            <p class="starrate">평점 : ☆☆☆☆★</p>
-                        </div>
-                        <input type="text" readonly class="read">
-                    </div>
+
+                <th:block th:if="${session.member != null}">
+                            <div class="write">
+                            <h2 class="writereview">
+                                <img src="/img/notes.png" class="notes"> 내가 작성한 리뷰
+                            </h2>
+                                <input type="hidden" name="rdate" value="2022-44-44">
+                                <textarea class="txt" name="reviewContent" placeholder="이거 내가쓴거임 ㅏㄷ하ㅓㅈ두핟저훋자ㅓ훋자ㅓ훚다ㅓ훋주하" readonly></textarea>
+                            </div>
+                 </th:block>
+          
                     <p>베스트 리뷰</p>
                     <div class="best">
                             <div class="tab" th:each="review : ${rList}">
@@ -500,9 +512,9 @@
                                     <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
                                     <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
                                 </span>
-                                <p class="read">[[${review.reviewContent}]]</p>
+                                <p class="bestreview">[[${review.reviewContent}]]</p>
                             </div>
-                    </div>
+                   
                     <p>최신 리뷰</p>
                     <div class="new">
                             <div class="tab" th:each="review : ${rList}">
@@ -516,7 +528,6 @@
                                 </span>
                                 <p class="read">[[${review.reviewContent}]]</p>
                             </div>
-                    </div>
                     <div class="more">
                     </div>
                 </article>
