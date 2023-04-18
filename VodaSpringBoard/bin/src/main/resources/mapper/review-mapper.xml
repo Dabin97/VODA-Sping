@@ -6,25 +6,68 @@
 
 <resultMap type="review" id="review"> 
 		<!-- column="조회된 결과의 컬럼명" property="클래스의 필드명"-->
-		<id column="rno" property="id"/>
-		<result column="rdate" property="rdate"/>
+		<id column="rno" property="rno"/>
+		<result column="rdate" property="rDate"/>
 		<result column="review_content" property="reviewContent"/>
 		<result column="bno" property="bno"/>
 		<result column="id" property="id"/>
 		<result column="star_no" property="starNo"/>
+		<result column="title" property="title"/>
 </resultMap>	
 	
+	<select id="selectReviewCount" resultType="int">
+			select count(*) from review_table
+		</select>
+		
 	<select id="selectReviewList" resultType="review" parameterType="hashMap">
-		SELECT r.rno
-			   TO_CHAR(r.rdate,'YYYY-MM-DD') AS rDate, 
-			   r.review_content as reviewContent
-			   r.bno (select bno from board b where b.bno = r.bno)
-			   r.id	(select id from member m where m.id = r.id)
-			   r.star_no as starNo
-		FROM REVIEW_TABLE_VIEW r
-		WHERE ceil(rw / #{reviewCount}) = #{pageNo}
+	     select 
+			r.rno, 
+			r.id, 
+			TO_CHAR(r.rdate,'YYYY-MM-DD') AS rDate, 
+			r.bno, (select title from board_table b where b.bno = r.bno) AS title,
+			r.review_content AS reviewContent,
+			r.star_no AS starNo
+			from review_table_view r
+		WHERE ceil(rw / #{contentCount}) = #{pageNo}
+    </select>
+    	<select id="selectAllReview" resultType="review" parameterType="int">
+	     select 
+			r.rno, 
+			r.id, 
+			TO_CHAR(r.rdate,'YYYY-MM-DD') AS rDate, 
+			r.bno, (select title from board_table b where b.bno = r.bno) AS title,
+			r.review_content AS reviewContent,
+			r.star_no AS starNo
+			from review_table_view r
+		WHERE rno = #{rno}
+    </select>
+    <delete id="deleteReview" parameterType="int">
+		delete from review_table where rno = #{rno}
+	</delete>
+	<insert id="insertReview" parameterType="review">
+		insert into review_table(rno, rdate, bno, id, review_content, star_no)
+		values(review_rno_seq.nextval, #{rDate}, #{bno}, #{id}, #{reviewContent}, #{starNo})
+	</insert>
+	<select id="selectSearchReview" resultType="review" parameterType="hashmap">
+	     select 
+			r.rno, 
+			r.id, 
+			TO_CHAR(r.rdate,'YYYY-MM-DD') AS rDate, 
+			r.bno,
+			r.review_content AS reviewContent,
+			r.star_no AS starNo,
+			b.title
+			from review_table_view r, board_table_view b
+		WHERE r.bno = b.bno
+		AND ${kind} LIKE '%' || #{search} || '%'
+    </select>
+	<select id="selectReview" parameterType="int" resultMap="review">
+		select
+			rno, bno, id, rdate, review_content, 
+			(select count(*) from like_table l where l.rno = r.rno) as rlike,	
+			(select count(*) from hate_table h where h.rno = r.rno) as rhate		
+		from review_table r
+		where bno = #{bno}
 	</select>
-		<select id="selectReviewCount" resultType="int">
-		select count(*) from review_table_view
-	</select> 
+
 </mapper>

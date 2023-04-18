@@ -439,12 +439,12 @@
                 </article>
 
                     <article>
-                        <form action="/member/review/write" method="post">
+                        <form action="/member/review/write/${board.bno}" method="post" id="frm">
                             <input type="hidden" name="bno" th:value="${board.bno }">   
                             <div class="write">
                                 <p class="tab">리뷰를 작성해 주세요 </p>
                                 <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
-                                <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo">
+                                <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo" id="starNo">
                                         <option value="">== 별점 ==</option>
                                         <option value="1" class="starrate">☆☆☆☆★</option>
                                         <option value="2" class="starrate">☆☆☆★★</option>
@@ -463,7 +463,7 @@
                     <div class="my">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>
-                            <p class="starrate">평점 : ☆☆☆☆★</p>
+                            <p class="starrate">[[${review.star_no}]]</p>
                             <span class="like">
                                 <button><img src="/img/like.png" class="btn_like"></button>
                                 <button><img src="/img/dislike.png" class="btn_hate"></button>
