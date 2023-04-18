@@ -145,8 +145,10 @@ public class UserBaordController {
 		view.setViewName("/B_userpage/user/my_page");
 	    List<BoardDTO> list = boardService.selectMainContentList();
 		List<BoardDTO> hlist = boardService.selectHeartList(id);
+		List<ReviewDTO> rList = reviewService.selectMyReview(id);
 		view.addObject("hlist", hlist);
 		view.addObject("list", list);
+		view.addObject("rList", rList);
 		return view;
 	}
 	

@@ -56,6 +56,10 @@ public class ReviewService {
 		return mapper.selectReview(bno);
 	}
 
+	public List<ReviewDTO> selectMyReview(String id) {
+		return mapper.selectMyReview(id);
+	}
+
 
 
 }

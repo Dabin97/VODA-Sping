@@ -56,6 +56,7 @@
             width: 850px;
             height: 140px;
             margin-top: 10px;
+            margin-left : 50px;
         }
 
         .tab p {
@@ -74,21 +75,56 @@
     	    border-bottom : 1px solid #474747;
        		width : 975px;
             box-sizing: border-box;
-            height: 220px;
+            height: 260px;
+            color: white;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+        }
+        
+        .write2 {
+        
+        	margin-left : 115px;
+       		width : 975px;
+            box-sizing: border-box;
+            height: 260px;
             color: white;
             margin-bottom: 30px;
             padding: 10px 20px;
         }
 		
         .submit {
-            color: white;
-            background-color: rgb(91, 91, 91);
+            margin-top : 12px;
+            background-color: rgb(70, 81, 0);
+            color: rgb(194, 231, 142);
+            font-weight : bold;
+            font-size : 14px;
             width: 50px;
-            height: 20px;
-            border: 1px solid white;
-            margin-left: 20px;
+            height: 26px;
+            border: none;
+            margin-right: 57px;
         }
 
+        .submit:hover {
+                    color: rgb(70, 81, 0);
+            background-color: rgb(194, 231, 142);
+        }
+
+        .submit:active {
+                background-color: rgb(70, 81, 0);
+                color: rgb(194, 231, 142);
+        }
+        
+		.disabled {
+			margin-top : 10px;
+            background-color: black !important;
+            color: rgb(70, 81, 0) !important;
+            font-weight : bold;
+            font-size : 14px;
+            width: 50px;
+            height: 25px;
+            border: none;
+            margin-right: 57px;
+		}
         .best {
         	margin-left : 115px;
        		width : 975px;
@@ -128,11 +164,14 @@
         }
 
         .txt {
+        	padding : 5px;
+        	font-size : 20px;
             resize: none;
-            border: none;
-            width: 850px;
+            border: 1px dashed  #474747;;
+            width: 825px;
             height: 140px;
             margin-top: 10px;
+            margin-left : 40px;
         }
 
         .like {
@@ -144,7 +183,7 @@
         	color : white;
             resize: none;
             border: none;
-            width: 850px;
+            width: 825px;
             height: 140px;
             margin-top: 10px;
             
@@ -152,7 +191,6 @@
 
 
         span img {
-            background-color: rgb(91, 91, 91);
             width: 20px;
             height: 20px;
             margin-right: 10px;
@@ -222,6 +260,7 @@
         /* bottom: 150px; */
     }
 
+
     .pop_rel_keywords {
         list-style: none;
         margin-right: 50px;
@@ -246,26 +285,38 @@
    }
    
    button{
-     background-color: rgb(91, 91, 91);
+     display: inline-block;
+     float: right; 
+     margin-right : 10px;
      border: none;
-   }
+   } 
    
    .star {
-     background-color: rgb(91, 91, 91);
+   	 font-size : 16px;
      display: inline-block;
-     float: right;
-     margin-right: 140px;
+     float: right; 
+     margin-top : 12px;
+     margin-right: 20px;
    }
         
-   .starrate {
-     font-size: 12px;
-     margin-left: 30px;
-     color: goldenrod;
+
+   
+   p img {
+   width: 14px;
+    height: 14px;
+    float: right;
+    top: 0;
+    background-color: rgba(255, 255,255,0);
+   }
+      .starrate {
+     font-size: 20px;
+     margin-left: 20px;
+     color: #93FF3F;
    }
 
     .starratebox {
       font-size: 16px;
-      color: goldenrod;    	
+     color: #93FF3F;
    }
    
     	
@@ -325,14 +376,41 @@
             width: 30px;
         height: 30px;
         } 
-        
-
+   
+   .writerinfo {
+   
+   		color : #747474 !important; 
+   } 
+   
+   .writerid {
+   		font-size : 20px ; 
+   		color : #dff5d0;
+   }
+	select option[value=""][disabled] {
+	display: none; 
+}
+select:invalid{
+	color: grey;
+}
 </style>
 
 
 <script type="text/javascript" th:inline="javascript">
   $(function(){
-	  
+	 
+	$("#textarea").on("propertychange change keyup paste input", function() {
+			var length = ($("#textarea").val().length);
+			console.log(length);
+			if(length >= 10)  {
+				$(".submit").removeAttr('disabled');
+				$(".submit").removeClass('disabled');
+			} else {
+				$(".submit").attr('disabled');
+				$(".submit").addClass('disabled');
+			}
+
+	});
+	
 	  
     $(".heart").click(function() { 
             var bno = $(this).siblings('.thumbnail').data("bno");
@@ -442,18 +520,18 @@
                             <h2 class="writereview">
                                 <img src="/img/notes.png" class="notes"> 리뷰를 작성해주세요
                             </h2>
-                                                            <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo">
-                                        <option value="">== 별점 ==</option>
-                                        <option value="1" class="starrate">☆☆☆☆★</option>
-                                        <option value="2" class="starrate">☆☆☆★★</option>
-                                        <option value="3" class="starrate">☆☆★★★</option>
-                                        <option value="4" class="starrate">☆★★★★</option>
+                                <input type="hidden" name="rdate" value="2022-44-44">
+                                <textarea class="txt" name="reviewContent" placeholder="리뷰는 열글자 이상 작성해주세요" id="textarea"></textarea>
+                                <button class="submit disabled" disabled>작성</button>
+                                      <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo" id="starbox" required >
+                                        <option value="" disabled selected>== 별점 ==</option>
+                                        <option value="1" class="starrate">★☆☆☆☆</option>
+                                        <option value="2" class="starrate">★★☆☆☆</option>
+                                        <option value="3" class="starrate">★★★☆☆</option>
+                                        <option value="4" class="starrate">★★★★☆</option>
                                         <option value="5" class="starrate">★★★★★</option>
                                     </select>
                                 </p> 
-                                <input type="hidden" name="rdate" value="2022-44-44">
-                                <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
-                                <button class="submit">작성</button>
                             </div>
                         </form>
             		</th:block>
@@ -471,26 +549,37 @@
                 <th:block th:if="${session.member != null}">
                             <div class="write">
                             <h2 class="writereview">
-                                <img src="/img/notes.png" class="notes"> 내가 작성한 리뷰
+                                <img src="/img/post-it.png" class="notes"> 내가 작성한 리뷰
                             </h2>
-                                <input type="hidden" name="rdate" value="2022-44-44">
-                                <textarea class="txt" name="reviewContent" placeholder="이거 내가쓴거임 ㅏㄷ하ㅓㅈ두핟저훋자ㅓ훋자ㅓ훚다ㅓ훋주하" readonly></textarea>
+                            <div th:each="review : ${rList}">
+                            <th:block th:if="${review.id} == ${session.member.id}" >
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <p class="txt">[[${review.reviewContent}]]</p>
+							</th:block>
+                            </div>
+                                <button class="submit disabled" disabled>수정</button>
                             </div>
                  </th:block>
 
-                      <div class="write">
+                      <div class="write2">
                             <h2 class="writereview">
-                                <img src="/img/notes.png" class="notes"> 최신 리뷰
+                                <img src="/img/feedback.png" class="notes"> 최신 리뷰
                             </h2>
                             <div class="tab" th:each="review : ${rList}">
                                 <input type="hidden" name="rno" th:value="${review.rno}">
-                                <span>작성자: [[${review.id}]]  </span>
-                                <span>작성일: [[${review.rDate}]]</span>
-                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="writerinfo">작성자 :  </span> <span class="writerid"> [[${review.id}]]  </span>
+                                <span class="writerinfo">작성일 : [[${review.rDate}]]</span>
+
+                        		<p th:if="${review.starNo} == 1" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 2" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 3" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 4" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 5" class="starrate"><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
                                     <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <button><img src="/img/like.png" class="btn_like"></button>
                                 </span>
+
                                 <p class="bestreview">[[${review.reviewContent}]]</p>
                             </div>
                             </div>

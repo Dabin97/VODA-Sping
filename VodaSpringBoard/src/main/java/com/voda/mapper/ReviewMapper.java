@@ -26,5 +26,7 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> selectReview(int bno);
 
+	List<ReviewDTO> selectMyReview(String id);
+
 
 }

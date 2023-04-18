@@ -18,7 +18,7 @@ public class UserMainController {
 	public UserMainController(BoardService boardService) {
 		this.boardService = boardService;
 	}
-	
+	 
 	@RequestMapping("/index") 
 	public String index() { 
 		return "/B_userpage/user/index";  
