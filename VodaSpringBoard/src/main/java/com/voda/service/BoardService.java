@@ -240,6 +240,23 @@ public class BoardService {
 	}
 
 	
+	public int insertBoardCommentLikeHate(String mode, int rno, String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("rno", rno);
+		map.put("mode", mode);
+		int result = 0;
+		try {
+			result = mapper.insertCommentLikeHate(map);
+		}catch (Exception e) {	
+			mapper.deleteCommentLikeHate(map);
+		}
+		return result;
+	}
+
+
+
+	
 
 
 

@@ -42,6 +42,8 @@ public interface BoardMapper {
 	List<BoardDTO> selectHeartList(String id);
 	int selectBoardHeartCHK(HashMap<String, Object> paramMap);
 	List<BoardDTO> selectMemberSearchContent(HashMap<String, Object> map);
+	int insertCommentLikeHate(HashMap<String, Object> map);
+	void deleteCommentLikeHate(HashMap<String, Object> map);
 
 
 }

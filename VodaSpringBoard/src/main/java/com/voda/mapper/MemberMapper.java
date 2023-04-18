@@ -38,5 +38,15 @@ public interface MemberMapper {
 
 	List<MemberDTO> selectSearchMember(HashMap<String, Object> map);
 
+	void insertSnsUser(HashMap<String, String> snsUser);
+
+	HashMap<String, Object> selectSnsUser(String snsId);
+
+
+
+
+
+
+
 }
 
