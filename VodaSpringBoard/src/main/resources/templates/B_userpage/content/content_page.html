@@ -375,31 +375,53 @@
                     console.error(error);
                 }
             });
-        });
-
-
-            $('.btn_like').on({ //like 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/like_full.png')
-                        ? 'img/like.png'
-                        : 'img/like_full.png';
-                    $(this).attr('src', src);
-                }
             });
 
-            $('.btn_hate').on({ //dislike 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/dislike_full.png')
-                        ? 'img/dislike.png'
-                        : 'img/dislike_full.png';
-                    $(this).attr('src', src);
-                }
+            $('.btn_like').click(function(){
+                let rno =  $(this).closest('.tab').find('input[name=rno]').val();
+                let img = $(this).find('img');
+                console.log(rno);
+                $.ajax({
+                    url: '/member/review/like/' + rno,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(r){
+                        console.log(r);
+                        alert(r.msg);
+                        $('#like_count').text(r.rlike);
+                        if (r.msg === '좋아요를 하셨습니다.') {
+                            img.attr('src', '/img/like_full.png');
+                        }else{
+                            img.attr('src', '/img/like.png');
+                        }
+                    }
+                });
             });
 
+
+                $('.btn_hate').click(function(){
+                    let rno =  $(this).closest('.tab').find('input[name=rno]').val();
+                    let img = $(this).find('img');
+                    console.log(rno);
+                    $.ajax({
+                        url:'/member/review/hate/' + rno,
+                        type : 'post',
+                        dataType : 'json',
+                        success:function(r){
+                            console.log(r);
+                            alert(r.msg);
+                            $('#hate_count').text(r.rhate);
+                            if (r.msg === '싫어요를 하셨습니다.') {
+                            img.attr('src', '/img/dislike_full.png');
+                            }else{
+                                img.attr('src', '/img/dislike.png');
+                            }
+                        }
+                    });
+                });
+
+
         });
-
-
-
 
     </script>
 </head>
@@ -413,8 +435,8 @@
 
                 <article class="info">
                         <div class="poster">
-                            <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
-                            <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
+                            <img th:if="${result == 1}" src="/img/heart_full.png" class="heart">
+                            <img th:if="${result == 0}" src="/img/heart.png" class="heart">
                             <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"
@@ -439,12 +461,12 @@
                 </article>
 
                     <article>
-                        <form action="/member/review/write/${board.bno}" method="post" id="frm">
+                        <form action="/member/review/write" method="post">
                             <input type="hidden" name="bno" th:value="${board.bno }">   
                             <div class="write">
                                 <p class="tab">리뷰를 작성해 주세요 </p>
                                 <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
-                                <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo" id="starNo">
+                                <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo">
                                         <option value="">== 별점 ==</option>
                                         <option value="1" class="starrate">☆☆☆☆★</option>
                                         <option value="2" class="starrate">☆☆☆★★</option>
@@ -463,11 +485,7 @@
                     <div class="my">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>
-                            <p class="starrate">[[${review.star_no}]]</p>
-                            <span class="like">
-                                <button><img src="/img/like.png" class="btn_like"></button>
-                                <button><img src="/img/dislike.png" class="btn_hate"></button>
-                            </span>
+                            <p class="starrate">평점 : ☆☆☆☆★</p>
                         </div>
                         <input type="text" readonly class="read">
                     </div>
@@ -479,8 +497,8 @@
                                 <span>작성일: [[${review.rDate}]]</span>
                                 <p class="starrate">평점 : ★★★★★</p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
+                                    <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
                                 </span>
                                 <p class="read">[[${review.reviewContent}]]</p>
                             </div>
@@ -493,8 +511,8 @@
                                 <span>작성일: [[${review.rDate}]]</span>
                                 <p class="starrate">평점 : ★★★★★</p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
+                                    <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
                                 </span>
                                 <p class="read">[[${review.reviewContent}]]</p>
                             </div>

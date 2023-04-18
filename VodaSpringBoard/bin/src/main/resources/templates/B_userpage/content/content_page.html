@@ -338,70 +338,67 @@
 </style>
 
 <script type="text/javascript" th:inline="javascript">
-  $(function(){
-    $(".heart").click(function() { 
-            var bno = $(this).siblings('.thumbnail').data("bno");
-            console.log(bno);
-            var heartImg = $(this); // 클릭한 하트 이미지
-            
-            $.ajax({
-                url: "/board/heart",
-                data: {bno: bno},
-                method: "post",
-                dataType: 'json',
-                success: function(r) {
-                    console.log(r); //보안을 위해 나중에 없애기
-                    if(r.dto == null) {
-                        alert(r.msg); 
-                    }else{
-                        if (r.fHeart == 0) { // 찜을 해제한 경우
-                            heartImg.attr("src", "/img/heart.png");
-                        } else {             // 찜을 추가한 경우
-                            heartImg.attr("src", "/img/heart_full.png");
-                        }
-                        alert(r.msg);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    if(xhr.status == 404) {
-                        alert("페이지를 찾을 수 없습니다.");
-                    } else if(xhr.status == 500) {
-                        alert("서버 내부 오류가 발생했습니다.");
-                    } else {
-                        alert("Ajax 요청에 실패했습니다.");
-                    }
-                    console.error(xhr.responseText);
-                    console.error(status);
-                    console.error(error);
-                }
-            });
-        });
-
-
-            $('.btn_like').on({ //like 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/like_full.png')
-                        ? 'img/like.png'
-                        : 'img/like_full.png';
-                    $(this).attr('src', src);
-                }
-            });
-
-            $('.btn_hate').on({ //dislike 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/dislike_full.png')
-                        ? 'img/dislike.png'
-                        : 'img/dislike_full.png';
-                    $(this).attr('src', src);
-                }
-            });
-
-        });
-
-
-
-
-    </script>
+    $(function(){
+      $(".heart").click(function() { 
+              var bno = $(this).siblings('.thumbnail').data("bno");
+              console.log(bno);
+              var heartImg = $(this); // 클릭한 하트 이미지
+              
+              $.ajax({
+                  url: "/board/heart",
+                  data: {bno: bno},
+                  method: "post",
+                  dataType: 'json',
+                  success: function(r) {
+                      console.log(r); //보안을 위해 나중에 없애기
+                      if(r.dto == null) {
+                          alert(r.msg); 
+                      }else{
+                          if (r.fHeart == 0) { // 찜을 해제한 경우
+                              heartImg.attr("src", "/img/heart.png");
+                          } else {             // 찜을 추가한 경우
+                              heartImg.attr("src", "/img/heart_full.png");
+                          }
+                          alert(r.msg);
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      if(xhr.status == 404) {
+                          alert("페이지를 찾을 수 없습니다.");
+                      } else if(xhr.status == 500) {
+                          alert("서버 내부 오류가 발생했습니다.");
+                      } else {
+                          alert("Ajax 요청에 실패했습니다.");
+                      }
+                      console.error(xhr.responseText);
+                      console.error(status);
+                      console.error(error);
+                  }
+              });
+          });
+  
+  
+              $('.btn_like').on({ //like 이미지 변경
+                  'click': function () {
+                      var src = ($(this).attr('src') == '/img/like_full.png')
+                          ? '/img/like.png'
+                          : '/img/like_full.png';
+                      $(this).attr('src', src);
+                  }
+              });
+  
+              $('.btn_hate').on({ //dislike 이미지 변경
+                  'click': function () {
+                      var src = ($(this).attr('src') == '/img/dislike_full.png')
+                          ? '/img/dislike.png'
+                          : '/img/dislike_full.png';
+                      $(this).attr('src', src);
+                  }
+              });
+  
+          });
+  
+      </script>
 </head>
 
 <body>
@@ -413,8 +410,8 @@
 
                 <article class="info">
                         <div class="poster">
-                            <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
-                            <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
+                            <img th:if="${result == 1}" src="/img/heart_full.png" class="heart">
+                            <img th:if="${result == 0}" src="/img/heart.png" class="heart">
                             <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"

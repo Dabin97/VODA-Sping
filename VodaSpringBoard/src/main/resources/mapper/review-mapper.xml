@@ -46,7 +46,7 @@
 	</delete>
 	<insert id="insertReview" parameterType="review">
 		insert into review_table(rno, rdate, bno, id, review_content, star_no)
-		values(review_rno_seq.nextval, sysdate, #{bno}, #{id}, #{reviewContent}, #{starNo})
+		values(review_rno_seq.nextval, #{rDate}, #{bno}, #{id}, #{reviewContent}, #{starNo})
 	</insert>
 	<select id="selectSearchReview" resultType="review" parameterType="hashmap">
 	     select 
@@ -69,5 +69,31 @@
 		from review_table r
 		where bno = #{bno}
 	</select>
+	
+	<insert id="insertBoardLike" parameterType="hashMap">
+		insert into like_table values(#{rno},#{id})
+	</insert>
+	
+	<select id="selectBoardLike" parameterType="int" resultType="int">
+		select count(*) from like_table where rno = #{rno} 
+	</select>
+	
+	<delete id="deleteBoardLike" parameterType="hashMap">
+		delete from like_table where rno = #{rno} and id = #{id}
+	</delete>
+	
+	<insert id="insertBoardHate" parameterType="hashMap">
+		insert into hate_table values(#{rno},#{id})
+	</insert>
+	
+	<select id="selectBoardHate" parameterType="int" resultType="int">
+		select count(*) from hate_table where rno = #{rno} 
+	</select>
+	
+	<delete id="deleteBoardHate" parameterType="hashMap">
+		delete from hate_table where rno = #{rno} and id = #{id}
+	</delete>
+	
+	
 
 </mapper>

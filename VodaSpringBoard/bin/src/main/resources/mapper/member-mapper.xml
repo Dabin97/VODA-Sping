@@ -59,5 +59,7 @@
 	<select id="idCheck" resultType="member">
 	select id from member_table where id=#{id} 
 	</select>
-  
+  <select id="selectSearchMember" parameterType="hashmap" resultMap="member">
+	SELECT * FROM member_table WHERE ${kind} LIKE '%' || #{search} || '%'
+	</select> 
 </mapper>
