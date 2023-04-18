@@ -11,7 +11,7 @@ public class AdminMainController {
 		return "/A_adminpage/main/admin_main";
 		}
 	
-	@RequestMapping("/admin/index")
+	@RequestMapping("/admin/index") 
 	public String adminIndex() {
 		return "/A_adminpage/main/admin_before_login";
 	} 

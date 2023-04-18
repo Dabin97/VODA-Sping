@@ -53,7 +53,7 @@ public class UserMemberController {
 		 dto.setId(id);
 		 int result = memberService.editProfile(dto); 
 		 System.out.println(dto);
-		return "/B_userpage/user/my_page";
+		return "/B_userpage/user/index";
 	}
 
 	@GetMapping("/register/view")
@@ -61,7 +61,6 @@ public class UserMemberController {
 		return "/B_userpage/user/register"; 
 	}
  
-
 	@PostMapping("/register")
 	public String register(MemberDTO dto) {
 		System.out.println(dto);
