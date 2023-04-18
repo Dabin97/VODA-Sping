@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VODA Main</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  
+
+   <style>
+        * {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: white;
+      }
+      .flex_container{
+          width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+      }
+     
+      .bx-wrapper{
+        margin:0 100px;
+        border: none;
+        box-shadow: none;
+        
+      }
+      .bx-prev{
+        left: -40px !important;
+      }
+      .bx-next{
+        right: -40px !important;
+      }
+      
+
+    footer{
+    width: 1200px;
+    height: 80px;
+    position: fixed ;
+    bottom: 0;
+    margin: 0 auto;
+    text-align: center;
+    }
+    footer img{
+        width: 40px;
+        background-color: rgba(0, 0, 0, 0);
+        height: 40px;
+        margin: 20px 80px;
+    }
+    footer a{
+        margin-right: 30px;
+        padding: 10px;
+        margin-top: 30px;
+        text-decoration: none;
+        color: rgb(168, 168, 168);
+    }
+
+      .space{
+        width: 100%;
+        height: 100px;
+      }
+
+    article{
+        margin: 20px 0px 50px 0px;
+        padding: 10px;
+    }
+    article > h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        margin-left: 100px;
+    }
+    
+    article > h2{
+
+        margin-bottom: 20px;
+        margin-left: 100px;
+    }
+    .thumnail img{
+        width: 300px;
+        height: 350px;
+    }
+    .heart{
+        position: absolute;
+        right: 0;
+        width: 30px !important;
+        height: 30px !important;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    ul{ 
+        list-style: none;
+        color: white;
+    }
+
+    .hide {
+        display: none !important;
+        }
+
+
+   .slider > div > img{
+        width: 100%;
+        height: 500px;
+    }
+    .bx-wrapper{
+        border: none;
+        box-shadow: none;
+    }
+    .poster{
+        position: relative;
+    }
+    .poster_logo{
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0);
+        width: 250px;
+        height: 100px;
+        display: inline-block; 
+        top: 30px;
+        left: 50px;
+    }
+    .poster_story{
+        position: absolute;
+        top: 150px;
+        left: 50px;
+        width: 400px;
+        font-size: 13px;
+        color: #e9e9ee;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    .comments{
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0);
+        top: 240px;
+        left: 50px;
+    }
+    .comments img{
+        width: 20px;
+        background-color: rgba(0, 0, 0, 0);
+        display: inline-block;
+    }
+    .star{
+        display: flex;
+    }
+    .comments p{
+        background-color: rgba(0, 0, 0, 0);
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    h1 img{
+        width: 30px;
+        height: 30px;
+    }
+    
+    h2 img {
+        width: 30px;
+        height: 30px;
+    }
+    .content_box{
+        background-color: rgb(34, 34, 34) !important;
+        width: 990px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: row;
+        margin-left : 100px;
+    }
+
+	.best_poster{
+	        margin: 15px 70px 15px 30px;
+	                position: relative;
+	}
+    .best_poster1{
+        width: 240px;
+        height : 330px; 
+    }
+     
+    .explanation{
+    	width : 900px;
+        background-color: rgb(34, 34, 34);
+        padding-top: 15px;
+    }
+    .explanation p, .explanation span{
+        background-color: rgba(255, 255, 255,0);
+    }
+    .ex_title{
+        font-size: 36px;
+        font-weight: bold;
+        padding-bottom: 20px;
+        text-decoration : none;
+           	color : #dff5d0;
+    }
+    
+    
+    a {
+            text-decoration : none;
+    }
+
+    .explanation img{ /*좋아요싫어요 이미지*/
+        width: 20px;
+        height: 20px;
+        float: right;
+        top: 0;
+        background-color: rgba(255, 255,255,0);
+        padding-bottom: 10px;
+    }
+
+    .best_review{
+        background-color: rgba(255, 255,255,0);
+        border: 1px solid rgb(73, 73, 73);
+        border-radius: 10px;
+        padding: 15px;
+        width: 550px;
+        height: 50px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        margin-top : 20px;
+
+    }
+    .dislike{
+        margin-top: 7px;
+    }
+    .up_down{
+        padding: 0px 5px;
+        display: flex;
+        float: right;
+        top: 0;
+        right: 0;
+    }
+    .review_content{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .mini{
+        width: calc(100%/3);
+        height: calc(100%/3);  
+        font-size: 13px;
+    }
+    .mini_box{
+        display: flex;
+        flex-direction: row;
+        /* background-color: rgb(34, 34, 34); */
+        /* border: 1px solid rgb(73, 73, 73); */
+        box-sizing: border-box;
+    }
+    .mini_poster{
+        width: 90px;
+        height: 100px;
+        margin: 15px 30px 16px 15px;
+    }
+    .mini_explanation{
+        /* background-color: rgb(34, 34, 34); */
+        padding-top: 15px;
+        padding-right: 10px;
+        font-size: 13px;
+        /* width: 250px; */
+    }
+    .mini_explanation p{
+        background-color: rgba(255, 255, 255,0);
+    }
+    .mini_explanation p:nth-child(2){
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .mini_explanation span{
+        background-color: rgba(255, 255, 255,0);
+        padding-top: 16px;
+        font-size: 20px;
+    }
+    .mini_explanation img{
+        width: 20px;
+        height: 20px;
+        padding-top: 20px;
+        /* background-color: rgb(34, 34, 34); */
+    }
+    .click, .click img{
+        background-color: rgb(34, 34, 34);;
+    }
+        .best {
+    	color : grey;
+    }
+
+ 
+    </style>
+    <script type="text/javascript" th:inline="javascript">
+       $(function(){
+        $('.slider').bxSlider({
+            infiniteLoop : true,
+            useCSS : true,
+    		auto: true,
+    		speed: 500,
+    		pause: 4000,
+    		mode:'fade',
+    		autoControls: true,
+    		pager:true,
+        });
+ 
+
+        $('.new_end_search').bxSlider({
+          pager : false,
+          slideWidth : 400,
+          useCSS : true,
+          slideMargin: 20,
+          minSlides:4,
+          maxSlides:4,
+          moveSlides:1,
+          touchEnabled : false
+        });
+        
+        $('.mini_poster').click(function(){ //mini_poster만 반영되는것
+            console.log($(this).attr('src'));
+            $('.best_poster').prop('src',$(this).attr('src'));
+        });
+
+
+        $('.like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+
+        $('.dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+
+
+      });
+    </script> 
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script> -->
+</head>
+<body>
+    <!-- <script type="text/javascript">
+        var naver_id_login = new naver_id_login("d_K2aUUD31ZJcYD5Wff1", "http://localhost:9999/main");
+        // 접근 토큰 값 출력
+        alert(naver_id_login.oauthParams.access_token);
+        // 네이버 사용자 프로필 조회
+        naver_id_login.get_naver_userprofile("naverSignInCallback()");
+        // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+        function naverSignInCallback() {
+          alert(naver_id_login.getProfileData('email'));
+          alert(naver_id_login.getProfileData('nickname'));
+          alert(naver_id_login.getProfileData('name'));
+        }
+      </script> -->
+    <div class="flex_container">
+		<th:block th:include="/fragments/user_header.html"></th:block>
+        <div class="main_container">
+        <section>
+            <article>
+                <div class="slider">
+                    <div class="poster">
+                       <p><img src="img/라라랜드로고.png" alt="" class="poster_logo"></p>
+                       <p class="poster_story">
+                            꿈꾸는 이들이 모이는 곳, LA. 우연히 만난 배우 지망생 미아와 재즈 피아니스트 세바스찬은 서로를 향한 사랑을 키워간다. 
+                            각자의 꿈으로 인해 가슴 아픈 딜레마를 마주하게 될 줄은 모르고.
+                        </p>
+                        <img src="img/라라랜드스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/어바웃타임로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            평범한 청년이 알게 된 가문의 놀라운 비밀. 
+                            그건 바로 집안의 남자들에게 시간을 되돌리는 능력이 있다는 것. 
+                            청년은 첫눈에 반한 여인의 마음을 얻기 위해 그 특별한 능력을 사용하기로 한다. 
+                            그리고 그녀와의 꿈 같은 시간이 시작된다.
+                        </p>
+                        
+                        <img src="img/어바웃타임스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/이터널선샤인로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            옛 여자친구가 자신에 대한 기억을 모두 지우기 위해 실험적인 치료를 받았다는 사실을 
+                            알게 된 한 남자는 자신도 같은 치료를 받기로 한다.
+                        </p>
+                        
+                        <img src="img/이터널선샤인스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/시카고로고.png" alt="" class="poster_logo">
+                        </p><p class="poster_story">
+                            1920년, 향락의 도시 시카고. 살인죄로 수감된 록시는 언론을 교묘하게 이용하는 불패의 변호사를 
+                            고용해 스타덤에 오른다. 그리고 자신의 운명을 가를 재판이란 무대에 올라 화려한 연극을 시작한다. 아카데미 수상에 빛나는 뮤지컬 영화.
+                        </p>
+                        
+                        <img src="img/시카고스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+
+                        <p><img src="img/인턴로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            뜨거운 열정으로 단기간에 회사를 키워낸 30대 열혈 여성 CEO. 
+                            사별과 은퇴를 겪고 공허한 일상을 보내다가 새내기로 입사한 70세 남성 인턴. 문제없을까, 이 어색한 조합.
+                        </p>
+                       
+                        <img src="img/인턴스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/위플래쉬로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            완벽을 추구하는 음악 교수의 지도에 따라, 앤드류는 재즈 뮤지션으로 성공하겠다는 일념에 불탄다. 성공의 대가로 인격이 파괴될지라도.
+                        </p>
+                       
+                        <img src="img/위플래쉬스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/미니언즈2로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            우상이었던 슈퍼빌런들에게 외면당한 12살 그루. 내가 얼마나 나쁜 악당인지 보여주겠어. 시끌벅적 정신없는 미니언즈들과 함께!
+                        </p>
+                       
+                        <img src="img/미니언즈2스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/맘마미아로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            그리스 섬에서 열리는 결혼식을 앞둔 젊은 여성. 자유로운 영혼을 지닌 엄마의 옛 연인 세 명을 결혼식에 초대하는데. 그녀의 진짜 아빠는 셋 중 과연 누구일까?
+                        </p>
+                        
+                        <img src="img/맘마미아스틸컷.jpg" alt="">
+                    </div>
+                    <div class="poster">
+                        <p><img src="img/호텔델루나_제목로고.png" alt="" class="poster_logo"></p>
+                        <p class="poster_story">
+                            서울 도심에 수상한 호텔이 있다. 천년 영업에 숙박한 사람이 없다. 왜? 산 사람은 안 받으니까. 귀신만 묵는 그곳에 인간 지배인이 왔다. 
+                            알고 보면 심약한 이 남자, 고객 응대 잘 해낼까? 외모와 달리 괴팍한 사장은 어찌 감당하누.
+                        </p>
+                      
+                        <img src="img/호텔델루나스틸컷.jpg" alt="">
+                    </div>
+                  </div>
+            </article>
+
+            <article>
+            <h1>
+                <img src="/img/Union-left.png" alt=""> BEST CONTENTS <img src="/img/Union-right.png" alt="">
+            </h1>
+            <div class="content_box"> 
+            	<div class="best_poster">
+            	<!-- <img src="img/heart.png" class="heart"> Best는 하트 제외-->
+                <a th:href="@{/board/content/detail/{bno}(bno=4)}"><img th:src="@{/board/image/{bno}(bno=4)}" alt="" class="best_poster1"></a>
+                </div>
+                <div class="explanation">
+                    <p class="best">이달의 BEST CONTENTS</p>
+                    <a th:href="@{/board/content/detail/{bno}(bno=4)}" class="content"><p class="ex_title">더 글로리(The Glory)</p></a>
+                    <div class="best_review">
+                        <p class="up_down">
+                            <img src="/img/dislike_full.png" class="dislike">
+                            <span>31</span>
+                        </p>
+                        <p class="up_down">
+                            <img src="/img/like_full.png" class="like">
+                            <span>945</span>
+                        </p>
+                        <p class="star">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <span style="padding-left: 10px;">5.0</span>
+                        </p>
+                        <p class="review_content">
+                            진정한 '(타인을 위하는) 감정'이라는것이 있는 것인지, 냉소적인 감독의 시선들이 곳곳에서 눈에 띄어서 오히려 나중에는 사랑을 떠나 인간본성에 대해서 생각을 하게 되었던 영화
+                            의외로 보고 나왔던 직후, 생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다
+                            사랑에 관한 영화인 것처럼 포스터는 말하고 있지만 그것만은 아니라는 생각이 드네요
+                        </p>
+                    </div>
+                    <div class="best_review">
+                        <p class="up_down">
+                            <img src="/img/dislike_full.png" class="dislike">
+                            <span>84</span>
+                        </p>
+                        <p class="up_down">
+                            <img src="/img/like_full.png" class="like">
+                            <span>718</span>
+                        </p>
+                        <p class="star">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <img src="/img/green_star_full.png" alt="">
+                            <span style="padding-left: 10px;">5.0</span>
+                        </p>
+                        <p class="review_content">
+                            생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다
+                            사랑에 관한 영화인 것처럼 포스터는 말하고 있지만 그것만은 아니라는 생각이 드네요
+                        </p>
+                    </div>
+                </div>
+            </div><!--container_box-->
+            </article>
+
+                <form action="/board/heart" method="post">
+            	<article> <!--신작만료 박스 시작-->
+                    <h2>
+                       <img src="/img/label.png" alt="" class="icon"> NEW CONTENTS
+                    </h2>
+                      <div class="new_end_search"> 
+                        <div th:each="board: ${nlist}">
+                            <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}">
+                                <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
+                            </a>
+                        </div>
+                      </div>
+                </article>
+                <article>
+                    <h2>
+                       <img src="/img/exicon.png" alt="" class="icon"> EXPIRE CONTENTS
+                    </h2>
+                    <div class="new_end_search"> 
+                        <div th:each="board: ${elist}">
+                            <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}">
+                                <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
+                            </a>
+                          </div>
+                      </div>
+                </article>
+                </form>
+        </section>
+        </div>
+        <div class="space">
+        </div>
+		<th:block th:include="/fragments/footer.html"></th:block>
+    </div>
+</body>

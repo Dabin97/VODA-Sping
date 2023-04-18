@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Content Page</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
     <style>
         * {
@@ -24,6 +22,29 @@
             display: flex;
             flex-direction: column;
             position: relative;
+        }
+
+        header {
+            padding-top: 20px;
+        }
+
+        header img {
+            width: 100px;
+            padding-left: 100px;
+            margin-top: 10px;
+        }
+
+        header input {
+            position: absolute;
+            margin-top: 10px;
+            right: 0;
+            background-color: rgb(34, 34, 34);
+            border: none;
+        }
+
+        header a {
+            padding-left: 20px;
+            text-decoration: none;
         }
 
         .login {
@@ -45,9 +66,6 @@
             width: 30px;
             background-color: rgba(255, 255, 255, 0);
         }
-        .full {
-            background-image: url("/img/heart_full.png");
-            }
 
 
         .tab {
@@ -180,6 +198,24 @@
             height: 100px;
         }
 
+        .top {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background-image: url(img/up-arrow.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            bottom: 20px;
+            right: 200px;
+            border-radius: 100px;
+        }
+
+        .space {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+        }
+
         .zoom {
             height: 40px;
             width: 300px;
@@ -191,7 +227,7 @@
             background-size: 30px;
             background-position: 5px center;
             padding-left: 43px;
-        } */
+        }
 
         article {
             margin: 50px 0;
@@ -203,6 +239,43 @@
             color: white;
         }
 
+        .hide {
+            display: none !important;
+        }
+
+        .rel_search {
+            position: absolute;
+            right: 110px;
+            z-index: 6;
+            margin-top: 50px;
+            float: right;
+            border: 1px solid gray;
+            color: white;
+            width: 300px;
+            height: 150px;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+
+        .search_input {
+            color: white;
+            position: absolute;
+            right: 110px;
+            /* bottom: 150px; */
+        }
+
+        .pop_rel_keywords {
+            list-style: none;
+            margin-right: 50px;
+        }
+
+        .pop_rel_keywords>li {
+            line-height: 250%
+        }
+
+        .rel_search::-webkit-scrollbar {
+            display: none;
+        }
 
         span {
             display: inline-block;
@@ -210,193 +283,111 @@
             background-color: rgba(0, 0, 0, 0);
         }
 
-    .rel_search {
-        position: absolute;
-        right: 110px;
-        z-index: 6;
-        margin-top: 50px;
-        float: right;
-        border: 1px solid gray;
-        color: white;
-        width: 300px;
-        height: 150px;
-        overflow: auto;
-        box-sizing: border-box;
+        .result {
+            margin: 0px 5px;
         }
+
+        button {
+            background-color: rgb(91, 91, 91);
+            border: none;
+        }
+
+        .star {
+            background-color: rgb(91, 91, 91);
+            display: inline-block;
+            float: right;
+            margin-right: 140px;
+        }
+
+        .starrate {
+            font-size: 12px;
+            margin-left: 30px;
+            color: goldenrod;
+        }
+
+        .starratebox {
+            font-size: 16px;
+            color: goldenrod;
+        }
+
+        .read {
+            color: black !important;
+            font-size: 16px !important;
+        }
+
+        .thumbnail {
+            width: 300px;
+            height: 420px;
+        }
+
+        .content_info1 {
+            font-size: 20px;
+            color: #eff7e9;
+            font-weight: bold;
+        }
+
+        .content_info2 {
+            font-size: 16px;
+            color: #e0dcdc;
+        }
+
+        .info_div {
+            margin: 0 auto;
+            width: 800px;
+        }
+
+        .title_info {
+
+            font-size: 40px;
+            color: #dff5d0;
+            font-weight: bold;
+        }
+
+        .color {
+            color: #e0dcdc;
+            font-size: 16px;
+        }
+
+        .font {
+            font-weight: bold;
+            color: #eff7e9;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('.heart').on({ //하트 이미지 변경
+                'click': function () {
+                    var src = ($(this).attr('src') === '/img/heart_full.png')
+                        ? '/img/heart.png'
+                        : '/img/heart_full.png';
+                    $(this).attr('src', src);
+                }
+            });
+
+
+            // $('.btn_like').on({ //like 이미지 변경
+            //     'click': function () {
+            //         var src = ($(this).attr('src') == 'img/like_full.png')
+            //             ? 'img/like.png'
+            //             : 'img/like_full.png';
+            //         $(this).attr('src', src);
+            //     }
+            // });
+
+            // $('.btn_hate').on({ //dislike 이미지 변경
+            //     'click': function () {
+            //         var src = ($(this).attr('src') == 'img/dislike_full.png')
+            //             ? 'img/dislike.png'
+            //             : 'img/dislike_full.png';
+            //         $(this).attr('src', src);
+            //     }
+            // });
+
+
+
+     });
     
-    .search_input{
-        color: white;
-        position: absolute;
-        right: 110px;
-        /* bottom: 150px; */
-    }
-
-    .pop_rel_keywords {
-        list-style: none;
-        margin-right: 50px;
-        }
-
-    .pop_rel_keywords > li {
-        line-height : 250%
-        }
-
-    .rel_search::-webkit-scrollbar {
-     display: none;
-   }
-   
-   span{
-     display: inline-block;
-     right: 0;
-     background-color: rgba(0, 0, 0, 0);
-   }
-   
-   .result{
-     margin: 0px 5px;
-   }
-   
-   button{
-     background-color: rgb(91, 91, 91);
-     border: none;
-   }
-   
-   .star {
-     background-color: rgb(91, 91, 91);
-     display: inline-block;
-     float: right;
-     margin-right: 140px;
-   }
-        
-   .starrate {
-     font-size: 12px;
-     margin-left: 30px;
-     color: goldenrod;
-   }
-
-    .starratebox {
-      font-size: 16px;
-      color: goldenrod;    	
-   }
-   
-   .read {
-   	color : black !important ;
-   	font-size : 16px !important ;
-   }
-    	
-   .thumbnail {
-   	width : 310px;
-   	height : 420px;
-
-   }
-   
-   .content_info1 {
-    font-size : 20px;
-    color : #eff7e9;
-    font-weight : bold;
-   }
-   .content_info2 {
-   	font-size : 16px;
-   	color : #e0dcdc;
-   }
-   
-   .info_div {
-    margin : 0 auto;
-   	width : 800px;
-   } 
-   
-   .title_info{
-
-   	font-size : 40px;
-   	color : #dff5d0;
-   	font-weight : bold;
-   }
-   
-   .color {
-   color : #e0dcdc;
-      	font-size : 16px;
-   }
-   
-   .font {
-      	font-weight : bold;
-    color : #eff7e9;
-      	   	font-size : 18px;
-   }
-   
-   .info {
-	margin-right : 30px;
-	
-   }
-   
-   .poster {
-   padding-right : 0px !important;
-   }
-   
-   .main_container {
-   	margin-top : 30px;
-   }
-   
-   
-</style>
-
-<script type="text/javascript" th:inline="javascript">
-  $(function(){
-    $(".heart").click(function() { 
-            var bno = $(this).siblings('.thumbnail').data("bno");
-            console.log(bno);
-            var heartImg = $(this); // 클릭한 하트 이미지
-            
-            $.ajax({
-                url: "/board/heart",
-                data: {bno: bno},
-                method: "post",
-                dataType: 'json',
-                success: function(r) {
-                    console.log(r); //보안을 위해 나중에 없애기
-                    if(r.dto == null) {
-                        alert(r.msg); 
-                    }else{
-                        if (r.fHeart == 0) { // 찜을 해제한 경우
-                            heartImg.attr("src", "/img/heart.png");
-                        } else {             // 찜을 추가한 경우
-                            heartImg.attr("src", "/img/heart_full.png");
-                        }
-                        alert(r.msg);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    if(xhr.status == 404) {
-                        alert("페이지를 찾을 수 없습니다.");
-                    } else if(xhr.status == 500) {
-                        alert("서버 내부 오류가 발생했습니다.");
-                    } else {
-                        alert("Ajax 요청에 실패했습니다.");
-                    }
-                    console.error(xhr.responseText);
-                    console.error(status);
-                    console.error(error);
-                }
-            });
-        });
-
-
-            $('.btn_like').on({ //like 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/like_full.png')
-                        ? 'img/like.png'
-                        : 'img/like_full.png';
-                    $(this).attr('src', src);
-                }
-            });
-
-            $('.btn_hate').on({ //dislike 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/dislike_full.png')
-                        ? 'img/dislike.png'
-                        : 'img/dislike_full.png';
-                    $(this).attr('src', src);
-                }
-            });
-
-        });
 
 
 
@@ -407,20 +398,17 @@
 <body>
     <div class="flex_container">
         <th:block th:include="/fragments/user_header.html"></th:block>
-
         <div class="main_container">
             <section>
-
                 <article class="info">
-                        <div class="poster">
-                            <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
-                            <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
-                            <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
-                            <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player"
+                    <div class="poster">
+                        <img src="/img/heart.png" class="heart">
+                        <img th:src="@{/image/{bno}(bno=${board.bno})}" class="thumbnail">
+                        <iframe width="700" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; mute; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
                             allowfullscreen></iframe>
-                        </div>
+                    </div>
                     <div class="info_div">
                         <ul>
                             <br>
@@ -439,8 +427,9 @@
                 </article>
 
                     <article>
-                        <form action="/member/review/write" method="post">
-                            <input type="hidden" name="bno" th:value="${board.bno }">   
+                        <form action="/review/write" method="post">
+                            <input type="hidden" name="rno" th:value="${review?.rno }">
+                            <input type="hidden" name="id" value="${session.member?.id }">
                             <div class="write">
                                 <p class="tab">리뷰를 작성해 주세요 </p>
                                 <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
@@ -460,49 +449,50 @@
                     </article>
 
                 <article>
-                    <div class="my">
+                    <div class="my" th:if="${session.member.id == review.id }" th:each="review : ${rList}">
                         <div class="tab">
                             <p>내가 작성한 리뷰</p>
                             <p class="starrate">평점 : ☆☆☆☆★</p>
                             <span class="like">
-                                <button><img src="/img/like.png" class="btn_like"></button>
-                                <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                <button><img src="/img/like.png" class="btn_like">[[${review.rlike }]]</button>
+                                <button><img src="/img/dislike.png" class="btn_hate">[[${review.rhate }]]</button>
                             </span>
+                            <p class="read">[[${review.reviewContent}]]</p>
                         </div>
-                        <input type="text" readonly class="read">
                     </div>
                     <p>베스트 리뷰</p>
-                    <div class="best">
-                            <div class="tab" th:each="review : ${rList}">
-                                <input type="hidden" name="rno" th:value="${review.rno}">
+                    <div class="best" th:each="review : ${rList}">
+                            <div class="tab">
+                                <input type="hidden" name="rno" th:value="${review?.rno}">
                                 <span>작성자: [[${review.id}]]  </span>
                                 <span>작성일: [[${review.rDate}]]</span>
                                 <p class="starrate">평점 : ★★★★★</p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <button><img src="/img/like.png" class="btn_like">[[${review?.rlike }]]</button>
+                                    <button><img src="/img/dislike.png" class="btn_hate">[[${review?.rhate }]]</button>
                                 </span>
-                                <p class="read">[[${review.reviewContent}]]</p>
+                                <p class="read">[[${review?.reviewContent}]]</p>
                             </div>
                     </div>
                     <p>최신 리뷰</p>
-                    <div class="new">
-                            <div class="tab" th:each="review : ${rList}">
-                                <input type="hidden" name="rno" th:value="${review.rno}">
+                    <div class="new" th:each="review : ${rList}">
+                            <div class="tab">
+                                <input type="hidden" name="rno" th:value="${review?.rno}">
                                 <span>작성자: [[${review.id}]]</span>
                                 <span>작성일: [[${review.rDate}]]</span>
                                 <p class="starrate">평점 : ★★★★★</p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <button><img src="/img/like.png" class="btn_like">[[${review?.rlike }]]</button>
+                                    <button><img src="/img/dislike.png" class="btn_hate">[[${review?.rhate }]]</button>
                                 </span>
-                                <p class="read">[[${review.reviewContent}]]</p>
+                                <p class="read">[[${review?.reviewContent}]]</p>
                             </div>
                     </div>
                     <div class="more">
                     </div>
                 </article>
-
+                <a href="#top" class="top"></a>
+                <div class="space"></div>
             </section>
         </div>
         <th:block th:include="/fragments/footer.html"></th:block>

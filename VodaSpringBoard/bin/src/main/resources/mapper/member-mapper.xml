@@ -29,6 +29,11 @@
 		nick=#{nick}, email=#{email}   
 		where id like #{id}
 	</update>
+	<update id="editProfile" parameterType="member">
+		update member_table set passwd=#{passwd},
+		nick=#{nick} 
+		where id like #{id}
+	</update>
 
 	<insert id="insertMember" parameterType="member">
 			insert into member_table values(#{id},#{passwd},#{name},#{nick},#{email})
@@ -47,7 +52,9 @@
     </select> 
     
 	<delete id="deleteMember" parameterType="String">
-		delete from member_table where id = #{id}
+		delete from member_table where id in (
+			<foreach collection="id" item="i" separator=",">#{i}</foreach>
+		)
 	</delete>
 	<select id="idCheck" resultType="member">
 	select id from member_table where id=#{id} 
