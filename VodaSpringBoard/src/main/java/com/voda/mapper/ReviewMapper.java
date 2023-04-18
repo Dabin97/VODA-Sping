@@ -26,5 +26,17 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> selectReview(int bno);
 
+	int insertBoardLike(HashMap<String, Object> map);
+
+	int deleteBoardLike(HashMap<String, Object> map);
+
+	int insertBoardHate(HashMap<String, Object> map);
+
+	int deleteBoardHate(HashMap<String, Object> map);
+
+	int selectBoardLike(int rno);
+
+	int selectBoardHate(int rno);
+
 
 }

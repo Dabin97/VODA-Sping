@@ -370,31 +370,53 @@
                     console.error(error);
                 }
             });
-        });
-
-
-            $('.btn_like').on({ //like 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/like_full.png')
-                        ? 'img/like.png'
-                        : 'img/like_full.png';
-                    $(this).attr('src', src);
-                }
             });
 
-            $('.btn_hate').on({ //dislike 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/dislike_full.png')
-                        ? 'img/dislike.png'
-                        : 'img/dislike_full.png';
-                    $(this).attr('src', src);
-                }
+            $('.btn_like').click(function(){
+                let rno =  $(this).closest('.tab').find('input[name=rno]').val();
+                let img = $(this).find('img');
+                console.log(rno);
+                $.ajax({
+                    url: '/member/review/like/' + rno,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(r){
+                        console.log(r);
+                        alert(r.msg);
+                        $('#like_count').text(r.rlike);
+                        if (r.msg === '좋아요를 하셨습니다.') {
+                            img.attr('src', '/img/like_full.png');
+                        }else{
+                            img.attr('src', '/img/like.png');
+                        }
+                    }
+                });
             });
 
+
+                $('.btn_hate').click(function(){
+                    let rno =  $(this).closest('.tab').find('input[name=rno]').val();
+                    let img = $(this).find('img');
+                    console.log(rno);
+                    $.ajax({
+                        url:'/member/review/hate/' + rno,
+                        type : 'post',
+                        dataType : 'json',
+                        success:function(r){
+                            console.log(r);
+                            alert(r.msg);
+                            $('#hate_count').text(r.rhate);
+                            if (r.msg === '싫어요를 하셨습니다.') {
+                            img.attr('src', '/img/dislike_full.png');
+                            }else{
+                                img.attr('src', '/img/dislike.png');
+                            }
+                        }
+                    });
+                });
+
+
         });
-
-
-
 
     </script>
 </head>
@@ -408,8 +430,8 @@
 
                 <article class="info">
                         <div class="poster">
-                            <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
-                            <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
+                            <img th:if="${result == 1}" src="/img/heart_full.png" class="heart">
+                            <img th:if="${result == 0}" src="/img/heart.png" class="heart">
                             <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"
@@ -468,6 +490,7 @@
                     </article>
 
                 <article>
+
                 <th:block th:if="${session.member != null}">
                             <div class="write">
                             <h2 class="writereview">
@@ -477,22 +500,33 @@
                                 <textarea class="txt" name="reviewContent" placeholder="이거 내가쓴거임 ㅏㄷ하ㅓㅈ두핟저훋자ㅓ훋자ㅓ훚다ㅓ훋주하" readonly></textarea>
                             </div>
                  </th:block>
-
-                      <div class="write">
-                            <h2 class="writereview">
-                                <img src="/img/notes.png" class="notes"> 최신 리뷰
-                            </h2>
+          
+                    <p>베스트 리뷰</p>
+                    <div class="best">
                             <div class="tab" th:each="review : ${rList}">
                                 <input type="hidden" name="rno" th:value="${review.rno}">
                                 <span>작성자: [[${review.id}]]  </span>
                                 <span>작성일: [[${review.rDate}]]</span>
                                 <p class="starrate">평점 : ★★★★★</p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
+                                    <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
                                 </span>
                                 <p class="bestreview">[[${review.reviewContent}]]</p>
                             </div>
+                   
+                    <p>최신 리뷰</p>
+                    <div class="new">
+                            <div class="tab" th:each="review : ${rList}">
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <span>작성자: [[${review.id}]]</span>
+                                <span>작성일: [[${review.rDate}]]</span>
+                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="like">
+                                    <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
+                                    <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
+                                </span>
+                                <p class="read">[[${review.reviewContent}]]</p>
                             </div>
                     <div class="more">
                     </div>
