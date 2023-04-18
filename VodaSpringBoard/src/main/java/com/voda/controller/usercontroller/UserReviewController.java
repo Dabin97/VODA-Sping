@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.voda.dto.MemberDTO;
@@ -12,28 +13,28 @@ import com.voda.service.ReviewService;
 
 @Controller
 @RequestMapping("/member/review")
-public class UserReviewController {
+public class UserReviewController { 
 
 	private ReviewService reviewService;
 	
 	public UserReviewController(ReviewService reviewService) {
-		this.reviewService = reviewService;
+		this.reviewService = reviewService; 
 	}
 	
-	@GetMapping("/review/register")
-	public String registerReview(ReviewDTO dto) {
-		reviewService.insertReview(dto);
-		return "redirect:/content_page";
-	}
-	
-	@RequestMapping("/write")
+	/*
+	 * @PostMapping("/register") public String registerReview(ReviewDTO dto) {
+	 * reviewService.insertReview(dto); return
+	 * "redirect:/board/content/detail/{bno}"; }
+	 */
+	@PostMapping("write/{bno}")
 	public String insertReview(ReviewDTO review, HttpSession session) {
-		//댓글 작성자 정보 추가
-		MemberDTO dto = (MemberDTO) session.getAttribute("dto");
-		review.setId(dto.getId());
-		
+
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		String id = member.getId();
+		review.setId(id);
+
 		reviewService.insertReview(review);
 		
-		return "redirect:/content/detail/{bno}"+review.getBno();
+		return "redirect:/board/content/detail/" + review.getBno();
 	}
 }
