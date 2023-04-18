@@ -155,65 +155,6 @@ public class UserBoardController {
 		view.addObject("list", list);
 		return view;
 	}
-	
-//	@GetMapping("/my_page/{id}")
-//	public ModelAndView my_page(@PathVariable String snsId, HttpSession session) {
-//	    ModelAndView view = new ModelAndView();
-//	    view.setViewName("/B_userpage/user/my_page");
-//	    List<BoardDTO> list = boardService.selectMainContentList();
-//
-//	    MemberDTO member = (MemberDTO) session.getAttribute("member");
-//	    if (member == null) {
-//	        // 세션에 일반 로그인 유저 정보가 없으면 간편 로그인 유저인지 확인
-//	        HashMap<String, Object> snsMember = memberService.selectSnsUser(snsId);
-//	        if (snsMember != null) {
-//	        	snsId = (String) snsMember.get("sns_id"); // sns_id로 id를 바꿔줌
-//	        }
-//	    }
-//
-//	    List<BoardDTO> hlist = boardService.selectHeartList(snsId);
-//	    view.addObject("hlist", hlist);
-//	    view.addObject("list", list);
-//	    return view;
-//	}
-
-
-
-	
-//	@GetMapping("/my_page")
-//	public ModelAndView my_page(HttpSession session) {
-//	    ModelAndView view = new ModelAndView();
-//	    view.setViewName("/B_userpage/user/my_page");
-//
-//	    // 세션에 저장된 member 또는 user 정보를 검사하여 id 값을 설정
-//	    String memberId = null;
-//	    if (session.getAttribute("member") != null) {
-//	        // 일반 로그인
-//	        memberId = ((MemberDTO) session.getAttribute("member")).getId();
-//	    } else if (session.getAttribute("user") != null) {
-//	        // 간편 로그인
-//	        memberId = (String) session.getAttribute("user");
-//	        try {
-//	            JSONObject userJson = new JSONObject((String) session.getAttribute("user"));
-//	            memberId = userJson.getString("id");
-//	        } catch (JSONException e) {
-//	            e.printStackTrace();
-//	        }
-//	    }
-//	    if (memberId == null) {
-//	        // id 값이 없으면 로그인 페이지로 이동
-//	        view.setViewName("redirect:/login");
-//	        return view;
-//	    }
-//
-//	    // 마이페이지에 필요한 정보를 DB에서 조회하여 Model에 추가
-//	    List<BoardDTO> hlist = boardService.selectHeartList(memberId);
-//	    view.addObject("hlist", hlist);
-//
-//	    return view;
-//	}
-
-
 
 
 	
