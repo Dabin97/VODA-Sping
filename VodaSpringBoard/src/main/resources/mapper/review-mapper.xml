@@ -71,16 +71,48 @@
 		ORDER BY rdate DESC
 	</select>
 
-	<select id="selectMyReview" parameterType="String" resultMap="review">
-	     select 
-			r.rno, 
-			r.id, 
-			r.bno,
-			r.review_content,
-			r.star_no AS starNo,
-			b.title
-			from review_table_view r, board_table_view b
-		WHERE r.bno = b.bno
-		AND id = #{id}
+<select id="selectMyReview" parameterType="String" resultMap="review">
+         select 
+            r.rno, 
+            r.id, 
+            r.bno,
+            r.review_content,
+            r.star_no AS starNo,
+            r.rdate,
+            b.title,
+            (SELECT COUNT(*) FROM like_table l WHERE l.rno = r.rno) AS rlike,
+            (SELECT COUNT(*) FROM hate_table h WHERE h.rno = r.rno) AS rhate
+            from review_table_view r, board_table_view b
+        WHERE r.bno = b.bno 
+        AND id = #{id}
+    </select>
+	
+	<insert id="insertBoardLike" parameterType="hashMap">
+		insert into like_table values(#{rno},#{id})
+	</insert>
+	
+	<select id="selectBoardLike" parameterType="int" resultType="int">
+		select count(*) from like_table where rno = #{rno} 
 	</select>
+	
+	<delete id="deleteBoardLike" parameterType="hashMap">
+		delete from like_table where rno = #{rno} and id = #{id}
+	</delete>
+	
+	<insert id="insertBoardHate" parameterType="hashMap">
+		insert into hate_table values(#{rno},#{id})
+	</insert>
+	
+	<select id="selectBoardHate" parameterType="int" resultType="int">
+		select count(*) from hate_table where rno = #{rno} 
+	</select>
+	
+	<delete id="deleteBoardHate" parameterType="hashMap">
+		delete from hate_table where rno = #{rno} and id = #{id}
+	</delete>
+	
+	<select id="selectMainReviewList" resultMap="review">
+		select * from board_table	
+	</select>
+	
 </mapper>

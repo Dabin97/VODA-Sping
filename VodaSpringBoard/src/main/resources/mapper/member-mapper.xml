@@ -10,6 +10,9 @@
 		<result column="name" property="name"/>
 		<result column="nick" property="nick"/>
 		<result column="email" property="email"/>
+		<result column="sns_id" property="snsId"/>
+		<result column="sns_nickname" property="snsNickname"/>
+		<result column="sns_type" property="snsType"/>
 	</resultMap>
 
 	<select id="login" parameterType="HashMap" resultType="member">
@@ -56,8 +59,26 @@
 			<foreach collection="id" item="i" separator=",">#{i}</foreach>
 		)
 	</delete>
+	
 	<select id="idCheck" resultType="member">
 	select id from member_table where id=#{id} 
 	</select>
   
+	   <select id="selectSearchMember" parameterType="hashmap" resultMap="member">
+		SELECT * FROM member_table WHERE ${kind} LIKE '%' || #{search} || '%'
+		</select> 
+
+	  <select id="getMemberById" parameterType="String" resultType="member">
+	    SELECT * FROM member_table WHERE id = #{id}
+		</select>
+
+	<insert id="insertSnsUser" parameterType="hashMap">
+	    INSERT INTO sns_member (sns_id, sns_nickname, sns_type) 
+	    VALUES (#{sns_id}, #{sns_nickname}, #{sns_type})
+	</insert>
+
+	  <select id="selectSnsUser" parameterType="String" resultType="hashmap">
+	    SELECT * FROM sns_member WHERE sns_id = #{snsId}
+	</select>
+
 </mapper>

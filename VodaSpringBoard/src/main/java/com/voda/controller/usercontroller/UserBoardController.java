@@ -33,11 +33,11 @@ import com.voda.service.ReviewService;
 
 @Controller
 @RequestMapping("/board")
-public class UserBaordController {
+public class UserBoardController {
 	private BoardService boardService;
 	private ReviewService reviewService;
 	
-	public UserBaordController(BoardService boardService, ReviewService reviewService) {
+	public UserBoardController(BoardService boardService, ReviewService reviewService) {
 		this.boardService = boardService;
 		this.reviewService = reviewService;
 	}
@@ -209,14 +209,25 @@ public class UserBaordController {
 		BoardDTO board = boardService.selectBoard(bno, session);
 		List<ReviewDTO> rList = reviewService.selectReview(bno);
 		List<BoardDTO> list = boardService.selectMainContentList();
-		int result = boardService.selectBoardHeart(bno);
+//		int result = boardService.selectBoardHeart(bno);
+		
+		
+		MemberDTO dto = (MemberDTO) session.getAttribute("member");
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		if(dto != null ) {
+			paramMap.put("id", dto.getId());
+			paramMap.put("bno", bno);
+			
+			int result = boardService.selectBoardHeartCHK(paramMap);
+			
+			mv.addObject("result", result);
+		}
 
 		
 		//리뷰 목록 조회
 		mv.addObject("list", list);
 		mv.addObject("board", board);
 		mv.addObject("rList", rList);
-		mv.addObject("result", result);
 		mv.setViewName("/B_userpage/content/content_page");
 		
 		return mv;
@@ -235,10 +246,13 @@ public class UserBaordController {
 	}
 	
 	@PostMapping("/heart") 
-	public ResponseEntity<HashMap<String, Object>> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
+	public ResponseEntity<String> boardContentHeart(@RequestParam("bno") int bno, HttpSession session) {
 	    HashMap<String, Object> map = new HashMap<String, Object>();
 	    int result = -1;
 	    MemberDTO dto = (MemberDTO) session.getAttribute("member");
+	    HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", dto.getId());
+		paramMap.put("bno", bno);
 
 	    if(dto == null) {
 	        map.put("msg", "로그인 후 이용해주세요.");
@@ -246,9 +260,8 @@ public class UserBaordController {
 	    }
 	    try {
 	        boardService.insertBoardHeart(bno, dto.getId());
-	        result = boardService.selectBoardHeart(bno);
-//	        throw new Exception("Something went wrong"); 예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
-
+	        result = boardService.selectBoardHeartCHK(paramMap);
+	       // throw new Exception("Something went wrong"); //예외 확인용 Exception 만드는 코드 - 예외 확인할때만 쓸것
 	    } catch (Exception e) {
             e.printStackTrace();
             PrintStream ps = null;
@@ -273,9 +286,10 @@ public class UserBaordController {
 	    } else {
 	    	map.put("dto", dto);
 	        map.put("msg", "해당 컨텐츠에 찜을 하셨습니다.");
-	    }
-	    
+	    }   
 	    map.put("fHeart", result);
-	    return new ResponseEntity<>(map, HttpStatus.OK);
+	    return new ResponseEntity(map, HttpStatus.OK);
 	}
+	
+	
 }

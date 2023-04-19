@@ -242,33 +242,6 @@
     </style>
  <script type="text/javascript" th:inline="javascript">
 
-
-    function heart(){ 
-            var bno = $(this).siblings('a').find('.thumbnail').data("bno");
-            console.log(bno);
-            var heartImg = $(this); // 클릭한 하트 이미지
-
-            $.ajax({
-                url: "/board/heart",
-                data: {bno: bno},
-                method: "post",
-                dataType: 'json',
-                success: function(r) {
-                    console.log(r);
-                    if (r.fHeart == 0) { // 찜을 해제한 경우
-                        heartImg.attr("src", "/img/heart.png");
-                    } else {             // 찜을 추가한 경우
-                        heartImg.attr("src", "/img/heart_full.png");
-                    }
-                    alert(r.msg);
-                },
-                error: function(xhr, status, error) {
-                    alert("Ajax 요청에 실패했습니다.");
-                }
-            });
-    }
-
-
 	var slider = [];
     $(function(){
         
@@ -313,7 +286,6 @@
 	                moveSlides:1,
 	                touchEnabled : false
 	              });            
-              $('.heart').click(heart);  //찜이 반복되는 문제발생!!!
     	  });
     	  
           $('.hide_new_end_search2').append($('.tBox2'));
@@ -616,8 +588,7 @@
                     <th:block th:each="board: ${list}">
                       <div class="tBox">
                         <input type="hidden" name="genre" th:value="${board.genre}">
-                        <img src="/img/heart.png" class="heart">
-                        <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}"></a>
+                        <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail"></a>
                       </div>
                     </th:block>
                   </div>

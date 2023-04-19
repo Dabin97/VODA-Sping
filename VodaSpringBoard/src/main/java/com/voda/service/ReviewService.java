@@ -60,6 +60,45 @@ public class ReviewService {
 		return mapper.selectMyReview(id);
 	}
 
+	public int insertBoardLike(int rno,String id) {
+		int r = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rno", rno);
+		map.put("id", id);
+		try {
+			r = mapper.insertBoardLike(map);
+		}catch (Exception e) {
+			mapper.deleteBoardLike(map);
+		}
+		return r;
+	}
+	public int insertBoardHate(int rno,String id) {
+		int r = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rno", rno);
+		map.put("id", id);
+		try {
+			r = mapper.insertBoardHate(map);
+		}catch (Exception e) {
+			mapper.deleteBoardHate(map);
+		}
+		return r;
+	}
+
+	public int selectBoardLike(int rno) {
+		return mapper.selectBoardLike(rno);
+	}
+
+	public int selectBoardHate(int rno) {
+		return mapper.selectBoardHate(rno);
+	}
+
+	public List<ReviewDTO> selectMianReviewList() {
+		List<ReviewDTO> list = mapper.selectMainReviewList();
+		return list;
+	}
+
+
 
 
 }
