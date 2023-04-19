@@ -109,14 +109,26 @@
         margin-bottom : 10px;
         font-size : 18px;
     }
+    
+    .explanation a {
+        	text-decoration : none; 
+        	 color : #dff5d0 ;
+    }
+    .thumb {
+        	width : 980px;
+    }
+    #content_box2 {
+    	padding-top : 5px;
+    	margin-bottom : 10px;
+    	font-size : 18px;
+    }
     .ex_title{
-        width : 800px;
-        height : 30px;
+    	  width : 800px;
+    	  height : 30px;
         font-size: 24px !important;
         font-weight: bold;
         text-decoration : none;
         padding-bottom: 20px;
-
     }
     .explanation img{ 
         width: 30px;
@@ -127,21 +139,26 @@
         top: 0;
     }
     .dislike{
-        margin-top: 7px;
+        margin-top: 4px ;
     }
-    .up_down{
+    
+    .like { 
+    	width : 20px !important;
+    	height : 20px !important;
+    }
+    .up_down{ 
         float: right;
-        top: 0;
+        top: 0; 
     }
     .bookmark {
         border-top : 1px solid #474747;
         }
-        .bookmark ul {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
+    .bookmark ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
 
-        }
+    }
 
     .bookmark li{
 
@@ -185,18 +202,18 @@
    }
 
 .poster2 {
-    float : left !important;
-    width : 50px !important;
-    height : 70px !important;
-    margin-bottom : 10px !important;
+	float : left !important;
+	width : 60px !important;
+	height : 90px !important;
+	margin-bottom : 10px !important;
 }
 
 .rspan {
-    font-size : 14px ;
-    font-weight : normal;
-    color : #979797;
+	font-size : 14px ;
+	font-weight : normal;
+	color : #979797;
 }
-
+   
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -223,8 +240,6 @@
                     content_box.slideDown();
                 }
             });
-
-
 
             $('.select_1').click(function(){
                 var bookmark = $(this).nextAll(".bookmark");
@@ -300,13 +315,15 @@
                             <img src="/img/arrow1.png" class="down_arrow">
                         </h2>
                 <div class="content_box" th:each="review : ${rList}">
-                    <th:block th:if="${review.id} == ${session.member.id}" >
+                	<th:block th:if="${review.id} == ${session.member.id}" >
                     <div class="explanation">
                     <img src="/img/arrow1.png" class="down_arrow select3">
-                        <div class="thumb">
-                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike">14</p>
-                        <p class="up_down"><img src="/img/like_full.png">25</p>
-                        <p class="ex_title"><a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">[[{review.title}]]</a><span class="rspan"> [[review.title]]</a><spanclass="rspan">[[{review.rDate}]]</span></p>
+                    	<div class="thumb">
+                        <p class="up_down">[[${review.rhate }]]</p>
+                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike like"></p>
+                        <p class="up_down">[[${review.rlike }]]</p>
+                        <p class="up_down"><img src="/img/like_full.png" class="like"></p>
+                        <p class="ex_title"><a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">[[${review.title}]]</a><span class="rspan"> [[${review.rDate}]]</span></p>
                         </div>
                         <div class="myreviewbox">
                         <a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">

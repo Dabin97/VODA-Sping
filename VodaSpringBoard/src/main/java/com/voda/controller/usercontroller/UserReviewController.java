@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,7 @@ public class UserReviewController {
 	private ReviewService reviewService;
 	
 	public UserReviewController(ReviewService reviewService) {
-		this.reviewService = reviewService; 
+		this.reviewService = reviewService;  
 	}
 	
 	/*
@@ -35,14 +37,21 @@ public class UserReviewController {
 	 */
 	@PostMapping("write/{bno}")
 	public String insertReview(ReviewDTO review, HttpSession session) {
-
-		MemberDTO member = (MemberDTO) session.getAttribute("member");
-		String id = member.getId();
-		review.setId(id);
-
-		reviewService.insertReview(review);
-		
-		return "redirect:/board/content/detail/" + review.getBno();
+	    MemberDTO member = (MemberDTO) session.getAttribute("member");
+	    String id = member.getId();
+	    review.setId(id);
+	    
+	     MemberDTO dto = (MemberDTO) session.getAttribute("member");
+	        HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	        paramMap.put("id", id);
+	        paramMap.put("bno", review.getBno());
+	        
+	      if (reviewService.ReviewCHK(paramMap) > 0) {
+	            return "redirect:/board/content/detail/" + review.getBno();
+	        }else {
+	            reviewService.insertReview(review);
+	            return "redirect:/board/content/detail/" + review.getBno();
+	        }
 	}
 	
 	@PostMapping("/like/{rno}")
@@ -93,4 +102,7 @@ public class UserReviewController {
 		}
 		return new ResponseEntity(map,HttpStatus.OK);
 	}
+	
+
+	
 }

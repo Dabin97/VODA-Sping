@@ -42,4 +42,9 @@ public interface ReviewMapper {
 	
 	int deleteUserReview(String id);
 
+	int ReviewCHK(HashMap<String, Object> paramMap);
+
+	List<ReviewDTO> selectMainReviewList();
+
+
 }

@@ -17,6 +17,10 @@
             background-color: black;
             color: white;
         }
+              .space{
+        width: 100%;
+        height: 300px;
+      }
 
         .flex_container {
             width: 1200px;
@@ -54,7 +58,7 @@
             resize: none;
             border: none;
             width: 850px;
-            height: 140px;
+            height: auto;
             margin-top: 10px;
             margin-left : 50px;
         }
@@ -105,7 +109,7 @@
         }
 
         .submit:hover {
-                    color: rgb(70, 81, 0);
+            color: rgb(70, 81, 0);
             background-color: rgb(194, 231, 142);
         }
 
@@ -135,7 +139,7 @@
                 background-color: rgb(70, 81, 0);
                 color: rgb(194, 231, 142);
         }
-        
+
 		.disabled {
 			margin-top : 10px;
             background-color: black !important;
@@ -194,11 +198,13 @@
             height: 140px;
             margin-top: 10px;
             margin-left : 40px;
+            overflow : auto;
         }
 
         .like {
             display: inline-block;
             margin-left: 20px;
+            right : 0;
         }
 
         .bestreview {
@@ -206,9 +212,9 @@
             resize: none;
             border: none;
             width: 825px;
-            height: 140px;
+            height : auto;
             margin-top: 10px;
-            
+            margin-bottom : 20px;         
         }
 
 
@@ -218,9 +224,6 @@
             margin-right: 10px;
         }
 
-        span a {
-            background-color: rgb(91, 91, 91);
-        }
 
         span p {
             background-color: rgb(91, 91, 91);
@@ -494,7 +497,6 @@ select:invalid{
                 });
             });
 
-
                 $('.btn_hate').click(function(){
                     let rno =  $(this).closest('.tab').find('input[name=rno]').val();
                     let img = $(this).find('img');
@@ -538,21 +540,7 @@ select:invalid{
                     });
                 });
 
-        
-//  function checkReviewOwner() {
-//       // 로그인한 사용자의 정보를 가져옵니다.
-//       var sessionID = "${session.member.id}";
-//       var reviewID = "${review.id}";
-//       // 댓글 작성자의 아이디와 로그인한 사용자의 아이디를 비교합니다.
-//       if (reviewID == sessionID) {
-//         $("#btn_del").prop("disabled", false);
-//       } else {
-//         $("#btn_del").prop("disabled", true);
-//       }
-//     }
-
-       
-
+                });
     </script>
 </head>
 
@@ -643,8 +631,6 @@ select:invalid{
                             </div>
                  </th:block>
 
-
-
                       <div class="write2">
                             <h2 class="writereview">
                                 <img src="/img/feedback.png" class="notes"> 최신 리뷰
@@ -660,8 +646,8 @@ select:invalid{
                         		<p th:if="${review.starNo} == 4" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                         		<p th:if="${review.starNo} == 5" class="starrate"><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                                 <span class="like">
-                                    <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
-                                    <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
+                                    <a class="btn_like"><img src="/img/like.png" ><span id="like_count">[[${review.rlike }]]</span> </a>
+                                    <a class="btn_hate"><img src="/img/dislike.png"><span id="hate_count">[[${review.rhate }]]</span> </a>
                                 </span>
 
                                 <p class="bestreview">[[${review.reviewContent}]]</p>
@@ -670,9 +656,11 @@ select:invalid{
                     <div class="more">
                     </div>
                 </article>
-
+        <div class="space">
+        </div>
             </section>
         </div>
+
         <th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>

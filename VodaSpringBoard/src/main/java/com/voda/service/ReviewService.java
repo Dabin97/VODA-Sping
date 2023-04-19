@@ -94,8 +94,16 @@ public class ReviewService {
 	}
 
 	public int deleteUserReview(String id) {
-		
 		return mapper.deleteUserReview(id);
+    }
+
+	public int ReviewCHK(HashMap<String, Object> paramMap) {
+		return mapper.ReviewCHK(paramMap);
+    }
+
+	public List<ReviewDTO> selectMianReviewList() {
+		List<ReviewDTO> list = mapper.selectMainReviewList();
+		return list;
 	}
 
 
