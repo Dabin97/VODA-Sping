@@ -185,12 +185,12 @@
         float: right;
         top: 0;
         background-color: rgba(255, 255,255,0);
-        padding-bottom: 10px;
+        padding-top : 4px;
     }
 
     .best_review{
-        background-color: rgba(255, 255,255,0);
-        border: 1px solid rgb(73, 73, 73);
+        background-color: black;
+	    border: 1px solid rgb(73, 73, 73);
         border-radius: 10px;
         padding: 15px;
         width: 550px;
@@ -200,8 +200,14 @@
         margin-top : 20px;
 
     }
-    .dislike{
-        margin-top: 7px;
+    .like{
+    	margin-top : -4px !important;
+    	margin-right : 2px;
+    }
+    
+   .dislike{
+
+    	margin-right : 2px;
     }
     .up_down{
         padding: 0px 5px;
@@ -268,6 +274,10 @@
     	height : 330px;
     }
 
+.bestnick {
+   		font-size : 20px ; 
+   		color : #dff5d0;
+}
  
     </style>
     <script type="text/javascript" th:inline="javascript">
@@ -440,23 +450,23 @@
                 </div>
                 <div class="explanation">
                     <p class="best">이달의 BEST CONTENTS</p>
-                    <a th:href="@{/board/content/detail/{bno}(bno=4)}" class="content"><p class="ex_title">더 글로리(The Glory)</p></a>
+                    <a th:href="@{/board/content/detail/{bno}(bno=4)}" class="content"><p class="ex_title">더 글로리 (2022)</p></a>
                     <div class="best_review">
                         <p class="up_down">
                             <img src="/img/dislike_full.png" class="dislike">
-                            <span>31</span>
+                            <span>0</span>
                         </p>
                         <p class="up_down">
                             <img src="/img/like_full.png" class="like">
-                            <span>945</span>
+                            <span>2</span>
                         </p>
                         <p class="star">
+                            <span class="bestnick">테스트용아이디 </span>
+                            <img src="/img/green_star_full.png" alt="" style="padding-left: 10px;">
                             <img src="/img/green_star_full.png" alt="">
                             <img src="/img/green_star_full.png" alt="">
                             <img src="/img/green_star_full.png" alt="">
                             <img src="/img/green_star_full.png" alt="">
-                            <img src="/img/green_star_full.png" alt="">
-                            <span style="padding-left: 10px;">5.0</span>
                         </p>
                         <p class="review_content">
                             진정한 '(타인을 위하는) 감정'이라는것이 있는 것인지, 냉소적인 감독의 시선들이 곳곳에서 눈에 띄어서 오히려 나중에는 사랑을 떠나 인간본성에 대해서 생각을 하게 되었던 영화
@@ -465,21 +475,21 @@
                         </p>
                     </div>
                     <div class="best_review">
-                        <p class="up_down">
+                         <p class="up_down">
                             <img src="/img/dislike_full.png" class="dislike">
-                            <span>84</span>
+                            <span>1</span>
                         </p>
                         <p class="up_down">
                             <img src="/img/like_full.png" class="like">
-                            <span>718</span>
+                            <span>2</span>
                         </p>
                         <p class="star">
+                            <span class="bestnick">admin </span>
+                            <img src="/img/green_star_full.png" alt="" style="padding-left: 10px;">
                             <img src="/img/green_star_full.png" alt="">
                             <img src="/img/green_star_full.png" alt="">
                             <img src="/img/green_star_full.png" alt="">
-                            <img src="/img/green_star_full.png" alt="">
-                            <img src="/img/green_star_full.png" alt="">
-                            <span style="padding-left: 10px;">5.0</span>
+                            <img src="/img/green_star.png" alt="">
                         </p>
                         <p class="review_content">
                             생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다

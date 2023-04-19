@@ -18,22 +18,27 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.voda.dto.BoardDTO;
 import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
 import com.voda.service.BoardService;
 import com.voda.service.MemberService;
+import com.voda.service.ReviewService;
 
 @Controller
 public class UserMainController {
 	
 	private BoardService boardService;
 	private MemberService memberService;
+	private ReviewService reviewService;
 	
-	public UserMainController(BoardService boardService, MemberService memberservice) {
-		this.boardService = boardService;
+	public UserMainController(BoardService boardService, MemberService memberservice, ReviewService reviewService) {
+		this.boardService = boardService; 
 		this.memberService = memberservice;
+		this.reviewService = reviewService;
 	}
 	
 //	@RequestMapping("/index") 
@@ -200,9 +205,11 @@ public class UserMainController {
 	    List<BoardDTO> list = boardService.selectMainContentList();
 	    List<BoardDTO> nlist = boardService.selectNewContentList();
 	    List<BoardDTO> elist = boardService.selectExpireContentList();
+	    List<ReviewDTO> rlist = reviewService.selectMianReviewList();
 	    view.addObject("list", list);
 	    view.addObject("nlist", nlist);
 	    view.addObject("elist", elist);
+	    view.addObject("rlist", rlist);
 	    return view;
 	}
 }

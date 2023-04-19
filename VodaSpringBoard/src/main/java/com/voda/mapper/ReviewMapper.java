@@ -40,5 +40,7 @@ public interface ReviewMapper {
 
 	int selectBoardHate(int rno);
 
+	List<ReviewDTO> selectMainReviewList();
+
 
 }
