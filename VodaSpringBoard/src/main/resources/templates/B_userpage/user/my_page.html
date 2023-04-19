@@ -297,13 +297,12 @@
                         <p class="up_down"><img src="/img/dislike_full.png" class="dislike">14</p>
                         <p class="up_down"><img src="/img/like_full.png">25</p>
                         </div>
-                        <p class="ex_title">더 랍스터(The Lobster)</p>
-                        <p id="content_box2">
-                            진정한 '(타인을 위하는) 감정'이라는것이 있는 것인지, 냉소적인 감독의 시선들이 곳곳에서 눈에 띄어서 오히려 나중에는 사랑을 떠나 인간본성에 대해서 생각을 하게 되었던 영화
-                            의외로 보고 나왔던 직후, 생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다
-                            사랑에 관한 영화인 것처럼 포스터는 말하고 있지만 그것만은 아니라는 생각이 드네요
-                        </p>
-                    </div>    
+                        <div>
+						<p><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="poster" th:attr="data-bno=${board.bno}"></p>
+                        <p id="content_box2">[[${review.reviewContent}]]</p>
+                        </div>
+                    </div> 
+                    </th:block>
                 </div> 
                 <div class="content_box">
                     <img src="/img/poster3.jpg" alt="" class="poster" id="content_box3">
