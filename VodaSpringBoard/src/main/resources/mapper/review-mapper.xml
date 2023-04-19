@@ -78,7 +78,10 @@
 			r.bno,
 			r.review_content,
 			r.star_no AS starNo,
-			b.title
+			r.rdate,
+			b.title,
+			(SELECT COUNT(*) FROM like_table l WHERE l.rno = r.rno) AS rlike,    
+       		(SELECT COUNT(*) FROM hate_table h WHERE h.rno = r.rno) AS rhate
 			from review_table_view r, board_table_view b
 		WHERE r.bno = b.bno
 		AND id = #{id}
@@ -107,5 +110,10 @@
 	<delete id="deleteBoardHate" parameterType="hashMap">
 		delete from hate_table where rno = #{rno} and id = #{id}
 	</delete>
+	
+	<select id="ReviewCHK" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM review_table WHERE bno = #{bno} AND id = #{id}
+	</select>
+
 	
 </mapper>

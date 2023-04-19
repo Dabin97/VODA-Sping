@@ -97,22 +97,24 @@
     }
     
     .explanation a {
-        	text-decoration : none; 
+        text-decoration : none; 
+        color : #dff5d0 ;
     }
     .thumb {
         	width : 980px;
     }
     #content_box2 {
+    	padding-top : 5px;
     	margin-bottom : 10px;
+    	font-size : 18px;
     }
     .ex_title{
-    	width : 500px;
+    	width : 800px;
     	height : 30px;
         font-size: 24px !important;
         font-weight: bold;
         text-decoration : none;
         padding-bottom: 20px;
-   		color : #dff5d0 !important;
    		
     }
     .explanation img{ /*좋아요싫어요 이미지*/
@@ -133,12 +135,12 @@
     .bookmark {
     	border-top : 1px solid #474747;
         }
-        .bookmark ul {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
+    .bookmark ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
 
-        }
+    }
 
     .bookmark li{
 
@@ -181,7 +183,18 @@
    	
    }
 
+.poster2 {
+	float : left !important;
+	width : 50px !important;
+	height : 70px !important;
+	margin-bottom : 10px !important;
+}
 
+.rspan {
+	font-size : 14px ;
+	font-weight : normal;
+	color : #979797;
+}
    
     </style>
 
@@ -223,7 +236,7 @@
 
 
 
-            $(".heart").click(function() { 
+        $(".heart").click(function() { 
             var bno = $(this).siblings('a').find('.poster').data("bno");
             console.log(bno);
             var heartImg = $(this); // 클릭한 하트 이미지
@@ -286,12 +299,19 @@
                 	<th:block th:if="${review.id} == ${session.member.id}" >
                     <div class="explanation">
                     <img src="/img/arrow1.png" class="down_arrow select3">
-                    	<div class="thumb">
-                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike">14</p>
-                        <p class="up_down"><img src="/img/like_full.png">25</p>
-                        <a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}"><p class="ex_title">[[${review.title}]]</p></a>
+                    	<div class="thumb" >
+                        <p class="up_down">[[${review.rhate }]]</p>
+                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike"></p>
+                        <p class="up_down">[[${review.rlike }]]</p>
+                        <p class="up_down"><img src="/img/like_full.png"></p>
+                        <p class="ex_title"><a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">[[${review.title}]]</a><span class="rspan"> [[${review.rDate}]]</span></p>
                         </div>
+                        <div class="myreviewbox">
+                        <a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">
+                        <img th:src="@{/board/image/{bno}(bno=${review.bno})}" class="poster2" th:attr="data-bno=${review.bno}">
+                        </a>
                         <p id="content_box2">[[${review.reviewContent}]]</p>
+                        </div>
                     </div> 
                     </th:block>
                 </div> 
