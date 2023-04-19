@@ -42,11 +42,5 @@ public interface MemberMapper {
 
 	HashMap<String, Object> selectSnsUser(String snsId);
 
-
-
-
-
-
-
 }
 

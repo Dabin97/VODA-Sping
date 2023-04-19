@@ -26,6 +26,8 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> selectReview(int bno);
 
+	List<ReviewDTO> selectMyReview(String id);
+
 	int insertBoardLike(HashMap<String, Object> map);
 
 	int deleteBoardLike(HashMap<String, Object> map);

@@ -55,8 +55,11 @@ public class ReviewService {
 	public List<ReviewDTO> selectReview(int bno) {
 		return mapper.selectReview(bno);
 	}
-	
-	
+
+	public List<ReviewDTO> selectMyReview(String id) {
+		return mapper.selectMyReview(id);
+	}
+
 	public int insertBoardLike(int rno,String id) {
 		int r = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();

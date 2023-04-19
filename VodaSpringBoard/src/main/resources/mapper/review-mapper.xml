@@ -46,7 +46,7 @@
 	</delete>
 	<insert id="insertReview" parameterType="review">
 		insert into review_table(rno, rdate, bno, id, review_content, star_no)
-		values(review_rno_seq.nextval, #{rDate}, #{bno}, #{id}, #{reviewContent}, #{starNo})
+		values(review_rno_seq.nextval, sysdate, #{bno}, #{id}, #{reviewContent}, #{starNo})
 	</insert>
 	<select id="selectSearchReview" resultType="review" parameterType="hashmap">
 	     select 
@@ -63,11 +63,25 @@
     </select>
 	<select id="selectReview" parameterType="int" resultMap="review">
 		select
-			rno, bno, id, rdate, review_content, 
+			rno, bno, id, rdate, review_content, star_no, 
 			(select count(*) from like_table l where l.rno = r.rno) as rlike,	
 			(select count(*) from hate_table h where h.rno = r.rno) as rhate		
 		from review_table r
 		where bno = #{bno}
+		ORDER BY rdate DESC
+	</select>
+
+	<select id="selectMyReview" parameterType="String" resultMap="review">
+	     select 
+			r.rno, 
+			r.id, 
+			r.bno,
+			r.review_content,
+			r.star_no AS starNo,
+			b.title
+			from review_table_view r, board_table_view b
+		WHERE r.bno = b.bno
+		AND id = #{id}
 	</select>
 	
 	<insert id="insertBoardLike" parameterType="hashMap">
@@ -94,6 +108,4 @@
 		delete from hate_table where rno = #{rno} and id = #{id}
 	</delete>
 	
-	
-
 </mapper>

@@ -39,11 +39,9 @@ public interface BoardMapper {
 	int insertBoardHeart(int bno, String id);
 	int deleteBoardHeart(int bno, String id);
 	int selectBoardHeart(int bno);
+	List<BoardDTO> selectMemberSearchContent(HashMap<String, Object> map);
 	List<BoardDTO> selectHeartList(String id);
 	int selectBoardHeartCHK(HashMap<String, Object> paramMap);
-	List<BoardDTO> selectMemberSearchContent(HashMap<String, Object> map);
-	int insertCommentLikeHate(HashMap<String, Object> map);
-	void deleteCommentLikeHate(HashMap<String, Object> map);
 
 
 }

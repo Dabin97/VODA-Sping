@@ -14,9 +14,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,7 +29,6 @@ import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.ReviewDTO;
 import com.voda.service.BoardService;
-import com.voda.service.MemberService;
 import com.voda.service.ReviewService;
 
 @Controller
@@ -40,12 +36,10 @@ import com.voda.service.ReviewService;
 public class UserBoardController {
 	private BoardService boardService;
 	private ReviewService reviewService;
-
 	
 	public UserBoardController(BoardService boardService, ReviewService reviewService) {
 		this.boardService = boardService;
 		this.reviewService = reviewService;
-
 	}
 
 	@GetMapping("/new_expire")
@@ -151,12 +145,12 @@ public class UserBoardController {
 		view.setViewName("/B_userpage/user/my_page");
 	    List<BoardDTO> list = boardService.selectMainContentList();
 		List<BoardDTO> hlist = boardService.selectHeartList(id);
+		List<ReviewDTO> rList = reviewService.selectMyReview(id);
 		view.addObject("hlist", hlist);
 		view.addObject("list", list);
+		view.addObject("rList", rList);
 		return view;
 	}
-
-
 	
 	@GetMapping("/search")
 	public ModelAndView SearchContentList() {
@@ -239,7 +233,6 @@ public class UserBoardController {
 		return mv;
 	}
 	
-
 	@GetMapping("/zoom_search")
 	public ModelAndView zoom_search(HttpSession session) {
 		ModelAndView view = new ModelAndView();
@@ -297,15 +290,6 @@ public class UserBoardController {
 	    map.put("fHeart", result);
 	    return new ResponseEntity(map, HttpStatus.OK);
 	}
-	
-
-
-	
-	
-	
-	
-	
-	
 	
 	
 }

@@ -47,13 +47,6 @@ public class SecessionService {
 		return mapper.deleteSecession(id);
 	}
 
-	public List<SecessionDTO> selectSearchMember(String kind, String search) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("kind", kind);
-		map.put("search", search);
-		return mapper.selectSearchSecession(map);
-	}
-
 	
 
 	
