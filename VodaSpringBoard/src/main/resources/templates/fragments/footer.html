@@ -16,7 +16,6 @@
     }
     footer a{
     	text-align : center;
-    	margin-right: 30px;
         padding: 10px;
         margin-top: 30px;
         text-decoration: none;
@@ -53,7 +52,15 @@
             <a href="/board/new_expire" class="new_expire"><img src="/img/video.png"></a>
             <a href="/board/search" class="search"><img src="/img/explore.png"></a>
             <a href="/board/zoom_search" class="zoomsearch"><img src="/img/magnifier.png"></a>   
-            <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a>
+            <!-- <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a> -->
+
+           <!-- 로그인한 일반 유저일 경우 -->
+          <a th:if="${session.member != null}" th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="my_page"><img src="/img/profile.png"></a>
+
+          <!-- 간편 로그인한 유저일 경우 -->
+          <a th:if="${session.user != null}" th:href="@{/board/my_page/{id}(id=${session.user.sns_id})}" class="my_page"><img src="/img/profile.png"></a>
+
+
             <a href="#top" class="top"></a>
             </th:block>
         </footer>

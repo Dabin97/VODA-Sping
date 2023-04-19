@@ -1,11 +1,7 @@
 package com.voda.controller.usercontroller;
 
-import java.net.http.HttpRequest;
-
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +36,7 @@ public class UserMemberController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		
-		session.invalidate(); 
+		session.invalidate();
 		return "redirect:/";
 	}
 	
@@ -58,7 +53,7 @@ public class UserMemberController {
 		 dto.setId(id);
 		 int result = memberService.editProfile(dto); 
 		 System.out.println(dto);
-		return "/B_userpage/user/index";
+		return "/B_userpage/user/my_page";
 	}
 
 	@GetMapping("/register/view")
@@ -66,6 +61,7 @@ public class UserMemberController {
 		return "/B_userpage/user/register"; 
 	}
  
+
 	@PostMapping("/register")
 	public String register(MemberDTO dto) {
 		System.out.println(dto);
