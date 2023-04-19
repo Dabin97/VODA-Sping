@@ -95,22 +95,11 @@
        	font-size : 16px;
    	    color : #e0dcdc;
     }
-    
-    .explanation a {
-        	text-decoration : none; 
-    }
-    .thumb {
-        	width : 980px;
-    }
-    #content_box2 {
-    	margin-bottom : 10px;
-    }
     .ex_title{
     	width : 500px;
-    	height : 30px;
+    	heidht : 52px;
         font-size: 24px !important;
         font-weight: bold;
-        text-decoration : none;
         padding-bottom: 20px;
    		color : #dff5d0 !important;
    		
@@ -180,7 +169,7 @@
    	margin-left : 110px;
    	
    }
-
+   
 
    
     </style>
@@ -201,15 +190,34 @@
             });
             
             $('.select3').click(function(){
-                var content_box = $(this).next().next();
-                console.log(content_box);
+                var content_box = $('#content_box1');
+                var content_box2 = $('#content_box2');
                 if( content_box.is(":visible") ){
                     content_box.slideUp();
                 }else{
                     content_box.slideDown();
                 }
+                if( content_box2.is(":visible") ){
+                    content_box2.slideUp();
+                }else{
+                    content_box2.slideDown();
+                }
             });
             
+            $('.select4').click(function(){
+                var content_box3 = $('#content_box3');
+                var content_box4 = $('#content_box4');
+                if( content_box3.is(":visible") ){
+                    content_box3.slideUp();
+                }else{
+                    content_box3.slideDown();
+                }
+                if( content_box4.is(":visible") ){
+                    content_box4.slideUp();
+                }else{
+                    content_box4.slideDown();
+                }
+            });
             
             
             $('.select_1').click(function(){
@@ -221,9 +229,7 @@
                 }
             });
 
-
-
-        $(".heart").click(function() { 
+          $(".heart").click(function() { 
             var bno = $(this).siblings('a').find('.poster').data("bno");
             console.log(bno);
             var heartImg = $(this); // 클릭한 하트 이미지
@@ -248,6 +254,7 @@
                 }
             });
         });
+          
             function confirmLogout() {
             	alert("로그아웃 되었습니다.");
             }
@@ -280,16 +287,15 @@
             <article class="sub_container">
                         <h2 class="select">
                             <img src="/img/myreview.png" class="myreview"> 내가 쓴 리뷰
-                            <img src="/img/arrow1.png" class="down_arrow">
+                            <img src="/img/down-arrow.png" class="down_arrow">
                         </h2>
-                <div class="content_box" th:each="review : ${rList}">
-                	<th:block th:if="${review.id} == ${session.member.id}" >
+                <div class="content_box">
+                    <img src="/img/더 랍스터.png" alt="" class="poster" id="content_box1">
                     <div class="explanation">
-                    <img src="/img/arrow1.png" class="down_arrow select3">
+                    <img src="/img/down-arrow.png" class="down_arrow select3">
                     	<div class="thumb">
                         <p class="up_down"><img src="/img/dislike_full.png" class="dislike">14</p>
                         <p class="up_down"><img src="/img/like_full.png">25</p>
-                        <a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}"><p class="ex_title">[[${review.title}]]</p></a>
                         </div>
                         <div>
 						<p><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="poster" th:attr="data-bno=${board.bno}"></p>
@@ -298,11 +304,27 @@
                     </div> 
                     </th:block>
                 </div> 
-            </article> 
+                <div class="content_box">
+                    <img src="/img/poster3.jpg" alt="" class="poster" id="content_box3">
+                    <div class="explanation">
+                    <img src="/img/down-arrow.png" class="down_arrow select4">
+                         <div class="thumb">
+                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike">5</p>
+                        <p class="up_down"><img src="/img/like_full.png">28</p>
+                        </div>
+                        <p class="ex_title">라라랜드(la la land)</p>
+                        <p id="content_box4">
+                            음악과 연출이 정말 잘 어울렸다. 그중 가장 인상 깊었던 장면은 미아가 세바스찬과의 영화 약속에 못 가고 
+                            그렉과 식사를 하던 장면이었다. 세속적인 이야기, 비슷한 음절의 반복처럼 느껴질 만큼 단순한 대화를 하는 
+                            자리에서 환청처럼 들리는 음악에 미아는 스피커를 본다. 스피커 옆에는 EXIT라고 적혀있고, 미아는 나가기로 결심한다.
+                        </p>
+                    </div>    
+                </div> 
+            </article>
             <article class="sub_container">
                     <h2 class="select_1">
                         <img src="/img/zzim.png" class="myreview"> 찜 목록
-                        <img src="/img/arrow1.png" class="down_arrow">
+                        <img src="/img/down-arrow.png" class="down_arrow">
                     </h2>
                     <div class="bookmark">
                         <ul>

@@ -23,4 +23,6 @@ public interface SecessionMapper {
 
 	int deleteSecession(String[] id);
 
+	List<SecessionDTO> selectSearchSecession(HashMap<String, Object> map);
+
 }
