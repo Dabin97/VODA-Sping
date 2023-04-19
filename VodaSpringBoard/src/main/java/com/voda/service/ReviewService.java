@@ -93,6 +93,9 @@ public class ReviewService {
 		return mapper.selectBoardHate(rno);
 	}
 
+	public int deleteUserReview(String id) {
+		return mapper.deleteUserReview(id);
+    }
 
 	public int ReviewCHK(HashMap<String, Object> paramMap) {
 		return mapper.ReviewCHK(paramMap);

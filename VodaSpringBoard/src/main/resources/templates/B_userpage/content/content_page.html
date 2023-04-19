@@ -109,7 +109,7 @@
         }
 
         .submit:hover {
-                    color: rgb(70, 81, 0);
+            color: rgb(70, 81, 0);
             background-color: rgb(194, 231, 142);
         }
 
@@ -117,7 +117,29 @@
                 background-color: rgb(70, 81, 0);
                 color: rgb(194, 231, 142);
         }
-        
+
+        #btn_del{
+            margin-top : 12px;
+            background-color: rgb(70, 81, 0);
+            color: rgb(194, 231, 142);
+            font-weight : bold;
+            font-size : 14px;
+            width: 50px;
+            height: 26px;
+            border: none;
+            margin-right: 57px;
+        }
+
+        #btn_del:hover{
+            color: rgb(70, 81, 0);
+            background-color: rgb(194, 231, 142);
+        }
+
+        #btn_del:active {
+                background-color: rgb(70, 81, 0);
+                color: rgb(194, 231, 142);
+        }
+
 		.disabled {
 			margin-top : 10px;
             background-color: black !important;
@@ -192,8 +214,7 @@
             width: 825px;
             height : auto;
             margin-top: 10px;
-            margin-bottom : 20px;
-            
+            margin-bottom : 20px;         
         }
 
 
@@ -476,7 +497,6 @@ select:invalid{
                 });
             });
 
-
                 $('.btn_hate').click(function(){
                     let rno =  $(this).closest('.tab').find('input[name=rno]').val();
                     let img = $(this).find('img');
@@ -498,12 +518,27 @@ select:invalid{
                         }
                     });
                 });
-
-
-                var alertMessage = /*[[${alertMessage}]]*/ '';
-                if (alertMessage.trim().length > 0) {
-                    alert(alertMessage);
-                }
+    
+                $('#btn_del').click(function(){
+                    let id = $("input[name='id']").val();
+                    console.log(id);
+                        if (confirm("댓글을 삭제하시겠습니까?")) { 
+                            $.ajax({
+                            url: "/member/review/delete",
+                            type: "post",
+                            data: { id:id},
+                            dataType: "json",
+                            success: function(r) {
+                            console.log(r);
+                            if (r.count >= "1") {
+                                alert("댓글이 삭제되었습니다");
+                                location.reload();
+                            }
+                            }
+                        });
+                    }
+                    });
+                });
 
                 });
     </script>
@@ -584,12 +619,15 @@ select:invalid{
                                 <img src="/img/post-it.png" class="notes"> 내가 작성한 리뷰
                             </h2>
                             <div th:each="review : ${rList}">
-                            <th:block th:if="${review.id} == ${session.member.id}">
+                                <th:block th:if="${review.id} == ${session.member.id}" >
                                 <input type="hidden" name="rno" th:value="${review.rno}">
+                                <input type="hidden" name="id" th:value="${review.id}">
                                 <p class="txt">[[${review.reviewContent}]]</p>
+                                <button th:if="${review.rno != null}" class="submit disabled" disabled>수정</button>
+                                <button th:if="${review.rno != null}" id="btn_del">삭제</button>
 							</th:block>
                             </div>
-                                <button class="submit disabled" disabled>수정</button>
+        
                             </div>
                  </th:block>
 
@@ -601,7 +639,7 @@ select:invalid{
                                 <input type="hidden" name="rno" th:value="${review.rno}">
                                 <span class="writerinfo">작성자 :  </span> <span class="writerid"> [[${review.id}]]  </span>
                                 <span class="writerinfo">작성일 : [[${review.rDate}]]</span>
-								
+
                         		<p th:if="${review.starNo} == 1" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                         		<p th:if="${review.starNo} == 2" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                         		<p th:if="${review.starNo} == 3" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>

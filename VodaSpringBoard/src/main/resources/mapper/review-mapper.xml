@@ -86,7 +86,6 @@
         WHERE r.bno = b.bno 
         AND id = #{id}
     </select>
-
 	
 	<insert id="insertBoardLike" parameterType="hashMap">
 		insert into like_table values(#{rno},#{id})
@@ -110,6 +109,10 @@
 	
 	<delete id="deleteBoardHate" parameterType="hashMap">
 		delete from hate_table where rno = #{rno} and id = #{id}
+	</delete>
+
+	<delete id="deleteUserReview" parameterType="string">
+		delete from review_table where id = #{id}
 	</delete>
 
 	<select id="ReviewCHK" parameterType="hashmap" resultType="int">
