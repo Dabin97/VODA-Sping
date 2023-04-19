@@ -291,7 +291,10 @@
                         <p class="up_down"><img src="/img/like_full.png">25</p>
                         <a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}"><p class="ex_title">[[${review.title}]]</p></a>
                         </div>
+                        <div>
+						<p><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="poster" th:attr="data-bno=${board.bno}"></p>
                         <p id="content_box2">[[${review.reviewContent}]]</p>
+                        </div>
                     </div> 
                     </th:block>
                 </div> 
