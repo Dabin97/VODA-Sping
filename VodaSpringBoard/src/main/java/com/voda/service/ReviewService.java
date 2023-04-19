@@ -55,41 +55,10 @@ public class ReviewService {
 	public List<ReviewDTO> selectReview(int bno) {
 		return mapper.selectReview(bno);
 	}
-	
-	
-	public int insertBoardLike(int rno,String id) {
-		int r = 0;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rno", rno);
-		map.put("id", id);
-		try {
-			r = mapper.insertBoardLike(map);
-		}catch (Exception e) {
-			mapper.deleteBoardLike(map);
-		}
-		return r;
-	}
-	public int insertBoardHate(int rno,String id) {
-		int r = 0;
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rno", rno);
-		map.put("id", id);
-		try {
-			r = mapper.insertBoardHate(map);
-		}catch (Exception e) {
-			mapper.deleteBoardHate(map);
-		}
-		return r;
-	}
 
-	public int selectBoardLike(int rno) {
-		return mapper.selectBoardLike(rno);
+	public List<ReviewDTO> selectMyReview(String id) {
+		return mapper.selectMyReview(id);
 	}
-
-	public int selectBoardHate(int rno) {
-		return mapper.selectBoardHate(rno);
-	}
-
 
 
 

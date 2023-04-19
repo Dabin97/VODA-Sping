@@ -17,8 +17,7 @@ public class BoardDTO {
 	private String ottName;
 	private String path;
 	private int heart;
-
-
+	
 
 	public int getHeart() {
 		return heart;

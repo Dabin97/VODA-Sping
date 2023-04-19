@@ -263,6 +263,10 @@
         .best {
     	color : grey;
     }
+    .thumbnail {
+    	width : 230px;
+    	height : 330px;
+    }
 
  
     </style>
@@ -299,20 +303,18 @@
 
         $('.like').on({ //like 이미지 변경
         'click': function() {
-            var src = ($(this).attr('src') == '/img/like_full.png')
-                ? '/img/like.png'
-                : '/img/like_full.png';
-
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
             $(this).attr('src', src);
             }
         });
 
         $('.dislike').on({ //dislike 이미지 변경
         'click': function() {
-            var src = ($(this).attr('src') == '/img/dislike_full.png')
-                ? '/img/dislike.png'
-                : '/img/dislike_full.png';
-
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
             $(this).attr('src', src);
             }
         });
@@ -345,87 +347,84 @@
             <article>
                 <div class="slider">
                     <div class="poster">
-                       <p><img src="/img/라라랜드로고.png" alt="" class="poster_logo"></p>
+                       <p><img src="img/라라랜드로고.png" alt="" class="poster_logo"></p>
                        <p class="poster_story">
                             꿈꾸는 이들이 모이는 곳, LA. 우연히 만난 배우 지망생 미아와 재즈 피아니스트 세바스찬은 서로를 향한 사랑을 키워간다. 
                             각자의 꿈으로 인해 가슴 아픈 딜레마를 마주하게 될 줄은 모르고.
                         </p>
-                        <img src="/img/라라랜드스틸컷.jpg" alt="">
+                        <img src="img/라라랜드스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/어바웃타임로고.png" alt="" class="poster_logo"></p>
-
+                        <p><img src="img/어바웃타임로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             평범한 청년이 알게 된 가문의 놀라운 비밀. 
                             그건 바로 집안의 남자들에게 시간을 되돌리는 능력이 있다는 것. 
                             청년은 첫눈에 반한 여인의 마음을 얻기 위해 그 특별한 능력을 사용하기로 한다. 
                             그리고 그녀와의 꿈 같은 시간이 시작된다.
                         </p>
-                 
-                        <img src="/img/어바웃타임스틸컷.jpg" alt="">
+                        
+                        <img src="img/어바웃타임스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/이터널선샤인로고.png" alt="" class="poster_logo"></p>
-
+                        <p><img src="img/이터널선샤인로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             옛 여자친구가 자신에 대한 기억을 모두 지우기 위해 실험적인 치료를 받았다는 사실을 
                             알게 된 한 남자는 자신도 같은 치료를 받기로 한다.
                         </p>
-                        <img src="/img/이터널선샤인스틸컷.jpg" alt="">
+                        
+                        <img src="img/이터널선샤인스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/시카고로고.png" alt="" class="poster_logo">
-
+                        <p><img src="img/시카고로고.png" alt="" class="poster_logo">
                         </p><p class="poster_story">
                             1920년, 향락의 도시 시카고. 살인죄로 수감된 록시는 언론을 교묘하게 이용하는 불패의 변호사를 
                             고용해 스타덤에 오른다. 그리고 자신의 운명을 가를 재판이란 무대에 올라 화려한 연극을 시작한다. 아카데미 수상에 빛나는 뮤지컬 영화.
                         </p>
                         
-                        <img src="/img/시카고스틸컷.jpg" alt="">
+                        <img src="img/시카고스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
 
-                        <p><img src="/img/인턴로고.png" alt="" class="poster_logo"></p>
-
+                        <p><img src="img/인턴로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             뜨거운 열정으로 단기간에 회사를 키워낸 30대 열혈 여성 CEO. 
                             사별과 은퇴를 겪고 공허한 일상을 보내다가 새내기로 입사한 70세 남성 인턴. 문제없을까, 이 어색한 조합.
                         </p>
-                        <img src="/img/인턴스틸컷.jpg" alt="">
+                       
+                        <img src="img/인턴스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/위플래쉬로고.png" alt="" class="poster_logo"></p>
-
+                        <p><img src="img/위플래쉬로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             완벽을 추구하는 음악 교수의 지도에 따라, 앤드류는 재즈 뮤지션으로 성공하겠다는 일념에 불탄다. 성공의 대가로 인격이 파괴될지라도.
                         </p>
                        
-                        <img src="/img/위플래쉬스틸컷.jpg" alt="">
+                        <img src="img/위플래쉬스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/미니언즈2로고.png" alt="" class="poster_logo"></p>
+                        <p><img src="img/미니언즈2로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             우상이었던 슈퍼빌런들에게 외면당한 12살 그루. 내가 얼마나 나쁜 악당인지 보여주겠어. 시끌벅적 정신없는 미니언즈들과 함께!
                         </p>
                        
-                        <img src="/img/미니언즈2스틸컷.jpg" alt="">
+                        <img src="img/미니언즈2스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/맘마미아로고.png" alt="" class="poster_logo"></p>
-
+                        <p><img src="img/맘마미아로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             그리스 섬에서 열리는 결혼식을 앞둔 젊은 여성. 자유로운 영혼을 지닌 엄마의 옛 연인 세 명을 결혼식에 초대하는데. 그녀의 진짜 아빠는 셋 중 과연 누구일까?
                         </p>
-                        <img src="/img/맘마미아스틸컷.jpg" alt="">
+                        
+                        <img src="img/맘마미아스틸컷.jpg" alt="">
                     </div>
                     <div class="poster">
-                        <p><img src="/img/호텔델루나_제목로고.png" alt="" class="poster_logo"></p>
-
+                        <p><img src="img/호텔델루나_제목로고.png" alt="" class="poster_logo"></p>
                         <p class="poster_story">
                             서울 도심에 수상한 호텔이 있다. 천년 영업에 숙박한 사람이 없다. 왜? 산 사람은 안 받으니까. 귀신만 묵는 그곳에 인간 지배인이 왔다. 
                             알고 보면 심약한 이 남자, 고객 응대 잘 해낼까? 외모와 달리 괴팍한 사장은 어찌 감당하누.
-                        </p> 
-                        <img src="/img/호텔델루나스틸컷.jpg" alt="">
+                        </p>
+                      
+                        <img src="img/호텔델루나스틸컷.jpg" alt="">
                     </div>
                   </div>
             </article>
@@ -436,6 +435,7 @@
             </h1>
             <div class="content_box"> 
             	<div class="best_poster">
+            	<!-- <img src="img/heart.png" class="heart"> Best는 하트 제외-->
                 <a th:href="@{/board/content/detail/{bno}(bno=4)}"><img th:src="@{/board/image/{bno}(bno=4)}" alt="" class="best_poster1"></a>
                 </div>
                 <div class="explanation">
@@ -498,8 +498,7 @@
                       <div class="new_end_search"> 
                         <div th:each="board: ${nlist}">
                             <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}">
-                                <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail">
-
+                                <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             </a>
                         </div>
                       </div>
@@ -511,8 +510,7 @@
                     <div class="new_end_search"> 
                         <div th:each="board: ${elist}">
                             <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}">
-                                <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail">
-
+                                <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             </a>
                           </div>
                       </div>

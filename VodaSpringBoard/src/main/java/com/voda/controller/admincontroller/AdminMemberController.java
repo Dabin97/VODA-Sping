@@ -1,7 +1,5 @@
 package com.voda.controller.admincontroller;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.Date;
-import java.io.PrintWriter;
 
 import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
-import com.voda.dto.SecessionDTO;
 import com.voda.service.MemberService;
 import com.voda.service.SecessionService;
 import com.voda.vo.PaggingVO;
@@ -84,64 +79,19 @@ public class AdminMemberController {
 		return "redirect:/admin/member/list";
 	}
 	
-//	@GetMapping("/member/delete") //관리자가 회원 삭제 원본
-//	public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
-//		System.out.println(Arrays.toString(id));
-//		int result1 = secessionService.deleteSecession(id);
-//		int result = memberService.deleteMember(id);
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		map.put("count", String.valueOf(result));
-//		if(result != 0) {
-//			map.put("message", "데이터 삭제 성공");
-//		}else {
-//			map.put("message", "데이터 삭제 실패");
-//			System.out.println(result);
-//		}
-//		return new ResponseEntity(map,HttpStatus.OK);
-//	}
-	
-	@PostMapping("/member/delete") 
+	@GetMapping("/member/delete") //
 	public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
-	    System.out.println(Arrays.toString(id));
-	    System.out.println(id);
-	    int result1 = secessionService.deleteSecession(id);
-	    int result = memberService.deleteMember(id);
-	    HashMap<String, String> map = new HashMap<String, String>();
-	    map.put("count", String.valueOf(result));
-	    try {	        
-	        if (result != 0) {
-	            map.put("message", "데이터 삭제 성공");
-	        } else {
-	            map.put("message", "데이터 삭제 실패");
-	            System.out.println(result);
-	        }
-	        //throw new Exception("Something went wrong"); 예외 강제 발생 코드, 예외를 발생시킬때만 사용할 것
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        // 예외를 파일에 기록하는 코드
-	        try {
-	            PrintWriter writer = new PrintWriter(new FileWriter("C:\\exception.txt"));
-	            writer.println(new Date() + ": " + e.getMessage());
-	            e.printStackTrace(writer);
-	            writer.close();
-	        } catch (IOException ex) {
-	            ex.printStackTrace(); 
-	        }
-	    }
-	    return new ResponseEntity(map, HttpStatus.OK);
-	}
-	
-	@PostMapping("/member/search") // 관리자 페이지 회원 검색 부분
-	public ResponseEntity<String> selectSearchMemberList(String kind, String search){
-		List<MemberDTO> list = memberService.selectSearchMember(kind,search);
-			
-		return new ResponseEntity(list,HttpStatus.OK);
-	}
-	
-	@PostMapping("/secession/search") // 관리자 페이지 탈퇴대기회원 검색 부분
-	public ResponseEntity<String> selectSearchSecessionList(String kind, String search){
-		List<SecessionDTO> list = secessionService.selectSearchMember(kind,search);
-			
-		return new ResponseEntity(list,HttpStatus.OK);
+		System.out.println(Arrays.toString(id));
+		int result1 = secessionService.deleteSecession(id);
+		int result = memberService.deleteMember(id);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("count", String.valueOf(result));
+		if(result != 0) {
+			map.put("message", "데이터 삭제 성공");
+		}else {
+			map.put("message", "데이터 삭제 실패");
+			System.out.println(result);
+		}
+		return new ResponseEntity(map,HttpStatus.OK);
 	}
 }
