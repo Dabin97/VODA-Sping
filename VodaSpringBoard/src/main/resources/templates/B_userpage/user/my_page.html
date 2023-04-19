@@ -1,6 +1,7 @@
 <!DOCTYPE html>
+
 <html
-	xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
@@ -21,7 +22,7 @@
           flex-direction: column;
           position: relative;
       }
-    
+
     article{
         margin-bottom: 40px;
     }
@@ -40,7 +41,7 @@
         color: #a7f2dc;
         font-size: 32px;
         font-weight: bold;
-        
+
     }
     .setting img{
         width: 20px;
@@ -53,7 +54,7 @@
         color: gray;
     }
    .select, .select_1{
-        
+
         color: white;
     }
     .down_arrow{
@@ -63,11 +64,11 @@
         padding-bottom:10px;
 
     }
-    
+
     .myreview {
             width: 30px;
         height: 30px;
-     
+
     }
     .sub_container{
         display: flex;
@@ -75,7 +76,7 @@
         justify-content: center;
     }
     .content_box{
-    	border-top : 1px solid #474747;
+        border-top : 1px solid #474747;
         width: 980px;
         display: flex;
         flex-direction: row;
@@ -87,24 +88,37 @@
         margin: 20px 30px 20px 20px;
         box-shadow: 5px 5px 5px #000;
     }
-     
+
     .explanation{
         padding-top: 20px;
     }
     .explanation p{
-       	font-size : 16px;
-   	    color : #e0dcdc;
+           font-size : 16px;
+           color : #e0dcdc;
+    }
+
+    .explanation a {
+            text-decoration : none; 
+                       color : #dff5d0 ;
+    }
+    .thumb {
+            width : 980px;
+    }
+    #content_box2 {
+        padding-top : 5px;
+        margin-bottom : 10px;
+        font-size : 18px;
     }
     .ex_title{
-    	width : 500px;
-    	heidht : 52px;
+        width : 800px;
+        height : 30px;
         font-size: 24px !important;
         font-weight: bold;
+        text-decoration : none;
         padding-bottom: 20px;
-   		color : #dff5d0 !important;
-   		
+
     }
-    .explanation img{ /*좋아요싫어요 이미지*/
+    .explanation img{ 
         width: 30px;
         height: 30px;
         float: right; 
@@ -120,7 +134,7 @@
         top: 0;
     }
     .bookmark {
-    	border-top : 1px solid #474747;
+        border-top : 1px solid #474747;
         }
         .bookmark ul {
         display: flex;
@@ -156,29 +170,40 @@
         width: 100%;
         height: 100px;
       }
-    
+
    .logout {
-   	color : grey;
+       color : grey;
    }
    .bookmark a{
-	background-color : #323232;
+    background-color : #323232;
  }
-   
-   .main_container {
-   	width : 980px;
-   	margin-left : 110px;
-   	
-   }
-   
 
-   
+   .main_container {
+       width : 980px;
+       margin-left : 110px;
+
+   }
+
+.poster2 {
+    float : left !important;
+    width : 50px !important;
+    height : 70px !important;
+    margin-bottom : 10px !important;
+}
+
+.rspan {
+    font-size : 14px ;
+    font-weight : normal;
+    color : #979797;
+}
+
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/jquery-3.6.3.js"></script>
     <script type="text/javascript" th:inline="javascript">
 
-    	
+
         $(function(){
             $('.select').click(function(){
                 var content_box = $(this).nextAll(".content_box");
@@ -188,38 +213,19 @@
                     content_box.slideDown();
                 }
             });
-            
+
             $('.select3').click(function(){
-                var content_box = $('#content_box1');
-                var content_box2 = $('#content_box2');
+                var content_box = $(this).next().next();
+                console.log(content_box);
                 if( content_box.is(":visible") ){
                     content_box.slideUp();
                 }else{
                     content_box.slideDown();
                 }
-                if( content_box2.is(":visible") ){
-                    content_box2.slideUp();
-                }else{
-                    content_box2.slideDown();
-                }
             });
-            
-            $('.select4').click(function(){
-                var content_box3 = $('#content_box3');
-                var content_box4 = $('#content_box4');
-                if( content_box3.is(":visible") ){
-                    content_box3.slideUp();
-                }else{
-                    content_box3.slideDown();
-                }
-                if( content_box4.is(":visible") ){
-                    content_box4.slideUp();
-                }else{
-                    content_box4.slideDown();
-                }
-            });
-            
-            
+
+
+
             $('.select_1').click(function(){
                 var bookmark = $(this).nextAll(".bookmark");
                 if( bookmark.is(":visible") ){
@@ -257,17 +263,20 @@
             });
         });
             function confirmLogout() {
-            	alert("로그아웃 되었습니다.");
+                alert("로그아웃 되었습니다.");
             }
 
-           
+
         });
+
+
+        
     </script>
 </head>
 <body>
     <div class="flex_container">
-		<th:block th:include="/fragments/user_header.html"></th:block>
-		<br>
+        <th:block th:include="/fragments/user_header.html"></th:block>
+        <br>
         <div class="main_container">
         <section>
             <article>
@@ -288,45 +297,31 @@
             <article class="sub_container">
                         <h2 class="select">
                             <img src="/img/myreview.png" class="myreview"> 내가 쓴 리뷰
-                            <img src="/img/down-arrow.png" class="down_arrow">
+                            <img src="/img/arrow1.png" class="down_arrow">
                         </h2>
-                <div class="content_box">
-                    <img src="/img/더 랍스터.png" alt="" class="poster" id="content_box1">
+                <div class="content_box" th:each="review : ${rList}">
+                    <th:block th:if="${review.id} == ${session.member.id}" >
                     <div class="explanation">
-                    <img src="/img/down-arrow.png" class="down_arrow select3">
-                    	<div class="thumb">
+                    <img src="/img/arrow1.png" class="down_arrow select3">
+                        <div class="thumb">
                         <p class="up_down"><img src="/img/dislike_full.png" class="dislike">14</p>
                         <p class="up_down"><img src="/img/like_full.png">25</p>
+                        <p class="ex_title"><a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">[[{review.title}]]</a><span class="rspan"> [[review.title]]</a><spanclass="rspan">[[{review.rDate}]]</span></p>
                         </div>
-                        <p class="ex_title">더 랍스터(The Lobster)</p>
-                        <p id="content_box2">
-                            진정한 '(타인을 위하는) 감정'이라는것이 있는 것인지, 냉소적인 감독의 시선들이 곳곳에서 눈에 띄어서 오히려 나중에는 사랑을 떠나 인간본성에 대해서 생각을 하게 되었던 영화
-                            의외로 보고 나왔던 직후, 생각나는 것은 우라사와 나오키의 만화 '몬스터'와 같이 인간본성에 대한 작품이었습니다
-                            사랑에 관한 영화인 것처럼 포스터는 말하고 있지만 그것만은 아니라는 생각이 드네요
-                        </p>
-                    </div>    
-                </div> 
-                <div class="content_box">
-                    <img src="/img/poster3.jpg" alt="" class="poster" id="content_box3">
-                    <div class="explanation">
-                    <img src="/img/down-arrow.png" class="down_arrow select4">
-                         <div class="thumb">
-                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike">5</p>
-                        <p class="up_down"><img src="/img/like_full.png">28</p>
+                        <div class="myreviewbox">
+                        <a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">
+                        <img th:src="@{/board/image/{bno}(bno=${review.bno})}" class="poster2" th:attr="data-bno=${review.bno}">
+                        </a>
+                        <p id="content_box2">[[${review.reviewContent}]]</p>
                         </div>
-                        <p class="ex_title">라라랜드(la la land)</p>
-                        <p id="content_box4">
-                            음악과 연출이 정말 잘 어울렸다. 그중 가장 인상 깊었던 장면은 미아가 세바스찬과의 영화 약속에 못 가고 
-                            그렉과 식사를 하던 장면이었다. 세속적인 이야기, 비슷한 음절의 반복처럼 느껴질 만큼 단순한 대화를 하는 
-                            자리에서 환청처럼 들리는 음악에 미아는 스피커를 본다. 스피커 옆에는 EXIT라고 적혀있고, 미아는 나가기로 결심한다.
-                        </p>
-                    </div>    
+                    </div> 
+                    </th:block>
                 </div> 
-            </article>
+            </article> 
             <article class="sub_container">
                     <h2 class="select_1">
                         <img src="/img/zzim.png" class="myreview"> 찜 목록
-                        <img src="/img/down-arrow.png" class="down_arrow">
+                        <img src="/img/arrow1.png" class="down_arrow">
                     </h2>
                     <div class="bookmark">
                         <ul>
@@ -336,7 +331,7 @@
                                     <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="poster" th:attr="data-bno=${board.bno}">
                                 </a>
                             </li>
-                        </ul>
+                        </ul> 
                     </div>
                     
             </article>
@@ -344,7 +339,7 @@
         </div>
         <div class="space">
         </div>
-		<th:block th:include="/fragments/footer.html"></th:block>
+        <th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
 </html>

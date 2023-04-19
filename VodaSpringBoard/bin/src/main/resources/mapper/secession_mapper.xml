@@ -5,7 +5,7 @@
 <mapper namespace="com.voda.mapper.SecessionMapper">
 <!-- 탈퇴대기 회원 리스트 --> 
     <select id="selectAllMember" resultType="secession">
-		select * from secession_table   
+		select * from secession_table 
 	</select>	
 <select id="selectMemberCount" resultType="int">
 		select count(*) from secession_table
@@ -21,14 +21,8 @@
        (sno,sdate,reason,id) 
       values(#{sno}, sysdate, #{reason}, #{id})
 	</insert>
-  
 	<select id="selectSecessionId" resultType="secession">
         select * from secession_table where id = #{id}
     </select>
-    <delete id="deleteSecession" parameterType="String">
-		delete from secession_table where id in(
-			<foreach collection="id" item="i" separator=",">#{i}</foreach>
-		)
-	</delete>
 
 </mapper>

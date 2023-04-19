@@ -1,7 +1,11 @@
 package com.voda.controller.usercontroller;
 
+import java.net.http.HttpRequest;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +40,8 @@ public class UserMemberController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		
+		session.invalidate(); 
 		return "redirect:/";
 	}
 	

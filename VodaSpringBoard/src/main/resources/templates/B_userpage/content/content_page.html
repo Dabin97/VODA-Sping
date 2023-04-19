@@ -40,7 +40,7 @@
 
         .heart {
             position: relative;
-            left: 300px;
+            left: 310px;
             bottom: 385px;
             width: 30px;
             background-color: rgba(255, 255, 255, 0);
@@ -51,12 +51,15 @@
 
 
         .tab {
-            background-color: rgb(91, 91, 91);
-            width: 100%;
+            resize: none;
+            border: none;
+            width: 850px;
+            height: 140px;
+            margin-top: 10px;
+            margin-left : 50px;
         }
 
         .tab p {
-            background-color: rgb(91, 91, 91);
             display: inline-block;
         }
 
@@ -66,26 +69,89 @@
         }
 
         .write {
+        
+        	margin-left : 115px;
+    	    border-top : 1px solid #474747;
+    	    border-bottom : 1px solid #474747;
+       		width : 975px;
             box-sizing: border-box;
-            height: 220px;
-            background-color: rgb(91, 91, 91);
+            height: 260px;
             color: white;
             margin-bottom: 30px;
             padding: 10px 20px;
         }
-
-        .submit {
+        
+        .write2 {
+        
+        	margin-left : 115px;
+       		width : 975px;
+            box-sizing: border-box;
+            height: 260px;
             color: white;
-            background-color: rgb(91, 91, 91);
+            margin-bottom: 30px;
+            padding: 10px 20px;
+        }
+		
+        .submit {
+            margin-top : 12px;
+            background-color: rgb(70, 81, 0);
+            color: rgb(194, 231, 142);
+            font-weight : bold;
+            font-size : 14px;
             width: 50px;
-            height: 20px;
-            border: 1px solid white;
-            margin-left: 20px;
+            height: 26px;
+            border: none;
+            margin-right: 57px;
         }
 
+        .submit:hover {
+                    color: rgb(70, 81, 0);
+            background-color: rgb(194, 231, 142);
+        }
+
+        .submit:active {
+                background-color: rgb(70, 81, 0);
+                color: rgb(194, 231, 142);
+        }
+
+        #btn_del{
+            margin-top : 12px;
+            background-color: rgb(70, 81, 0);
+            color: rgb(194, 231, 142);
+            font-weight : bold;
+            font-size : 14px;
+            width: 50px;
+            height: 26px;
+            border: none;
+            margin-right: 57px;
+        }
+
+        #btn_del:hover{
+            color: rgb(70, 81, 0);
+            background-color: rgb(194, 231, 142);
+        }
+
+        #btn_del:active {
+                background-color: rgb(70, 81, 0);
+                color: rgb(194, 231, 142);
+        }
+        
+		.disabled {
+			margin-top : 10px;
+            background-color: black !important;
+            color: rgb(70, 81, 0) !important;
+            font-weight : bold;
+            font-size : 14px;
+            width: 50px;
+            height: 25px;
+            border: none;
+            margin-right: 57px;
+		}
         .best {
+        	margin-left : 115px;
+       		width : 975px;
             box-sizing: border-box;
-            height: 200px;
+            height: 220px;
             background-color: rgb(91, 91, 91);
             color: white;
             margin-bottom: 30px;
@@ -94,8 +160,10 @@
         }
 
         .new {
+        	margin-left : 115px;
+       		width : 975px;
             box-sizing: border-box;
-            height: 200px;
+            height: 220px;
             background-color: rgb(91, 91, 91);
             color: white;
             margin-bottom: 30px;
@@ -105,9 +173,12 @@
         }
 
         .my {
+        	margin-left : 115px;
+    	    border-top : 1px solid #474747;
+    	    border-bottom : 1px solid #474747;
+       		width : 975px;
             box-sizing: border-box;
-            height: 200px;
-            background-color: rgb(91, 91, 91);
+            height: 220px;
             color: white;
             margin-bottom: 30px;
             padding: 10px 20px;
@@ -115,12 +186,14 @@
         }
 
         .txt {
+        	padding : 5px;
+        	font-size : 20px;
             resize: none;
-            border: none;
-            background-color: rgb(198, 198, 198);
-            width: 1000px;
+            border: 1px dashed  #474747;;
+            width: 825px;
             height: 140px;
             margin-top: 10px;
+            margin-left : 40px;
         }
 
         .like {
@@ -128,32 +201,18 @@
             margin-left: 20px;
         }
 
-        .read {
+        .bestreview {
+        	color : white;
             resize: none;
             border: none;
-            background-color: rgb(198, 198, 198);
-            width: 1100px;
+            width: 825px;
             height: 140px;
             margin-top: 10px;
+            
         }
 
-        footer img {
-            width: 40px;
-            background-color: rgba(0, 0, 0, 0);
-            height: 40px;
-            margin: 20px 80px;
-        }
-
-        footer a {
-            margin-right: 30px;
-            padding: 10px;
-            margin-top: 30px;
-            text-decoration: none;
-            color: rgb(168, 168, 168);
-        }
 
         span img {
-            background-color: rgb(91, 91, 91);
             width: 20px;
             height: 20px;
             margin-right: 10px;
@@ -166,14 +225,6 @@
         span p {
             background-color: rgb(91, 91, 91);
             margin-right: 10px;
-        }
-
-        footer a {
-            margin-right: 30px;
-            padding: 10px;
-            margin-top: 30px;
-            text-decoration: none;
-            color: rgb(168, 168, 168);
         }
 
         .more {
@@ -231,6 +282,7 @@
         /* bottom: 150px; */
     }
 
+
     .pop_rel_keywords {
         list-style: none;
         margin-right: 50px;
@@ -255,32 +307,40 @@
    }
    
    button{
-     background-color: rgb(91, 91, 91);
+     display: inline-block;
+     float: right; 
+     margin-right : 10px;
      border: none;
-   }
+   } 
    
    .star {
-     background-color: rgb(91, 91, 91);
+   	 font-size : 16px;
      display: inline-block;
-     float: right;
-     margin-right: 140px;
+     float: right; 
+     margin-top : 12px;
+     margin-right: 20px;
    }
         
-   .starrate {
-     font-size: 12px;
-     margin-left: 30px;
-     color: goldenrod;
+
+   
+   p img {
+   width: 14px;
+    height: 14px;
+    float: right;
+    top: 0;
+    background-color: rgba(255, 255,255,0);
+   }
+      .starrate {
+     font-size: 20px;
+     margin-left: 20px;
+     color: #93FF3F;
    }
 
     .starratebox {
       font-size: 16px;
-      color: goldenrod;    	
+     color: #93FF3F;
    }
    
-   .read {
-   	color : black !important ;
-   	font-size : 16px !important ;
-   }
     	
    .thumbnail {
    	width : 310px;
@@ -334,11 +394,46 @@
    	margin-top : 30px;
    }
    
+       .notes {
+            width: 30px;
+        height: 30px;
+        } 
    
+   .writerinfo {
+   
+   		color : #747474 !important; 
+   } 
+   
+   .writerid {
+   		font-size : 20px ; 
+   		color : #dff5d0;
+   }
+	select option[value=""][disabled] {
+	display: none; 
+}
+select:invalid{
+	color: grey;
+}
 </style>
+
 
 <script type="text/javascript" th:inline="javascript">
   $(function(){
+	 
+	$("#textarea").on("propertychange change keyup paste input", function() {
+			var length = ($("#textarea").val().length);
+			console.log(length);
+			if(length >= 10)  {
+				$(".submit").removeAttr('disabled');
+				$(".submit").removeClass('disabled');
+			} else {
+				$(".submit").attr('disabled');
+				$(".submit").addClass('disabled');
+			}
+
+	});
+	
+	
     $(".heart").click(function() { 
             var bno = $(this).siblings('.thumbnail').data("bno");
             console.log(bno);
@@ -375,31 +470,88 @@
                     console.error(error);
                 }
             });
-        });
-
-
-            $('.btn_like').on({ //like 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/like_full.png')
-                        ? 'img/like.png'
-                        : 'img/like_full.png';
-                    $(this).attr('src', src);
-                }
             });
 
-            $('.btn_hate').on({ //dislike 이미지 변경
-                'click': function () {
-                    var src = ($(this).attr('src') == 'img/dislike_full.png')
-                        ? 'img/dislike.png'
-                        : 'img/dislike_full.png';
-                    $(this).attr('src', src);
-                }
+            $('.btn_like').click(function(){
+                let rno =  $(this).closest('.tab').find('input[name=rno]').val();
+                let img = $(this).find('img');
+                console.log(rno);
+                $.ajax({
+                    url: '/member/review/like/' + rno,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function(r){
+                        console.log(r);
+                        alert(r.msg);
+                        $('#like_count').text(r.rlike);
+                        if (r.msg === '좋아요를 하셨습니다.') {
+                            img.attr('src', '/img/like_full.png');
+                        }else{
+                            img.attr('src', '/img/like.png');
+                        }
+                        location.reload();
+                    }
+                });
             });
 
-        });
 
+                $('.btn_hate').click(function(){
+                    let rno =  $(this).closest('.tab').find('input[name=rno]').val();
+                    let img = $(this).find('img');
+                    console.log(rno);
+                    $.ajax({
+                        url:'/member/review/hate/' + rno,
+                        type : 'post',
+                        dataType : 'json',
+                        success:function(r){
+                            console.log(r);
+                            alert(r.msg);
+                            $('#hate_count').text(r.rhate);
+                            if (r.msg === '싫어요를 하셨습니다.') {
+                            img.attr('src', '/img/dislike_full.png');
+                            }else{
+                                img.attr('src', '/img/dislike.png');
+                            }
+                            location.reload();
+                        }
+                    });
+                });
+    
+                $('#btn_del').click(function(){
+                    let id = $("input[name='id']").val();
+                    console.log(id);
+                        if (confirm("댓글을 삭제하시겠습니까?")) { 
+                            $.ajax({
+                            url: "/member/review/delete",
+                            type: "post",
+                            data: { id:id},
+                            dataType: "json",
+                            success: function(r) {
+                            console.log(r);
+                            if (r.count >= "1") {
+                                alert("댓글이 삭제되었습니다");
+                                location.reload();
+                            }
+                            }
+                        });
+                    }
+                    });
+                });
 
+        
+//  function checkReviewOwner() {
+//       // 로그인한 사용자의 정보를 가져옵니다.
+//       var sessionID = "${session.member.id}";
+//       var reviewID = "${review.id}";
+//       // 댓글 작성자의 아이디와 로그인한 사용자의 아이디를 비교합니다.
+//       if (reviewID == sessionID) {
+//         $("#btn_del").prop("disabled", false);
+//       } else {
+//         $("#btn_del").prop("disabled", true);
+//       }
+//     }
 
+       
 
     </script>
 </head>
@@ -413,8 +565,8 @@
 
                 <article class="info">
                         <div class="poster">
-                            <img th:if="${result > 0}" src="/img/heart_full.png" class="heart">
-                            <img th:if="${result <= 0}" src="/img/heart.png" class="heart">
+                            <img th:if="${result == 1}" src="/img/heart_full.png" class="heart">
+                            <img th:if="${result == 0}" src="/img/heart.png" class="heart">
                             <img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail" th:attr="data-bno=${board.bno}">
                             <iframe width="655" height="420" th:src="${board.posterVideo }" title="YouTube video player"
                             frameborder="0"
@@ -437,68 +589,84 @@
                         </ul>
                     </div>
                 </article>
-
+					<br>
+					<br>
                     <article>
-                        <form action="/member/review/write/${board.bno}" method="post" id="frm">
+                    <th:block th:if="${session.member != null}">
+						<form action="/member/review/write/${board.bno}" method="post" id="frm">
                             <input type="hidden" name="bno" th:value="${board.bno }">   
                             <div class="write">
-                                <p class="tab">리뷰를 작성해 주세요 </p>
-                                <textarea class="txt" name="reviewContent" placeholder="리뷰를 작성해 주세요"></textarea>
-                                <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo" id="starNo">
-                                        <option value="">== 별점 ==</option>
-                                        <option value="1" class="starrate">☆☆☆☆★</option>
-                                        <option value="2" class="starrate">☆☆☆★★</option>
-                                        <option value="3" class="starrate">☆☆★★★</option>
-                                        <option value="4" class="starrate">☆★★★★</option>
+                            <h2 class="writereview">
+                                <img src="/img/notes.png" class="notes"> 리뷰를 작성해주세요
+                            </h2>
+                                <input type="hidden" name="rdate" value="2022-44-44">
+                                <textarea class="txt" name="reviewContent" placeholder="리뷰는 열글자 이상 작성해주세요" id="textarea"></textarea>
+                                <button class="submit disabled" disabled>작성</button>
+                                      <p class="star">이 컨텐츠에 별점을 매겨주세요!<select class="starrate" name="starNo" id="starbox" required >
+                                        <option value="" disabled selected>== 별점 ==</option>
+                                        <option value="1" class="starrate">★☆☆☆☆</option>
+                                        <option value="2" class="starrate">★★☆☆☆</option>
+                                        <option value="3" class="starrate">★★★☆☆</option>
+                                        <option value="4" class="starrate">★★★★☆</option>
                                         <option value="5" class="starrate">★★★★★</option>
                                     </select>
                                 </p> 
-                                <button class="submit">작성</button>
                             </div>
                         </form>
+            		</th:block>
             
+        			<th:block th:if="${session.member == null}">
+                            <div class="write">
+                            <h2 class="writereview">
+                                <img src="/img/notes.png" class="notes"> 로그인을 하신 후 리뷰를 작성해주세요!
+                            </h2>
+                            </div>
+                     </th:block>
                     </article>
 
                 <article>
-                    <div class="my">
-                        <div class="tab">
-                            <p>내가 작성한 리뷰</p>
-                            <p class="starrate">[[${review.star_no}]]</p>
-                            <span class="like">
-                                <button><img src="/img/like.png" class="btn_like"></button>
-                                <button><img src="/img/dislike.png" class="btn_hate"></button>
-                            </span>
-                        </div>
-                        <input type="text" readonly class="read">
-                    </div>
-                    <p>베스트 리뷰</p>
-                    <div class="best">
+                <th:block th:if="${session.member != null}">
+                            <div class="write">
+                            <h2 class="writereview">
+                                <img src="/img/post-it.png" class="notes"> 내가 작성한 리뷰
+                            </h2>
+                            <div th:each="review : ${rList}">
+                                <th:block th:if="${review.id} == ${session.member.id}" >
+                                <input type="hidden" name="rno" th:value="${review.rno}">
+                                <input type="hidden" name="id" th:value="${review.id}">
+                                <p class="txt">[[${review.reviewContent}]]</p>
+                                <button th:if="${review.rno != null}" class="submit disabled" disabled>수정</button>
+                                <button th:if="${review.rno != null}" id="btn_del">삭제</button>
+							</th:block>
+                            </div>
+        
+                            </div>
+                 </th:block>
+
+
+
+                      <div class="write2">
+                            <h2 class="writereview">
+                                <img src="/img/feedback.png" class="notes"> 최신 리뷰
+                            </h2>
                             <div class="tab" th:each="review : ${rList}">
                                 <input type="hidden" name="rno" th:value="${review.rno}">
-                                <span>작성자: [[${review.id}]]  </span>
-                                <span>작성일: [[${review.rDate}]]</span>
-                                <p class="starrate">평점 : ★★★★★</p>
+                                <span class="writerinfo">작성자 :  </span> <span class="writerid"> [[${review.id}]]  </span>
+                                <span class="writerinfo">작성일 : [[${review.rDate}]]</span>
+
+                        		<p th:if="${review.starNo} == 1" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 2" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 3" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 4" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
+                        		<p th:if="${review.starNo} == 5" class="starrate"><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                                 <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
+                                    <a href="#" class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review?.rlike }]]</span> </a>
+                                    <a href="#" class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review?.rhate }]]</span> </a>
                                 </span>
-                                <p class="read">[[${review.reviewContent}]]</p>
+
+                                <p class="bestreview">[[${review.reviewContent}]]</p>
                             </div>
-                    </div>
-                    <p>최신 리뷰</p>
-                    <div class="new">
-                            <div class="tab" th:each="review : ${rList}">
-                                <input type="hidden" name="rno" th:value="${review.rno}">
-                                <span>작성자: [[${review.id}]]</span>
-                                <span>작성일: [[${review.rDate}]]</span>
-                                <p class="starrate">평점 : ★★★★★</p>
-                                <span class="like">
-                                    <button><img src="/img/like.png" class="btn_like"></button>
-                                    <button><img src="/img/dislike.png" class="btn_hate"></button>
-                                </span>
-                                <p class="read">[[${review.reviewContent}]]</p>
                             </div>
-                    </div>
                     <div class="more">
                     </div>
                 </article>

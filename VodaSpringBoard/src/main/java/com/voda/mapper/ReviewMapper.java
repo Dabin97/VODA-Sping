@@ -11,7 +11,7 @@ import com.voda.dto.ReviewDTO;
 @Mapper
 public interface ReviewMapper {
 
-	int insertReview(ReviewDTO review);
+	int insertReview(ReviewDTO dto);
 
 	List<ReviewDTO> selectReviewList(HashMap<String, Object> map);
 
@@ -26,5 +26,20 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> selectReview(int bno);
 
+	List<ReviewDTO> selectMyReview(String id);
+
+	int insertBoardLike(HashMap<String, Object> map);
+
+	int deleteBoardLike(HashMap<String, Object> map);
+
+	int insertBoardHate(HashMap<String, Object> map);
+
+	int deleteBoardHate(HashMap<String, Object> map);
+
+	int selectBoardLike(int rno);
+
+	int selectBoardHate(int rno);
+	
+	int deleteUserReview(String id);
 
 }

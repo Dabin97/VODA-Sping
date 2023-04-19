@@ -16,7 +16,6 @@
 		<result column="ott_no" property="ottNo"/>
 		<result column="ott_name" property="ottName"/>
 		<result column="path" property="path"/>
-		<result column="heart" property="heart"/>
 	</resultMap>
 		
 		
@@ -100,10 +99,6 @@
 		select * from expire_board_content_view
 	</select>
 	
-	<select id="selectHeartList" resultMap="board">
-		select * from heart_table where id = #{id}
-	</select>
-
 	<select id="selectFileList" resultType="file" parameterType="int">
 		select * from board_file where bno = #{bno} order by fno
 	</select>
@@ -147,14 +142,14 @@
 		values(#{bno},(SELECT nvl(max(fno),0) FROM board_file WHERE bno = #{bno})+1,#{path})
 	</insert>
 	
-		
+	
+	
 	<update id="updateBoard" parameterType="board">
-	    update board_table 
-	    set title=#{title}, pd=#{pd}, casting=#{casting}, content=#{content}, new_date=#{newDate},expire_date=#{expireDate},
-	     genre =#{genre},poster_video=#{posterVideo},ott_no=#{ottNo}
-	    where bno = #{bno}
+		update board_table 
+		set title=#{title}, pd=#{pd}, casting=#{casting}, content=#{content}, new_date=#{newDate},expire_date=#{expireDate},
+		 genre =#{genre},poster_video=#{posterVideo},ott_no=#{ottNo}
+		where bno = #{bno}
 	</update>
-		
 	
 	<select id="deleteFileList" parameterType="hashMap" resultType="string">  <!-- sql문 안에 foreach문 구분자 콤마 -->
 		select path from board_file where bno = #{bno} and 
@@ -193,36 +188,6 @@
 		FROM BOARD_TABLE_VIEW b, ott_table ot
 		WHERE ot.ott_no = b.ott_no
 		AND ${kind} LIKE '%' || #{search} || '%'
-	</select>
-	
-	<select id="selectMemberSearchContent" parameterType="hashmap" resultMap="board">
-	SELECT b.bno, 
-       b.title, 
-       b.pd, 
-       b.casting, 
-       b.content, 
-       b.genre, 
-       b.poster_video,
-       b.ott_no, 
-       ot.ott_name
-        FROM BOARD_TABLE_VIEW b, ott_table ot
-		WHERE ot.ott_no = b.ott_no
-        AND(
-        <choose>
-        <when test="select_box == 'all'">
-        b.title LIKE '%' || #{search} || '%' OR b.pd LIKE '%' || #{search} || '%' OR b.casting LIKE '%' || #{search} || '%'
-        </when>
-        <when test="select_box == 'title'">
-		b.title LIKE '%' || #{search} || '%'
-		</when>
-        <when test="select_box == 'pd'">
-		b.pd LIKE '%' || #{search} || '%'
-		</when>
-        <when test="select_box == 'casting'">
-		b.casting LIKE '%' || #{search} || '%'
-		</when>		
-		</choose>
-		)
 	</select> 
 	
 	<select id="selectBoardHeart" parameterType="int" resultType="int">
@@ -236,6 +201,6 @@
 	<delete id="deleteBoardHeart" parameterType="hashMap">
 		delete from heart_table where bno = #{bno} and id = #{id}
 	</delete>
-
+	
 	
 </mapper>

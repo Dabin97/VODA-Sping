@@ -1,19 +1,17 @@
-<style>
-    * {
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    color: white;
-  }
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: white;
+      }
 
       header{
         padding-top: 20px;
-        width : 1200px;
-        
 
       }
       header img{
-        width: 150px;
+        width: 100px;
         padding-left: 50px;
         margin-top: 10px;
       }
@@ -27,265 +25,57 @@
     }
     
     header a{
-        padding-left: 10px;
+        padding-left: 20px;
         text-decoration: none;
-    }
-    .logo {
-    	padding-left:65px;
-    	
     }
     
     .login{
-        padding-left: 0px;
+        padding-left: 23px;
         color : grey;
-    }
-    
-   
-       .nick{
-       	display : inline-block;
-       	width:218px;
-        color: #a7f2dc;
-        font-size: 16px;
-        font-weight: bold;
-        text-align : right;
-    	
-    }
-    
-        .index{
-        margin-left: 330px;
     }
     
         .search_input{
         color: white;
         position: absolute;
-        right: 110px;
-        height: 40px;
-        width: 200px;
-        border: 1px solid rgb(91, 91, 91);
-        box-sizing: border-box;
-        outline: none;
-        padding-left: 10px;
-        margin-top : 20px;
-        transition: width 1s,  transform 1s;
+        right: 80px;
+        /* bottom: 150px; */
+    }
+   
+       .nick{
+        color: #a7f2dc;
+        font-size: 32px;
+        font-weight: bold;
+    	margin-left : 100px;
     }
     
-    .searchdiv {
-    	position: absolute;
-    	right : 0px;
-    	top : 20px;
+        .index{
+        padding-left: 330px;
     }
     
-    
-    .zoomimg {
-    	position : relative;
-    	margin-right : 120px;
-    	margin-top : 25px;
-    	width : 30px;
 
-	}
-	
-    .hide {
-       	display : none;
-    }
     
-    .long {
-        color: white;
-        position: absolute;
-        right: 110px;
-        height: 40px;
-        width: 500px;
-        border: 1px solid rgb(91, 91, 91);
-        box-sizing: border-box;
-        outline: none;
-        padding-left: 10px;
-        margin-top : 20px;
-    	transition:width 0.5s,  transform 0.5s;
-    }
-        
-       .rel_search {
-        position: absolute;
-        right: 110px;
-        z-index : 1 !important;
-        margin-top: 8px;
-        float: right;
-        border: 1px solid rgb(34, 34, 34);
-        color: white;
-        width: 500px;
-        height: 300px;
-        overflow: auto;
-        box-sizing : border-box;
-        overflow-x: hidden;
-        
-   }
-   
-   
-   .thumbnail1 {
-   		width : 70px;
-   		height : 100px;
-        padding-left: 10px !important;
-        margin-top: 10px;
-   }
-   .content1 {
-   		width : 480px
-   	}
-   	
-   .tbox100 {
-     display : inline-blcok;
-   	 width : 80px;
-   	 padding-right : 10px; 
-   	 height : 100px;
-   	         padding-left: 0px !important;
-        margin-top: 10px;
-   }
-   
-   .info1 {
-   	
-   	 float : right;
-   	 width : 370px;
-   	 height : 100px;
-   	    padding-left: 0px !important; 
-        margin-top: 10px;
-   }
-   
-   .title_info1 {
-    font-size : 20px;
-   	color : #dff5d0;
-   	font-weight : bold;
-   	padding-left : 0px;
-   	
-   }
-   .font1 {
-    font-size : 16px;
-   }
-   
-   .color1 {
-    font-size : 14px;
-    color : #e0dcdc
-   }
     </style>
-    <script type="text/javascript">
     
-    function confirmLogout() {
-    	alert("로그아웃 되었습니다.");
-    }
     
-    $(function(){
-		var text1 = $('.search_input');
 	
-        text1.blur(function(){
-      	  $(this).removeClass("long");
-      	  $(".index").removeClass("hide");
-          setTimeout(function(){
-    	  $(".zoomimg").addClass("hide");
-      	  $(".rel_search").addClass("hide");
-          }, 500);
-    	});   
-    }); 
-  
-    	
-    $(function(){
-    	var text1 = $('.search_input');
-    	text1.focus(function(){
-      	  $(".zoomimg").removeClass("hide");  	  
-      	  $(".index").addClass("hide");
-      	  $(this).addClass("long");
-      	  setTimeout(function(){
-      	  $(".rel_search").removeClass("hide");
-      	  }, 500);		
-    	});
-    }); 
-    
-    
-	$(function() {
-		$(".zoombtn").click( function(){
-			alert('ttt');
-		});
-
-	});
-    $(function(){
-		
-            $("#search").keydown(function(key) {
-                if (key.keyCode == 13) {
-                	$(".zoomimg").click();
-                }
-            });
-        });
-    $(function(){
-    	$("#search").keyup(function(key) {
-    		var value, name, content, i;
-    		
-    	      	 
-    		value = document.getElementById("search").value.toUpperCase();
-    		content = document.getElementsByClassName("content1");
-    		
-    		console.log(value, content)
-    		for(i=0; i<content.length; i++){
-    			name = content[i].getElementsByClassName("info1");
-    			if(name[0].innerHTML.toUpperCase().indexOf(value) > -1) {
-    			content[i].style.display = "";
-    			} else {
-    			content[i].style.display = "none";
-    			}
-    		 }
-    	});
-    	
-    	
-    });
-    
-    </script>
         <header>
-            <th:block th:if="${session.member == null}">
-            <a href="/" class="logo"><img src="/img/VODA_logo.png" alt="" ></a>
-            <a href="/">BEST</a>
-            <a href="/board/new_expire">NEW/EXPIRE</a>
-            <a href="/board/search">ALL</a>
+             <th:block th:if="${session.member == null}">
+            <a href="/main"><img src="/img/VODA_logo.png" alt=""></a>
+            <a href="/main">BEST</a>
+            <a href="/new_expire">NEW/EXPIRE</a>
+            <a href="/search">ALL</a>
             <a href="/index" class="index">▶로그인</a>
-            <div class="searchdiv">    
-            <input type="text" placeholder="Quick Search" class= "search_input " id="search">
-            <a href="/board/zoom_search" class="zoombtn"><input type="image" src="/img/zoom.png" alt="제출버튼" class="zoomimg hide"></a>
-            </div>
-                <div class = "rel_search hide">
-                <div th:each="board: ${list}">
-                		<div class="content1" id="content1">
-                      	<div class="info1" id="info1">
-                      	<a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}" class="title_info1" id="title1">[[${board.title }]]</a>
-                        <p class="font1">감독 : <span class="color1">[[${board.pd}]]</span></p>
-                        <p class="font1">출연 : <span class="color1">[[${board.casting }]]</span></p>
-                      	</div>
-                        <div class="tBox100">
-                        <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail1"></a>
-                      	</div>
-                      	</div>
-                 </div>
-                </div>
+            <input type="text" placeholder="search" class= "search_input zoom" >
             </th:block>
             
         	<th:block th:if="${session.member != null}">
-            <a href="/" class="logo"><img src="/img/VODA_logo.png" alt="" ></a>
-            <a href="/">BEST</a>
-            <a href="/board/new_expire">NEW/EXPIRE</a>
-            <a href="/board/search">ALL</a>
-            <a th:href="@{/board/my_page/{id}(id=${session.member.id})}" class="nick">[[${session.member.nick}]]</a>님 반가워요!
-            <a href="/member/logout" class="login" onclick="confirmLogout();">▶로그아웃</a>
-            <div class="searchdiv">
-            <input type="text" placeholder="Quick Search" class= "search_input " id="search" >
-            <a href="/board/zoom_search" class="zoombtn"><input type="image" src="/img/zoom.png" alt="제출버튼" class="zoomimg hide"></a>
-            </div>
-                <div class = "rel_search hide">
-                <th:block th:each="board: ${list}">
-                		<div class="content1">
-                      	<div class="info1">
-                      	<a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}" class="title_info1">[[${board.title }]]</a>
-                        <p class="font1">감독 : <span class="color1">[[${board.pd}]]</span></p>
-                        <p class="font1">출연 : <span class="color1">[[${board.casting }]]</span></p>
-                      	</div>
-                        <div class="tBox100">
-                        <a th:href="@{/board/content/detail/{bno}(bno=${board.bno})}"><img th:src="@{/board/image/{bno}(bno=${board.bno})}" class="thumbnail1"></a>
-                      	</div>
-                      	</div>
-                 </th:block>
-                </div>
+            <a href="/main"><img src="/img/VODA_logo.png" alt=""></a>
+            <a href="/main">BEST</a>
+            <a href="/new_expire">NEW/EXPIRE</a>
+            <a href="/search">ALL</a>
+            <a href="/my_page" class="nick">[[${session.member.name}]]</a>님 로그인
+            <a href="/logout" class="login">▶로그아웃</a>
+            <input type="text" placeholder="search" class= "search_input zoom" >
             </th:block>
         </header>
-
 	

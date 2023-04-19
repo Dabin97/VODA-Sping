@@ -163,7 +163,7 @@ class VodaSpringBoardApplicationTests {
 //        assertEquals("해당 컨텐츠에 찜을 해제하셨습니다.", response.getBody());
 //    }
 //	
-	@Mock private UserBaordController controller;
+	@Mock private UserBoardController controller;
 	
 	@DisplayName("search 테스트")
 	@Test
