@@ -23,7 +23,7 @@ public class UserReviewController {
 	private ReviewService reviewService;
 	
 	public UserReviewController(ReviewService reviewService) {
-		this.reviewService = reviewService; 
+		this.reviewService = reviewService;  
 	}
 	
 	/*

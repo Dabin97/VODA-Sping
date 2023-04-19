@@ -42,6 +42,7 @@ public interface ReviewMapper {
 
 	int ReviewCHK(HashMap<String, Object> paramMap);
 
+	List<ReviewDTO> selectMainReviewList();
 
 
 }

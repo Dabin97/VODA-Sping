@@ -97,8 +97,8 @@
     }
     
     .explanation a {
-        text-decoration : none; 
-        color : #dff5d0 ;
+        	text-decoration : none; 
+        	 color : #dff5d0 ;
     }
     .thumb {
         	width : 980px;
@@ -126,11 +126,16 @@
         top: 0;
     }
     .dislike{
-        margin-top: 7px;
+        margin-top: 4px ;
     }
-    .up_down{
+    
+    .like { 
+    	width : 20px !important;
+    	height : 20px !important;
+    }
+    .up_down{ 
         float: right;
-        top: 0;
+        top: 0; 
     }
     .bookmark {
     	border-top : 1px solid #474747;
@@ -185,8 +190,8 @@
 
 .poster2 {
 	float : left !important;
-	width : 50px !important;
-	height : 70px !important;
+	width : 60px !important;
+	height : 90px !important;
 	margin-bottom : 10px !important;
 }
 
@@ -299,11 +304,11 @@
                 	<th:block th:if="${review.id} == ${session.member.id}" >
                     <div class="explanation">
                     <img src="/img/arrow1.png" class="down_arrow select3">
-                    	<div class="thumb" >
+                    	<div class="thumb">
                         <p class="up_down">[[${review.rhate }]]</p>
-                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike"></p>
+                        <p class="up_down"><img src="/img/dislike_full.png" class="dislike like"></p>
                         <p class="up_down">[[${review.rlike }]]</p>
-                        <p class="up_down"><img src="/img/like_full.png"></p>
+                        <p class="up_down"><img src="/img/like_full.png" class="like"></p>
                         <p class="ex_title"><a th:href="@{/board/content/detail/{bno}(bno=${review.bno})}">[[${review.title}]]</a><span class="rspan"> [[${review.rDate}]]</span></p>
                         </div>
                         <div class="myreviewbox">

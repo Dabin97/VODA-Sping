@@ -17,6 +17,10 @@
             background-color: black;
             color: white;
         }
+              .space{
+        width: 100%;
+        height: 300px;
+      }
 
         .flex_container {
             width: 1200px;
@@ -54,7 +58,7 @@
             resize: none;
             border: none;
             width: 850px;
-            height: 140px;
+            height: auto;
             margin-top: 10px;
             margin-left : 50px;
         }
@@ -172,11 +176,13 @@
             height: 140px;
             margin-top: 10px;
             margin-left : 40px;
+            overflow : auto;
         }
 
         .like {
             display: inline-block;
             margin-left: 20px;
+            right : 0;
         }
 
         .bestreview {
@@ -184,8 +190,9 @@
             resize: none;
             border: none;
             width: 825px;
-            height: 140px;
+            height : auto;
             margin-top: 10px;
+            margin-bottom : 20px;
             
         }
 
@@ -577,7 +584,7 @@ select:invalid{
                                 <img src="/img/post-it.png" class="notes"> 내가 작성한 리뷰
                             </h2>
                             <div th:each="review : ${rList}">
-                            <th:block th:if="${review.id} == ${session.member.id}" >
+                            <th:block th:if="${review.id} == ${session.member.id}">
                                 <input type="hidden" name="rno" th:value="${review.rno}">
                                 <p class="txt">[[${review.reviewContent}]]</p>
 							</th:block>
@@ -594,7 +601,7 @@ select:invalid{
                                 <input type="hidden" name="rno" th:value="${review.rno}">
                                 <span class="writerinfo">작성자 :  </span> <span class="writerid"> [[${review.id}]]  </span>
                                 <span class="writerinfo">작성일 : [[${review.rDate}]]</span>
-
+								
                         		<p th:if="${review.starNo} == 1" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                         		<p th:if="${review.starNo} == 2" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                         		<p th:if="${review.starNo} == 3" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
@@ -611,9 +618,11 @@ select:invalid{
                     <div class="more">
                     </div>
                 </article>
-
+        <div class="space">
+        </div>
             </section>
         </div>
+
         <th:block th:include="/fragments/footer.html"></th:block>
     </div>
 </body>
