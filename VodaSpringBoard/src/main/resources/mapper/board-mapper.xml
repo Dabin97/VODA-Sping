@@ -178,21 +178,34 @@
 		delete from board_table where bno = #{bno}
 	</delete>
 	
-	<select id="selectSearchContent" parameterType="hashmap" resultMap="board">
-	SELECT b.bno, 
-       b.title, 
-       b.pd, 
-       b.casting, 
-       b.content, 
-       b.genre, 
-       b.poster_video, 
-       TO_CHAR(b.new_date,'YYYY-MM-DD') AS new_date, 
-       TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expire_date, 
-       b.ott_no, 
-       ot.ott_name 
-		FROM BOARD_TABLE_VIEW b, ott_table ot
-		WHERE ot.ott_no = b.ott_no
-		AND ${kind} LIKE '%' || #{search} || '%'
+		<select id="selectSearchContent" parameterType="hashmap" resultMap="board">
+	  SELECT b.bno, 
+	         b.title, 
+	         b.pd, 
+	         b.casting, 
+	         b.content, 
+	         b.genre, 
+	         b.poster_video, 
+	         TO_CHAR(b.new_date,'YYYY-MM-DD') AS new_date, 
+	         TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expire_date, 
+	         b.ott_no, 
+	         ot.ott_name 
+	  FROM BOARD_TABLE_VIEW b, ott_table ot
+	  WHERE ot.ott_no = b.ott_no
+	  AND (
+	    <choose>
+	      <when test="kind.equals('all')">
+	        b.title LIKE '%' || #{search} || '%' 
+	        OR ot.ott_name LIKE '%' || #{search} || '%'
+	      </when>
+	      <when test="kind.equals('title')">
+	        b.title LIKE '%' || #{search} || '%'
+	      </when>
+	      <when test="kind.equals('ott_name')">
+	        ot.ott_name LIKE '%' || #{search} || '%'
+	      </when>
+	    </choose>
+	  )
 	</select>
 	
 	<select id="selectMemberSearchContent" parameterType="hashmap" resultMap="board">
@@ -226,7 +239,11 @@
 	</select> 
 	
 	<select id="selectBoardHeart" parameterType="int" resultType="int">
-		select count(*) from heart_table where bno = #{bno} 
+		select count(*) from heart_table where bno = #{bno}
+	</select>
+	
+	<select id="selectBoardHeartCHK" parameterType="hashMap" resultType="int">
+		select count(*) from heart_table where bno = #{bno} and id = #{id}
 	</select>
 	
 	<insert id="insertBoardHeart" parameterType="hashMap" > 
@@ -236,6 +253,35 @@
 	<delete id="deleteBoardHeart" parameterType="hashMap">
 		delete from heart_table where bno = #{bno} and id = #{id}
 	</delete>
+
+
+	<delete id="deleteCommentLikeHate" parameterType="hashMap">
+		delete from 
+		<choose>
+			<when test="mode.equals('btn_comment_like')">
+				like_table
+			</when>
+			<otherwise>
+				hate_table
+			</otherwise>
+		</choose>
+		where rno = #{rno}
+	</delete>
+	
+	<insert id="insertCommentLikeHate" parameterType="hashMap">
+		insert into  
+		<choose>
+			<when test="mode.equals('btn_comment_like')">
+				like_table
+			</when>
+			<otherwise>
+				hate_table
+			</otherwise>
+		</choose>
+		values(#{rno},#{id})
+	</insert>
+
+
 
 	
 </mapper>
