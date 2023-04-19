@@ -82,7 +82,7 @@ public class AdminBoardController {
 				//원본 파일명 뽑음
 				String originFileName = file[i].getOriginalFilename();
 				//저장할 파일명
-				String fileName = date + "_" + i + originFileName +originFileName.substring(originFileName.lastIndexOf('.'));
+				String fileName = date + "_" + i + originFileName;
 				System.out.println("저장할 파일명 : " + fileName);
 				
 				//실제 파일이 업로드 되는 부분
@@ -147,7 +147,7 @@ public class AdminBoardController {
 			// 원본 파일명 뽑음
 			String originFileName = file[i].getOriginalFilename();
 			// 저장할 파일명
-			String fileName = date + "_" + i + originFileName + originFileName.substring(originFileName.lastIndexOf('.'));
+			String fileName = date + "_" + i + originFileName;
 			System.out.println("저장할 파일명 : " + fileName);
 
 			try {
@@ -251,7 +251,7 @@ public class AdminBoardController {
 		String date = sdf.format(Calendar.getInstance().getTime());		
 		
 		MemberDTO dto = (MemberDTO)session.getAttribute("dto");
-		String fileName = date + "_" + dto.getId() +originFileName+ originFileName.substring(originFileName.lastIndexOf('.'));
+		String fileName = date + "_" + dto.getId() +originFileName;
 		System.out.println("저장할 파일명 : " + fileName);
 		
 		File savefile =  new File(root + fileName); 

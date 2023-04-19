@@ -14,7 +14,8 @@ public class MemberDTO {
 	
 	public MemberDTO() {
 		super();
-	}
+	} 
+
 
 
 	public MemberDTO(String id, String passwd, String name, String nick, String email) {
