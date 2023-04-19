@@ -168,9 +168,20 @@
                                     <br>
                                     <button>로그인</button>
                                     <a href="/member/register/view" class="register">회원가입</a> 
-                                </div>
-                                <!-- <a th:href="${apiURL}"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a> -->
 
+                                </div>
+                                 <!-- 네이버 로그인 버튼 노출 영역
+                                <div id="naver_id_login"></div>
+                                //네이버 로그인 버튼 노출 영역 
+                                <script type="text/javascript">
+                                    var naver_id_login = new naver_id_login("d_K2aUUD31ZJcYD5Wff1", "http://localhost:9999/main");
+                                    var state = naver_id_login.getUniqState();
+                                    naver_id_login.setButton("green", 3, 40);
+                                    naver_id_login.setDomain("http://localhost:9999");
+                                    naver_id_login.setState(state);
+                                    naver_id_login.setPopup();
+                                    naver_id_login.init_naver_id_login();
+                                </script> -->
                             </form>
                             </div>
                         </div>

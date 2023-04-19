@@ -3,6 +3,8 @@ package com.voda.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.voda.dto.ManagerDTO;
@@ -86,30 +88,6 @@ public MemberService(MemberMapper mapper) {
 		
 		return mapper.editProfile(dto);
 	}
-
-
-	public List<MemberDTO> selectSearchMember(String kind, String search) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("kind", kind);
-		map.put("search", search);
-		return mapper.selectSearchMember(map);
-	}
-
-
-	public void insertSnsUser(HashMap<String, String> snsUser) {
-		mapper.insertSnsUser(snsUser);
-	}
-
-
-	public HashMap<String, Object> selectSnsUser(String snsId) {
-		return mapper.selectSnsUser(snsId);
-	}
-
-
-
-
-
-
 
 
   
