@@ -79,7 +79,7 @@ public class AdminMemberController {
 		return "redirect:/admin/member/list";
 	}
 	
-	@GetMapping("/member/delete") //
+	@PostMapping("/member/delete") //
 	public ResponseEntity<String> deleteMember(@RequestParam String[] id) {
 		System.out.println(Arrays.toString(id));
 		int result1 = secessionService.deleteSecession(id);
