@@ -40,6 +40,8 @@ public interface ReviewMapper {
 
 	int selectBoardHate(int rno);
 
+	int ReviewCHK(HashMap<String, Object> paramMap);
+
 	List<ReviewDTO> selectMainReviewList();
 
 

@@ -500,8 +500,12 @@ select:invalid{
                 });
 
 
-        });
+                var alertMessage = /*[[${alertMessage}]]*/ '';
+                if (alertMessage.trim().length > 0) {
+                    alert(alertMessage);
+                }
 
+                });
     </script>
 </head>
 
@@ -604,8 +608,8 @@ select:invalid{
                         		<p th:if="${review.starNo} == 4" class="starrate"><img src="/img/green_star.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                         		<p th:if="${review.starNo} == 5" class="starrate"><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""><img src="/img/green_star_full.png" alt=""></p>
                                 <span class="like">
-                                    <a class="btn_like"><img src="/img/like.png" alt=""><span id="like_count">[[${review.rlike }]]</span> </a>
-                                    <a class="btn_hate"><img src="/img/dislike.png" alt=""><span id="hate_count">[[${review.rhate }]]</span> </a>
+                                    <a class="btn_like"><img src="/img/like.png" ><span id="like_count">[[${review.rlike }]]</span> </a>
+                                    <a class="btn_hate"><img src="/img/dislike.png"><span id="hate_count">[[${review.rhate }]]</span> </a>
                                 </span>
 
                                 <p class="bestreview">[[${review.reviewContent}]]</p>

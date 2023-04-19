@@ -86,6 +86,7 @@
         WHERE r.bno = b.bno 
         AND id = #{id}
     </select>
+
 	
 	<insert id="insertBoardLike" parameterType="hashMap">
 		insert into like_table values(#{rno},#{id})
@@ -110,9 +111,14 @@
 	<delete id="deleteBoardHate" parameterType="hashMap">
 		delete from hate_table where rno = #{rno} and id = #{id}
 	</delete>
-	
+
+	<select id="ReviewCHK" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM review_table WHERE bno = #{bno} AND id = #{id}
+	</select>
+
 	<select id="selectMainReviewList" resultMap="review">
 		select * from board_table	
 	</select>
+
 	
 </mapper>

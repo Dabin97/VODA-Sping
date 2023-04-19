@@ -93,6 +93,11 @@ public class ReviewService {
 		return mapper.selectBoardHate(rno);
 	}
 
+
+	public int ReviewCHK(HashMap<String, Object> paramMap) {
+		return mapper.ReviewCHK(paramMap);
+    }
+
 	public List<ReviewDTO> selectMianReviewList() {
 		List<ReviewDTO> list = mapper.selectMainReviewList();
 		return list;
