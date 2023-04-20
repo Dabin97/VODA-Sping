@@ -46,8 +46,8 @@ public class UserMainController {
 //		return "/B_userpage/user/index";  
 //	} 
 	
-	private static String CLIENT_ID = "R2BEU5rA5MMgr8c4zuVA";
-	private static String CLIENT_SECRET = "zG21Gj18X1";
+	private static String CLIENT_ID = "";
+	private static String CLIENT_SECRET = "";
 	
 	@RequestMapping("/index")
 	public ModelAndView index(HttpSession session, ModelAndView view) throws UnsupportedEncodingException {
