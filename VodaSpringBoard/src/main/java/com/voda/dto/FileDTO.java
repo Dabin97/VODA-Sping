@@ -1,8 +1,8 @@
 package com.voda.dto;
 
-import java.io.File;
-
 import org.apache.ibatis.type.Alias;
+
+import java.io.File;
 
 @Alias("file")
 public class FileDTO {

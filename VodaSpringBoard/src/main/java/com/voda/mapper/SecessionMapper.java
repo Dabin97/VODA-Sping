@@ -1,12 +1,10 @@
 package com.voda.mapper;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-
+import com.voda.dto.SecessionDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.voda.dto.SecessionDTO;
+import java.util.HashMap;
+import java.util.List;
 
 @Mapper
 public interface SecessionMapper {

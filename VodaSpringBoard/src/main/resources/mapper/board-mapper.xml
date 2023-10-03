@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.voda.mapper.BoardMapper"> 
-	<resultMap type="board" id="board"> 
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.voda.mapper.BoardMapper">
+	<resultMap type="board" id="board">
 		<id column="bno" property="bno"/>
 		<result column="title" property="title"/>
 		<result column="pd" property="pd"/>
@@ -18,207 +18,271 @@
 		<result column="path" property="path"/>
 		<result column="heart" property="heart"/>
 	</resultMap>
-		
-		
+
+
 	<select id="selectBoardList" resultType="board" parameterType="hashMap">
-		SELECT b.bno, 
-			   b.title, 
-			   b.pd, 
-			   b.casting, 
-			   b.content, 
-			   b.genre, 
-			   b.poster_video as posterVideo, 
-			   TO_CHAR(b.new_date,'YYYY-MM-DD') AS newDate, 
-			   TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expireDate, 
-			   b.ott_no AS ottNo, 
-			   (select ott_name from ott_table ot where ot.ott_no = b.ott_no) AS ottName 
-		FROM BOARD_TABLE_VIEW b 
-		WHERE ceil(rw / #{contentCount}) = #{pageNo}
-	</select>	
-  
+    SELECT  B.bno
+		   ,B.title
+		   ,B.pd
+		   ,B.casting
+		   ,B.content
+		   ,B.genre
+		   ,B.poster_video 												AS posterVideo
+		   ,TO_CHAR(B.new_date, 'YYYY-MM-DD') 							AS newDate
+		   ,TO_CHAR(B.expire_date, 'YYYY-MM-DD')						AS expireDate
+		   ,B.ott_no 													AS ottNo
+		   ,(SELECT ott_name FROM ott_table WHERE ott_no = B.ott_no)	AS ottName
+      FROM  board_table B
+     WHERE  1=1
+       AND  CEIL(rw / #{contentCount}) = #{pageNo}
+	</select>
+
 	<select id="selectNewList" resultType="board" parameterType="hashMap">
-		SELECT * FROM 
-		(SELECT b.bno, 
-		       b.title, 
-		       b.pd, 
-		       b.casting, 
-		       b.content, 
-		       b.genre, 
-		       b.poster_video as posterVideo, 
-		       TO_CHAR(b.new_date,'YYYY-MM-DD') AS newDate, 
-		       TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expireDate, 
-		       b.ott_no AS ottNo, 
-		       (select ott_name from ott_table ot where ot.ott_no = b.ott_no) AS ottName,
-		       ROW_NUMBER() OVER (ORDER BY b.new_date DESC) AS rnum <!-- 날짜 최신순으로 뽑도록 구역을 잡음 -->
-		FROM BOARD_TABLE_VIEW b)
-		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
+	SELECT  *
+      FROM  (
+            SELECT  B.bno
+				   ,B.title
+				   ,B.pd
+				   ,B.casting
+				   ,B.content
+				   ,B.genre
+				   ,B.poster_video 												AS posterVideo
+				   ,TO_CHAR(B.new_date, 'YYYY-MM-DD') 							AS newDate
+				   ,TO_CHAR(B.expire_date, 'YYYY-MM-DD')						AS expireDate
+				   ,B.ott_no 													AS ottNo
+				   ,(SELECT ott_name FROM ott_table WHERE ott_no = B.ott_no)	AS ottName
+					--날짜 최신순으로 뽑도록 구역을 잡음
+				   ,ROW_NUMBER() OVER(ORDER BY B.new_date DESC)                 AS rnum
+		      FROM  board_table B
+            ) A
+     WHERE  1=1
+       AND  CEIL(A.RNUM / #{contentCount}) = #{pageNo}
 	</select>
-  
+
 	<select id="selectExpireList" resultType="board" parameterType="hashMap">
-	SELECT * FROM 
-		(SELECT b.bno, 
-		       b.title, 
-		       b.pd, 
-		       b.casting, 
-		       b.content, 
-		       b.genre, 
-		       b.poster_video as posterVideo, 
-		       TO_CHAR(b.new_date,'YYYY-MM-DD') AS newDate, 
-		       TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expireDate, 
-		       b.ott_no AS ottNo, 
-		       (select ott_name from ott_table ot where ot.ott_no = b.ott_no) AS ottName,
-		       ROW_NUMBER() OVER (ORDER BY b.expire_date DESC) AS rnum <!-- 날짜 최신순으로 뽑도록 구역을 잡음 -->
-		FROM BOARD_TABLE_VIEW b)
-		WHERE ceil(rnum / #{contentCount}) = #{pageNo}
+	SELECT  *
+      FROM  (
+            SELECT  B.bno
+				   ,B.title
+				   ,B.pd
+				   ,B.casting
+				   ,B.content
+				   ,B.genre
+				   ,B.poster_video 												AS posterVideo
+				   ,TO_CHAR(B.new_date, 'YYYY-MM-DD') 							AS newDate
+				   ,TO_CHAR(B.expire_date, 'YYYY-MM-DD')						AS expireDate
+				   ,B.ott_no 													AS ottNo
+				   ,(SELECT ott_name FROM ott_table WHERE ott_no = B.ott_no)	AS ottName
+				   --날짜 최신순으로 뽑도록 구역을 잡음
+				   ,ROW_NUMBER() OVER(ORDER BY B.new_date DESC)                 AS rnum
+		      FROM  board_table B
+            ) A
+     WHERE  1=1
+       AND  CEIL(A.RNUM / #{contentCount}) = #{pageNo}
 	</select>
-	
-	<select id="selectBoard" resultType="board" parameterType="int"> 
-		SELECT b.bno, 
-			   b.title, 
-			   b.pd, 
-			   b.casting, 
-			   b.content, 
-			   b.genre, 
-			   b.poster_video as posterVideo,
-			   TO_CHAR(b.new_date,'YYYY-MM-DD') AS newDate, 
-			   TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expireDate, 
-			   b.ott_no AS ottNo, 
-			   (select ott_name from ott_table ot where ot.ott_no = b.ott_no) AS ottName 
-		FROM BOARD_TABLE_VIEW b 
-		where bno = #{bno}
+
+	<select id="selectBoard" resultType="board" parameterType="int">
+	SELECT  B.bno
+		   ,B.title
+		   ,B.pd
+		   ,B.casting
+		   ,B.content
+		   ,B.genre
+		   ,B.poster_video 												AS posterVideo
+		   ,TO_CHAR(B.new_date, 'YYYY-MM-DD') 							AS newDate
+		   ,TO_CHAR(B.expire_date, 'YYYY-MM-DD')						AS expireDate
+		   ,B.ott_no 													AS ottNo
+		   ,(SELECT ott_name FROM ott_table WHERE ott_no = B.ott_no)	AS ottName
+	  FROM  board_table B
+	 WHERE  1=1
+	   AND  B.bno = #{bno}
 	</select>
-	
+
 	<select id="selectMainContentList" resultMap="board">
-		select * from board_table	
+	SELECT  *
+	  FROM  board_table
 	</select>
-	
+
 	<select id="selectNewContentList" resultMap="board">
-		select * from new_board_content_view
+	<![CDATA[
+	-- 최근 등록된 콘텐츠 중 상위 5개
+	SELECT  *
+	  FROM  (
+	        SELECT  B.bno
+				   ,B.title
+				   ,B.pd
+				   ,B.casting
+				   ,B.content
+				   ,B.genre
+				   ,B.poster_video 												AS posterVideo
+				   ,TO_CHAR(B.new_date, 'YYYY-MM-DD') 							AS newDate
+				   ,TO_CHAR(B.expire_date, 'YYYY-MM-DD')						AS expireDate
+				   ,B.ott_no 													AS ottNo
+				   ,(SELECT ott_name FROM ott_table WHERE ott_no = B.ott_no)	AS ottName
+				   --날짜 최신순으로 뽑도록 구역을 잡음
+				   ,ROW_NUMBER() OVER(ORDER BY B.new_date DESC)                 AS rnum
+			  FROM  board_table B
+	        ) A
+     WHERE  1=1
+       AND  A.rnum <= 5
+    ]]>
 	</select>
-	
+
 	<select id="selectExpireContentList" resultMap="board">
-		select * from expire_board_content_view
+	<![CDATA[
+	-- 만료일자가 현재 이후 빠른 순으로 상위 5개
+	SELECT  *
+	  FROM  (
+	        SELECT  B.bno
+				   ,B.title
+				   ,B.pd
+				   ,B.casting
+				   ,B.content
+				   ,B.genre
+				   ,B.poster_video 												AS posterVideo
+				   ,TO_CHAR(B.new_date, 'YYYY-MM-DD') 							AS newDate
+				   ,TO_CHAR(B.expire_date, 'YYYY-MM-DD')						AS expireDate
+				   ,B.ott_no 													AS ottNo
+				   ,(SELECT ott_name FROM ott_table WHERE ott_no = B.ott_no)	AS ottName
+				   --날짜 최신순으로 뽑도록 구역을 잡음
+				   ,ROW_NUMBER() OVER(ORDER BY B.expire_date)                   AS rnum
+			  FROM  board_table B
+	        ) A
+     WHERE  1=1
+       AND  A.rnum <= 5
+    ]]>
 	</select>
-	
+
 	<select id="selectHeartList" resultMap="board">
-		select * from heart_table where id = #{id}
+	SELECT * FROM heart_table WHERE id = #{id}
 	</select>
 
 	<select id="selectFileList" resultType="file" parameterType="int">
-		select * from board_file where bno = #{bno} order by fno
+	SELECT  *
+	  FROM  board_file
+	 WHERE  1=1
+	   AND  bno = #{bno}
+	 ORDER BY fno
 	</select>
 
 	<select id="selectBoardCount" resultType="int">
-		select count(*) from board_table_view
-	</select> 
-	
+	SELECT COUNT(*) FROM board_table
+	</select>
+
 	<insert id="insertBoardImage" parameterType="hashmap">
-		insert into board_image values(#{fno},#{path})
+	INSERT INTO board_image VALUES (#{fno}, #{path})
 	</insert>
-	
+
 
 	<select id="selectImageFile" parameterType="int" resultType="file">
-    	SELECT * FROM board_file WHERE bno = #{bno}
+    SELECT * FROM board_file WHERE bno = #{bno}
 	</select>
-	
-	<select id="selectMainImageFile" parameterType="int" resultType="file">
-		select * from board_image
-	</select>
-	
-	<select id="selectFile" parameterType="hashMap" resultType="file">
-		select * from board_file where bno = #{bno} and fno = #{fno}
-	</select>
-	
 
-	
+	<select id="selectMainImageFile" parameterType="int" resultType="file">
+	SELECT * FROM board_image
+	</select>
+
+	<select id="selectFile" parameterType="hashMap" resultType="file">
+	SELECT * FROM board_file WHERE bno = #{bno} AND fno = #{fno}
+	</select>
+
 	 <select id="selectBoardBno" resultType="int">
-        select board_bno_seq.nextval from dual
+	 SELECT board_bno_seq.NEXTVAL FROM DUAL
     </select>
-	
+
 	<insert id="insertBoard" parameterType="board">
-      insert into board_table
-       (bno, title, pd, casting, content, genre, poster_video,ott_no, new_date, expire_date) 
-      values(#{bno}, #{title}, #{pd}, #{casting}, #{content}, #{genre}, #{posterVideo}, #{ottNo} , #{newDate}, #{expireDate})
+	INSERT INTO board_table
+    (bno, title, pd, casting, content, genre, poster_video,ott_no, new_date, expire_date)
+    VALUES
+    (#{bno}, #{title}, #{pd}, #{casting}, #{content}, #{genre}, #{posterVideo}, #{ottNo} , #{newDate}, #{expireDate})
 	</insert>
-	
-	
+
+
 	<insert id="insertFile" parameterType="file"> <!-- fno를 (SELECT max(fno) FROM board_file WHERE bno = #{bno})+1 서브쿼리로 변경, 제일 큰번호뒤에 새로운 파일이 붙도록 함 / 만약 기존파일이 아무것도 없으면 0이 나오도록 nvl을 넣어준다. -->
-		insert into board_file 
-		values(#{bno},(SELECT nvl(max(fno),0) FROM board_file WHERE bno = #{bno})+1,#{path})
+	INSERT INTO board_file
+	VALUES (#{bno},(SELECT nvl(max(fno),0) FROM board_file WHERE bno = #{bno})+1,#{path})
 	</insert>
-	
-		
+
+
 	<update id="updateBoard" parameterType="board">
-	    update board_table 
-	    set title=#{title}, pd=#{pd}, casting=#{casting}, content=#{content}, new_date=#{newDate},expire_date=#{expireDate},
+	UPDATE board_table
+	   SET title=#{title}, pd=#{pd}, casting=#{casting}, content=#{content}, new_date=#{newDate},expire_date=#{expireDate},
 	     genre =#{genre},poster_video=#{posterVideo},ott_no=#{ottNo}
-	    where bno = #{bno}
+	 WHERE 1=1
+	   AND bno = #{bno}
 	</update>
-		
-	
+
+
 	<select id="deleteFileList" parameterType="hashMap" resultType="string">  <!-- sql문 안에 foreach문 구분자 콤마 -->
-		select path from board_file where bno = #{bno} and 
-		fno in
+	SELECT  path
+	  FROM  board_file
+	 WHERE  1=1
+	   AND  bno = #{bno}
+	   AND  fno IN
 		<foreach collection="fno" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
 	</select>
-	
+
 	<delete id="deleteFile" parameterType="hashMap">
-		delete from board_file where bno = #{bno}  
-		<if test="fno != null"> 
-			and fno in
+	DELETE FROM board_file
+	      WHERE 1=1
+	        AND bno = #{bno}
+		<if test="fno != null">
+			AND fno IN
 			<foreach collection="fno" item="item" open="(" close=")" separator=",">
 				#{item}
 			</foreach>
 		</if>
 	</delete>
-	
+
 	<delete id="deleteBoard" parameterType="int">
-		delete from board_table where bno = #{bno}
+	DELETE FROM board_table WHERE bno = #{bno}
 	</delete>
-	
+
 	<select id="selectSearchContent" parameterType="hashmap" resultMap="board">
-	  SELECT b.bno, 
-	         b.title, 
-	         b.pd, 
-	         b.casting, 
-	         b.content, 
-	         b.genre, 
-	         b.poster_video, 
-	         TO_CHAR(b.new_date,'YYYY-MM-DD') AS new_date, 
-	         TO_CHAR(b.expire_date,'YYYY-MM-DD') AS expire_date, 
-	         b.ott_no, 
-	         ot.ott_name 
-	  FROM BOARD_TABLE_VIEW b, ott_table ot
-	  WHERE ot.ott_no = b.ott_no
+	SELECT B.bno,
+	       B.title,
+	       B.pd,
+	       B.casting,
+	       B.content,
+	       B.genre,
+	       B.poster_video,
+	       TO_CHAR(B.new_date,'YYYY-MM-DD') AS new_date,
+	       TO_CHAR(B.expire_date,'YYYY-MM-DD') AS expire_date,
+	       B.ott_no,
+	       OT.ott_name
+	 FROM  board_table B
+	      ,ott_table OT
+	WHERE  1=1
+	  AND  OT.ott_no = B.ott_no
 	  AND (
 	    <choose>
 	      <when test="kind.equals('all')">
-	        b.title LIKE '%' || #{search} || '%' 
-	        OR ot.ott_name LIKE '%' || #{search} || '%'
+	        B.title LIKE '%' || #{search} || '%'
+	        OR OT.ott_name LIKE '%' || #{search} || '%'
 	      </when>
 	      <when test="kind.equals('title')">
-	        b.title LIKE '%' || #{search} || '%'
+	        B.title LIKE '%' || #{search} || '%'
 	      </when>
 	      <when test="kind.equals('ott_name')">
-	        ot.ott_name LIKE '%' || #{search} || '%'
+	        OT.ott_name LIKE '%' || #{search} || '%'
 	      </when>
 	    </choose>
 	  )
 	</select>
-	
+
 	<select id="selectMemberSearchContent" parameterType="hashmap" resultMap="board">
-	SELECT b.bno, 
-       b.title, 
-       b.pd, 
-       b.casting, 
-       b.content, 
-       b.genre, 
+	SELECT b.bno,
+       b.title,
+       b.pd,
+       b.casting,
+       b.content,
+       b.genre,
        b.poster_video,
-       b.ott_no, 
+       b.ott_no,
        ot.ott_name
-        FROM BOARD_TABLE_VIEW b, ott_table ot
+        FROM board_table b, ott_table ot
 		WHERE ot.ott_no = b.ott_no
         AND(
         <choose>
@@ -233,26 +297,33 @@
 		</when>
         <when test="select_box == 'casting'">
 		b.casting LIKE '%' || #{search} || '%'
-		</when>		
+		</when>
 		</choose>
 		)
-	</select> 
-	
+	</select>
+
 	<select id="selectBoardHeart" parameterType="int" resultType="int">
-		select count(*) from heart_table where bno = #{bno}
+	SELECT  count(*)
+	  FROM  heart_table
+	 WHERE  1=1
+	   AND  bno = #{bno}
 	</select>
-	
+
 	<select id="selectBoardHeartCHK" parameterType="hashMap" resultType="int">
-		select count(*) from heart_table where bno = #{bno} and id = #{id}
+	SELECT  count(*)
+	  FROM  heart_table
+	 WHERE  1=1
+	   AND  bno = #{bno}
+	   AND  id = #{id}
 	</select>
-	
-	<insert id="insertBoardHeart" parameterType="hashMap" > 
-		insert into heart_table values(#{bno},#{id})
+
+	<insert id="insertBoardHeart" parameterType="hashMap">
+	INSERT INTO heart_table VALUES (#{bno}, #{id})
 	</insert>
-	
+
 	<delete id="deleteBoardHeart" parameterType="hashMap">
-		delete from heart_table where bno = #{bno} and id = #{id}
+	DELETE FROM heart_table WHERE bno = #{bno} AND id = #{id}
 	</delete>
 
-	
+
 </mapper>

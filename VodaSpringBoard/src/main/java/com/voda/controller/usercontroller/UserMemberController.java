@@ -1,23 +1,14 @@
 package com.voda.controller.usercontroller;
 
-import java.net.http.HttpRequest;
-
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
-
+import com.voda.dto.MemberDTO;
+import com.voda.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.voda.dto.MemberDTO;
-import com.voda.service.MemberService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/member")

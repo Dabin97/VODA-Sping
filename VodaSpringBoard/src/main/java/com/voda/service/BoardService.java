@@ -1,18 +1,14 @@
 package com.voda.service;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
-
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
-import com.voda.dto.ReviewDTO;
 import com.voda.mapper.BoardMapper;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class BoardService {

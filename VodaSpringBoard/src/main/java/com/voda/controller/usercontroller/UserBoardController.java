@@ -1,35 +1,23 @@
 package com.voda.controller.usercontroller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
 import com.voda.dto.ReviewDTO;
 import com.voda.service.BoardService;
 import com.voda.service.ReviewService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -166,6 +154,8 @@ public class UserBoardController {
 	@GetMapping("/image/{bno}")
 	public void imageDown(@PathVariable("bno") int bno, HttpServletResponse response) {
 		FileDTO dto = boardService.selectImageFile(bno);
+
+		if (dto == null) return;
 		
 		String path = dto.getPath();
 		File file = new File(path);

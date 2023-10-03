@@ -1,14 +1,12 @@
 package com.voda.mapper;
 
-import java.util.HashMap;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.voda.dto.BoardDTO;
 import com.voda.dto.FileDTO;
 import com.voda.dto.MemberDTO;
-import com.voda.dto.ReviewDTO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.HashMap;
+import java.util.List;
 @Mapper
 public interface BoardMapper {
 

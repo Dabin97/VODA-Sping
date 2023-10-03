@@ -1,24 +1,18 @@
 package com.voda.controller.usercontroller;
 
-import java.util.Arrays;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpSession;
-
+import com.voda.dto.MemberDTO;
+import com.voda.dto.ReviewDTO;
+import com.voda.service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.voda.dto.MemberDTO;
-import com.voda.dto.ReviewDTO;
-import com.voda.service.ReviewService;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/member/review")

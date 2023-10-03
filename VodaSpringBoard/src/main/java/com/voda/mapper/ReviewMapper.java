@@ -1,11 +1,10 @@
 package com.voda.mapper;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.voda.dto.ReviewDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.voda.dto.ReviewDTO;
+import java.util.HashMap;
+import java.util.List;
 
 
 @Mapper

@@ -1,15 +1,12 @@
 package com.voda.service;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Service;
-
 import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
 import com.voda.mapper.MemberMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class MemberService {

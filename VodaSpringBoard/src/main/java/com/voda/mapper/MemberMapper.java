@@ -1,14 +1,11 @@
 package com.voda.mapper;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.voda.dto.ManagerDTO;
 import com.voda.dto.MemberDTO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Mapper
 public interface MemberMapper {

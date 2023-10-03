@@ -1,15 +1,14 @@
 package com.voda.controller.usercontroller;
 
-import javax.servlet.http.HttpSession;
-
+import com.voda.dto.SecessionDTO;
+import com.voda.service.SecessionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.voda.dto.SecessionDTO;
-import com.voda.service.SecessionService;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/member/secession")

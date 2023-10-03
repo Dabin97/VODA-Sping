@@ -1,5 +1,17 @@
 package com.voda.controller.usercontroller;
 
+import com.voda.dto.BoardDTO;
+import com.voda.dto.ReviewDTO;
+import com.voda.service.BoardService;
+import com.voda.service.MemberService;
+import com.voda.service.ReviewService;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -10,23 +22,6 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.tomcat.util.json.JSONParser;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import com.voda.dto.BoardDTO;
-import com.voda.dto.MemberDTO;
-import com.voda.dto.ReviewDTO;
-import com.voda.service.BoardService;
-import com.voda.service.MemberService;
-import com.voda.service.ReviewService;
 
 @Controller
 public class UserMainController {
@@ -203,13 +198,13 @@ public class UserMainController {
 	    view.setViewName("/B_userpage/main/main");
 
 	    List<BoardDTO> list = boardService.selectMainContentList();
-	    List<BoardDTO> nlist = boardService.selectNewContentList();
-	    List<BoardDTO> elist = boardService.selectExpireContentList();
-	    List<ReviewDTO> rlist = reviewService.selectMianReviewList();
+//	    List<BoardDTO> nlist = boardService.selectNewContentList();
+//	    List<BoardDTO> elist = boardService.selectExpireContentList();
+//	    List<ReviewDTO> rlist = reviewService.selectMianReviewList();
 	    view.addObject("list", list);
-	    view.addObject("nlist", nlist);
-	    view.addObject("elist", elist);
-	    view.addObject("rlist", rlist);
+//	    view.addObject("nlist", nlist);
+//	    view.addObject("elist", elist);
+//	    view.addObject("rlist", rlist);
 	    return view;
 	}
 }
